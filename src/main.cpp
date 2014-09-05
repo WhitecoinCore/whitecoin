@@ -702,8 +702,9 @@ bool IsStandardTx(const CTransaction& tx, string& reason)
         }
     }
 
-    // only one OP_RETURN txout is permitted
-    if (nDataOut > 1) {
+    // not more than one data txout per non-data txout is permitted
+    // only one data txout is permitted too
+    if (nDataOut > 1 && nDataOut > tx.vout.size()/2) {
         reason = "multi-op-return";
         return false;
     }
