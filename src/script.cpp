@@ -29,6 +29,7 @@ static const CBigNum bnFalse(0);
 static const CBigNum bnTrue(1);
 static const size_t nDefaultMaxNumSize = 4;
 
+unsigned nMaxDatacarrierBytes = MAX_OP_RETURN_RELAY;
 
 CBigNum CastToBigNum(const valtype& vch, const size_t nMaxNumSize = nDefaultMaxNumSize)
 {
@@ -1372,8 +1373,8 @@ bool Solver(const CScript& scriptPubKey, txnouttype& typeRet, vector<vector<unsi
             }
             else if (opcode2 == OP_SMALLDATA)
             {
-                // small pushdata, <= MAX_OP_RETURN_RELAY bytes
-                if (vch1.size() > MAX_OP_RETURN_RELAY)
+                // small pushdata, <= nMaxDatacarrierBytes
+                if (vch1.size() > nMaxDatacarrierBytes)
                     break;
             }
             else if (opcode1 != opcode2 || vch1 != vch2)
