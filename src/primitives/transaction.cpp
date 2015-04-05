@@ -56,6 +56,7 @@ uint256 CTxOut::GetHash() const
 
 std::string CTxOut::ToString() const
 {
+    if (IsEmpty()) return "CTxOut(empty)";
     return strprintf("CTxOut(nValue=%d.%08d, scriptPubKey=%s)", nValue / COIN, nValue % COIN, scriptPubKey.ToString().substr(0,30));
 }
 
