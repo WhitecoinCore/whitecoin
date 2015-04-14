@@ -45,6 +45,7 @@ public:
         consensus.nProtocolV1RetargetingFixedTime = 1395631999;
         consensus.nProtocolV2Time = 1407053625;
         consensus.nProtocolV3Time = 1444028400;
+        consensus.nLastPOWBlock = 10000;
         /** 
          * The message start string is designed to be unlikely to occur in normal data.
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
@@ -140,6 +141,7 @@ public:
         consensus.nProtocolV1RetargetingFixedTime = 0;
         consensus.nProtocolV2Time = 0;
         consensus.nProtocolV3Time = 0;
+        consensus.nLastPOWBlock = 0x7fffffff;
         pchMessageStart[0] = 0xcd;
         pchMessageStart[1] = 0xf2;
         pchMessageStart[2] = 0xc0;
