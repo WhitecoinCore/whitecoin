@@ -37,7 +37,8 @@ extern unsigned nMaxDatacarrierBytes;
  * Failing one of these tests may trigger a DoS ban - see CheckInputs() for
  * details.
  */
-static const unsigned int MANDATORY_SCRIPT_VERIFY_FLAGS = SCRIPT_VERIFY_P2SH;
+static const unsigned int MANDATORY_SCRIPT_VERIFY_FLAGS = SCRIPT_VERIFY_P2SH |
+                                                          SCRIPT_VERIFY_DERSIG;
 
 /**
  * Standard script verification flags that standard transactions will comply
@@ -45,7 +46,6 @@ static const unsigned int MANDATORY_SCRIPT_VERIFY_FLAGS = SCRIPT_VERIFY_P2SH;
  * blocks and we must accept those blocks.
  */
 static const unsigned int STANDARD_SCRIPT_VERIFY_FLAGS = MANDATORY_SCRIPT_VERIFY_FLAGS |
-                                                         SCRIPT_VERIFY_DERSIG |
                                                          SCRIPT_VERIFY_STRICTENC |
                                                          SCRIPT_VERIFY_MINIMALDATA |
                                                          SCRIPT_VERIFY_NULLDUMMY |
