@@ -57,6 +57,7 @@ bool fTxIndex = false;
 bool fHavePruned = false;
 bool fPruneMode = false;
 bool fIsBareMultisigStd = true;
+bool fBIP37 = false;
 bool fCheckBlockIndex = false;
 bool fCheckpointsEnabled = true;
 size_t nCoinCacheUsage = 5000 * 300;
@@ -4741,7 +4742,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
     }
 
 
-    else if (strCommand == "filterload")
+    else if (strCommand == "filterload" && fBIP37)
     {
         CBloomFilter filter;
         vRecv >> filter;
@@ -4760,7 +4761,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
     }
 
 
-    else if (strCommand == "filteradd")
+    else if (strCommand == "filteradd" && fBIP37)
     {
         vector<unsigned char> vData;
         vRecv >> vData;
@@ -4780,7 +4781,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
     }
 
 
-    else if (strCommand == "filterclear")
+    else if (strCommand == "filterclear" && fBIP37)
     {
         LOCK(pfrom->cs_filter);
         delete pfrom->pfilter;

@@ -872,6 +872,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
     nMaxDatacarrierBytes = GetArg("-datacarriersize", nMaxDatacarrierBytes);
 
     fAlerts = GetBoolArg("-alerts", DEFAULT_ALERTS);
+    fBIP37 = GetArg("-bip37", false);
 
     // ********************************************************* Step 4: application initialization: dir lock, daemonize, pidfile, debug log
 
