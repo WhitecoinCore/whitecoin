@@ -92,6 +92,8 @@ enum BlockStatus {
     BLOCK_FAILED_VALID       =   32, //! stage after last reached validness failed
     BLOCK_FAILED_CHILD       =   64, //! descends from failed block
     BLOCK_FAILED_MASK        =   BLOCK_FAILED_VALID | BLOCK_FAILED_CHILD,
+
+    BLOCK_PROOF_OF_STAKE     =   128, //! is proof-of-stake block
 };
 
 /** The block chain is a tree shaped structure starting with the
@@ -246,6 +248,21 @@ public:
 
         std::sort(pbegin, pend);
         return pbegin[(pend - pbegin)/2];
+    }
+
+    bool IsProofOfWork() const
+    {
+        return !IsProofOfStake();
+    }
+
+    bool IsProofOfStake() const
+    {
+        return (nStatus & BLOCK_PROOF_OF_STAKE);
+    }
+
+    void SetProofOfStake()
+    {
+        nStatus |= BLOCK_PROOF_OF_STAKE;
     }
 
     std::string ToString() const
