@@ -591,16 +591,6 @@ public:
     /** Called by IsStandardTx and P2SH/BIP62 VerifyScript (which makes it consensus-critical). */
     bool IsPushOnly() const;
 
-    /**
-     * Returns whether the script is guaranteed to fail at execution,
-     * regardless of the initial stack. This allows outputs to be pruned
-     * instantly when entering the UTXO set.
-     */
-    bool IsUnspendable() const
-    {
-        return (size() > 0 && *begin() == OP_RETURN);
-    }
-
     std::string ToString() const;
     void clear()
     {
