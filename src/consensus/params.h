@@ -14,6 +14,7 @@ namespace Consensus {
  */
 struct Params {
     uint256 hashGenesisBlock;
+    int nMaxReorganizationDepth;
     /** Used to check majorities for block version upgrade */
     int nMajorityEnforceBlockUpgrade;
     int nMajorityRejectBlockOutdated;
