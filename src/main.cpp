@@ -2712,9 +2712,8 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
 {
     // These are checks that are independent of context.
 
-    // Check that the header is valid (particularly PoW).  This is mostly
-    // redundant with the call in AcceptBlockHeader.
-    if (!CheckBlockHeader(block, state, fCheckPOW))
+    // Check that the header is valid (particularly PoW).
+    if (!CheckBlockHeader(block, state, block.IsProofOfWork()))
         return false;
 
     // Check the merkle root.
