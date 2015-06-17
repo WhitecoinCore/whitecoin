@@ -15,6 +15,7 @@
 #include "init.h"
 #include "merkleblock.h"
 #include "net.h"
+#include "pos.h"
 #include "pow.h"
 #include "txdb.h"
 #include "txmempool.h"
@@ -1840,6 +1841,8 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
             view.SetBestBlock(pindex->GetBlockHash());
         return true;
     }
+
+    pindex->nStakeModifier = ComputeStakeModifier(pindex->pprev, block.IsProofOfStake() ? block.vtx[1].vin[0].prevout.hash : pindex->GetBlockHash());
 
     bool fScriptChecks = (!fCheckpointsEnabled || pindex->nHeight >= Checkpoints::GetTotalBlocksEstimate(chainparams.Checkpoints()));
 

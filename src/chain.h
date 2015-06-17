@@ -140,6 +140,9 @@ public:
     //! Verification status of this block. See enum BlockStatus
     unsigned int nStatus;
 
+    //! hash modifier of proof-of-stake
+    uint256 nStakeModifier;
+
     //! block header
     int nVersion;
     uint256 hashMerkleRoot;
@@ -163,6 +166,7 @@ public:
         nTx = 0;
         nChainTx = 0;
         nStatus = 0;
+        nStakeModifier = uint256();
         nSequenceId = 0;
 
         nVersion       = 0;
@@ -327,6 +331,7 @@ public:
 
         READWRITE(VARINT(nHeight));
         READWRITE(VARINT(nStatus));
+        READWRITE(nStakeModifier);
         READWRITE(VARINT(nTx));
         if (nStatus & (BLOCK_HAVE_DATA | BLOCK_HAVE_UNDO))
             READWRITE(VARINT(nFile));
