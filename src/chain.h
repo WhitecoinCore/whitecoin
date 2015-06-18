@@ -7,6 +7,7 @@
 #define BITCOIN_CHAIN_H
 
 #include "arith_uint256.h"
+#include "chainparams.h"
 #include "primitives/block.h"
 #include "pow.h"
 #include "tinyformat.h"
@@ -238,6 +239,7 @@ public:
         return (int64_t)nTime;
     }
 
+private:
     enum { nMedianTimeSpan=11 };
 
     int64_t GetMedianTimePast() const
@@ -252,6 +254,15 @@ public:
 
         std::sort(pbegin, pend);
         return pbegin[(pend - pbegin)/2];
+    }
+
+public:
+    int64_t GetPastTimeLimit() const
+    {
+        if (Params().GetConsensus().IsProtocolV2(GetBlockTime()))
+            return GetBlockTime();
+        else
+            return GetMedianTimePast();
     }
 
     bool IsProofOfWork() const
