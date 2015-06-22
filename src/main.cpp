@@ -289,6 +289,11 @@ void UpdatePreferredDownload(CNode* node, CNodeState* state)
     nPreferredDownload += state->fPreferredDownload;
 }
 
+int64_t FutureDrift(int64_t nTime)
+{
+    return Params().GetConsensus().IsProtocolV2(nTime) ? nTime + 15 : nTime + 10 * 60;
+}
+
 // Returns time at which to timeout block request (nTime in microseconds)
 int64_t GetBlockTimeout(int64_t nTime, int nValidatedQueuedBefore, const Consensus::Params &consensusParams)
 {
@@ -639,6 +644,12 @@ bool IsStandardTx(const CTransaction& tx, string& reason)
 {
     if (tx.nVersion > CTransaction::CURRENT_VERSION || tx.nVersion < 1) {
         reason = "version";
+        return false;
+    }
+
+    // For the same reasons as in the case with non-final transactions
+    if (tx.nTime > FutureDrift(GetAdjustedTime())) {
+        reason = "time-too-new";
         return false;
     }
 
@@ -2736,7 +2747,7 @@ bool CheckBlockHeader(const CBlockHeader& block, CValidationState& state, bool f
                          REJECT_INVALID, "high-hash");
 
     // Check timestamp
-    if (block.GetBlockTime() > GetAdjustedTime() + 2 * 60 * 60)
+    if (block.GetBlockTime() > FutureDrift(GetAdjustedTime()))
         return state.Invalid(error("CheckBlockHeader(): block timestamp too far in the future"),
                              REJECT_INVALID, "time-too-new");
 
@@ -2784,6 +2795,11 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
         if (block.vtx[i].IsCoinBase())
             return state.DoS(100, error("CheckBlock(): more than one coinbase"),
                              REJECT_INVALID, "bad-cb-multiple");
+
+    // Check coinbase timestamp
+    if (block.GetBlockTime() > FutureDrift(block.vtx[0].nTime))
+        return state.DoS(25, error("CheckBlock(): coinbase timestamp is too early"),
+                         REJECT_INVALID, "bad-cb-time");
 
     if (block.IsProofOfStake())
     {
