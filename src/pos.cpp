@@ -1,10 +1,12 @@
-// Copyright (c) 2015-2016 The BlackCoin Core developers
+// Copyright (c) 2014-2016 The BlackCoin Core developers
+// Copyright (c) 2012-2013 The PPCoin developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "pos.h"
 
 #include "chain.h"
+#include "chainparams.h"
 #include "hash.h"
 #include "uint256.h"
 
@@ -21,4 +23,14 @@ uint256 ComputeStakeModifier(const CBlockIndex* pindexPrev, const uint256& kerne
     CHashWriter ss(SER_GETHASH, 0);
     ss << kernel << pindexPrev->nStakeModifier;
     return ss.GetHash();
+}
+
+// Check whether the coinstake timestamp meets protocol
+bool CheckCoinStakeTimestamp(int64_t nTimeBlock, int64_t nTimeTx)
+{
+    const Consensus::Params& params = Params().GetConsensus();
+    if (params.IsProtocolV2(nTimeBlock))
+        return (nTimeBlock == nTimeTx) && ((nTimeTx & params.nStakeTimestampMask) == 0);
+    else
+        return (nTimeBlock == nTimeTx);
 }

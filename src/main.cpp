@@ -2804,6 +2804,11 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
         return state.DoS(25, error("CheckBlock(): coinbase timestamp is too early"),
                          REJECT_INVALID, "bad-cb-time");
 
+    // Check coinstake timestamp
+    if (block.IsProofOfStake() && !CheckCoinStakeTimestamp(block.GetBlockTime(), block.vtx[1].nTime))
+        return state.DoS(50, error("CheckBlock(): coinstake timestamp violation nTimeBlock=%d nTimeTx=%u", block.GetBlockTime(), block.vtx[1].nTime),
+                         REJECT_INVALID, "bad-cs-time");
+
     if (block.IsProofOfStake())
     {
         // Coinbase output must be empty if proof-of-stake block

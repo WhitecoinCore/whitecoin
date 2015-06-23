@@ -33,6 +33,7 @@ struct Params {
     bool IsProtocolV2(int64_t nTime) const { return nTime > nProtocolV2Time && nTime != 1407053678; }
     int64_t nProtocolV3Time;
     int nLastPOWBlock;
+    int nStakeTimestampMask;
 };
 } // namespace Consensus
 

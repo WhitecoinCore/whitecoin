@@ -5,10 +5,15 @@
 #ifndef BLACKCOIN_POS_H
 #define BLACKCOIN_POS_H
 
+#include <stdint.h>
+
 class CBlockIndex;
 class uint256;
 
 /** Compute the hash modifier for proof-of-stake */
 uint256 ComputeStakeModifier(const CBlockIndex* pindexPrev, const uint256& kernel);
+
+// Check whether the coinstake timestamp meets protocol
+bool CheckCoinStakeTimestamp(int64_t nTimeBlock, int64_t nTimeTx);
 
 #endif // BLACKCOIN_POS_H
