@@ -81,6 +81,10 @@ enum
     //
     // See BIP65 for details.
     SCRIPT_VERIFY_CHECKLOCKTIMEVERIFY = (1U << 9),
+
+    // Evaluating a pubkey that is not (0x04 + 64 bytes) or (0x02 or 0x03 + 32 bytes) by checksig causes script failure.
+    // (softfork safe)
+    SCRIPT_VERIFY_DERKEY = (1U << 10),
 };
 
 uint256 SignatureHash(const CScript &scriptCode, const CTransaction& txTo, unsigned int nIn, int nHashType);

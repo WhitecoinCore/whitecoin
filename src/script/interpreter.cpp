@@ -206,7 +206,7 @@ bool static CheckSignatureEncoding(const valtype &vchSig, unsigned int flags, Sc
 }
 
 bool static CheckPubKeyEncoding(const valtype &vchSig, unsigned int flags, ScriptError* serror) {
-    if ((flags & SCRIPT_VERIFY_STRICTENC) != 0 && !IsCompressedOrUncompressedPubKey(vchSig)) {
+    if ((flags & (SCRIPT_VERIFY_DERKEY | SCRIPT_VERIFY_STRICTENC)) != 0 && !IsCompressedOrUncompressedPubKey(vchSig)) {
         return set_error(serror, SCRIPT_ERR_PUBKEYTYPE);
     }
     return true;

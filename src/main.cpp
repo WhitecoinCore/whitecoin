@@ -1861,6 +1861,8 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
 
     // BIP66 is always active
     flags |= SCRIPT_VERIFY_DERSIG;
+    // BlackCoin also requires DER encoding of pubkeys
+    flags |= SCRIPT_VERIFY_DERKEY;
 
     // Start enforcing CHECKLOCKTIMEVERIFY, (BIP65) for block.nVersion=4
     // blocks, when 75% of the network has upgraded:
