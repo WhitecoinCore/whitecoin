@@ -39,6 +39,7 @@ extern unsigned nMaxDatacarrierBytes;
  */
 static const unsigned int MANDATORY_SCRIPT_VERIFY_FLAGS = SCRIPT_VERIFY_P2SH |
                                                           SCRIPT_VERIFY_DERKEY |
+                                                          SCRIPT_VERIFY_LOW_S |
                                                           SCRIPT_VERIFY_DERSIG;
 
 /**

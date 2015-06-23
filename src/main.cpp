@@ -1863,6 +1863,8 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     flags |= SCRIPT_VERIFY_DERSIG;
     // BlackCoin also requires DER encoding of pubkeys
     flags |= SCRIPT_VERIFY_DERKEY;
+    // BlackCoin also requires low S in sigs
+    flags |= SCRIPT_VERIFY_LOW_S;
 
     // Start enforcing CHECKLOCKTIMEVERIFY, (BIP65) for block.nVersion=4
     // blocks, when 75% of the network has upgraded:
