@@ -1868,6 +1868,11 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         return true;
     }
 
+    // Check difficulty
+    if (block.nBits != GetNextTargetRequired(pindex->pprev, &block, block.IsProofOfStake(), chainparams.GetConsensus()))
+        return state.DoS(100, error("%s: incorrect difficulty", __func__),
+                         REJECT_INVALID, "bad-diffbits");
+
     pindex->nStakeModifier = ComputeStakeModifier(pindex->pprev, block.IsProofOfStake() ? block.vtx[1].vin[0].prevout.hash : pindex->GetBlockHash());
 
     bool fScriptChecks = (!fCheckpointsEnabled || pindex->nHeight >= Checkpoints::GetTotalBlocksEstimate(chainparams.Checkpoints()));
@@ -2864,9 +2869,9 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
     if (chainActive.Height() - nHeight >= consensusParams.nMaxReorganizationDepth)
         return state.DoS(1, error("%s: forked chain older than max reorganization depth (height %d)", __func__, nHeight));
 
-    // Check proof of work
-    if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))
-        return state.DoS(100, error("%s: incorrect proof of work", __func__),
+    // Preliminary check difficulty in pos-only stage
+    if (chainActive.Height() > consensusParams.nLastPOWBlock && nHeight > consensusParams.nLastPOWBlock && block.nBits != GetNextTargetRequired(pindexPrev, &block, true, consensusParams))
+        return state.DoS(100, error("%s: incorrect difficulty", __func__),
                          REJECT_INVALID, "bad-diffbits");
 
     // Preliminary check of pos timestamp
@@ -2961,6 +2966,9 @@ bool AcceptBlockHeader(const CBlockHeader& block, CValidationState& state, CBloc
 
     if (pindex == NULL)
         pindex = AddToBlockIndex(block);
+
+    if (pindex->nHeight > chainparams.GetConsensus().nLastPOWBlock)
+        pindex->SetProofOfStake();
 
     if (ppindex)
         *ppindex = pindex;
