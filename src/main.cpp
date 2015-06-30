@@ -1250,6 +1250,11 @@ CAmount GetProofOfWorkSubsidy()
     return 10000 * COIN;
 }
 
+CAmount GetProofOfStakeSubsidy()
+{
+    return COIN * 3 / 2;
+}
+
 bool IsInitialBlockDownload()
 {
     const CChainParams& chainParams = Params();
@@ -1898,6 +1903,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
 
     int64_t nTimeStart = GetTimeMicros();
     CAmount nFees = 0;
+    CAmount nActualStakeReward = 0;
     int nInputs = 0;
     unsigned int nSigOps = 0;
     CDiskTxPos pos(pindex->GetBlockPos(), GetSizeOfCompactSize(block.vtx.size()));
@@ -1931,7 +1937,10 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                                      REJECT_INVALID, "bad-blk-sigops");
             }
 
-            nFees += view.GetValueIn(tx)-tx.GetValueOut();
+            if (tx.IsCoinStake())
+                nActualStakeReward = tx.GetValueOut()-view.GetValueIn(tx);
+            else
+                nFees += view.GetValueIn(tx)-tx.GetValueOut();
 
             std::vector<CScriptCheck> vChecks;
             if (!CheckInputs(tx, state, view, fScriptChecks, flags, false, nScriptCheckThreads ? &vChecks : NULL))
@@ -1951,12 +1960,22 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     int64_t nTime1 = GetTimeMicros(); nTimeConnect += nTime1 - nTimeStart;
     LogPrint("bench", "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs]\n", (unsigned)block.vtx.size(), 0.001 * (nTime1 - nTimeStart), 0.001 * (nTime1 - nTimeStart) / block.vtx.size(), nInputs <= 1 ? 0 : 0.001 * (nTime1 - nTimeStart) / (nInputs-1), nTimeConnect * 0.000001);
 
-    CAmount blockReward = nFees + GetProofOfWorkSubsidy();
-    if (block.vtx[0].GetValueOut() > blockReward)
-        return state.DoS(100,
-                         error("ConnectBlock(): coinbase pays too much (actual=%d vs limit=%d)",
-                               block.vtx[0].GetValueOut(), blockReward),
-                               REJECT_INVALID, "bad-cb-amount");
+    if (block.IsProofOfWork()) {
+        CAmount blockReward = nFees + GetProofOfWorkSubsidy();
+        if (block.vtx[0].GetValueOut() > blockReward)
+            return state.DoS(100,
+                             error("ConnectBlock(): coinbase pays too much (actual=%d vs limit=%d)",
+                                   block.vtx[0].GetValueOut(), blockReward),
+                                   REJECT_INVALID, "bad-cb-amount");
+    }
+    if (block.IsProofOfStake() && block.GetBlockTime() > chainparams.GetConsensus().nProtocolV3Time) {
+        CAmount blockReward = nFees + GetProofOfStakeSubsidy();
+        if (nActualStakeReward > blockReward)
+            return state.DoS(100,
+                             error("ConnectBlock(): coinstake pays too much (actual=%d vs limit=%d)",
+                                   nActualStakeReward, blockReward),
+                                   REJECT_INVALID, "bad-cs-amount");
+    }
 
     if (!control.Wait())
         return state.DoS(100, false);
