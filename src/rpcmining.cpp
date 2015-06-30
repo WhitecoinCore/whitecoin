@@ -168,10 +168,11 @@ Value generate(const Array& params, bool fHelp)
             ++pblock->nNonce;
         }
         CValidationState state;
-        if (!ProcessNewBlock(state, NULL, pblock, true, NULL))
+        uint256 hash = pblock->GetHash();
+        if (!ProcessNewBlock(state, NULL, pblock, true, NULL, hash))
             throw JSONRPCError(RPC_INTERNAL_ERROR, "ProcessNewBlock, block not accepted");
         ++nHeight;
-        blockHashes.push_back(pblock->GetHash().GetHex());
+        blockHashes.push_back(hash.GetHex());
     }
     return blockHashes;
 }
@@ -655,9 +656,9 @@ Value submitblock(const Array& params, bool fHelp)
     }
 
     CValidationState state;
-    submitblock_StateCatcher sc(block.GetHash());
+    submitblock_StateCatcher sc(hash);
     RegisterValidationInterface(&sc);
-    bool fAccepted = ProcessNewBlock(state, NULL, &block, true, NULL);
+    bool fAccepted = ProcessNewBlock(state, NULL, &block, true, NULL, hash);
     UnregisterValidationInterface(&sc);
     if (fBlockPresent)
     {
