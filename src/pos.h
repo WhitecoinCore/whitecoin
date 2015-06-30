@@ -15,5 +15,6 @@ uint256 ComputeStakeModifier(const CBlockIndex* pindexPrev, const uint256& kerne
 
 // Check whether the coinstake timestamp meets protocol
 bool CheckCoinStakeTimestamp(int64_t nTimeBlock, int64_t nTimeTx);
+bool CheckStakeBlockTimestamp(int64_t nTimeBlock);
 
 #endif // BLACKCOIN_POS_H

@@ -34,3 +34,9 @@ bool CheckCoinStakeTimestamp(int64_t nTimeBlock, int64_t nTimeTx)
     else
         return (nTimeBlock == nTimeTx);
 }
+
+// Simplified version of CheckCoinStakeTimestamp() to check header-only timestamp
+bool CheckStakeBlockTimestamp(int64_t nTimeBlock)
+{
+    return CheckCoinStakeTimestamp(nTimeBlock, nTimeBlock);
+}

@@ -2869,6 +2869,11 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
         return state.DoS(100, error("%s: incorrect proof of work", __func__),
                          REJECT_INVALID, "bad-diffbits");
 
+    // Preliminary check of pos timestamp
+    if (nHeight > consensusParams.nLastPOWBlock && !CheckStakeBlockTimestamp(block.GetBlockTime()))
+        return state.DoS(100, error("%s: incorrect pos block timestamp", __func__),
+                         REJECT_INVALID, "bad-pos-time");
+
     // Check timestamp against prev
     if (block.GetBlockTime() <= pindexPrev->GetPastTimeLimit())
         return state.Invalid(error("%s: block's timestamp is too early", __func__),
