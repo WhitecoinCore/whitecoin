@@ -1877,6 +1877,25 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
 
     pindex->nStakeModifier = ComputeStakeModifier(pindex->pprev, block.IsProofOfStake() ? block.vtx[1].vin[0].prevout.hash : pindex->GetBlockHash());
 
+    // Check proof-of-stake
+    if (block.IsProofOfStake() && block.GetBlockTime() > chainparams.GetConsensus().nProtocolV3Time) {
+        const COutPoint &prevout = block.vtx[1].vin[0].prevout;
+        const CCoins *coins = view.AccessCoins(prevout.hash);
+        if (!coins)
+            return state.DoS(100, error("%s: kernel input unavailable", __func__),
+                             REJECT_INVALID, "bad-cs-kernel");
+
+        // Check proof-of-stake min confirmations
+        if (pindex->nHeight - coins->nHeight < STAKE_MIN_CONFIRMATIONS)
+            return state.DoS(100,
+                error("%s: tried to stake at depth %d", __func__, pindex->nHeight - coins->nHeight),
+                REJECT_INVALID, "bad-cs-premature");
+
+        if (!CheckStakeKernelHash(pindex->pprev, block.nBits, coins, prevout, block.vtx[1].nTime))
+            return state.DoS(100, error("%s: proof-of-stake hash doesn't match nBits", __func__),
+                             REJECT_INVALID, "bad-cs-proofhash");
+    }
+
     bool fScriptChecks = (!fCheckpointsEnabled || pindex->nHeight >= Checkpoints::GetTotalBlocksEstimate(chainparams.Checkpoints()));
 
     // Do not allow blocks that contain transactions which 'overwrite' older transactions,
