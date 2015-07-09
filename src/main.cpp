@@ -2746,6 +2746,23 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
             return state.DoS(100, error("CheckBlock(): more than one coinbase"),
                              REJECT_INVALID, "bad-cb-multiple");
 
+    if (block.IsProofOfStake())
+    {
+        // Coinbase output must be empty if proof-of-stake block
+        if (block.vtx[0].vout.size() != 1 || !block.vtx[0].vout[0].IsEmpty())
+            return state.DoS(100, error("CheckBlock(): coinbase output not empty for proof-of-stake block"),
+                             REJECT_INVALID, "bad-cb-not-empty");
+
+        // Second transaction must be coinstake, the rest must not be
+        if (block.vtx.size() < 2 || !block.vtx[1].IsCoinStake())
+            return state.DoS(100, error("CheckBlock(): second tx is not coinstake"),
+                             REJECT_INVALID, "bad-cs-missing");
+        for (unsigned int i = 2; i < block.vtx.size(); i++)
+            if (block.vtx[i].IsCoinStake())
+                return state.DoS(100, error("CheckBlock(): more than one coinstake"),
+                                 REJECT_INVALID, "bad-cs-multiple");
+    }
+
     // Check transactions
     BOOST_FOREACH(const CTransaction& tx, block.vtx)
         if (!CheckTransaction(tx, state))
