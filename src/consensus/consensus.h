@@ -15,11 +15,9 @@ static const int COINBASE_MATURITY = 100;
 
 /** Flags for LockTime() */
 enum {
-    /* Use GetMedianTimePast() instead of nTime for end point timestamp. */
-    LOCKTIME_MEDIAN_TIME_PAST = (1 << 1),
 };
 
 /** Used as the flags parameter to CheckFinalTx() in non-consensus code */
-static const unsigned int STANDARD_LOCKTIME_VERIFY_FLAGS = LOCKTIME_MEDIAN_TIME_PAST;
+static const unsigned int STANDARD_LOCKTIME_VERIFY_FLAGS = 0;
 
 #endif // BITCOIN_CONSENSUS_CONSENSUS_H
