@@ -157,7 +157,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn)
 
             int64_t nLockTimeCutoff = pblock->GetBlockTime();
 
-            if (tx.IsCoinBase() || tx.IsCoinStake() || !IsFinalTx(tx, nHeight, nLockTimeCutoff))
+            if (tx.IsCoinBase() || tx.IsCoinStake() || !IsFinalTx(tx, nHeight, nLockTimeCutoff) || pblock->GetBlockTime() < (int64_t)tx.nTime)
                 continue;
 
             COrphan* porphan = NULL;
