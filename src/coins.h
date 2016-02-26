@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin Core developers
+// Copyright (c) 2016 The BlackCoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -32,6 +33,7 @@
  * - bit 1: IsCoinBase()
  * - bit 2: vout[0] is not spent
  * - bit 4: vout[1] is not spent
+ * - bit 8: IsCoinStake()
  * - The higher bits encode N, the number of non-zero bytes in the following bitvector.
  *   - In case both bit 2 and bit 4 are unset, they encode N-1, as there must be at
  *     least one non-spent output).
@@ -76,6 +78,9 @@ public:
     //! whether transaction is a coinbase
     bool fCoinBase;
 
+    //! whether transaction is a coinstake
+    bool fCoinStake;
+
     //! unspent transaction outputs; spent outputs are .IsNull(); spent outputs at the end of the array are dropped
     std::vector<CTxOut> vout;
 
@@ -91,6 +96,7 @@ public:
 
     void FromTx(const CTransaction &tx, int nHeightIn) {
         fCoinBase = tx.IsCoinBase();
+        fCoinStake = tx.IsCoinStake();
         vout = tx.vout;
         nHeight = nHeightIn;
         nVersion = tx.nVersion;
@@ -105,6 +111,7 @@ public:
 
     void Clear() {
         fCoinBase = false;
+        fCoinStake = false;
         std::vector<CTxOut>().swap(vout);
         nHeight = 0;
         nVersion = 0;
@@ -112,7 +119,7 @@ public:
     }
 
     //! empty constructor
-    CCoins() : fCoinBase(false), vout(0), nHeight(0), nVersion(0), nTime(0) { }
+    CCoins() : fCoinBase(false), fCoinStake(false), vout(0), nHeight(0), nVersion(0), nTime(0) { }
 
     //!remove spent outputs at the end of vout
     void Cleanup() {
@@ -132,6 +139,7 @@ public:
 
     void swap(CCoins &to) {
         std::swap(to.fCoinBase, fCoinBase);
+        std::swap(to.fCoinStake, fCoinStake);
         to.vout.swap(vout);
         std::swap(to.nHeight, nHeight);
         std::swap(to.nVersion, nVersion);
@@ -144,6 +152,7 @@ public:
          if (a.IsPruned() && b.IsPruned())
              return true;
          return a.fCoinBase == b.fCoinBase &&
+                a.fCoinStake == b.fCoinStake &&
                 a.nHeight == b.nHeight &&
                 a.nVersion == b.nVersion &&
                 a.nTime == b.nTime &&
@@ -159,6 +168,10 @@ public:
         return fCoinBase;
     }
 
+    bool IsCoinStake() const {
+        return fCoinStake;
+    }
+
     unsigned int GetSerializeSize(int nType, int nVersion) const {
         unsigned int nSize = 0;
         unsigned int nMaskSize = 0, nMaskCode = 0;
@@ -166,7 +179,7 @@ public:
         bool fFirst = vout.size() > 0 && !vout[0].IsNull();
         bool fSecond = vout.size() > 1 && !vout[1].IsNull();
         assert(fFirst || fSecond || nMaskCode);
-        unsigned int nCode = 8*(nMaskCode - (fFirst || fSecond ? 0 : 1)) + (fCoinBase ? 1 : 0) + (fFirst ? 2 : 0) + (fSecond ? 4 : 0);
+        unsigned int nCode = 16*(nMaskCode - (fFirst || fSecond ? 0 : 1)) + (fCoinBase ? 1 : 0) + (fFirst ? 2 : 0) + (fSecond ? 4 : 0) + (fCoinStake ? 8 : 0);
         // version
         nSize += ::GetSerializeSize(VARINT(this->nVersion), nType, nVersion);
         // size of header code
@@ -191,7 +204,7 @@ public:
         bool fFirst = vout.size() > 0 && !vout[0].IsNull();
         bool fSecond = vout.size() > 1 && !vout[1].IsNull();
         assert(fFirst || fSecond || nMaskCode);
-        unsigned int nCode = 8*(nMaskCode - (fFirst || fSecond ? 0 : 1)) + (fCoinBase ? 1 : 0) + (fFirst ? 2 : 0) + (fSecond ? 4 : 0);
+        unsigned int nCode = 16*(nMaskCode - (fFirst || fSecond ? 0 : 1)) + (fCoinBase ? 1 : 0) + (fFirst ? 2 : 0) + (fSecond ? 4 : 0) + (fCoinStake ? 8 : 0);
         // version
         ::Serialize(s, VARINT(this->nVersion), nType, nVersion);
         // header code
@@ -223,10 +236,11 @@ public:
         // header code
         ::Unserialize(s, VARINT(nCode), nType, nVersion);
         fCoinBase = nCode & 1;
+        fCoinStake = nCode & 8;
         std::vector<bool> vAvail(2, false);
         vAvail[0] = (nCode & 2) != 0;
         vAvail[1] = (nCode & 4) != 0;
-        unsigned int nMaskCode = (nCode / 8) + ((nCode & 6) != 0 ? 0 : 1);
+        unsigned int nMaskCode = (nCode / 16) + ((nCode & 6) != 0 ? 0 : 1);
         // spentness bitmask
         while (nMaskCode > 0) {
             unsigned char chAvail = 0;

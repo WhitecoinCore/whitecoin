@@ -1436,6 +1436,7 @@ void UpdateCoins(const CTransaction& tx, CValidationState &state, CCoinsViewCach
                 CTxInUndo& undo = txundo.vprevout.back();
                 undo.nHeight = coins->nHeight;
                 undo.fCoinBase = coins->fCoinBase;
+                undo.fCoinStake = coins->fCoinStake;
                 undo.nVersion = coins->nVersion;
                 undo.nTime = coins->nTime;
             }
@@ -1484,11 +1485,11 @@ bool CheckInputs(const CTransaction& tx, CValidationState &state, const CCoinsVi
             const CCoins *coins = inputs.AccessCoins(prevout.hash);
             assert(coins);
 
-            // If prev is coinbase, check that it's matured
-            if (coins->IsCoinBase()) {
+            // If prev is coinbase or coinstake, check that it's matured
+            if (coins->IsCoinBase() || coins->IsCoinStake()) {
                 if (nSpendHeight - coins->nHeight < COINBASE_MATURITY)
                     return state.Invalid(
-                        error("CheckInputs(): tried to spend coinbase at depth %d", nSpendHeight - coins->nHeight),
+                        error("CheckInputs(): tried to spend %s at depth %d", coins->IsCoinBase() ? "coinbase" : "coinstake", nSpendHeight - coins->nHeight),
                         REJECT_INVALID, "bad-txns-premature-spend-of-coinbase");
             }
 
@@ -1664,6 +1665,7 @@ static bool ApplyTxInUndo(const CTxInUndo& undo, CCoinsViewCache& view, const CO
             fClean = fClean && error("%s: undo data overwriting existing transaction", __func__);
         coins->Clear();
         coins->fCoinBase = undo.fCoinBase;
+        coins->fCoinStake = undo.fCoinStake;
         coins->nHeight = undo.nHeight;
         coins->nVersion = undo.nVersion;
         coins->nTime = undo.nTime;
