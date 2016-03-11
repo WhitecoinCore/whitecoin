@@ -313,13 +313,16 @@ class CDiskBlockIndex : public CBlockIndex
 {
 public:
     uint256 hashPrev;
+    uint256 nHashBlock;
 
     CDiskBlockIndex() {
         hashPrev = uint256();
+        nHashBlock = uint256();
     }
 
     explicit CDiskBlockIndex(const CBlockIndex* pindex) : CBlockIndex(*pindex) {
         hashPrev = (pprev ? pprev->GetBlockHash() : uint256());
+        nHashBlock = *pindex->phashBlock;
     }
 
     ADD_SERIALIZE_METHODS;
@@ -332,6 +335,7 @@ public:
         READWRITE(VARINT(nHeight));
         READWRITE(VARINT(nStatus));
         READWRITE(nStakeModifier);
+        READWRITE(nHashBlock);
         READWRITE(VARINT(nTx));
         if (nStatus & (BLOCK_HAVE_DATA | BLOCK_HAVE_UNDO))
             READWRITE(VARINT(nFile));
@@ -351,14 +355,7 @@ public:
 
     uint256 GetBlockHash() const
     {
-        CBlockHeader block;
-        block.nVersion        = nVersion;
-        block.hashPrevBlock   = hashPrev;
-        block.hashMerkleRoot  = hashMerkleRoot;
-        block.nTime           = nTime;
-        block.nBits           = nBits;
-        block.nNonce          = nNonce;
-        return block.GetHash();
+        return nHashBlock;
     }
 
 
