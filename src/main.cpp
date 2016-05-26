@@ -1910,6 +1910,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     // Start enforcing CHECKLOCKTIMEVERIFY, (BIP65) since protocol v3
     if (block.GetBlockTime() > chainparams.GetConsensus().nProtocolV3Time) {
         flags |= SCRIPT_VERIFY_CHECKLOCKTIMEVERIFY;
+        flags |= SCRIPT_VERIFY_NULLDUMMY;
     }
 
     CBlockUndo blockundo;
