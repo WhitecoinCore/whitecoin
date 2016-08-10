@@ -1693,7 +1693,7 @@ bool CWallet::SelectCoins(const CAmount& nTargetValue, set<pair<const CWalletTx*
         return (nValueRet >= nTargetValue);
     }
 
-    return (SelectCoinsMinConf(nTargetValue, 1, 6, vCoins, setCoinsRet, nValueRet) ||
+    return (SelectCoinsMinConf(nTargetValue, 1, 10, vCoins, setCoinsRet, nValueRet) ||
             SelectCoinsMinConf(nTargetValue, 1, 1, vCoins, setCoinsRet, nValueRet) ||
             (bSpendZeroConfChange && SelectCoinsMinConf(nTargetValue, 0, 1, vCoins, setCoinsRet, nValueRet)));
 }
