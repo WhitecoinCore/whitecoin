@@ -648,12 +648,6 @@ bool IsStandardTx(const CTransaction& tx, string& reason)
         return false;
     }
 
-    // For the same reasons as in the case with non-final transactions
-    if (tx.nTime > FutureDrift(GetAdjustedTime())) {
-        reason = "time-too-new";
-        return false;
-    }
-
     // Extremely large transactions with lots of inputs can cost the network
     // almost as much to process as they cost the sender in fees, because
     // computing signature hashes is O(ninputs*txsize). Limiting transactions
@@ -978,6 +972,10 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState &state, const CTransa
     // be mined yet.
     if (!CheckFinalTx(tx, STANDARD_LOCKTIME_VERIFY_FLAGS))
         return state.DoS(0, false, REJECT_NONSTANDARD, "non-final");
+
+    // For the same reasons as in the case with non-final transactions
+    if (tx.nTime > FutureDrift(GetAdjustedTime()))
+        return state.DoS(0, false, REJECT_NONSTANDARD, "time-too-new");
 
     // is it already in the memory pool?
     uint256 hash = tx.GetHash();
