@@ -948,13 +948,13 @@ void PrintExceptionContinue(std::exception* pex, const char* pszThread)
 boost::filesystem::path GetDefaultDataDir()
 {
     namespace fs = boost::filesystem;
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Whitecoin
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Whitecoin
-    // Mac: ~/Library/Application Support/Whitecoin
-    // Unix: ~/.whitecoin
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Whitecoin-XWC
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Whitecoin-XWC
+    // Mac: ~/Library/Application Support/Whitecoin-XWC
+    // Unix: ~/.whitecoin-xwc
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "Whitecoin";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "Whitecoin-XWC";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -966,10 +966,10 @@ boost::filesystem::path GetDefaultDataDir()
     // Mac
     pathRet /= "Library/Application Support";
     fs::create_directory(pathRet);
-    return pathRet / "Whitecoin";
+    return pathRet / "Whitecoin-XWC";
 #else
     // Unix
-    return pathRet / ".whitecoin";
+    return pathRet / ".whitecoin-xwc";
 #endif
 #endif
 }
