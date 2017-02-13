@@ -3104,8 +3104,8 @@ napríklad: alertnotify=echo %%s | mail -s &quot;Whitecoin upozornenie&quot; adm
     </message>
     <message>
         <location line="+1"/>
-        <source>Imports blocks from external XWC000?.dat file</source>
-        <translation>Importovať bloky z externého XWC000?.dat súbora</translation>
+        <source>Imports blocks from external blk000?.dat file</source>
+        <translation>Importovať bloky z externého blk000?.dat súbora</translation>
     </message>
     <message>
         <location line="+1"/>

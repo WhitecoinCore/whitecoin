@@ -3102,8 +3102,8 @@ On myös suositeltavaa asettaa alertnotify jolloin olet tiedotettu ongelmista; e
     </message>
     <message>
         <location line="+1"/>
-        <source>Imports blocks from external XWC000?.dat file</source>
-        <translation>Tuo lohkoja erillisestä XWC000?.dat-tiedostosta</translation>
+        <source>Imports blocks from external blk000?.dat file</source>
+        <translation>Tuo lohkoja erillisestä blk000?.dat-tiedostosta</translation>
     </message>
     <message>
         <location line="+1"/>

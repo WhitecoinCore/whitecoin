@@ -3090,8 +3090,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     </message>
     <message>
         <location line="+1"/>
-        <source>Imports blocks from external XWC000?.dat file</source>
-        <translation>Importuj bloky z externího XWC000?.dat souboru</translation>
+        <source>Imports blocks from external blk000?.dat file</source>
+        <translation>Importuj bloky z externího blk000?.dat souboru</translation>
     </message>
     <message>
         <location line="+1"/>

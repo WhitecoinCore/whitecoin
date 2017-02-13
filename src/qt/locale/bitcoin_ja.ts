@@ -3089,8 +3089,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     </message>
     <message>
         <location line="+1"/>
-        <source>Imports blocks from external XWC000?.dat file</source>
-        <translation>外部 XWC000?.dat ファイルからブロックを読み込む。</translation>
+        <source>Imports blocks from external blk000?.dat file</source>
+        <translation>外部 blk000?.dat ファイルからブロックを読み込む。</translation>
     </message>
     <message>
         <location line="+1"/>

@@ -3108,8 +3108,8 @@ alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@foo.com
     </message>
     <message>
         <location line="+1"/>
-        <source>Imports blocks from external XWC000?.dat file</source>
-        <translation>从外部 XWC000?.dat 文件导入区块</translation>
+        <source>Imports blocks from external blk000?.dat file</source>
+        <translation>从外部 blk000?.dat 文件导入区块</translation>
     </message>
     <message>
         <location line="+1"/>

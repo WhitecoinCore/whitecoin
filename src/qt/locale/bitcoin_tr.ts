@@ -3105,8 +3105,8 @@ Ayrıca sorunlardan haberdar edilmek için alertnotify parametresini doldurmanı
     </message>
     <message>
         <location line="+1"/>
-        <source>Imports blocks from external XWC000?.dat file</source>
-        <translation>Harici XWC000?.dat dosyasından blok içeri aktar</translation>
+        <source>Imports blocks from external blk000?.dat file</source>
+        <translation>Harici blk000?.dat dosyasından blok içeri aktar</translation>
     </message>
     <message>
         <location line="+1"/>

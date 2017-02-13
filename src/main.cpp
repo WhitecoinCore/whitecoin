@@ -2389,7 +2389,7 @@ bool CheckDiskSpace(uint64_t nAdditionalBytes)
 
 static filesystem::path BlockFilePath(unsigned int nFile)
 {
-    string strBlockFn = strprintf("XWC%04u.dat", nFile);
+    string strBlockFn = strprintf("blk%04u.dat", nFile);
     return GetDataDir() / strBlockFn;
 }
 
@@ -2554,15 +2554,15 @@ bool LoadExternalBlockFile(FILE* fileIn)
     int nLoaded = 0;
     {
         try {
-            CAutoFile XWCdat(fileIn, SER_DISK, CLIENT_VERSION);
+            CAutoFile blkdat(fileIn, SER_DISK, CLIENT_VERSION);
             unsigned int nPos = 0;
-            while (nPos != (unsigned int)-1 && XWCdat.good())
+            while (nPos != (unsigned int)-1 && blkdat.good())
             {
                 boost::this_thread::interruption_point();
                 unsigned char pchData[65536];
                 do {
-                    fseek(XWCdat, nPos, SEEK_SET);
-                    int nRead = fread(pchData, 1, sizeof(pchData), XWCdat);
+                    fseek(blkdat, nPos, SEEK_SET);
+                    int nRead = fread(pchData, 1, sizeof(pchData), blkdat);
                     if (nRead <= 8)
                     {
                         nPos = (unsigned int)-1;
@@ -2584,13 +2584,13 @@ bool LoadExternalBlockFile(FILE* fileIn)
                 } while(true);
                 if (nPos == (unsigned int)-1)
                     break;
-                fseek(XWCdat, nPos, SEEK_SET);
+                fseek(blkdat, nPos, SEEK_SET);
                 unsigned int nSize;
-                XWCdat >> nSize;
+                blkdat >> nSize;
                 if (nSize > 0 && nSize <= MAX_BLOCK_SIZE)
                 {
                     CBlock block;
-                    XWCdat >> block;
+                    blkdat >> block;
                     LOCK(cs_main);
                     if (ProcessBlock(NULL,&block))
                     {
@@ -2624,7 +2624,7 @@ struct CImportingNow
 
 void ThreadImport(std::vector<boost::filesystem::path> vImportFiles)
 {
-    RenameThread("whitecoin-loadXWC");
+    RenameThread("whitecoin-loadblk");
 
     CImportingNow imp;
 
