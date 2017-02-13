@@ -5,7 +5,7 @@
 	<key>window_bounds</key>
 	<array>
 		<integer>300</integer>
-		<integer>300</integer>
+		<integer>280</integer>
 		<integer>800</integer>
 		<integer>620</integer>
 	</array>
@@ -22,7 +22,7 @@
 			<integer>370</integer>
 			<integer>156</integer>
 		</array>
-		<key>NovaCoin-Qt.app</key>
+		<key>Whitecoin-Qt.app</key>
 		<array>
 			<integer>128</integer>
 			<integer>156</integer>

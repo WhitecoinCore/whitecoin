@@ -1,7 +1,7 @@
 
-BlackCoin development tree
+Whitecoin development tree
 
-BlackCoin is a PoS-based cryptocurrency.
+Whitecoin is a PoS-based cryptocurrency.
 
 Development process
 ===========================
@@ -16,7 +16,7 @@ or are controversial.
 
 The master branch is regularly built and tested, but is not guaranteed
 to be completely stable. Tags are regularly created to indicate new
-stable release versions of BlackCoin.
+stable release versions of Whitecoin.
 
 Feature branches are created when there are major new features being
 worked on by several people.

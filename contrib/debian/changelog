@@ -1,5 +1,3 @@
-blackcoin (1.1.2.1) unstable; urgency=low
+whitecoin (2.0.0.0) stable; urgency=low
 
-  * Update debian package scripts for use by blackcoin.
-
- -- Xerxes Rånby <xerxes@gudinna.com>  Mon, 22 December 2014 17:58:43 +0100
+  * Update debian package scripts for use by whitecoin.

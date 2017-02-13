@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Whitecoin
+Comment=Whitecoin P2P Cryptocurrency
+Comment[fr]=Whitecoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Whitecoin, eşten eşe kriptografik sanal para birimi
+Exec=/usr/bin/whitecoin-qt
+Terminal=false
+Type=Application
+Icon=/usr/share/pixmaps/bitcoin80.xpm
+MimeType=x-scheme-handler/whitecoin;
+Categories=Office;

@@ -10,9 +10,9 @@ rpcpass = ""
 
 
 if rpcpass == "":
-	access = ServiceProxy("http://127.0.0.1:8332")
+	access = ServiceProxy("http://127.0.0.1:15815")
 else:
-	access = ServiceProxy("http://"+rpcuser+":"+rpcpass+"@127.0.0.1:8332")
+	access = ServiceProxy("http://"+rpcuser+":"+rpcpass+"@127.0.0.1:15815")
 cmd = sys.argv[1].lower()
 
 if cmd == "backupwallet":
@@ -24,7 +24,7 @@ if cmd == "backupwallet":
 
 elif cmd == "getaccount":
 	try:
-		addr = raw_input("Enter a Bitcoin address: ")
+		addr = raw_input("Enter a Whitecoin address: ")
 		print access.getaccount(addr)
 	except:
 		print "\n---An error occurred---\n"
@@ -126,7 +126,7 @@ elif cmd == "getreceivedbyaccount":
 
 elif cmd == "getreceivedbyaddress":
 	try:
-		addr = raw_input("Enter a Bitcoin address (optional): ")
+		addr = raw_input("Enter a Whitecoin address (optional): ")
 		mc = raw_input("Minimum confirmations (optional): ")
 		try:
 			print access.getreceivedbyaddress(addr, mc)
@@ -266,17 +266,6 @@ elif cmd == "setaccount":
 		addr = raw_input("Address: ")
 		acct = raw_input("Account:")
 		print access.setaccount(addr,acct)
-	except:
-		print "\n---An error occurred---\n"
-
-elif cmd == "setgenerate":
-	try:
-		gen= raw_input("Generate? (true/false): ")
-		cpus = raw_input("Max processors/cores (-1 for unlimited, optional):")
-		try:
-			print access.setgenerate(gen, cpus)
-		except:
-			print access.setgenerate(gen)
 	except:
 		print "\n---An error occurred---\n"
 

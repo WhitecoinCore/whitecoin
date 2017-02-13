@@ -1,0 +1,2 @@
+debian/bin/whitecoind usr/bin
+src/whitecoind usr/lib/whitecoin
