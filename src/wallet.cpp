@@ -1442,7 +1442,6 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64_t> >& vecSend, 
                 wtxNew.fFromMe = true;
 
                 int64_t nTotalValue = nValue + nFeeRet;
-                double dPriority = 0;
                 // vouts to the payees
                 BOOST_FOREACH (const PAIRTYPE(CScript, int64_t)& s, vecSend)
                     wtxNew.vout.push_back(CTxOut(s.second, s.first));
@@ -1452,11 +1451,6 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64_t> >& vecSend, 
                 int64_t nValueIn = 0;
                 if (!SelectCoins(nTotalValue, wtxNew.nTime, setCoins, nValueIn, coinControl))
                     return false;
-                BOOST_FOREACH(PAIRTYPE(const CWalletTx*, unsigned int) pcoin, setCoins)
-                {
-                    int64_t nCredit = pcoin.first->vout[pcoin.second].nValue;
-                    dPriority += (double)nCredit * pcoin.first->GetDepthInMainChain();
-                }
 
                 int64_t nChange = nValueIn - nValue - nFeeRet;
 
@@ -1515,7 +1509,6 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64_t> >& vecSend, 
                 unsigned int nBytes = ::GetSerializeSize(*(CTransaction*)&wtxNew, SER_NETWORK, PROTOCOL_VERSION);
                 if (nBytes >= MAX_STANDARD_TX_SIZE)
                     return false;
-                dPriority /= nBytes;
 
                 // Check that enough fee is included
                 int64_t nPayFee = nTransactionFee * (1 + (int64_t)nBytes / 1000);
