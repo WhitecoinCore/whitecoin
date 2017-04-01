@@ -53,7 +53,6 @@ enum
 
     SCRIPT_VERIFY_STRICTENC = (1U << 3),
 
-    // TODO add to MANDATORY_SCRIPT_VERIFY_FLAGS after the IsProtocolV3 fork
     SCRIPT_VERIFY_ALLOW_EMPTY_SIG = (1U << 4),
     SCRIPT_VERIFY_FIX_HASHTYPE = (1U << 5),
 
@@ -69,6 +68,8 @@ enum
 // details.
 static const unsigned int MANDATORY_SCRIPT_VERIFY_FLAGS = SCRIPT_VERIFY_NULLDUMMY |
                                                           SCRIPT_VERIFY_STRICTENC |
+                                                          SCRIPT_VERIFY_ALLOW_EMPTY_SIG |
+                                                          SCRIPT_VERIFY_FIX_HASHTYPE |
                                                           SCRIPT_VERIFY_CHECKLOCKTIMEVERIFY;
 
 // Standard script verification flags that standard transactions will comply
