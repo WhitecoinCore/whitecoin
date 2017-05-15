@@ -4,12 +4,12 @@
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
         <source>About Whitecoin</source>
-        <translation>ブラックコインについて</translation>
+        <translation>白いコインについて</translation>
     </message>
     <message>
         <location line="+39"/>
         <source>&lt;b&gt;Whitecoin&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;ブラックコイン&lt;/b&gt;バージョン</translation>
+        <translation>&lt;b&gt;白いコイン&lt;/b&gt;バージョン</translation>
     </message>
     <message>
         <location line="+41"/>
@@ -61,7 +61,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-43"/>
         <source>These are your Whitecoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>これは支払いを受けるためのブラックコインのアドレス。支払い管理をするのため、各送信者へ、それぞれのアドレスを伝えたほうがいいです。</translation>
+        <translation>これは支払いの白コインの住所です。管理を支払うためには、各発信者にそれぞれの住所を伝えておきたい。</translation>
     </message>
     <message>
         <location line="+53"/>
@@ -76,7 +76,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+7"/>
         <source>Sign a message to prove you own a Whitecoin address</source>
-        <translation>所有権の証明するためのメサッジを署名する。</translation>
+        <translation>情報の署名を行うことを証明するあなたに白幣アドレスの所有権について。</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -91,7 +91,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-10"/>
         <source>Verify a message to ensure it was signed with a specified Whitecoin address</source>
-        <translation>受け取ったメッセージの署名を確保のため、メッセージを確認する。</translation>
+        <translation>検証情報は、白幣の住所を指定して署名することを保証する。</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -259,7 +259,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+82"/>
         <source>Whitecoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
-        <translation>ただいま、暗号化手順を完成するため、ブラックコインQTは閉じます。尚、ウォレットを暗号化をされたにしても、PCのウイルスから盗難防止の報償できないことを、ご理解をお願い足します。</translation>
+        <translation>白幣クライアントは、完成暗号化プロセスを。覚えてください、暗号化しては完全にお財布防止の電子通貨ごコンピュータの木馬ソフト侵入窃盗。</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -353,7 +353,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+4"/>
         <source>Show information about Whitecoin</source>
-        <translation>ブラックコインの情報を表示</translation>
+        <translation>白幣の情報を表示する</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -393,12 +393,12 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-55"/>
         <source>Send coins to a Whitecoin address</source>
-        <translation>ブラックコインアドレスへコインを送る</translation>
+        <translation>白の硬貨にコインを投げて</translation>
     </message>
     <message>
         <location line="+39"/>
         <source>Modify configuration options for Whitecoin</source>
-        <translation>ブラックコインの設定を変化する</translation>
+        <translation>白コインの変化に変化する</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -439,7 +439,7 @@ This product includes software developed by the OpenSSL Project for use in the O
         <location line="-214"/>
         <location line="+555"/>
         <source>Whitecoin</source>
-        <translation>ブラックコイン</translation>
+        <translation>白いコイン</translation>
     </message>
     <message>
         <location line="-555"/>
@@ -449,7 +449,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+193"/>
         <source>&amp;About Whitecoin</source>
-        <translation>ブラックコインについて</translation>
+        <translation>白の上にコイン</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -501,12 +501,12 @@ This product includes software developed by the OpenSSL Project for use in the O
         <location line="+0"/>
         <location line="+58"/>
         <source>Whitecoin client</source>
-        <translation>ブラックコインクライアントソフトウェア</translation>
+        <translation>白のコインのクライアントソフトウェア</translation>
     </message>
     <message numerus="yes">
         <location line="+70"/>
         <source>%n active connection(s) to Whitecoin network</source>
-        <translation><numerusform>ブラックコインネットワークへの%n アクティブな接続</numerusform></translation>
+        <translation><numerusform>ネットワークに接続するnアクティブホワイトコイン</numerusform></translation>
     </message>
     <message>
         <location line="+488"/>
@@ -723,7 +723,7 @@ Address: %4
     <message>
         <location filename="../bitcoin.cpp" line="+104"/>
         <source>A fatal error occurred. Whitecoin can no longer continue safely and will quit.</source>
-        <translation>致命的エラー。安全に続きができないため、バラックコインQTは閉じます。</translation>
+        <translation>致命的なエラー。安全のためのできないが、qt白に近いコインをフォローする。</translation>
     </message>
 </context>
 <context>
@@ -1057,7 +1057,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="-5"/>
         <source>The entered address &quot;%1&quot; is not a valid Whitecoin address.</source>
-        <translation>入力されたアドレス &quot;%1&quot; 、有効なブラックコインアドレスではない。</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+10"/>
@@ -1076,7 +1076,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location filename="../guiutil.cpp" line="+426"/>
         <location line="+12"/>
         <source>Whitecoin-Qt</source>
-        <translation>ブラックコインQT</translation>
+        <translation>白のコイン</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -1149,12 +1149,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+31"/>
         <source>Automatically start Whitecoin after logging in to the system.</source>
-        <translation>システムのログイン次第、自動的にブラックコインをスタート。</translation>
+        <translation>白のコインのログインシステムに対するスタート。</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Start Whitecoin on system login</source>
-        <translation>システムログイン次第、ブラックコインをスタート</translation>
+        <translation>システムのログインの白いコインスタート</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -1164,7 +1164,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+6"/>
         <source>Automatically open the Whitecoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>自動的にルーターでブラックコインクライエントソフトウェアのポートを開く。ルーターはUPnPのサポートあり、UPnPを有効にするならできる。</translation>
+        <translation>自動的に白のコインのクライアントソフトウェアルータのポートを開きます。このルータサポートが有効であることを無効。</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1306,7 +1306,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="-9"/>
         <location line="+9"/>
         <source>This setting will take effect after restarting Whitecoin.</source>
-        <translation>この設定はブラックコインをリスタートした後に有効する。</translation>
+        <translation>クライアントが再開された後、設定効果に。</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1325,7 +1325,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+46"/>
         <location line="+247"/>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Whitecoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>表示されている情報は時間遅れている。接続したら、ウォレットは自動的にブラックコインネットワークと同期しますが過程は完了してません。</translation>
+        <translation>情報の遅延時間を表示します。財布に接続するときに、白のコインが完了すると、ネットワーク処理を自動的に同期します。</translation>
     </message>
     <message>
         <location line="-173"/>
@@ -1567,7 +1567,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+7"/>
         <source>Show the Whitecoin-Qt help message to get a list with possible Whitecoin command-line options.</source>
-        <translation>ブラックコインQTのコマンドラインのヘルプ情報を表示する。</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
@@ -1587,12 +1587,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="-104"/>
         <source>Whitecoin - Debug window</source>
-        <translation>ブラックコイン：デバッグウインドウ</translation>
+        <translation>白いコイン：デバッグウィンドウ</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>Whitecoin Core</source>
-        <translation>ブラックコインコア</translation>
+        <translation>白のコインのコア</translation>
     </message>
     <message>
         <location line="+256"/>
@@ -1612,7 +1612,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../rpcconsole.cpp" line="+325"/>
         <source>Welcome to the Whitecoin RPC console.</source>
-        <translation>ブラックコインRPCコンソールへようこそ。</translation>
+        <translation>白いコインRPCコンソールへようこそ。</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1793,7 +1793,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../sendcoinsdialog.cpp" line="-174"/>
         <source>Enter a Whitecoin address (e.g. WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</source>
-        <translation>ブラックコインアドレスの入力 (例；WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</translation>
+        <translation>白のコインのアドレス入力（例: WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -1893,7 +1893,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+247"/>
         <source>WARNING: Invalid Whitecoin address</source>
-        <translation>警告：無効なブラックコインアドレス</translation>
+        <translation>警告：白のコインの無効なアドレス</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -1967,7 +1967,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
         <source>Enter a Whitecoin address (e.g. WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</source>
-        <translation>ブラックコインアドレスの入力 (例；WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</translation>
+        <translation>白のコインのアドレス入力 (例；WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</translation>
     </message>
 </context>
 <context>
@@ -2028,7 +2028,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+21"/>
         <source>Sign the message to prove you own this Whitecoin address</source>
-        <translation>所有権の証明するためこのメサッジを署名する</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+17"/>
@@ -2071,7 +2071,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
         <source>Enter a Whitecoin address (e.g. WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</source>
-        <translation>ブラックコインのアドレスを入力(例：WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</translation>
+        <translation>白のコインのアドレス入力(例：WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -2081,7 +2081,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+3"/>
         <source>Enter Whitecoin signature</source>
-        <translation>ブラックコインのデジタル署名を入力</translation>
+        <translation>白いコイン入力のディジタル署名</translation>
     </message>
     <message>
         <location line="+85"/>
@@ -2660,7 +2660,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../bitcoinstrings.cpp" line="+171"/>
         <source>Whitecoin version</source>
-        <translation>ブラックコインバージョン</translation>
+        <translation>白のコインのバージョン</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2825,7 +2825,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="-103"/>
         <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Whitecoin will not work properly.</source>
-        <translation> 警告：コンピュータの日付と時間を調べてください。時間ずらしかったばい、ブラックコイン QTは正しく行動しない。</translation>
+        <translation> 警告：クロックが間違っているならば、あなたのコンピュータのローカルタイムを確認してください、白のコインのクライアントは正しく動作しません。</translation>
     </message>
     <message>
         <location line="+130"/>
@@ -3175,12 +3175,12 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+4"/>
         <source>Error loading wallet.dat: Wallet requires newer version of Whitecoin</source>
-        <translation>wallet.dat 読み込みエラー: 　ブラックコインQTの最新バージョンが必要です</translation>
+        <translation>wallet.dat 誤差荷重により新しいバージョンを必要とする白のコイン</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Wallet needed to be rewritten: restart Whitecoin to complete</source>
-        <translation>ウォレットのデータをリライトしなければならい：ブラックコインQTをリスタートしてください</translation>
+        <translation>あなたがあなたの財布を上書きすると動作を完了するためにクライアントを再起動する必要が</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3240,7 +3240,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+124"/>
         <source>Unable to bind to %s on this computer. Whitecoin is probably already running.</source>
-        <translation>このコンピューターで%sに結ぶことができなかった。ブラックコインQTは、もう発行してるでしょう。</translation>
+        <translation>この工程において、コンピュータに接続することができなかった。qtの白のコインがもう発行されました。</translation>
     </message>
     <message>
         <location line="-101"/>

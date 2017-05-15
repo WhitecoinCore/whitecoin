@@ -1,21 +1,21 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_TW" version="2.1">
+﻿<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_TW" version="2.1">
 <context>
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
         <source>About Whitecoin</source>
-        <translation>關于黑幣</translation>
+        <translation>關于白幣</translation>
     </message>
     <message>
         <location line="+39"/>
         <source>&lt;b&gt;Whitecoin&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;黑幣客戶端&lt;/b&gt; 版本</translation>
+        <translation>&lt;b&gt;白幣客戶端&lt;/b&gt; 版本</translation>
     </message>
     <message>
         <location line="+41"/>
-        <source>Copyright © 2009-2014 The Bitcoin developers
-Copyright © 2012-2014 The NovaCoin developers
-Copyright © 2014 The Blackcoin developers</source>
+        <source>Copyright ? 2009-2014 The Bitcoin developers
+Copyright ? 2012-2014 The NovaCoin developers
+Copyright ? 2014 The Blackcoin developers</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -59,7 +59,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-43"/>
         <source>These are your Whitecoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>這是您用來接收支付的黑幣地址列表。爲不同的支付方建立不同的地址以便于了解支付來源。</translation>
+        <translation>這是您用來接收支付的白幣地址清單。爲不同的支付方建立不同的地址以便於瞭解支付來源。</translation>
     </message>
     <message>
         <location line="+53"/>
@@ -74,7 +74,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+7"/>
         <source>Sign a message to prove you own a Whitecoin address</source>
-        <translation>對信息進行簽名以證明您對該黑幣地址的所有權</translation>
+        <translation>對資訊進行簽名以證明您對該白幣地址的所有權</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -89,7 +89,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-10"/>
         <source>Verify a message to ensure it was signed with a specified Whitecoin address</source>
-        <translation>驗證信息以保證其經過指定黑幣地址的簽名</translation>
+        <translation>驗證資訊以保證其經過指定白幣位址的簽名</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -175,12 +175,12 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+33"/>
         <source>Serves to disable the trivial sendmoney when OS account compromised. Provides no real security.</source>
-        <translation>在系統允許的情況下用于防止sendmoney欺詐，並未提供真正的安全防護措施。</translation>
+        <translation>在系統允許的情況下用於防止sendmoney欺詐，並未提供真正的安全防護措施。</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>For staking only</source>
-        <translation>仅用于权益增值</translation>
+        <translation>僅用於權益增值</translation>
     </message>
     <message>
         <location filename="../askpassphrasedialog.cpp" line="+38"/>
@@ -225,7 +225,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+1"/>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR COINS&lt;/b&gt;!</source>
-        <translation>警告：如果您丟失了加密該錢包的密碼，其中所有的黑幣將會丟失！</translation>
+        <translation>警告：如果您丟失了加密該錢包的密碼，其中所有的白幣將會丟失！</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -257,7 +257,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+82"/>
         <source>Whitecoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
-        <translation>黑幣客戶端即將關閉以完成加密過程。請記住，加密錢包並不能完全防止您的電子貨幣被入侵您計算機的木馬軟件盜竊。</translation>
+        <translation>白幣客戶端即將關閉以完成加密過程。請記住，加密錢包並不能完全防止您的電子貨幣被入侵您計算機的木馬軟件盜竊。</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -336,7 +336,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-18"/>
         <source>Show the list of addresses for receiving payments</source>
-        <translation>顯示用于接收支付的地址列表 </translation>
+        <translation>顯示用於接收支付的地址清單 </translation>
     </message>
     <message>
         <location line="+34"/>
@@ -351,7 +351,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+4"/>
         <source>Show information about Whitecoin</source>
-        <translation>關于黑幣 </translation>
+        <translation>關于白幣 </translation>
     </message>
     <message>
         <location line="+2"/>
@@ -391,7 +391,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-55"/>
         <source>Send coins to a Whitecoin address</source>
-        <translation>向指定的地址發送黑幣</translation>
+        <translation>向指定的地址發送白幣</translation>
     </message>
     <message>
         <location line="+39"/>
@@ -437,7 +437,7 @@ This product includes software developed by the OpenSSL Project for use in the O
         <location line="-214"/>
         <location line="+555"/>
         <source>Whitecoin</source>
-        <translation type="unfinished"/>
+        <translation>白幣</translation>
     </message>
     <message>
         <location line="-555"/>
@@ -499,12 +499,12 @@ This product includes software developed by the OpenSSL Project for use in the O
         <location line="+0"/>
         <location line="+58"/>
         <source>Whitecoin client</source>
-        <translation>黑幣客戶端</translation>
+        <translation>白幣客戶端</translation>
     </message>
     <message numerus="yes">
         <location line="+70"/>
         <source>%n active connection(s) to Whitecoin network</source>
-        <translation><numerusform>與黑幣網絡建立了 %n 個連接</numerusform></translation>
+        <translation><numerusform>與白幣網絡建立了 %n 個連接</numerusform></translation>
     </message>
     <message>
         <location line="+488"/>
@@ -514,42 +514,42 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+6"/>
         <source>Not staking because wallet is locked</source>
-        <translation type="unfinished"/>
+        <translation>未進行權益增值，因為錢包已鎖定</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not staking because wallet is offline</source>
-        <translation type="unfinished"/>
+        <translation>未進行權益增值，因為錢包處於離線狀態</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not staking because wallet is syncing</source>
-        <translation type="unfinished"/>
+        <translation>未進行權益增值，因為錢包正在同步</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not staking because you don&apos;t have mature coins</source>
-        <translation type="unfinished"/>
+        <translation>未進行權益增值，因為錢包中沒有成熟的白幣</translation>
     </message>
     <message>
         <location line="-812"/>
         <source>&amp;Dashboard</source>
-        <translation type="unfinished"/>
+        <translation>操控板(&amp;D)</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&amp;Receive</source>
-        <translation type="unfinished"/>
+        <translation>接收白幣(&amp;R)</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&amp;Send</source>
-        <translation type="unfinished"/>
+        <translation>發送白幣(&amp;S)</translation>
     </message>
     <message>
         <location line="+49"/>
         <source>&amp;Unlock Wallet...</source>
-        <translation type="unfinished"/>
+        <translation>解鎖錢包(&amp;U)</translation>
     </message>
     <message>
         <location line="+277"/>
@@ -564,7 +564,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+113"/>
         <source>Confirm transaction fee</source>
-        <translation type="unfinished"/>
+        <translation>手續費確認</translation>
     </message>
     <message>
         <location line="+27"/>
@@ -593,18 +593,18 @@ Address: %4
         <location line="+100"/>
         <location line="+15"/>
         <source>URI handling</source>
-        <translation type="unfinished"/>
+        <translation>URI處理</translation>
     </message>
     <message>
         <location line="-15"/>
         <location line="+15"/>
         <source>URI can not be parsed! This can be caused by an invalid Whitecoin address or malformed URI parameters.</source>
-        <translation type="unfinished"/>
+        <translation>無法解析URI：無效的白幣位址或錯誤的URI參數。</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Wallet is &lt;b&gt;not encrypted&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>錢包&lt;b&gt;還未加密&lt;b&gt;</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -619,43 +619,43 @@ Address: %4
     <message>
         <location line="+24"/>
         <source>Backup Wallet</source>
-        <translation type="unfinished"/>
+        <translation>備份錢包</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Wallet Data (*.dat)</source>
-        <translation type="unfinished"/>
+        <translation>錢包資料檔案(*.dat)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Backup Failed</source>
-        <translation type="unfinished"/>
+        <translation>備份失敗</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>There was an error trying to save the wallet data to the new location.</source>
-        <translation type="unfinished"/>
+        <translation>試圖將錢包位址保存到新位置時出現錯誤</translation>
     </message>
     <message numerus="yes">
         <location line="+91"/>
         <source>%n second(s)</source>
-        <translation type="unfinished"><numerusform></numerusform></translation>
+        <translation><numerusform>%n秒</numerusform></translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n minute(s)</source>
-        <translation type="unfinished"><numerusform></numerusform></translation>
+        <translation><numerusform>%n 分鐘</numerusform></translation>
     </message>
     <message numerus="yes">
         <location line="-429"/>
         <location line="+433"/>
         <source>%n hour(s)</source>
-        <translation><numerusform>%n 個小時</numerusform></translation>
+        <translation><numerusform>%n 小時</numerusform></translation>
     </message>
     <message>
         <location line="-456"/>
         <source>Processed %1 blocks of transaction history.</source>
-        <translation type="unfinished"/>
+        <translation>已下載 %1 個區塊的交易記錄</translation>
     </message>
     <message numerus="yes">
         <location line="+27"/>
@@ -667,62 +667,62 @@ Address: %4
         <location line="-429"/>
         <location line="+6"/>
         <source>%n week(s)</source>
-        <translation type="unfinished"><numerusform></numerusform></translation>
+        <translation><numerusform>%n周</numerusform></translation>
     </message>
     <message>
         <location line="+0"/>
         <source>%1 and %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 和 %2</translation>
     </message>
     <message numerus="yes">
         <location line="+0"/>
         <source>%n year(s)</source>
-        <translation type="unfinished"><numerusform></numerusform></translation>
+        <translation><numerusform>%n年</numerusform></translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%1 behind</source>
-        <translation type="unfinished"/>
+        <translation>落後%1</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Last received block was generated %1 ago.</source>
-        <translation type="unfinished"/>
+        <translation>最近生成的區塊接收於%1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Transactions after this will not yet be visible.</source>
-        <translation type="unfinished"/>
+        <translation>之後的交易將不顯示。</translation>
     </message>
     <message>
         <location line="+23"/>
         <source>Error</source>
-        <translation type="unfinished"/>
+        <translation>錯誤</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Warning</source>
-        <translation type="unfinished"/>
+        <translation>警告</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Information</source>
-        <translation type="unfinished"/>
+        <translation>通知</translation>
     </message>
     <message>
         <location line="+69"/>
         <source>This transaction is over the size limit. You can still send it for a fee of %1, which goes to the nodes that process your transaction and helps to support the network. Do you want to pay the fee?</source>
-        <translation type="unfinished"/>
+        <translation>該筆交易資料量太大，需支付%1手續費給執行該筆交易的網路結點。您願意支付嗎？</translation>
     </message>
     <message>
         <location line="+324"/>
         <source>Not staking</source>
-        <translation type="unfinished"/>
+        <translation>未進行權益增值</translation>
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+104"/>
         <source>A fatal error occurred. Whitecoin can no longer continue safely and will quit.</source>
-        <translation type="unfinished"/>
+        <translation>發生嚴重錯誤，白幣用戶端即將關閉。</translation>
     </message>
 </context>
 <context>
@@ -738,7 +738,7 @@ Address: %4
     <message>
         <location filename="../forms/coincontroldialog.ui" line="+14"/>
         <source>Coin Control</source>
-        <translation type="unfinished"/>
+        <translation>白幣控制</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -798,7 +798,7 @@ Address: %4
     <message>
         <location line="+16"/>
         <source>List mode</source>
-        <translation>列表模式</translation>
+        <translation>清單模式</translation>
     </message>
     <message>
         <location line="+45"/>
@@ -929,7 +929,7 @@ Address: %4
     <message>
         <location line="+140"/>
         <source>DUST</source>
-        <translation type="unfinished"/>
+        <translation>DUST</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -943,7 +943,9 @@ Address: %4
  This means a fee of at least %1 per kb is required.
 
  Can vary +/- 1 Byte per input.</source>
-        <translation type="unfinished"/>
+        <translation>交易資料量超過10000位元組時，該標籤變為紅色。
+此時每kb數據量將會收取 %1 的手續費。
+可能有+/-1位元組的誤差。</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -952,7 +954,9 @@ Address: %4
 This label turns red, if the priority is smaller than &quot;medium&quot;.
 
  This means a fee of at least %1 per kb is required.</source>
-        <translation type="unfinished"/>
+        <translation>優先度較高的交易有更高可能進入到區塊中。
+當優先度為中級以下時，該標籤變為紅色。
+此時需要收取每kb %1 的手續費。</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -961,14 +965,17 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
  This means a fee of at least %2 is required. 
 
  Amounts below 0.546 times the minimum relay fee are shown as DUST.</source>
-        <translation type="unfinished"/>
+        <translation>如果收款人所收款項少於 %1，該標籤變為紅色。
+此時需收取 %2 的手續費。
+低於該手續費的0.546倍的款項將被顯示為DUST。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This label turns red, if the change is smaller than %1.
 
  This means a fee of at least %2 is required.</source>
-        <translation type="unfinished"/>
+        <translation>如果零錢少於 %1，該標籤變為紅色。
+此時需收取 %2 的手續費。</translation>
     </message>
     <message>
         <location line="+36"/>
@@ -1002,7 +1009,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+10"/>
         <source>The label associated with this address book entry</source>
-        <translation type="unfinished"/>
+        <translation>位址簿內該項目對應的標籤</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1012,7 +1019,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+10"/>
         <source>The address associated with this address book entry. This can only be modified for sending addresses.</source>
-        <translation type="unfinished"/>
+        <translation>位址簿內該項目對應的位址。只有“收款人位址”分類下的位址可以修改。</translation>
     </message>
     <message>
         <location filename="../editaddressdialog.cpp" line="+21"/>
@@ -1042,7 +1049,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="-5"/>
         <source>The entered address &quot;%1&quot; is not a valid Whitecoin address.</source>
-        <translation type="unfinished"/>
+        <translation>“%1” 不是有效的白幣位址。</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1061,42 +1068,42 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location filename="../guiutil.cpp" line="+426"/>
         <location line="+12"/>
         <source>Whitecoin-Qt</source>
-        <translation type="unfinished"/>
+        <translation>白幣用戶端</translation>
     </message>
     <message>
         <location line="-12"/>
         <source>version</source>
-        <translation type="unfinished"/>
+        <translation>版本</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Usage:</source>
-        <translation type="unfinished"/>
+        <translation>使用</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>command-line options</source>
-        <translation type="unfinished"/>
+        <translation>命令列選項</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>UI options</source>
-        <translation type="unfinished"/>
+        <translation>使用者介面選項</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Set language, for example &quot;de_DE&quot; (default: system locale)</source>
-        <translation type="unfinished"/>
+        <translation>設定語言，例如 “de_DE&quot; (預設語言為本地作業系統語言)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Start minimized</source>
-        <translation type="unfinished"/>
+        <translation>啟動時最小化</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show splash screen on startup (default: 1)</source>
-        <translation type="unfinished"/>
+        <translation>登錄時顯示Logo介面 (預設開啟)</translation>
     </message>
 </context>
 <context>
@@ -1109,12 +1116,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+16"/>
         <source>&amp;Main</source>
-        <translation>主要</translation>
+        <translation>主要(&amp;M)</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Optional transaction fee per kB that helps make sure your transactions are processed quickly. Most transactions are 1 kB. Fee 0.01 recommended.</source>
-        <translation type="unfinished"/>
+        <translation>支付可選的交易手續費以加速交易(每kB)。大多數交易的資料量為1kB。推薦額0.01。</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -1124,22 +1131,22 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+31"/>
         <source>Reserved amount does not participate in staking and is therefore spendable at any time.</source>
-        <translation type="unfinished"/>
+        <translation>保留金額不參與權益累積，可以隨時使用。</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Reserve</source>
-        <translation type="unfinished"/>
+        <translation>保留</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>Automatically start Whitecoin after logging in to the system.</source>
-        <translation type="unfinished"/>
+        <translation>開機自動啟動白幣用戶端</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Start Whitecoin on system login</source>
-        <translation type="unfinished"/>
+        <translation>開機時自動啟動白幣用戶端(&amp;S)</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -1149,7 +1156,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+6"/>
         <source>Automatically open the Whitecoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation type="unfinished"/>
+        <translation>路由器自動打開白幣用戶端埠。該功能僅在路由器開啟UPnP支援時有效。</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1159,12 +1166,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+19"/>
         <source>Proxy &amp;IP:</source>
-        <translation>代理位址:</translation>
+        <translation>代理位元址:</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>IP address of the proxy (e.g. 127.0.0.1)</source>
-        <translation type="unfinished"/>
+        <translation>代理位址(如：127.0.0.1)</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1219,7 +1226,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+8"/>
         <source>User Interface &amp;language:</source>
-        <translation>使用界面語言:</translation>
+        <translation>使用介面語言:</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -1234,7 +1241,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+13"/>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>選擇操作界面和付款時，預設顯示金額的細分單位。</translation>
+        <translation>選擇操作介面和付款時，預設顯示金額的細分單位。</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -1244,22 +1251,22 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+3"/>
         <source>Display coin &amp;control features (experts only!)</source>
-        <translation type="unfinished"/>
+        <translation>顯示白幣控制選項(僅用於專家使用者)</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Whether to select the coin outputs randomly or with minimal coin age.</source>
-        <translation type="unfinished"/>
+        <translation>使用最小幣齡或者隨機來選擇白幣的輸出</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Minimize weight consumption (experimental)</source>
-        <translation type="unfinished"/>
+        <translation>最小化權重消耗(測試)</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Use black visual theme (requires restart)</source>
-        <translation type="unfinished"/>
+        <translation>使用黑色主題(需要重啟錢包)</translation>
     </message>
     <message>
         <location line="+71"/>
@@ -1274,7 +1281,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+10"/>
         <source>&amp;Apply</source>
-        <translation type="unfinished"/>
+        <translation>應用(&amp;A)</translation>
     </message>
     <message>
         <location filename="../optionsdialog.cpp" line="+47"/>
@@ -1285,18 +1292,18 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+148"/>
         <location line="+9"/>
         <source>Warning</source>
-        <translation type="unfinished"/>
+        <translation>警告</translation>
     </message>
     <message>
         <location line="-9"/>
         <location line="+9"/>
         <source>This setting will take effect after restarting Whitecoin.</source>
-        <translation type="unfinished"/>
+        <translation>重啟用戶端後設置生效</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>The supplied proxy address is invalid.</source>
-        <translation>提供的代理伺服器位址無效。</translation>
+        <translation>提供的代理伺服器位元址無效。</translation>
     </message>
 </context>
 <context>
@@ -1310,12 +1317,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+46"/>
         <location line="+247"/>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Whitecoin network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished"/>
+        <translation>所顯示的資訊尚未更新，建立連接後錢包用戶端會自動和網路進行同步，但目前該過程尚未完成。</translation>
     </message>
     <message>
         <location line="-173"/>
         <source>Stake:</source>
-        <translation type="unfinished"/>
+        <translation>用於權益累積：</translation>
     </message>
     <message>
         <location line="+32"/>
@@ -1330,12 +1337,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+49"/>
         <source>Spendable:</source>
-        <translation type="unfinished"/>
+        <translation>可用金額：</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Your current spendable balance</source>
-        <translation>目前可用餘額</translation>
+        <translation>您當前可使用的餘額</translation>
     </message>
     <message>
         <location line="+80"/>
@@ -1365,12 +1372,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="-118"/>
         <source>Total of transactions that have yet to be confirmed, and do not yet count toward the current balance</source>
-        <translation type="unfinished"/>
+        <translation>尚未確認的交易總額（不計入目前錢包餘額）</translation>
     </message>
     <message>
         <location line="-32"/>
         <source>Total of coins that was staked, and do not yet count toward the current balance</source>
-        <translation type="unfinished"/>
+        <translation>正在進行權益累積的貨幣總額（不計入目前錢包餘額）</translation>
     </message>
     <message>
         <location filename="../overviewpage.cpp" line="+116"/>
@@ -1384,7 +1391,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../paymentserver.cpp" line="+107"/>
         <source>Cannot start whitecoin: click-to-pay handler</source>
-        <translation type="unfinished"/>
+        <translation>無法啟動白幣: 點擊支付處理器</translation>
     </message>
 </context>
 <context>
@@ -1392,57 +1399,57 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../forms/qrcodedialog.ui" line="+14"/>
         <source>QR Code Dialog</source>
-        <translation type="unfinished"/>
+        <translation>QR二維碼對話方塊</translation>
     </message>
     <message>
         <location line="+59"/>
         <source>Request Payment</source>
-        <translation type="unfinished"/>
+        <translation>請求支付</translation>
     </message>
     <message>
         <location line="+56"/>
         <source>Amount:</source>
-        <translation type="unfinished"/>
+        <translation>金額：</translation>
     </message>
     <message>
         <location line="-44"/>
         <source>Label:</source>
-        <translation type="unfinished"/>
+        <translation>標籤：</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Message:</source>
-        <translation type="unfinished"/>
+        <translation>信息：</translation>
     </message>
     <message>
         <location line="+71"/>
         <source>&amp;Save As...</source>
-        <translation type="unfinished"/>
+        <translation>另存為(&amp;S)...</translation>
     </message>
     <message>
         <location filename="../qrcodedialog.cpp" line="+62"/>
         <source>Error encoding URI into QR Code.</source>
-        <translation type="unfinished"/>
+        <translation>URI編為QR二維碼時出錯。</translation>
     </message>
     <message>
         <location line="+40"/>
         <source>The entered amount is invalid, please check.</source>
-        <translation type="unfinished"/>
+        <translation>輸入的金額無效，請檢查。</translation>
     </message>
     <message>
         <location line="+23"/>
         <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation type="unfinished"/>
+        <translation>生成的URI過長，請減短標籤或消息的長度。</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>Save QR Code</source>
-        <translation type="unfinished"/>
+        <translation>保存QR二維碼</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>PNG Images (*.png)</source>
-        <translation type="unfinished"/>
+        <translation>PNG圖片(*.png)</translation>
     </message>
 </context>
 <context>
@@ -1462,7 +1469,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+53"/>
         <location line="+23"/>
         <source>N/A</source>
-        <translation>未知</translation>
+        <translation>不可用</translation>
     </message>
     <message>
         <location line="-194"/>
@@ -1512,22 +1519,22 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+197"/>
         <source>&amp;Network Traffic</source>
-        <translation type="unfinished"/>
+        <translation>網路流量(&amp;N)</translation>
     </message>
     <message>
         <location line="+52"/>
         <source>&amp;Clear</source>
-        <translation type="unfinished"/>
+        <translation>清除(&amp;A)</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Totals</source>
-        <translation type="unfinished"/>
+        <translation>總額</translation>
     </message>
     <message>
         <location line="+64"/>
         <source>In:</source>
-        <translation type="unfinished"/>
+        <translation>入：</translation>
     </message>
     <message>
         <location line="+80"/>
@@ -1547,22 +1554,22 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+16"/>
         <source>Command-line options</source>
-        <translation type="unfinished"/>
+        <translation>命令列選項</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Show the Whitecoin-Qt help message to get a list with possible Whitecoin command-line options.</source>
-        <translation type="unfinished"/>
+        <translation>顯示關於命令列選項的説明資訊。</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Show</source>
-        <translation type="unfinished"/>
+        <translation>顯示(&amp;S)</translation>
     </message>
     <message>
         <location line="+24"/>
         <source>&amp;Console</source>
-        <translation>主控台</translation>
+        <translation>控制台(&amp;C)</translation>
     </message>
     <message>
         <location line="-237"/>
@@ -1572,12 +1579,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="-104"/>
         <source>Whitecoin - Debug window</source>
-        <translation type="unfinished"/>
+        <translation>白幣用戶端-調試窗口</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>Whitecoin Core</source>
-        <translation type="unfinished"/>
+        <translation>白幣核心進程</translation>
     </message>
     <message>
         <location line="+256"/>
@@ -1587,7 +1594,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+7"/>
         <source>Open the Whitecoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation type="unfinished"/>
+        <translation>打開調試日誌檔，對於較大的檔，這可能持續幾秒鐘。</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1597,7 +1604,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../rpcconsole.cpp" line="+325"/>
         <source>Welcome to the Whitecoin RPC console.</source>
-        <translation type="unfinished"/>
+        <translation>歡迎使用白幣RPC控制台。</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1612,37 +1619,37 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+127"/>
         <source>%1 B</source>
-        <translation type="unfinished"/>
+        <translation>%1 B</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 KB</source>
-        <translation type="unfinished"/>
+        <translation>%1 KB</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 MB</source>
-        <translation type="unfinished"/>
+        <translation>%1 MB</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 GB</source>
-        <translation type="unfinished"/>
+        <translation>%1 GB</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>%1 m</source>
-        <translation type="unfinished"/>
+        <translation>%1 分鐘</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%1 h</source>
-        <translation type="unfinished"/>
+        <translation>%1 小時</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 h %2 m</source>
-        <translation type="unfinished"/>
+        <translation>%1 時 %2 分</translation>
     </message>
 </context>
 <context>
@@ -1688,7 +1695,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+22"/>
         <location line="+35"/>
         <source>0</source>
-        <translation type="unfinished"/>
+        <translation>0</translation>
     </message>
     <message>
         <location line="-19"/>
@@ -1708,7 +1715,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+19"/>
         <source>medium</source>
-        <translation type="unfinished"/>
+        <translation>中等</translation>
     </message>
     <message>
         <location line="+32"/>
@@ -1733,12 +1740,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+35"/>
         <source>Change</source>
-        <translation type="unfinished"/>
+        <translation>零錢</translation>
     </message>
     <message>
         <location line="+50"/>
         <source>custom change address</source>
-        <translation type="unfinished"/>
+        <translation>自訂零錢地址</translation>
     </message>
     <message>
         <location line="+106"/>
@@ -1753,7 +1760,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+16"/>
         <source>Remove all transaction fields</source>
-        <translation type="unfinished"/>
+        <translation>刪除所有交易區域</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1778,7 +1785,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../sendcoinsdialog.cpp" line="-174"/>
         <source>Enter a Whitecoin address (e.g. WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</source>
-        <translation type="unfinished"/>
+        <translation>輸入白幣位址(例如：WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -1873,12 +1880,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+5"/>
         <source>Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation type="unfinished"/>
+        <translation>錯誤：交易被拒絕。可能由於錢包中部分金額已被使用，例如您使用了錢包資料的副本，在副本中某些金額已被使用，但在此處尚未被標記為已使用。</translation>
     </message>
     <message>
         <location line="+247"/>
         <source>WARNING: Invalid Whitecoin address</source>
-        <translation type="unfinished"/>
+        <translation>警告：無效的白幣地址</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -1911,7 +1918,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+34"/>
         <source>The address to send the payment to (e.g. WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</source>
-        <translation type="unfinished"/>
+        <translation>收款人地址(例：WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -1927,7 +1934,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+28"/>
         <source>Choose address from address book</source>
-        <translation type="unfinished"/>
+        <translation>從位址簿選擇位址</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1952,7 +1959,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
         <source>Enter a Whitecoin address (e.g. WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</source>
-        <translation type="unfinished"/>
+        <translation>輸入一個白幣位址 (例：WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</translation>
     </message>
 </context>
 <context>
@@ -1976,13 +1983,13 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+18"/>
         <source>The address to sign the message with (e.g. WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</source>
-        <translation type="unfinished"/>
+        <translation>用來簽名該消息的位址(例： WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</translation>
     </message>
     <message>
         <location line="+10"/>
         <location line="+203"/>
         <source>Choose an address from the address book</source>
-        <translation type="unfinished"/>
+        <translation>從位址簿裡選擇一個位址</translation>
     </message>
     <message>
         <location line="-193"/>
@@ -2013,7 +2020,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+21"/>
         <source>Sign the message to prove you own this Whitecoin address</source>
-        <translation type="unfinished"/>
+        <translation>對該消息進行簽名以證明您對該白幣位址的所有權</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2035,17 +2042,17 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="-64"/>
         <source>Enter the signing address, message (ensure you copy line breaks, spaces, tabs, etc. exactly) and signature below to verify the message. Be careful not to read more into the signature than what is in the signed message itself, to avoid being tricked by a man-in-the-middle attack.</source>
-        <translation>請在下面輸入簽署的位址，訊息(請確定完整複製了所包含的換行，空格，跳位符號等等)，以及簽章，來驗證這個訊息。請小心，除了訊息內容以外，不要對簽章本身過度解讀，以避免被用「中間人攻擊法」詐騙。</translation>
+        <translation>請在下麵輸入簽署的位址，訊息(請確定完整複製了所包含的換行，空格，跳位符號等等)，以及簽章，來驗證這個訊息。請小心，除了訊息內容以外，不要對簽章本身過度解讀，以避免被用「中間人攻擊法」詐騙。</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>The address the message was signed with (e.g. WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</source>
-        <translation type="unfinished"/>
+        <translation>用來簽名該消息的白幣位址(例： WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</translation>
     </message>
     <message>
         <location line="+40"/>
         <source>Verify the message to ensure it was signed with the specified Whitecoin address</source>
-        <translation type="unfinished"/>
+        <translation>確認該消息以保證它經由指定的白幣位址簽名</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2056,7 +2063,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
         <source>Enter a Whitecoin address (e.g. WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</source>
-        <translation type="unfinished"/>
+        <translation>輸入白幣位址(例： WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -2066,7 +2073,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+3"/>
         <source>Enter Whitecoin signature</source>
-        <translation type="unfinished"/>
+        <translation>輸入白幣簽名</translation>
     </message>
     <message>
         <location line="+85"/>
@@ -2140,7 +2147,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../trafficgraphwidget.cpp" line="+75"/>
         <source>KB/s</source>
-        <translation type="unfinished"/>
+        <translation>KB/秒</translation>
     </message>
 </context>
 <context>
@@ -2153,7 +2160,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+6"/>
         <source>conflicted</source>
-        <translation type="unfinished"/>
+        <translation>發現衝突</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2274,7 +2281,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+3"/>
         <source>Generated coins must mature 510 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
-        <translation type="unfinished"/>
+        <translation>通過權益累積獲得的金額需要在510個塊確認後方可使用。此資料塊生成時，將被廣播到網路並加入區塊鏈。如果未能成功加入區塊鏈，其狀態會顯示為“未接受”，該部分金額也不可被使用。如果其他節點在您生成區塊後的幾秒鐘內也生成了區塊，這種情況會偶爾發生。</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2375,22 +2382,22 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+6"/>
         <source>Offline</source>
-        <translation type="unfinished"/>
+        <translation>掉線</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Unconfirmed</source>
-        <translation type="unfinished"/>
+        <translation>未確認的 </translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Confirming (%1 of %2 recommended confirmations)</source>
-        <translation type="unfinished"/>
+        <translation>確認中 (推薦 %2個確認，已經有 %1個確認)</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Conflicted</source>
-        <translation type="unfinished"/>
+        <translation>衝突的</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2440,7 +2447,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+194"/>
         <source>Transaction status. Hover over this field to show number of confirmations.</source>
-        <translation>交易狀態。把游標停在欄位上會顯示確認次數。</translation>
+        <translation>交易狀態。把遊標停在欄位上會顯示確認次數。</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2455,7 +2462,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+2"/>
         <source>Destination address of transaction.</source>
-        <translation>交易的目的地位址。</translation>
+        <translation>交易的目的地位元址。</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2619,7 +2626,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+0"/>
         <source>Could not write to file %1.</source>
-        <translation type="unfinished"/>
+        <translation>無法寫入文件 %1 。</translation>
     </message>
     <message>
         <location line="+100"/>
@@ -2637,7 +2644,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../walletmodel.cpp" line="+212"/>
         <source>Sending...</source>
-        <translation type="unfinished"/>
+        <translation>正在發送</translation>
     </message>
 </context>
 <context>
@@ -2645,7 +2652,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../bitcoinstrings.cpp" line="+171"/>
         <source>Whitecoin version</source>
-        <translation type="unfinished"/>
+        <translation>白幣用戶端 版本</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2655,7 +2662,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+1"/>
         <source>Send command to -server or whitecoind</source>
-        <translation type="unfinished"/>
+        <translation>向-server伺服器或whitecoind發送命令</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2675,12 +2682,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+2"/>
         <source>Specify configuration file (default: whitecoin.conf)</source>
-        <translation type="unfinished"/>
+        <translation>指定設定檔(默認: whitecoin.conf)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Specify pid file (default: whitecoind.pid)</source>
-        <translation type="unfinished"/>
+        <translation>指定pid檔(默認: whitecoind.pid)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2715,12 +2722,12 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+1"/>
         <source>Set database disk log size in megabytes (default: 100)</source>
-        <translation type="unfinished"/>
+        <translation>設置資料庫日誌檔大小(單位MB，預設值100)</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Listen for connections on &lt;port&gt; (default: 15814 or testnet: 24070)</source>
-        <translation type="unfinished"/>
+        <translation>監聽&lt;port&gt;埠的連接 (默認: 15814 測試網: 24070)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2740,17 +2747,17 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+4"/>
         <source>Bind to given address. Use [host]:port notation for IPv6</source>
-        <translation type="unfinished"/>
+        <translation>以IPv6 [host]:埠綁定給定位址</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Query for peer addresses via DNS lookup, if low on addresses (default: 1 unless -connect)</source>
-        <translation type="unfinished"/>
+        <translation>如果已知點對點終端位址不足，通過DNS查詢。(默認: 1  除非有命令列有-connect)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Always query for peer addresses via DNS lookup (default: 0)</source>
-        <translation type="unfinished"/>
+        <translation>總是通過DNS查詢節點的地址（預設值：0）</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2801,7 +2808,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+93"/>
         <source>Set maximum size of high-priority/low-fee transactions in bytes (default: 27000)</source>
-        <translation type="unfinished"/>
+        <translation>設置高優先度/低手續費交易的最大位元組數 (預設: 27000)</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -2811,12 +2818,12 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="-103"/>
         <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Whitecoin will not work properly.</source>
-        <translation type="unfinished"/>
+        <translation>警告：請確認您電腦的本地時間。如果時鐘錯誤，白幣用戶端將不能正常工作。</translation>
     </message>
     <message>
         <location line="+130"/>
         <source>Warning: error reading wallet.dat! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
-        <translation>警告: 讀取錢包檔 wallet.dat 時發生錯誤！所有的密鑰都正確讀取了，但是交易資料或位址簿資料可能會缺少或不正確。</translation>
+        <translation>警告: 讀取錢包檔 wallet.dat 時發生錯誤！所有的密鑰都正確讀取了，但是交易資料或位元址簿資料可能會缺少或不正確。</translation>
     </message>
     <message>
         <location line="-16"/>
@@ -2851,12 +2858,12 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="-2"/>
         <source>Invalid -tor address: &apos;%s&apos;</source>
-        <translation type="unfinished"/>
+        <translation>無效的 -tor 地址: &apos;%s&apos;</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Invalid amount for -reservebalance=&lt;amount&gt;</source>
-        <translation type="unfinished"/>
+        <translation>-reservebalance=&lt;amount&gt; 金額無效</translation>
     </message>
     <message>
         <location line="-89"/>
@@ -2876,12 +2883,12 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+30"/>
         <source>Prepend debug output with timestamp</source>
-        <translation type="unfinished"/>
+        <translation>將時間資訊加入調試輸出中</translation>
     </message>
     <message>
         <location line="+40"/>
         <source>SSL options: (see the Bitcoin Wiki for SSL setup instructions)</source>
-        <translation>SSL 選項: (SSL 設定程序請見 Bitcoin Wiki)</translation>
+        <translation>SSL 選項: (SSL 設定程式請見 Bitcoin Wiki)</translation>
     </message>
     <message>
         <location line="-38"/>
@@ -2911,12 +2918,12 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+28"/>
         <source>Use UPnP to map the listening port (default: 0)</source>
-        <translation>是否要使用通用即插即用(UPnP)協定，來設定聽候連線的通訊埠的對應(預設值: 0)</translation>
+        <translation>是否要使用通用隨插即用(UPnP)協定，來設定聽候連線的通訊埠的對應(預設值: 0)</translation>
     </message>
     <message>
         <location line="-1"/>
         <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation>是否要使用通用即插即用(UPnP)協定，來設定聽候連線的通訊埠的對應(預設值: 當有聽候連線時為 1)</translation>
+        <translation>是否要使用通用隨插即用(UPnP)協定，來設定聽候連線的通訊埠的對應(預設值: 當有聽候連線時為 1)</translation>
     </message>
     <message>
         <location line="-25"/>
@@ -2931,37 +2938,37 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+54"/>
         <source>Verifying database integrity...</source>
-        <translation type="unfinished"/>
+        <translation>正在檢查資料庫完整性...</translation>
     </message>
     <message>
         <location line="+42"/>
         <source>Error: Wallet locked, unable to create transaction!</source>
-        <translation type="unfinished"/>
+        <translation>錯誤：錢包已鎖定，無法創建交易。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds!</source>
-        <translation type="unfinished"/>
+        <translation>錯誤：該筆交易需至少支付 %s 的手續費。</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Error: Transaction creation failed!</source>
-        <translation type="unfinished"/>
+        <translation>錯誤：交易創建失敗。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Error: The transaction was rejected! This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation type="unfinished"/>
+        <translation>錯誤：交易被拒絕。可能由於錢包中部分金額已被使用，例如您使用了錢包資料的副本，在副本中某些金額已被使用，但在此處尚未被標記為已使用。</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Warning</source>
-        <translation type="unfinished"/>
+        <translation>警告</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Information</source>
-        <translation type="unfinished"/>
+        <translation>信息</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2986,37 +2993,37 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+17"/>
         <source>Sync time with other nodes. Disable if time on your system is precise e.g. syncing with NTP (default: 1)</source>
-        <translation type="unfinished"/>
+        <translation>自動和其它節點同步時間。如果本地電腦世界是準確的，建議關閉。(默認: 1)</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>When creating transactions, ignore inputs with value less than this (default: 0.01)</source>
-        <translation type="unfinished"/>
+        <translation>創建交易時自動忽略該值以下的數額 (默認：0.01)</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Output debugging information (default: 0, supplying &lt;category&gt; is optional)</source>
-        <translation type="unfinished"/>
+        <translation>輸出額外的調試資訊。(默認 0， &lt;category&gt; 是非強制的)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>If &lt;category&gt; is not supplied, output all debugging information.</source>
-        <translation type="unfinished"/>
+        <translation>如果沒提供&lt;category&gt; ，將輸出所有調試資訊。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&lt;category&gt; can be:</source>
-        <translation type="unfinished"/>
+        <translation>可用&lt;category&gt;為:</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Enter regression test mode, which uses a special chain in which blocks can be solved instantly. This is intended for regression testing tools and app development.</source>
-        <translation type="unfinished"/>
+        <translation>進入回歸測試模式。 本模式使用可立即解決的特殊區塊鏈。僅供測試和開發使用。</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Allow JSON-RPC connections from specified IP address</source>
-        <translation>允許指定的來源 IP 位址進行 JSON-RPC 連線</translation>
+        <translation>允許從指定IP接受到的 JSON-RPC 連接</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3026,12 +3033,12 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+1"/>
         <source>Wait for RPC server to start</source>
-        <translation type="unfinished"/>
+        <translation>等待RPC伺服器啟動</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Set the number of threads to service RPC calls (default: 4)</source>
-        <translation type="unfinished"/>
+        <translation>設置RPC服務調用的執行緒數量（預設值：4）</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3046,12 +3053,12 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+3"/>
         <source>Require a confirmations for change (default: 0)</source>
-        <translation type="unfinished"/>
+        <translation>要求對零錢進行確認 (默認：0)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Execute command when a relevant alert is received (%s in cmd is replaced by message)</source>
-        <translation type="unfinished"/>
+        <translation>收到相關提示時執行命令 (命令中的%s將被資訊替換)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3071,12 +3078,12 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+3"/>
         <source>How thorough the block verification is (0-6, default: 1)</source>
-        <translation type="unfinished"/>
+        <translation>區塊確認的徹底程度 (0-6, 默認: 1)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Imports blocks from external blk000?.dat file</source>
-        <translation type="unfinished"/>
+        <translation>從外部 blk000?.dat 文件導入區塊</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3106,7 +3113,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+8"/>
         <source>Initialization sanity check failed. Whitecoin is shutting down.</source>
-        <translation type="unfinished"/>
+        <translation>初始化完整性檢查失敗。 白幣用戶端即將關閉。</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -3116,17 +3123,17 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+28"/>
         <source>Error: Wallet unlocked for staking only, unable to create transaction.</source>
-        <translation type="unfinished"/>
+        <translation>錯誤：無法創建交易，已解鎖的錢包僅用於權益累積。</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Error: Disk space is low!</source>
-        <translation type="unfinished"/>
+        <translation>警告：磁碟空間低。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This is a pre-release test build - use at your own risk - do not use for mining or merchant applications</source>
-        <translation type="unfinished"/>
+        <translation>這是一個預發佈測試版本 - 風險須自行承擔 - 不適用於挖礦或商家應用</translation>
     </message>
     <message>
         <location line="-168"/>
@@ -3136,7 +3143,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+104"/>
         <source>Wallet %s resides outside data directory %s.</source>
-        <translation type="unfinished"/>
+        <translation>錢包 %s 位於資料目錄 %s 之外.</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -3146,7 +3153,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="-129"/>
         <source>Allow DNS lookups for -addnode, -seednode and -connect</source>
-        <translation>允許對 -addnode, -seednode, -connect 的參數使用域名查詢 </translation>
+        <translation>允許對 -addnode, -seednode, -connect 的參數使用功能變數名稱查詢 </translation>
     </message>
     <message>
         <location line="+125"/>
@@ -3161,12 +3168,12 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+4"/>
         <source>Error loading wallet.dat: Wallet requires newer version of Whitecoin</source>
-        <translation type="unfinished"/>
+        <translation>wallet.dat 錢包檔載入出錯：需要新版本的用戶端</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Wallet needed to be rewritten: restart Whitecoin to complete</source>
-        <translation type="unfinished"/>
+        <translation>需要重寫錢包，重啟用戶端以完成該操作。</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3201,7 +3208,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+58"/>
         <source>Sending...</source>
-        <translation type="unfinished"/>
+        <translation>正在發送</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3226,47 +3233,47 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+124"/>
         <source>Unable to bind to %s on this computer. Whitecoin is probably already running.</source>
-        <translation type="unfinished"/>
+        <translation>無法綁定到該電腦上的 %s. 白幣用戶端可能已在運行中。</translation>
     </message>
     <message>
         <location line="-101"/>
         <source>Fee per KB to add to transactions you send</source>
-        <translation type="unfinished"/>
+        <translation>每kB交易所支付的手續費</translation>
     </message>
     <message>
         <location line="+33"/>
         <source>Minimize weight consumption (experimental) (default: 0)</source>
-        <translation type="unfinished"/>
+        <translation>最小化權重消耗(測試)(默認: 0)</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>How many blocks to check at startup (default: 500, 0 = all)</source>
-        <translation type="unfinished"/>
+        <translation>啟動時檢測的區塊數量 (默認: 2500, 0表示檢測全部)</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Acceptable ciphers (default: TLSv1.2+HIGH:TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!3DES:@STRENGTH)</source>
-        <translation type="unfinished"/>
+        <translation>可用加密演算法 (預設: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Warning: Deprecated argument -debugnet ignored, use -debug=net</source>
-        <translation type="unfinished"/>
+        <translation>警告: 不建議使用的參數 -debugnet已忽略，請使用-debug=net</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Invalid amount for -mininput=&lt;amount&gt;: &apos;%s&apos;</source>
-        <translation type="unfinished"/>
+        <translation>無效的數量。 -mininput=&lt;amount&gt;: &apos;%s&apos;</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Cannot obtain a lock on data directory %s. Whitecoin is probably already running.</source>
-        <translation type="unfinished"/>
+        <translation>無法從資料目錄 %s 獲得鎖定.  白幣用戶端可能已在運行中.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Error initializing wallet database environment %s!</source>
-        <translation type="unfinished"/>
+        <translation>初始化錢包資料庫環境%s時出現錯誤！</translation>
     </message>
     <message>
         <location line="+15"/>
