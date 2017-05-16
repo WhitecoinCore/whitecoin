@@ -81,9 +81,10 @@ public:
         assert(hashGenesisBlock == uint256("0x000007d69ba0f79b4823effb06b08663e2e4c51ed03aaeb547e2e0b83fd37b73"));
         assert(genesis.hashMerkleRoot == uint256("0x73513debc549137a47f2afb73173a2d2b4b0c13f57a57387ae3849a928e1e08d"));
 
-        vSeeds.push_back(CDNSSeedData("oizo1", "seed1.oizopower.nl"));
-        vSeeds.push_back(CDNSSeedData("oizo2", "seed2.oizopower.nl"));
-        vSeeds.push_back(CDNSSeedData("oizo3", "seed3.oizopower.nl"));
+		vSeeds.push_back(CDNSSeedData("oizopower.nl", "dnsseed.oizopower.nl"));
+        vSeeds.push_back(CDNSSeedData("seed1", "seed1.oizopower.nl"));
+        vSeeds.push_back(CDNSSeedData("seed2", "seed2.oizopower.nl"));
+        vSeeds.push_back(CDNSSeedData("seed3", "seed3.oizopower.nl"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 73);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 87);
