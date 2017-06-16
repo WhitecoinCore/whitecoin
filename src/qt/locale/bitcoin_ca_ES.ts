@@ -1270,7 +1270,7 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Use black visual theme (requires restart)</source>
+        <source>Use blue visual theme (requires restart)</source>
         <translation type="unfinished"/>
     </message>
     <message>

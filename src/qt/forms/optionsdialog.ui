@@ -23,7 +23,7 @@
       <enum>QTabWidget::North</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tabMain">
       <attribute name="title">
@@ -362,7 +362,7 @@
        <item>
         <widget class="QCheckBox" name="useBlackTheme">
          <property name="text">
-          <string>Use black visual theme (requires restart)</string>
+          <string>Use blue visual theme (requires restart)</string>
          </property>
         </widget>
        </item>

@@ -1264,7 +1264,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+7"/>
-        <source>Use black visual theme (requires restart)</source>
+        <source>Use blue visual theme (requires restart)</source>
         <translation>Verwende das schwarze Whitecoin Wallet Design (Neustart erforderlich)</translation>
     </message>
     <message>

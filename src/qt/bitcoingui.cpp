@@ -228,32 +228,61 @@ BitcoinGUI::~BitcoinGUI()
 void BitcoinGUI::createActions()
 {
     QActionGroup *tabGroup = new QActionGroup(this);
+    QIcon overviewIcon;
+    overviewIcon.addFile(":/icons/overview", QSize(), QIcon::Normal, QIcon::Off);
+    overviewIcon.addFile(":/icons/overview_black", QSize(), QIcon::Active, QIcon::Off);
+    overviewIcon.addFile(":/icons/overview_black", QSize(), QIcon::Normal, QIcon::On);
 
-    overviewAction = new QAction(QIcon(":/icons/overview"), tr("&Dashboard"), this);
+    overviewAction = new QAction(overviewIcon, tr("&Dashboard"), this);
+  //  overviewAction = new QAction(QIcon(":/icons/overview"), tr("&Dashboard"), this);
     overviewAction->setToolTip(tr("Show general overview of wallet"));
     overviewAction->setCheckable(true);
     overviewAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_1));
     tabGroup->addAction(overviewAction);
 
-    receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Receive"), this);
+
+    QIcon receiveCoinsIcon;
+    receiveCoinsIcon.addFile(":/icons/receiving_addresses", QSize(), QIcon::Normal, QIcon::Off);
+    receiveCoinsIcon.addFile(":/icons/receiving_addresses_black", QSize(), QIcon::Active, QIcon::Off);
+    receiveCoinsIcon.addFile(":/icons/receiving_addresses_black", QSize(), QIcon::Normal, QIcon::On);
+    receiveCoinsAction = new QAction(receiveCoinsIcon, tr("&Receive"), this);
+    //receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Receive"), this);
     receiveCoinsAction->setToolTip(tr("Show the list of addresses for receiving payments"));
     receiveCoinsAction->setCheckable(true);
     receiveCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_2));
     tabGroup->addAction(receiveCoinsAction);
 
-    sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send"), this);
+
+    QIcon sendCoinsIcon;
+    sendCoinsIcon.addFile(":/icons/send", QSize(), QIcon::Normal, QIcon::Off);
+    sendCoinsIcon.addFile(":/icons/send_black", QSize(), QIcon::Active, QIcon::Off);
+    sendCoinsIcon.addFile(":/icons/send_black", QSize(), QIcon::Normal, QIcon::On);
+    sendCoinsAction = new QAction(sendCoinsIcon, tr("&Send"), this);
+//    sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send"), this);
     sendCoinsAction->setToolTip(tr("Send coins to a Whitecoin address"));
     sendCoinsAction->setCheckable(true);
     sendCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_3));
     tabGroup->addAction(sendCoinsAction);
 
-    historyAction = new QAction(QIcon(":/icons/history"), tr("&Transactions"), this);
+
+    QIcon historyIcon;
+    historyIcon.addFile(":/icons/history", QSize(), QIcon::Normal, QIcon::Off);
+    historyIcon.addFile(":/icons/history_black", QSize(), QIcon::Active, QIcon::Off);
+    historyIcon.addFile(":/icons/history_black", QSize(), QIcon::Normal, QIcon::On);
+    historyAction = new QAction(historyIcon, tr("&Transactions"), this);
+//    historyAction = new QAction(QIcon(":/icons/history"), tr("&Transactions"), this);
     historyAction->setToolTip(tr("Browse transaction history"));
     historyAction->setCheckable(true);
     historyAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_4));
     tabGroup->addAction(historyAction);
 
-    addressBookAction = new QAction(QIcon(":/icons/address-book"), tr("&Address Book"), this);
+
+    QIcon addressBookIcon;
+    addressBookIcon.addFile(":/icons/address-book", QSize(), QIcon::Normal, QIcon::Off);
+    addressBookIcon.addFile(":/icons/address-book_black", QSize(), QIcon::Active, QIcon::Off);
+    addressBookIcon.addFile(":/icons/address-book_black", QSize(), QIcon::Normal, QIcon::On);
+    addressBookAction = new QAction(addressBookIcon, tr("&Address Book"), this);
+ //   addressBookAction = new QAction(QIcon(":/icons/address-book"), tr("&Address Book"), this);
     addressBookAction->setToolTip(tr("Edit the list of stored addresses and labels"));
     addressBookAction->setCheckable(true);
     addressBookAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_5));
@@ -352,7 +381,7 @@ static QWidget* makeToolBarSpacer()
 {
     QWidget* spacer = new QWidget();
     spacer->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
-    spacer->setStyleSheet(fUseBlackTheme ? "QWidget { background: rgb(30,32,36); }" : "QWidget { background: none; }");
+    spacer->setStyleSheet(fUseBlackTheme ? "QWidget { background: rgb(14,105,162); }" : "QWidget { background: none; }");
     return spacer;
 }
 
@@ -365,13 +394,13 @@ void BitcoinGUI::createToolBars()
     if (fUseBlackTheme)
     {
         QWidget* header = new QWidget();
-        header->setMinimumSize(160, 116);
+        header->setMinimumSize(180, 180);
         header->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        header->setStyleSheet("QWidget { background-color: rgb(24,26,30); background-repeat: no-repeat; background-image: url(:/images/header); background-position: center center; }");
+        header->setStyleSheet("QWidget { background-color: rgb(14,105,162); background-repeat: no-repeat; background-image: url(:/images/header); background-position: center center; }");
         toolbar->addWidget(header);
         toolbar->addWidget(makeToolBarSpacer());
     }
-
+    toolbar->setIconSize(QSize(45,25));
     toolbar->addAction(overviewAction);
     toolbar->addAction(receiveCoinsAction);
     toolbar->addAction(sendCoinsAction);
