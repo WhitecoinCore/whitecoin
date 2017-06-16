@@ -1272,7 +1272,7 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
     </message>
     <message>
         <location line="+7"/>
-        <source>Use black visual theme (requires restart)</source>
+        <source>Use blue visual theme (requires restart)</source>
         <translation type="unfinished"/>
     </message>
     <message>

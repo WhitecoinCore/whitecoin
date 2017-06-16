@@ -1265,8 +1265,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+7"/>
-        <source>Use black visual theme (requires restart)</source>
-        <translation>使用黑色主題(需要重啟錢包)</translation>
+        <source>Use blue visual theme (requires restart)</source>
+        <translation>使用蓝色主題(需要重啟錢包)</translation>
     </message>
     <message>
         <location line="+71"/>

@@ -1279,7 +1279,7 @@ Tämä tarkoittaa, että ainakin %2 rahansiirtopalkkio tarvitaan.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Use black visual theme (requires restart)</source>
+        <source>Use blue visual theme (requires restart)</source>
         <translation>Käytä teemana mustaa ulkoasua (vaatii uudelleenkäynnistyksen)</translation>
     </message>
     <message>
