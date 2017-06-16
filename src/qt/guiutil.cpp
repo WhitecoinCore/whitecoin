@@ -462,7 +462,9 @@ void HelpMessageBox::showOrPrint()
 
 void SetBlackThemeQSS(QApplication& app)
 {
-    app.setStyleSheet("QWidget        { background: rgb(255,255,255); }"
+    app.setStyleSheet(
+                     "QWidget        { background: rgb(255,255,255); }"
+                     "QMainWindow { background:white url(:/images/wallet_logo_background) no-repeat right bottom; background-origin: border; font-family:'Open Sans,sans-serif'; } "
                       "QFrame         { border: none; }"
                       "QComboBox      { color: rgb(14,105,162); }"
                       "QComboBox QAbstractItemView::item { color: rgb(14,105,162); }"
@@ -481,13 +483,13 @@ void SetBlackThemeQSS(QApplication& app)
                       "QTabBar::tab   { color: rgb(255,255,255); border: 1px solid rgb(78,79,83); border-bottom: none; padding: 5px; }"
                       "QTabBar::tab:selected  { background: rgb(14,105,162); }"
                       "QTabBar::tab:!selected { background: rgb(17,133,202); margin-top: 2px; }"
-                      "QTabWidget::pane { border: 1px solid rgb(78,79,83); }"
+                      "QTabWidget::pane { border: 1px solid rgb(14,105,162); }"
                       "QToolBar QToolButton { font-family:Open Sans; padding-left:0px; padding-top:10px; padding-bottom:10px; width:220px; color: white; text-align: left; background-color: rgb(14,105,162) } "
                       "QToolBar QToolButton:hover { color: black; background-color: white; border: none; } "
                       "QToolBar QToolButton:pressed {color: black; background-color: white; border: none; } "
                       "QToolBar QToolButton:checked { color: black; background-color: white; border: none; } "
                        "QProgressBar   { color: rgb(149,148,148); border-color: rgb(255,255,255); border-width: 3px; border-style: solid; }"
-                      "QProgressBar::chunk { background: rgb(255,255,255); }"
+                      "QProgressBar::chunk { background: rgb(17,133,202); }"
                       "QTreeView::item { background: rgb(255,255,255); color: rgb(41,44,48); }"
                       "QTreeView::item:selected { background-color: rgb(48,140,198); }"
                       "QTableView     { background: rgb(255,255,255); color: rgb(87,94,102); gridline-color: rgb(157,160,165); }"
