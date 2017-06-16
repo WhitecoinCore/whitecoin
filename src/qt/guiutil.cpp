@@ -462,7 +462,9 @@ void HelpMessageBox::showOrPrint()
 
 void SetBlackThemeQSS(QApplication& app)
 {
-    app.setStyleSheet("QWidget        { background: rgb(255,255,255); }"
+    app.setStyleSheet(
+                     "QWidget        { background: rgb(255,255,255); }"
+                     "QMainWindow { background:white url(:/images/wallet_logo_background) no-repeat right bottom; background-origin: border; font-family:'Open Sans,sans-serif'; } "
                       "QFrame         { border: none; }"
                       "QComboBox      { color: rgb(14,105,162); }"
                       "QComboBox QAbstractItemView::item { color: rgb(14,105,162); }"
@@ -481,7 +483,7 @@ void SetBlackThemeQSS(QApplication& app)
                       "QTabBar::tab   { color: rgb(255,255,255); border: 1px solid rgb(78,79,83); border-bottom: none; padding: 5px; }"
                       "QTabBar::tab:selected  { background: rgb(14,105,162); }"
                       "QTabBar::tab:!selected { background: rgb(17,133,202); margin-top: 2px; }"
-                      "QTabWidget::pane { border: 1px solid rgb(78,79,83); }"
+                      "QTabWidget::pane { border: 1px solid rgb(14,105,162); }"
                       "QToolBar QToolButton { font-family:Open Sans; padding-left:0px; padding-top:10px; padding-bottom:10px; width:220px; color: white; text-align: left; background-color: rgb(14,105,162) } "
                       "QToolBar QToolButton:hover { color: black; background-color: white; border: none; } "
                       "QToolBar QToolButton:pressed {color: black; background-color: white; border: none; } "
