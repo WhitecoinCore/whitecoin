@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/icons">
         <file alias="address-book">res/icons/address-book.png</file>
-				<file alias="address-book_black">res/icons/address-book_black.png</file>        
+        <file alias="address-book_black">res/icons/address-book_black.png</file>
         <file alias="quit">res/icons/quit.png</file>
         <file alias="send">res/icons/send.png</file>
         <file alias="send_black">res/icons/send_black.png</file>
@@ -21,6 +21,8 @@
         <file alias="options">res/icons/configure.png</file>
         <file alias="receiving_addresses">res/icons/receive.png</file>
         <file alias="receiving_addresses_black">res/icons/receive_black.png</file>
+        <file alias="block">res/icons/block.png</file>
+        <file alias="block_black">res/icons/block_black.png</file>
         <file alias="editpaste">res/icons/editpaste.png</file>
         <file alias="editcopy">res/icons/editcopy.png</file>
         <file alias="add">res/icons/add.png</file>

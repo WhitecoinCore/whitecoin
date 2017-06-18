@@ -323,7 +323,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+17"/>
         <source>&amp;Transactions</source>
-        <translation>交易记录(&amp;T)</translation>
+        <translation>交易记录</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -333,7 +333,12 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+5"/>
         <source>&amp;Address Book</source>
-        <translation>地址簿(&amp;A)</translation>
+        <translation>地址簿</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>&amp;Block Explorer</source>
+        <translation>&amp;区块浏览</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -541,17 +546,17 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-812"/>
         <source>&amp;Dashboard</source>
-        <translation>操控板(&amp;D)</translation>
+        <translation>我的钱包</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&amp;Receive</source>
-        <translation>接收白币(&amp;R)</translation>
+        <translation>接收白币</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&amp;Send</source>
-        <translation>发送白币(&amp;S)</translation>
+        <translation>发送白币</translation>
     </message>
     <message>
         <location line="+49"/>

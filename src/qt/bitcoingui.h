@@ -11,6 +11,8 @@ class ClientModel;
 class WalletModel;
 class TransactionView;
 class OverviewPage;
+//class StatisticsPage;
+class BlockBrowser;
 class AddressBookPage;
 class SendCoinsDialog;
 class SignVerifyMessageDialog;
@@ -61,6 +63,9 @@ private:
     QStackedWidget *centralStackedWidget;
 
     OverviewPage *overviewPage;
+    //StatisticsPage *statisticsPage;
+    BlockBrowser *blockBrowser;
+
     QWidget *transactionsPage;
     AddressBookPage *addressBookPage;
     AddressBookPage *receiveCoinsPage;
@@ -76,10 +81,13 @@ private:
 
     QMenuBar *appMenuBar;
     QAction *overviewAction;
+
     QAction *historyAction;
     QAction *quitAction;
     QAction *sendCoinsAction;
     QAction *addressBookAction;
+    QAction *statisticsAction;
+    QAction *blockAction;
     QAction *signMessageAction;
     QAction *verifyMessageAction;
     QAction *aboutAction;
@@ -148,6 +156,12 @@ public slots:
 private slots:
     /** Switch to overview (home) page */
     void gotoOverviewPage();
+
+    /** Switch to statistics page*/
+    //void gotoStatisticsPage();
+
+    /** Switch to block explorer*/
+    void gotoBlockBrowser();
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
     /** Switch to address book page */
