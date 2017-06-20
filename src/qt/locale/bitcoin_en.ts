@@ -332,6 +332,11 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+5"/>
+        <source>&amp;Statistics</source>
+        <translation>&amp;Statistics</translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <source>&amp;Block Explorer</source>
         <translation>&amp;Block Explorer</translation>
     </message>

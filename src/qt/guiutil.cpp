@@ -473,7 +473,7 @@ void SetBlackThemeQSS(QApplication& app)
                       "QLineEdit      { background: rgb(255,255,255); color: rgb(63,67,72); border-color: rgb(194,194,194); }"
                       "QTextEdit      { background: rgb(255,255,255); color: rgb(63,67,72); }"
                       "QPlainTextEdit { background: rgb(255,255,255); color: rgb(63,67,72); }"
-                      "QMenuBar       { background: rgb(41,44,48); color: rgb(110,116,126); }"
+                      "QMenuBar       { background: rgb(14,105,162); color: rgb(255,255,255); }"
                       "QMenu          { background: rgb(255,255,255); color: rgb(14,105,162); }"
                       "QMenu::item:selected { background-color: rgb(48,140,198); }"
                       "QLabel         { color: rgb(14,105,162); }"

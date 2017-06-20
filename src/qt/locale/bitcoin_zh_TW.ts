@@ -330,6 +330,11 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+5"/>
+        <source>&amp;Statistics</source>
+        <translation>&amp;統計資料</translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <source>&amp;Block Explorer</source>
         <translation>&amp;區塊瀏覽</translation>
     </message>

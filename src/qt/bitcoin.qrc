@@ -21,6 +21,8 @@
         <file alias="options">res/icons/configure.png</file>
         <file alias="receiving_addresses">res/icons/receive.png</file>
         <file alias="receiving_addresses_black">res/icons/receive_black.png</file>
+        <file alias="statistics">res/icons/statistics.png</file>
+        <file alias="statistics_black">res/icons/statistics_black.png</file>
         <file alias="block">res/icons/block.png</file>
         <file alias="block_black">res/icons/block_black.png</file>
         <file alias="editpaste">res/icons/editpaste.png</file>

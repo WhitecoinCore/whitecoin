@@ -11,7 +11,7 @@ class ClientModel;
 class WalletModel;
 class TransactionView;
 class OverviewPage;
-//class StatisticsPage;
+class StatisticsPage;
 class BlockBrowser;
 class AddressBookPage;
 class SendCoinsDialog;
@@ -63,7 +63,7 @@ private:
     QStackedWidget *centralStackedWidget;
 
     OverviewPage *overviewPage;
-    //StatisticsPage *statisticsPage;
+    StatisticsPage *statisticsPage;
     BlockBrowser *blockBrowser;
 
     QWidget *transactionsPage;
@@ -158,7 +158,7 @@ private slots:
     void gotoOverviewPage();
 
     /** Switch to statistics page*/
-    //void gotoStatisticsPage();
+    void gotoStatisticsPage();
 
     /** Switch to block explorer*/
     void gotoBlockBrowser();
