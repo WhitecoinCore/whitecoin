@@ -32,7 +32,7 @@
 #include "wallet.h"
 #include "init.h"
 #include "ui_interface.h"
-//#include "statisticspage.h"
+#include "statisticspage.h"
 #include "blockbrowser.h"
 
 
@@ -109,7 +109,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 
     // Create tabs
     overviewPage = new OverviewPage();
-    //statisticsPage = new StatisticsPage(this);
+    statisticsPage = new StatisticsPage(this);
     blockBrowser = new BlockBrowser(this);
 
     transactionsPage = new QWidget(this);
@@ -132,7 +132,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     centralStackedWidget->addWidget(addressBookPage);
     centralStackedWidget->addWidget(receiveCoinsPage);
     centralStackedWidget->addWidget(sendCoinsPage);
-    //centralStackedWidget->addWidget(statisticsPage);
+    centralStackedWidget->addWidget(statisticsPage);
     centralStackedWidget->addWidget(blockBrowser);
 
     QWidget *centralWidget = new QWidget();
@@ -252,7 +252,6 @@ void BitcoinGUI::createActions()
     receiveCoinsIcon.addFile(":/icons/receiving_addresses_black", QSize(), QIcon::Active, QIcon::Off);
     receiveCoinsIcon.addFile(":/icons/receiving_addresses_black", QSize(), QIcon::Normal, QIcon::On);
     receiveCoinsAction = new QAction(receiveCoinsIcon, tr("&Receive"), this);
-    //receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Receive"), this);
     receiveCoinsAction->setToolTip(tr("Show the list of addresses for receiving payments"));
     receiveCoinsAction->setCheckable(true);
     receiveCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_2));
@@ -291,7 +290,7 @@ void BitcoinGUI::createActions()
     addressBookAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_5));
     tabGroup->addAction(addressBookAction);
 
-    /*
+
     QIcon statisticsIcon;
     statisticsIcon.addFile(":/icons/statistics", QSize(), QIcon::Normal, QIcon::Off);
     statisticsIcon.addFile(":/icons/statistics_black", QSize(), QIcon::Active, QIcon::Off);
@@ -299,8 +298,9 @@ void BitcoinGUI::createActions()
     statisticsAction = new QAction(statisticsIcon, tr("&Statistics"), this);
     statisticsAction->setToolTip(tr("View statistics"));
     statisticsAction->setCheckable(true);
+    statisticsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
     tabGroup->addAction(statisticsAction);
-    */
+
 
     QIcon blockIcon;
     blockIcon.addFile(":/icons/block", QSize(), QIcon::Normal, QIcon::Off);
@@ -309,7 +309,7 @@ void BitcoinGUI::createActions()
     blockAction = new QAction(blockIcon, tr("&Block Explorer"), this);
     blockAction->setToolTip(tr("Explore the BlockChain"));
     blockAction->setCheckable(true);
-    blockAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
+    blockAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_7));
     tabGroup->addAction(blockAction);
 
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
@@ -322,8 +322,8 @@ void BitcoinGUI::createActions()
     connect(historyAction, SIGNAL(triggered()), this, SLOT(gotoHistoryPage()));
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(gotoAddressBookPage()));
-    //connect(statisticsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
-    //connect(statisticsAction, SIGNAL(triggered()), this, SLOT(gotoStatisticsPage()));
+    connect(statisticsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+    connect(statisticsAction, SIGNAL(triggered()), this, SLOT(gotoStatisticsPage()));
     connect(blockAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(blockAction, SIGNAL(triggered()), this, SLOT(gotoBlockBrowser()));
 
@@ -409,7 +409,7 @@ void BitcoinGUI::createMenuBar()
 static QWidget* makeToolBarSpacer()
 {
     QWidget* spacer = new QWidget();
-    spacer->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+    spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     spacer->setStyleSheet(fUseBlackTheme ? "QWidget { background: rgb(14,105,162); }" : "QWidget { background: none; }");
     return spacer;
 }
@@ -430,12 +430,13 @@ void BitcoinGUI::createToolBars()
         toolbar->addWidget(makeToolBarSpacer());
     }
 
-    toolbar->setIconSize(QSize(45,25));
+    toolbar->setIconSize(QSize(50,25));
     toolbar->addAction(overviewAction);
     toolbar->addAction(receiveCoinsAction);
     toolbar->addAction(sendCoinsAction);
     toolbar->addAction(historyAction);
     toolbar->addAction(addressBookAction);
+    toolbar->addAction(statisticsAction);
     toolbar->addAction(blockAction);
 
     toolbar->addWidget(makeToolBarSpacer());
@@ -445,14 +446,8 @@ void BitcoinGUI::createToolBars()
 
     addToolBar(Qt::LeftToolBarArea, toolbar);
 
-    int w = 0;
-
     foreach(QAction *action, toolbar->actions()) {
-        w = std::max(w, toolbar->widgetForAction(action)->width());
-    }
-
-    foreach(QAction *action, toolbar->actions()) {
-        toolbar->widgetForAction(action)->setFixedWidth(w);
+        toolbar->widgetForAction(action)->setFixedWidth(220);
     }
 
 }
@@ -512,7 +507,7 @@ void BitcoinGUI::setWalletModel(WalletModel *walletModel)
         receiveCoinsPage->setModel(walletModel->getAddressTableModel());
         sendCoinsPage->setModel(walletModel);
         signVerifyMessageDialog->setModel(walletModel);
-        //statisticsPage->setModel(clientModel);
+        statisticsPage->setModel(clientModel);
         blockBrowser->setModel(clientModel);
 
         setEncryptionStatus(walletModel->getEncryptionStatus());
@@ -864,7 +859,7 @@ void BitcoinGUI::gotoBlockBrowser()
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
 }
 
-/*
+
 void BitcoinGUI::gotoStatisticsPage()
 {
     statisticsAction->setChecked(true);
@@ -873,7 +868,7 @@ void BitcoinGUI::gotoStatisticsPage()
     exportAction->setEnabled(false);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
 }
-*/
+
 void BitcoinGUI::gotoReceiveCoinsPage()
 {
     receiveCoinsAction->setChecked(true);
