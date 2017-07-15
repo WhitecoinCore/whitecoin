@@ -363,7 +363,7 @@ void BlockBrowser::updateExplorer(bool block)
         }
         int Pawrate = getBlockHashrate(height);
         double Pawrate2 = 0.000;
-        Pawrate2 = ((double)Pawrate / 1000);
+        Pawrate2 = ((double)Pawrate / 1000 / 1000);
         std::string hash = getBlockHash(height);
         std::string merkle = getBlockMerkle(height);
         int nBits = getBlocknBits(height);
