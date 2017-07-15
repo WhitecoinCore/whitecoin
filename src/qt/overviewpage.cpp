@@ -51,7 +51,7 @@ public:
             foreground = qvariant_cast<QColor>(value);
         }
 
-        painter->setPen(fUseBlackTheme ? QColor(21, 3, 186) : foreground);
+        painter->setPen(fUseBlackTheme ? QColor(0, 0, 0) : foreground);
         painter->drawText(addressRect, Qt::AlignLeft|Qt::AlignVCenter, address);
 
         if(amount < 0)
@@ -66,7 +66,7 @@ public:
         {
             foreground = option.palette.color(QPalette::Text);
         }
-        painter->setPen(fUseBlackTheme ? QColor(21, 3, 186) : foreground); /* amount text color */
+        painter->setPen(fUseBlackTheme ? QColor(0, 0, 0) : foreground); /* amount text color */
         QString amountText = BitcoinUnits::formatWithUnit(unit, amount, true);
         if(!confirmed)
         {
@@ -74,7 +74,7 @@ public:
         }
         painter->drawText(amountRect, Qt::AlignRight|Qt::AlignVCenter, amountText);
 
-        painter->setPen(fUseBlackTheme ? QColor(21, 3, 186) : option.palette.color(QPalette::Text)); /* date color */
+        painter->setPen(fUseBlackTheme ? QColor(0, 0, 0) : option.palette.color(QPalette::Text)); /* date color */
         painter->drawText(amountRect, Qt::AlignLeft|Qt::AlignVCenter, GUIUtil::dateTimeStr(date));
 
         painter->restore();
@@ -121,8 +121,8 @@ OverviewPage::OverviewPage(QWidget *parent) :
 
     if (fUseBlackTheme)
     {
-
-       const char* whiteLabelQSS = "QLabel { color: rgb(21,3,186); }";
+       // rgb(21,3,186);
+       const char* whiteLabelQSS = "QLabel { color: black; }";
         ui->labelBalance->setStyleSheet(whiteLabelQSS);
         ui->labelStake->setStyleSheet(whiteLabelQSS);
         ui->labelUnconfirmed->setStyleSheet(whiteLabelQSS);
