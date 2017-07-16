@@ -19,6 +19,30 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 # use: BOOST_THREAD_LIB_SUFFIX=_win32-...
 # or when linking against a specific BerkelyDB version: BDB_LIB_SUFFIX=-4.8
 
+win32:BOOST_LIB_SUFFIX=-mgw49-mt-s-1_57
+win32:BOOST_INCLUDE_PATH=C:/deps/boost_1_57_0
+win32:BOOST_LIB_PATH=C:/deps/boost_1_57_0/stage/lib
+win32:BDB_INCLUDE_PATH=C:/deps/db-5.3.28.NC/build_unix
+win32:BDB_LIB_PATH=C:/deps/db-5.3.28.NC/build_unix
+win32:OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.0.2l/include
+win32:OPENSSL_LIB_PATH=C:/deps/openssl-1.0.2l/
+win32:MINIUPNPC_INCLUDE_PATH=C:/deps/
+win32:MINIUPNPC_LIB_PATH=C:/deps/miniupnpc
+win32:QRENCODE_INCLUDE_PATH=C:/deps/qrencode-3.4.4
+win32:QRENCODE_LIB_PATH=C:/deps/qrencode-3.4.4/.libs
+
+macx:BOOST_LIB_SUFFIX= -mt
+macx:BOOST_INCLUDE_PATH=/usr/local/include
+macx:BOOST_LIB_PATH=/usr/local/lib
+macx:BDB_INCLUDE_PATH = /usr/local/opt/berkeley-db@4/include
+macx:BDB_LIB_PATH = /usr/local/opt/berkeley-db@4/lib
+macx:OPENSSL_INCLUDE_PATH=/usr/local/opt/openssl/include
+macx:OPENSSL_LIB_PATH=/usr/local/opt/openssl/lib
+macx:MINIUPNPC_INCLUDE_PATH=/usr/local/include
+macx:MINIUPNPC_LIB_PATH=/usr/local/lib
+macx:QRENCODE_INCLUDE_PATH=/usr/local/include
+macx:QRENCODE_LIB_PATH=/usr/local/lib
+
 # Dependency library locations can be customized with:
 #    BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
 #    BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
@@ -29,11 +53,11 @@ UI_DIR = build
 
 # use: qmake "RELEASE=1"
 contains(RELEASE, 1) {
-    # Mac: compile for maximum compatibility (10.5, 32-bit)
-    macx:QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.5.sdk
-    macx:QMAKE_CFLAGS += -mmacosx-version-min=10.5 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.5.sdk
-    macx:QMAKE_LFLAGS += -mmacosx-version-min=10.5 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.5.sdk
-    macx:QMAKE_OBJECTIVE_CFLAGS += -mmacosx-version-min=10.5 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.5.sdk
+    # Mac: compile for maximum compatibility (10.7, 64-bit)
+    macx:QMAKE_CXXFLAGS += -mmacosx-version-min=10.7 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk
+    macx:QMAKE_CFLAGS += -mmacosx-version-min=10.7 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk
+    macx:QMAKE_LFLAGS += -mmacosx-version-min=10.7 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk
+    macx:QMAKE_OBJECTIVE_CFLAGS += -mmacosx-version-min=10.7 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk
 
     !windows:!macx {
         # Linux: static link
