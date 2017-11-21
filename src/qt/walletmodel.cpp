@@ -194,6 +194,16 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
             CScript scriptPubKey;
             scriptPubKey.SetDestination(CBitcoinAddress(rcp.address.toStdString()).Get());
             vecSend.push_back(make_pair(scriptPubKey, rcp.amount));
+            
+            //insert infomation into blockchain
+						if (rcp.remark.length()>=1)
+						{				
+								std::string strMess = rcp.remark.toStdString();
+								const char* pszMess =strMess.c_str();
+                CScript scriptP = CScript() << OP_RETURN << vector<unsigned char>((const unsigned char*)pszMess, (const unsigned char*)pszMess + strlen(pszMess));                
+                LogPrintf("insert scriptP=%s\n",scriptP.ToString().c_str());
+                vecSend.push_back(make_pair(scriptP, CENT));
+             }
         }
 
         CWalletTx wtx;

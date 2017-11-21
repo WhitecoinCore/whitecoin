@@ -1339,7 +1339,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="-173"/>
         <source>Stake:</source>
-        <translation>用于权益累积：</translation>
+        <translation>权益正在成熟：</translation>
     </message>
     <message>
         <location line="+32"/>
@@ -1977,6 +1977,16 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location filename="../sendcoinsentry.cpp" line="+1"/>
         <source>Enter a Whitecoin address (e.g. WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</source>
         <translation>输入一个白币地址 (例：WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Remark</source>
+        <translation>附言</translation>
+    </message>
+    <message>
+        <location filename="../sendcoinsentry.cpp" line="+1"/>
+        <source>Insert additional information into your transaction</source>
+        <translation>为你的交易输入附言</translation>
     </message>
 </context>
 <context>

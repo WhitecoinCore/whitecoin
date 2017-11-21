@@ -28,6 +28,7 @@ public:
     QString address;
     QString label;
     qint64 amount;
+    QString remark;
 };
 
 /** Interface to Bitcoin wallet from Qt view code. */

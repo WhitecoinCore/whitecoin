@@ -194,7 +194,35 @@ void runCommand(std::string strCommand);
 
 
 
+inline std::string itoascii(int n)
+{
+    return strprintf("%c", n);
+}
 
+inline unsigned long HextoDec(const unsigned char *hex, int length)  
+{  
+    int i;  
+    unsigned long rslt = 0;  
+    for (i = 0; i < length; i++)  
+    {  
+        rslt += (unsigned long)(hex[i]) << (8 * (length - 1 - i));  
+  
+    }  
+    return rslt;  
+}
+
+inline long fun16to10(const char *s)
+{
+    int i,t;
+    long sum=0;
+    for(i=0;s[i];i++)
+    {
+        if(s[i]<='9') t=s[i]-'0';
+        else  t=s[i]-'a'+10;
+        sum=sum*16+t;
+    }
+    return sum;
+}
 
 inline std::string i64tostr(int64_t n)
 {

@@ -8,6 +8,8 @@
 #include "optionsmodel.h"
 #include "addresstablemodel.h"
 
+#include "script.h"
+
 #include <QApplication>
 #include <QClipboard>
 
@@ -88,7 +90,9 @@ void SendCoinsEntry::clear()
     ui->payTo->clear();
     ui->addAsLabel->clear();
     ui->payAmount->clear();
-    ui->payTo->setFocus();
+    ui->payInfo->clear();
+    
+    ui->payTo->setFocus();    
     // update the display unit, to not use the default ("BTC")
     updateDisplayUnit();
 }
@@ -123,6 +127,12 @@ bool SendCoinsEntry::validate()
         ui->payTo->setValid(false);
         retval = false;
     }
+    
+    if (ui->payInfo->text().length() > MAX_OP_RETURN_RELAY)
+    {
+        ui->payInfo->setValid(false);
+        retval = false;
+    }
 
     return retval;
 }
@@ -134,6 +144,7 @@ SendCoinsRecipient SendCoinsEntry::getValue()
     rv.address = ui->payTo->text();
     rv.label = ui->addAsLabel->text();
     rv.amount = ui->payAmount->value();
+    rv.remark = ui->payInfo->text();
 
     return rv;
 }
@@ -141,7 +152,8 @@ SendCoinsRecipient SendCoinsEntry::getValue()
 QWidget *SendCoinsEntry::setupTabChain(QWidget *prev)
 {
     QWidget::setTabOrder(prev, ui->payTo);
-    QWidget::setTabOrder(ui->payTo, ui->addressBookButton);
+    QWidget::setTabOrder(ui->payTo, ui->payInfo);
+   	QWidget::setTabOrder(ui->payInfo, ui->addressBookButton);
     QWidget::setTabOrder(ui->addressBookButton, ui->pasteButton);
     QWidget::setTabOrder(ui->pasteButton, ui->deleteButton);
     QWidget::setTabOrder(ui->deleteButton, ui->addAsLabel);
