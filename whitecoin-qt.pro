@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = whitecoin-qt
-VERSION = 2.1.0.0
+VERSION = 2.2.0.0
 INCLUDEPATH += src src/json src/qt
 QT += network
 DEFINES += ENABLE_WALLET
@@ -20,6 +20,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 # or when linking against a specific BerkelyDB version: BDB_LIB_SUFFIX=-4.8
 
 win32:BOOST_LIB_SUFFIX=-mgw49-mt-s-1_57
+win32:BOOST_THREAD_LIB_SUFFIX=-mgw49-mt-s-1_57
 win32:BOOST_INCLUDE_PATH=C:/deps/boost_1_57_0
 win32:BOOST_LIB_PATH=C:/deps/boost_1_57_0/stage/lib
 win32:BDB_INCLUDE_PATH=C:/deps/db-5.3.28.NC/build_unix
