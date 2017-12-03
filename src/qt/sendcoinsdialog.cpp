@@ -21,6 +21,8 @@
 #include <QScrollBar>
 #include <QClipboard>
 
+#include "snapwidget.h"
+
 SendCoinsDialog::SendCoinsDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SendCoinsDialog),
@@ -32,12 +34,14 @@ SendCoinsDialog::SendCoinsDialog(QWidget *parent) :
     ui->addButton->setIcon(QIcon());
     ui->clearButton->setIcon(QIcon());
     ui->sendButton->setIcon(QIcon());
+    ui->sendQRButton->setIcon(QIcon());
 #endif
 
 #if QT_VERSION >= 0x040700
     /* Do not move this to the XML file, Qt before 4.7 will choke on it */
     ui->lineEditCoinControlChange->setPlaceholderText(tr("Enter a Whitecoin address (e.g. WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)"));
 #endif
+
 
     addEntry();
 
@@ -504,4 +508,37 @@ void SendCoinsDialog::coinControlUpdateLabels()
         ui->widgetCoinControl->hide();
         ui->labelCoinControlInsuffFunds->hide();
     }
+}
+
+void SendCoinsDialog::on_sendQRButton_clicked()
+{
+    SnapWidget* snap = new SnapWidget(this);
+    connect(snap, SIGNAL(finished(QString)), this, SLOT(onSnapClosed(QString)));
+}
+
+void SendCoinsDialog::onSnapClosed(QString s)
+{
+    emit sendCoins(s);
+    LogPrintf("setAddress.2 address=%s\n",s.toStdString());
+}
+
+void SendCoinsDialog::setAddress(const QString &address)
+{
+    SendCoinsEntry *entry = 0;
+    // Replace the first entry if it is still unused
+    if(ui->entries->count() == 1)
+    {
+        SendCoinsEntry *first = qobject_cast<SendCoinsEntry*>(ui->entries->itemAt(0)->widget());
+        if(first->isClear())
+        {
+            entry = first;
+        }
+    }
+    if(!entry)
+    {
+        entry = addEntry();
+    }
+
+    entry->setAddress(address);
+    LogPrintf("setAddress.1 address=%s\n",address.toStdString());
 }

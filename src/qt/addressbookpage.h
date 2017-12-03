@@ -44,7 +44,9 @@ public:
 public slots:
     void done(int retval);
     void exportClicked();
-
+    /** Scan of QR code finished */
+    void onSnapClosed(QString s);
+ 
 private:
     Ui::AddressBookPage *ui;
     AddressTableModel *model;
@@ -74,6 +76,8 @@ private slots:
     void onCopyLabelAction();
     /** Edit currently selected address entry (no button) */
     void onEditAction();
+    /** Import from a QR Code into your wallet */
+    void on_importQRCodeButton_clicked();
 
     /** Set button states based on selected tab and selection */
     void selectionChanged();
@@ -85,6 +89,7 @@ private slots:
 signals:
     void signMessage(QString addr);
     void verifyMessage(QString addr);
+    void importWallet(QString addr);
 };
 
 #endif // ADDRESSBOOKPAGE_H

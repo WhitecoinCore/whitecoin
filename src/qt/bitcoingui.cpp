@@ -222,6 +222,11 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     // Clicking on "Sign Message" in the receive coins page sends you to the sign message tab
     connect(receiveCoinsPage, SIGNAL(signMessage(QString)), this, SLOT(gotoSignMessageTab(QString)));
 
+		// Clicking on "Send to QR" sends you to the send coins tab after snapping and reading image
+		connect(addressBookPage, SIGNAL(importWallet(QString)), this, SLOT(importWallet(QString)));
+		//connect(receiveCoinsPage, SIGNAL(importWallet(QString)), this, SLOT(importWallet(QString)));
+		connect(sendCoinsPage, SIGNAL(sendCoins(QString)), this, SLOT(gotoSendCoinsPage(QString)));
+		
     gotoOverviewPage();
 }
 
@@ -883,13 +888,16 @@ void BitcoinGUI::gotoReceiveCoinsPage()
     connect(exportAction, SIGNAL(triggered()), receiveCoinsPage, SLOT(exportClicked()));
 }
 
-void BitcoinGUI::gotoSendCoinsPage()
+void BitcoinGUI::gotoSendCoinsPage(QString addr)
 {
     sendCoinsAction->setChecked(true);
     centralStackedWidget->setCurrentWidget(sendCoinsPage);
 
     exportAction->setEnabled(false);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
+    
+    if (!addr.isEmpty())
+        sendCoinsPage->setAddress(addr);    
 }
 
 void BitcoinGUI::gotoSignMessageTab(QString addr)
@@ -908,6 +916,12 @@ void BitcoinGUI::gotoVerifyMessageTab(QString addr)
 
     if(!addr.isEmpty())
         signVerifyMessageDialog->setAddress_VM(addr);
+}
+
+void BitcoinGUI::importWallet(QString privateKey)
+{
+		//QMessageBox::warning(this, tr("importWallet"), tr("importWallet is %1.").arg(privateKey),  QMessageBox::Ok, QMessageBox::Ok);
+		bool b = walletModel->importPrivateKey(privateKey);
 }
 
 void BitcoinGUI::dragEnterEvent(QDragEnterEvent *event)

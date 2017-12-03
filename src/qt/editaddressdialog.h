@@ -33,7 +33,8 @@ public:
     void loadRow(int row);
 
     QString getAddress() const;
-    void setAddress(const QString &address);
+    void setAddress(const QString &address);    
+    void setLabel(const QString &addrLabel);
 
 public slots:
     void accept();
@@ -47,6 +48,7 @@ private:
     AddressTableModel *model;
 
     QString address;
+    QString addrLabel;
 };
 
 #endif // EDITADDRESSDIALOG_H

@@ -19,18 +19,17 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 # use: BOOST_THREAD_LIB_SUFFIX=_win32-...
 # or when linking against a specific BerkelyDB version: BDB_LIB_SUFFIX=-4.8
 
-win32:BOOST_LIB_SUFFIX=-mgw49-mt-s-1_57
-win32:BOOST_THREAD_LIB_SUFFIX=-mgw49-mt-s-1_57
-win32:BOOST_INCLUDE_PATH=C:/deps/boost_1_57_0
-win32:BOOST_LIB_PATH=C:/deps/boost_1_57_0/stage/lib
-win32:BDB_INCLUDE_PATH=C:/deps/db-5.3.28.NC/build_unix
-win32:BDB_LIB_PATH=C:/deps/db-5.3.28.NC/build_unix
-win32:OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.0.2l/include
-win32:OPENSSL_LIB_PATH=C:/deps/openssl-1.0.2l/
-win32:MINIUPNPC_INCLUDE_PATH=C:/deps/
-win32:MINIUPNPC_LIB_PATH=C:/deps/miniupnpc
-win32:QRENCODE_INCLUDE_PATH=C:/deps/qrencode-3.4.4
-win32:QRENCODE_LIB_PATH=C:/deps/qrencode-3.4.4/.libs
+win32:BOOST_LIB_SUFFIX=-mgw49-mt-s-1_58
+win32:BOOST_INCLUDE_PATH=C:/Coin/BaseLib/boost_1_58_0
+win32:BOOST_LIB_PATH=C:/Coin/BaseLib/boost_1_58_0/stage/lib
+win32:BDB_INCLUDE_PATH=C:/Coin/BaseLib/db-5.3.28.NC/build_unix
+win32:BDB_LIB_PATH=C:/Coin/BaseLib/db-5.3.28.NC/build_unix
+win32:OPENSSL_INCLUDE_PATH=C:/Coin/BaseLib/openssl-1.0.2k/include
+win32:OPENSSL_LIB_PATH=C:/Coin/BaseLib/openssl-1.0.2k/
+win32:MINIUPNPC_INCLUDE_PATH=C:/Coin/BaseLib/miniupnpc-1.9.2/
+win32:MINIUPNPC_LIB_PATH=C:/Coin/BaseLib/miniupnpc-1.9.2/
+win32:QRENCODE_INCLUDE_PATH=C:/Coin/BaseLib/qrencode-3.4.4/
+win32:QRENCODE_LIB_PATH=C:/Coin/BaseLib/qrencode-3.4.4/.libs
 
 macx:BOOST_LIB_SUFFIX= -mt
 macx:BOOST_INCLUDE_PATH=/usr/local/include
@@ -104,6 +103,15 @@ contains(USE_UPNP, -) {
     win32:LIBS += -liphlpapi
 }
 
+# use: qmake "USE_ZXING=1"
+# libzxing https://github.com/ClaireDuSoleil/ZebraCrossing) must be available for support
+contains(USE_ZXING, 1) {
+    message(Building with ZXING support)
+    DEFINES += USE_ZXING
+    INCLUDEPATH += $$ZXING_INCLUDE_PATH
+    LIBS += $$join(ZXING_LIB_PATH,,-L,) -lzxing
+}
+
 # use: qmake "USE_DBUS=1" or qmake "USE_DBUS=0"
 linux:count(USE_DBUS, 0) {
     USE_DBUS=1
@@ -112,6 +120,14 @@ contains(USE_DBUS, 1) {
     message(Building with DBUS (Freedesktop notifications) support)
     DEFINES += USE_DBUS
     QT += dbus
+}
+
+contains(USE_ZXING, 1) {
+    HEADERS += src/qt/snapwidget.h
+    HEADERS += src/qt/qimagesource.h
+    SOURCES += src/qt/qimagesource.cpp
+    SOURCES += src/qt/snapwidget.cpp
+    FORMS += src/qt/forms/snapwidget.ui
 }
 
 contains(BITCOIN_NEED_QT_PLUGINS, 1) {
@@ -358,11 +374,16 @@ FORMS += \
     src/qt/forms/blockbrowser.ui \
     src/qt/forms/statisticspage.ui
 
-contains(USE_QRCODE, 1) {
+
 HEADERS += src/qt/qrcodedialog.h
 SOURCES += src/qt/qrcodedialog.cpp
 FORMS += src/qt/forms/qrcodedialog.ui
-}
+
+HEADERS += src/qt/snapwidget.h
+HEADERS += src/qt/qimagesource.h
+SOURCES += src/qt/qimagesource.cpp
+SOURCES += src/qt/snapwidget.cpp
+FORMS += src/qt/forms/snapwidget.ui
 
 CODECFORTR = UTF-8
 

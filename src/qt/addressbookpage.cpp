@@ -8,9 +8,8 @@
 #include "csvmodelwriter.h"
 #include "guiutil.h"
 
-#ifdef USE_QRCODE
 #include "qrcodedialog.h"
-#endif
+#include "snapwidget.h"
 
 #include <QSortFilterProxyModel>
 #include <QClipboard>
@@ -31,11 +30,11 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
     ui->newAddressButton->setIcon(QIcon());
     ui->copyToClipboard->setIcon(QIcon());
     ui->deleteButton->setIcon(QIcon());
+    ui->importQRCodeButton->setIcon(QIcon());
 #endif
 
-#ifndef USE_QRCODE
-    ui->showQRCode->setVisible(false);
-#endif
+    ui->showQRCode->setVisible(true);
+    ui->importQRCodeButton->setVisible(false);
 
     switch(mode)
     {
@@ -54,6 +53,7 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
         ui->labelExplanation->setVisible(false);
         ui->deleteButton->setVisible(true);
         ui->signMessage->setVisible(false);
+        ui->importQRCodeButton->setVisible(true);
         break;
     case ReceivingTab:
         ui->deleteButton->setVisible(false);
@@ -78,9 +78,8 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
     if(tab == SendingTab)
         contextMenu->addAction(deleteAction);
     contextMenu->addSeparator();
-#ifdef USE_QRCODE
     contextMenu->addAction(showQRCodeAction);
-#endif
+
     if(tab == ReceivingTab)
         contextMenu->addAction(signMessageAction);
     else if(tab == SendingTab)
@@ -269,6 +268,7 @@ void AddressBookPage::selectionChanged()
         }
         ui->copyToClipboard->setEnabled(true);
         ui->showQRCode->setEnabled(true);
+        ui->importQRCodeButton->setEnabled(true);
     }
     else
     {
@@ -333,7 +333,6 @@ void AddressBookPage::exportClicked()
 
 void AddressBookPage::on_showQRCode_clicked()
 {
-#ifdef USE_QRCODE
     QTableView *table = ui->tableView;
     QModelIndexList indexes = table->selectionModel()->selectedRows(AddressTableModel::Address);
 
@@ -347,7 +346,60 @@ void AddressBookPage::on_showQRCode_clicked()
         dialog->setAttribute(Qt::WA_DeleteOnClose);
         dialog->show();
     }
-#endif
+}
+
+void AddressBookPage::on_importQRCodeButton_clicked()
+{
+        SnapWidget* snap = new SnapWidget(this);
+        connect(snap, SIGNAL(finished(QString)), this, SLOT(onSnapClosed(QString))); 
+}
+ 
+void AddressBookPage::onSnapClosed(QString strAddressURL)
+{
+    if (strAddressURL.size() > 0)
+    {
+        //to do : some more parsing and validation is needed here
+        //todo: prompt for a label
+        //todo: display a dialog if it doesn't work
+        //todo: 新增收款地址
+        //emit importWallet(strAddressURL);
+        
+        //新增付款地址
+		    if (strAddressURL.size() > 34) {
+		        QString _address;
+		        QString _label;
+		        QString _amount;     
+		        int x = strAddressURL.indexOf(":", 0, Qt::CaseInsensitive);
+		        if (x) {
+		            _address = strAddressURL.mid(x+1, 34);
+		        }
+		        int y = strAddressURL.indexOf("label=", 0, Qt::CaseInsensitive);
+		        if (y) {
+		        		QString tmpURL= strAddressURL.mid(y+6, strAddressURL.size()-y-6);
+		        		int z = tmpURL.indexOf("&", 0, Qt::CaseInsensitive);
+		        		
+		        		//QMessageBox::warning(this, tr("GR-Snap"), tr("The Address is %1.").arg(tmpURL),  QMessageBox::Ok, QMessageBox::Ok);
+		        		if (z) {
+		            		_label = tmpURL.mid(0, z);
+		          	} else {
+		          			_label = tmpURL;
+		          	}
+		        }
+		        
+		        //Todo: parse out label and amount from incoming string		        
+				    if(!model)
+				        return;
+				
+				    EditAddressDialog dlg(EditAddressDialog::NewSendingAddress, this);
+				    dlg.setModel(model);
+				    dlg.setAddress(_address);
+				    dlg.setLabel(_label);
+				    if(dlg.exec())
+				    {
+				        newAddressToSelect = dlg.getAddress();
+				    }		        
+		    }
+     }
 }
 
 void AddressBookPage::contextualMenu(const QPoint &point)
