@@ -48,16 +48,21 @@ void StatisticsPage::updateStatistics()
     int lPawrate = 0;
     double lPawrate2 = 0.000;
     double nSubsidy = 0;
+    
     uint64_t nMinWeight = 0;
     nMinWeight = pwalletMain->GetStakeWeight();
+    nMinWeight =nMinWeight / COIN;
+    
     uint64_t nNetworkWeight = GetPoSKernelPS();
-    nNetworkWeight = nNetworkWeight/100000000;
-    uint volume = ((pindexBest->nMoneySupply)/100000000);
+    nNetworkWeight = nNetworkWeight / COIN;
+    
+    uint volume = ((pindexBest->nMoneySupply) / COIN);
     int peers = this->model->getNumConnections();
     lPawrate2 = 0; //((double)lPawrate / 1000);
     pPawrate2 = (((double)pPawrate / 1000)/1000);
     QString height = QString::number(nHeight);
     QString stakemax = QString::number(nNetworkWeight);
+   	QString stakemin = QString::number(nMinWeight);
     QString phase = "";
     if (pindexBest->nHeight < 10000)
     {
@@ -96,23 +101,8 @@ void StatisticsPage::updateStatistics()
     } else {
     ui->cBox->setText(phase);
     }
-
     
-    if(nSubsidy < rewardPrevious)
-    {
-        ui->rewardBox->setText("<b><font color=\"red\">" + subsidy + "</font></b>");
-    } else {
-    ui->rewardBox->setText(subsidy);
-    }
-    
-    if(pHardness > hardnessPrevious)
-    {
-        ui->diffBox->setText("<b><font color=\"green\">" + hardness + "</font></b>");        
-    } else if(pHardness < hardnessPrevious) {
-        ui->diffBox->setText("<b><font color=\"red\">" + hardness + "</font></b>");
-    } else {
-        ui->diffBox->setText(hardness);        
-    }
+    ui->minBox->setText(stakemin);
 
     if(pHardness2 > hardnessPrevious2)
     {
@@ -121,24 +111,6 @@ void StatisticsPage::updateStatistics()
         ui->diffBox2->setText("<b><font color=\"red\">" + hardness2 + "</font></b>");
     } else {
         ui->diffBox2->setText(hardness2);
-    }
-    
-    if(pPawrate2 > netPawratePrevious)
-    {
-        ui->pawrateBox->setText("<b><font color=\"green\">" + pawrate + " KH/s</font></b>");             
-    } else if(pPawrate2 < netPawratePrevious) {
-        ui->pawrateBox->setText("<b><font color=\"red\">" + pawrate + " KH/s</font></b>");        
-    } else {
-        ui->pawrateBox->setText(pawrate + " MH/s");
-    }
-    
-    if(lPawrate > pawratePrevious)
-    {
-        ui->localBox->setText("<b><font color=\"green\">" + Qlpawrate + " KH/s</font></b>");             
-    } else if(lPawrate < pawratePrevious) {
-        ui->localBox->setText("<b><font color=\"red\">" + Qlpawrate + " KH/s</font></b>");        
-    } else {
-        ui->localBox->setText(Qlpawrate + " KH/s");      
     }
     
     if(peers > connectionPrevious)
