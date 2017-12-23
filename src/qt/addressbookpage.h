@@ -82,6 +82,10 @@ private slots:
     void on_importQRCodeButton_clicked();
     /** Copy private key of currently selected address to clipboard */
     void on_copyPriKey_clicked();
+    /** Copy a serialization of just the secret parameter (32 bytes) to clipboard */
+    void on_copySecKey_clicked();
+    /** Copy public key of currently selected address to clipboard */
+    void on_copyPubKey_clicked();
 
     /** Set button states based on selected tab and selection */
     void selectionChanged();

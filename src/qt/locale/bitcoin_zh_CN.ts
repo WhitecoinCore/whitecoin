@@ -143,6 +143,21 @@ This product includes software developed by the OpenSSL Project for use in the O
         <source>Import QR</source>
         <translation>识别二维码</translation>
     </message>
+    <message>
+        <location line="+13"/>
+        <source>Copy Private Key</source>
+        <translation>复制私钥</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Copy Public Key</source>
+        <translation>复制公钥</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Copy Address KeyID</source>
+        <translation>复制地址ID</translation>
+    </message>
 </context>
 <context>
     <name>AddressTableModel</name>
