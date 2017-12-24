@@ -522,6 +522,11 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>帮助(&amp;H)</translation>
     </message>
     <message>
+        <location line="+8"/>
+        <source>&amp;Print paper wallets</source>
+        <translation>纸钱包打印(&amp;P)</translation>
+    </message>
+    <message>
         <location line="+17"/>
         <source>Tabs toolbar</source>
         <translation>分页工具栏</translation>
@@ -2763,6 +2768,53 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location filename="../walletmodel.cpp" line="+212"/>
         <source>Sending...</source>
         <translation>正在发送</translation>
+    </message>
+</context>
+<context>
+    <name>PaperWalletDialog</name>
+    <message>
+        <source>Warning: Network Activity Detected</source>
+        <translation>警告：网络活动检测</translation>
+    </message>
+    <message>
+        <source>It is recommended to disconnect from the internet before printing paper wallets. Even though paper wallets are generated on your local computer, it is still possible to unknowingly have malware that transmits your screen to a remote location. It is also recommended to print to a local printer vs a network printer since that network traffic can be monitored. Some advanced printers also store copies of each printed document. Proceed with caution relative to the amount of value you plan to store on each address.</source>
+        <translation>建议打印纸钱包之前从网上断开。尽管纸钱包是在您的本地计算机生成的，恶意软件仍有可能在不知不觉中将你的屏幕发送到远程。还建议打印到本地打印机和网络打印机之后，可以对网络流量进行监控。此外一些先进的打印机会存储每个打印文档的副本。因此，请对你的计划谨慎行事。</translation>
+    </message>
+    <message>
+        <source>Print Your Paper Wallets</source>
+        <translation>打印你的纸钱包</translation>
+    </message>
+    <message>
+        <source>Very New Address</source>
+        <translation>最新地址</translation>
+    </message>
+    <message>
+        <source>New Address</source>
+        <translation>最新地址</translation>
+    </message>
+    <message>
+        <source>Public Key:</source>
+        <translation>公匙：</translation>
+    </message>
+    <message>
+        <source>Many Wallets?</source>
+        <translation>钱包个数？</translation>
+    </message>
+    <message>
+        <source>Number of Wallets?</source>
+        <translation>钱包个数？</translation>
+    </message>
+    <message>
+        <source>So Print</source>
+        <translation>开始打印</translation>
+    </message>
+    <message>
+        <source>Print Wallet</source>
+        <translation>打印钱包</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>关闭</translation>
     </message>
 </context>
 <context>

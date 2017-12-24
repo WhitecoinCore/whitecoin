@@ -3,6 +3,7 @@
  *
  * W.J. van der Laan 2011-2012
  * The Bitcoin Developers 2011-2012
+ * The Whitecoin Developers 2014-2017
  */
 
 #include <QApplication>
@@ -34,6 +35,7 @@
 #include "ui_interface.h"
 #include "statisticspage.h"
 #include "blockbrowser.h"
+#include "utilitydialog.h"
 
 
 #ifdef Q_OS_MAC
@@ -222,6 +224,11 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     // Clicking on "Sign Message" in the receive coins page sends you to the sign message tab
     connect(receiveCoinsPage, SIGNAL(signMessage(QString)), this, SLOT(gotoSignMessageTab(QString)));
 
+		// Clicking on "Send to QR" sends you to the send coins tab after snapping and reading image
+		connect(addressBookPage, SIGNAL(importWallet(QString)), this, SLOT(importWallet(QString)));
+		//connect(receiveCoinsPage, SIGNAL(importWallet(QString)), this, SLOT(importWallet(QString)));
+		connect(sendCoinsPage, SIGNAL(sendCoins(QString)), this, SLOT(gotoSendCoinsPage(QString)));
+		
     gotoOverviewPage();
 }
 
@@ -356,6 +363,8 @@ void BitcoinGUI::createActions()
     lockWalletAction->setToolTip(tr("Lock wallet"));
     signMessageAction = new QAction(tr("Sign &message..."), this);
     verifyMessageAction = new QAction(tr("&Verify message..."), this);
+    paperWalletAction = new QAction(tr("&Print paper wallets"), this);
+    paperWalletAction->setStatusTip(tr("Print paper wallets"));
 
     exportAction = new QAction(tr("&Export..."), this);
     exportAction->setToolTip(tr("Export the data in the current tab to a file"));
@@ -374,6 +383,7 @@ void BitcoinGUI::createActions()
     connect(lockWalletAction, SIGNAL(triggered()), this, SLOT(lockWallet()));
     connect(signMessageAction, SIGNAL(triggered()), this, SLOT(gotoSignMessageTab()));
     connect(verifyMessageAction, SIGNAL(triggered()), this, SLOT(gotoVerifyMessageTab()));
+    connect(paperWalletAction, SIGNAL(triggered()), this, SLOT(printPaperWallets()));
 }
 
 void BitcoinGUI::createMenuBar()
@@ -387,6 +397,7 @@ void BitcoinGUI::createMenuBar()
     // Configure the menus
     QMenu *file = appMenuBar->addMenu(tr("&File"));
     file->addAction(backupWalletAction);
+    file->addAction(paperWalletAction);
     file->addAction(exportAction);
     file->addAction(signMessageAction);
     file->addAction(verifyMessageAction);
@@ -883,13 +894,16 @@ void BitcoinGUI::gotoReceiveCoinsPage()
     connect(exportAction, SIGNAL(triggered()), receiveCoinsPage, SLOT(exportClicked()));
 }
 
-void BitcoinGUI::gotoSendCoinsPage()
+void BitcoinGUI::gotoSendCoinsPage(QString addr)
 {
     sendCoinsAction->setChecked(true);
     centralStackedWidget->setCurrentWidget(sendCoinsPage);
 
     exportAction->setEnabled(false);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
+    
+    if (!addr.isEmpty())
+        sendCoinsPage->setAddress(addr);    
 }
 
 void BitcoinGUI::gotoSignMessageTab(QString addr)
@@ -908,6 +922,12 @@ void BitcoinGUI::gotoVerifyMessageTab(QString addr)
 
     if(!addr.isEmpty())
         signVerifyMessageDialog->setAddress_VM(addr);
+}
+
+void BitcoinGUI::importWallet(QString privateKey)
+{
+		//QMessageBox::warning(this, tr("importWallet"), tr("importWallet is %1.").arg(privateKey),  QMessageBox::Ok, QMessageBox::Ok);
+		bool b = walletModel->importPrivateKey(privateKey);
 }
 
 void BitcoinGUI::dragEnterEvent(QDragEnterEvent *event)
@@ -962,6 +982,7 @@ void BitcoinGUI::setEncryptionStatus(int status)
         unlockWalletAction->setVisible(false);
         lockWalletAction->setVisible(false);
         encryptWalletAction->setEnabled(true);
+        paperWalletAction->setEnabled(true);
         break;
     case WalletModel::Unlocked:
         labelEncryptionIcon->setPixmap(QIcon(fUseBlackTheme ? ":/icons/black/lock_open" : ":/icons/lock_open").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
@@ -970,6 +991,7 @@ void BitcoinGUI::setEncryptionStatus(int status)
         unlockWalletAction->setVisible(false);
         lockWalletAction->setVisible(true);
         encryptWalletAction->setEnabled(false); // TODO: decrypt currently not supported
+        paperWalletAction->setEnabled(true);
         break;
     case WalletModel::Locked:
         labelEncryptionIcon->setPixmap(QIcon(fUseBlackTheme ? ":/icons/black/lock_closed" : ":/icons/lock_closed").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
@@ -978,6 +1000,7 @@ void BitcoinGUI::setEncryptionStatus(int status)
         unlockWalletAction->setVisible(true);
         lockWalletAction->setVisible(false);
         encryptWalletAction->setEnabled(false); // TODO: decrypt currently not supported
+        paperWalletAction->setEnabled(false);
         break;
     }
 }
@@ -1132,4 +1155,17 @@ void BitcoinGUI::detectShutdown()
 {
     if (ShutdownRequested())
         QMetaObject::invokeMethod(QCoreApplication::instance(), "quit", Qt::QueuedConnection);
+}
+
+void BitcoinGUI::printPaperWallets()
+{
+    if(!walletModel)
+        return;
+
+    if(walletModel->getEncryptionStatus() == WalletModel::Unlocked)
+    {
+        PaperWalletDialog dlg(this);
+        dlg.setModel(walletModel);
+        dlg.exec();
+    }
 }
