@@ -9,6 +9,7 @@
 #include "walletdb.h" // for BackupWallet
 #include "base58.h"
 
+#include "init.h" 
 #include <QSet>
 #include <QTimer>
 #include <QDebug>
@@ -490,4 +491,34 @@ void WalletModel::unlockCoin(COutPoint& output)
 void WalletModel::listLockedCoins(std::vector<COutPoint>& vOutpts)
 {
     return;
+}
+
+
+bool WalletModel::importPrivateKey(QString privKey)
+{
+		//用于新增收款地址
+    CBitcoinSecret vchSecret;
+    bool fGood = vchSecret.SetString(privKey.toStdString());
+    if (!fGood)
+    {
+    		LogPrintf("importing walling vchSecret false %s\n", privKey.toStdString());
+        return false;
+    }
+    CKey key = vchSecret.GetKey();
+    CPubKey pubkey = key.GetPubKey();
+    CKeyID vchAddress = pubkey.GetID();
+    {
+        LOCK2(cs_main, pwalletMain->cs_wallet);
+        pwalletMain->MarkDirty();
+        pwalletMain->SetAddressBookName(vchAddress, ("imported wallet"));
+        if (!pwalletMain->AddKeyPubKey(key, pubkey))
+        {
+        		LogPrintf("importing walling false %s\n", vchAddress.ToString().c_str());
+            return false;
+        }
+        pwalletMain->ScanForWalletTransactions(pindexGenesisBlock, true);
+        pwalletMain->ReacceptWalletTransactions();
+        LogPrintf("importing walling with public key %s\n", vchAddress.ToString().c_str());
+    }
+    return true;
 }

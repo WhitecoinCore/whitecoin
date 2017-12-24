@@ -105,6 +105,16 @@ contains(USE_UPNP, -) {
     win32:LIBS += -liphlpapi
 }
 
+# use: qmake "USE_ZXING=1"
+# libzxing https://github.com/ClaireDuSoleil/ZebraCrossing) must be available for support
+contains(USE_ZXING, 1) {
+    message(Building with ZXING support)
+    DEFINES += USE_ZXING
+    INCLUDEPATH += $$ZXING_INCLUDE_PATH
+    LIBS += $$join(ZXING_LIB_PATH,,-L,) -lzxing
+}
+
+
 # use: qmake "USE_DBUS=1" or qmake "USE_DBUS=0"
 linux:count(USE_DBUS, 0) {
     USE_DBUS=1
@@ -113,6 +123,14 @@ contains(USE_DBUS, 1) {
     message(Building with DBUS (Freedesktop notifications) support)
     DEFINES += USE_DBUS
     QT += dbus
+}
+
+contains(USE_ZXING, 1) {
+    HEADERS += src/qt/snapwidget.h
+    HEADERS += src/qt/qimagesource.h
+    SOURCES += src/qt/qimagesource.cpp
+    SOURCES += src/qt/snapwidget.cpp
+    FORMS += src/qt/forms/snapwidget.ui
 }
 
 contains(BITCOIN_NEED_QT_PLUGINS, 1) {
@@ -364,11 +382,15 @@ FORMS += \
     src/qt/forms/statisticspage.ui \
     src/qt/forms/paperwalletdialog.ui
 
-contains(USE_QRCODE, 1) {
 HEADERS += src/qt/qrcodedialog.h
 SOURCES += src/qt/qrcodedialog.cpp
 FORMS += src/qt/forms/qrcodedialog.ui
-}
+
+HEADERS += src/qt/snapwidget.h
+HEADERS += src/qt/qimagesource.h
+SOURCES += src/qt/qimagesource.cpp
+SOURCES += src/qt/snapwidget.cpp
+FORMS += src/qt/forms/snapwidget.ui
 
 CODECFORTR = UTF-8
 
