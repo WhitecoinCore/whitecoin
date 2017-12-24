@@ -236,9 +236,9 @@ std::string getOutputOP(std::string txid)
     std::string strOP = "";
     std::string strCode = "";
     std::string remark = "";
-    for (unsigned int i = 0; i < tx.vout.size(); i++)
+    for (unsigned int v = 0; v < tx.vout.size(); v++)
     {
-        const CTxOut& txout = tx.vout[i];
+        const CTxOut& txout = tx.vout[v];
         CTxDestination source;
         ExtractDestination(txout.scriptPubKey, source);
         
@@ -254,7 +254,7 @@ std::string getOutputOP(std::string txid)
         	LogPrintf("get OP_RETURN strCode=%s\n",strCode.c_str());
         	
         	//2位1个字符，16进制转10进制，再转ascii
-        	for (int i=0;i<=(strCode.length()-2);i=i+2)
+        	for (unsigned int i=0; i<=(strCode.length()-2); i=i+2)
         	{
         		int dec_hex = fun16to10(strCode.substr(0+i,2).c_str());//"48"
         		LogPrintf("get OP_RETURN itoascii=%s\n",itoascii(dec_hex));
