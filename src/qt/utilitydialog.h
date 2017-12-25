@@ -28,6 +28,7 @@ public:
     ~PaperWalletDialog();
 
     void setModel(WalletModel *model);
+    void setPrintData(QString strAddress, QString strPubKey, QString strKey);
 
 private:
     Ui::PaperWalletDialog *ui;
@@ -36,7 +37,7 @@ private:
     static const int PAPER_WALLET_PAGE_MARGIN = 50;
 
 private slots:
-    void on_getNewAddress_clicked();
+    void on_getNewAddress_clicked(std::string strAddress , std::string strPubKey , std::string strPrivKey);
     void on_printButton_clicked();
 };
 

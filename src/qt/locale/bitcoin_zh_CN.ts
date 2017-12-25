@@ -158,6 +158,11 @@ This product includes software developed by the OpenSSL Project for use in the O
         <source>Copy Address KeyID</source>
         <translation>复制地址ID</translation>
     </message>
+    <message>
+        <location line="+13"/>
+        <source>&amp;Print</source>
+        <translation>打印(&amp;P)</translation>
+    </message>
 </context>
 <context>
     <name>AddressTableModel</name>
@@ -2450,6 +2455,11 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+67"/>
         <source>unknown</source>
         <translation>未知</translation>
+    </message>
+    <message>
+        <location line="+67"/>
+        <source>Decode Remark</source>
+        <translation>附言</translation>
     </message>
 </context>
 <context>

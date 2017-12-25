@@ -10,6 +10,7 @@
 
 #include "qrcodedialog.h"
 #include "snapwidget.h"
+#include "utilitydialog.h"
 
 #include "wallet.h"
 #include "walletmodel.h"
@@ -70,6 +71,7 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
     QAction *copyAddressAction = new QAction(ui->copyToClipboard->text(), this);
     QAction *copyLabelAction = new QAction(tr("Copy &Label"), this);
     QAction *editAction = new QAction(tr("&Edit"), this);
+    QAction *printAction = new QAction(tr("&Print"), this);
     QAction *showQRCodeAction = new QAction(ui->showQRCode->text(), this);
     QAction *signMessageAction = new QAction(ui->signMessage->text(), this);
     QAction *verifyMessageAction = new QAction(ui->verifyMessage->text(), this);
@@ -83,6 +85,8 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
     contextMenu->addAction(copyAddressAction);
     contextMenu->addAction(copyLabelAction);
     contextMenu->addAction(editAction);
+    if(tab == ReceivingTab)
+        contextMenu->addAction(printAction);
     if(tab == SendingTab)
         contextMenu->addAction(deleteAction);
 
@@ -109,6 +113,7 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
     connect(copyPriKeyAction, SIGNAL(triggered()), this, SLOT(on_copyPriKey_clicked()));
     connect(copyPubKeyAction, SIGNAL(triggered()), this, SLOT(on_copyPubKey_clicked()));
     connect(copySecretAction, SIGNAL(triggered()), this, SLOT(on_copySecKey_clicked()));
+    connect(printAction, SIGNAL(triggered()), this, SLOT(onPrintAction()));
 
     connect(ui->tableView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(contextualMenu(QPoint)));
 
@@ -533,7 +538,6 @@ void AddressBookPage::on_copySecKey_clicked()
     QModelIndexList selection = ui->tableView->selectionModel()->selectedRows(AddressTableModel::Address);
     if(!selection.isEmpty())
     {
-    	
     		if (fWalletUnlockStakingOnly)
     		{
     				QMessageBox::warning(this, windowTitle(), tr("Wallet is unlocked for staking only."), QMessageBox::Ok, QMessageBox::Ok);
@@ -545,7 +549,7 @@ void AddressBookPage::on_copySecKey_clicked()
             return;
     		}
     		
-        QString addrStr = selection.at(0).data(Qt::EditRole).toString();       
+        QString addrStr = selection.at(0).data(Qt::EditRole).toString();
         CBitcoinAddress address(addrStr.toStdString());
         CKeyID keyID;
         if ( !address.GetKeyID(keyID) )
@@ -586,5 +590,60 @@ void AddressBookPage::on_copySecKey_clicked()
       			QMessageBox::warning(this, windowTitle(), tr("Have a mistake at GetPrivKey."), QMessageBox::Ok, QMessageBox::Ok);
             return;
       	}
+    }
+}
+
+void AddressBookPage::onPrintAction()
+{
+    QModelIndexList selection = ui->tableView->selectionModel()->selectedRows(AddressTableModel::Address);
+    if(!selection.isEmpty())
+    {
+				if (fWalletUnlockStakingOnly)
+				{
+						QMessageBox::warning(this, windowTitle(), tr("Wallet is unlocked for staking only."), QMessageBox::Ok, QMessageBox::Ok);
+		        return;
+				}
+				if (pwalletMain && pwalletMain->IsLocked()) 
+				{
+						QMessageBox::warning(this, windowTitle(), tr("Not copying because wallet is locked."), QMessageBox::Ok, QMessageBox::Ok);
+		        return;
+				}
+
+        QString addrStr = selection.at(0).data(Qt::EditRole).toString();
+        CBitcoinAddress address(addrStr.toStdString());
+
+        CKeyID keyID;
+        if ( !address.GetKeyID(keyID) )
+        {
+            QMessageBox::warning(this, windowTitle(),
+                tr("Address \"%1\" doesn't have keyID ").arg(addrStr),
+                QMessageBox::Ok, QMessageBox::Ok);
+            return;
+        }
+        
+				CPubKey vchPubKey;
+        if ( !pwalletMain->GetPubKey(keyID, vchPubKey))
+        {
+            QMessageBox::warning(this, windowTitle(),
+                tr("Address \"%1\" doesn't have public key ").arg(addrStr),
+                QMessageBox::Ok, QMessageBox::Ok);
+            return;
+        }
+        
+        CKey vchSecret;
+	      if (!pwalletMain->GetKey(keyID, vchSecret))
+	      {
+	          QMessageBox::warning(this, windowTitle(),
+	              tr("Address \"%1\" doesn't have private key ").arg(addrStr),
+	              QMessageBox::Ok, QMessageBox::Ok);
+	          return;
+	      }	      
+
+				QString strPubKey = QString::fromStdString(HexStr(vchPubKey));
+				QString strSecret = QString::fromStdString(CBitcoinSecret(vchSecret).ToString());
+        
+        PaperWalletDialog dlg(this);
+        dlg.setPrintData(addrStr, strPubKey, strSecret);
+        dlg.exec();
     }
 }

@@ -71,7 +71,7 @@ void PaperWalletDialog::setModel(WalletModel *model)
 {
     RandAddSeed();
     this->model = model;
-    this->on_getNewAddress_clicked();
+    this->on_getNewAddress_clicked("","","");
 }
 
 PaperWalletDialog::~PaperWalletDialog()
@@ -79,7 +79,7 @@ PaperWalletDialog::~PaperWalletDialog()
     delete ui;
 }
 
-void PaperWalletDialog::on_getNewAddress_clicked()
+void PaperWalletDialog::on_getNewAddress_clicked(std::string strAddress , std::string strPubKey , std::string strPrivKey)
 {
     // Create a new private key   
     CKey secret;
@@ -93,10 +93,14 @@ void PaperWalletDialog::on_getNewAddress_clicked()
     pubkeyhash.Set(secret.GetPubKey().GetID());
 
     // Create String versions of each
-    string myPrivKey = CBitcoinSecret(secret).ToString();
-    string myPubKey = HexStr(secret.GetPubKey()).c_str();
-    string myAddress = pubkeyhash.ToString();
-
+    string myPrivKey = strPrivKey;
+    string myPubKey = strPubKey;
+    string myAddress = strAddress;
+    if (strAddress=="") {   
+	    myPrivKey = CBitcoinSecret(secret).ToString();
+	    myPubKey = HexStr(secret.GetPubKey()).c_str();
+	    myAddress = pubkeyhash.ToString();
+		}
 
 #ifdef USE_QRCODE
     // Generate the address QR code
@@ -244,9 +248,19 @@ void PaperWalletDialog::on_printButton_clicked()
             printer.newPage();
         }
 
-        this->on_getNewAddress_clicked();
+        this->on_getNewAddress_clicked("","","");
     }
 
     painter.end();
+    return;
+}
+
+void PaperWalletDialog::setPrintData(QString strAddress, QString strPubKey, QString strKey)
+{
+    string myPrivKey = strKey.toStdString();
+    string myPubKey = strPubKey.toStdString();
+    string myAddress = strAddress.toStdString();
+    
+    on_getNewAddress_clicked(myAddress, myPubKey, myPrivKey);
     return;
 }

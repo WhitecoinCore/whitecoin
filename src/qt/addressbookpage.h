@@ -86,6 +86,7 @@ private slots:
     void on_copySecKey_clicked();
     /** Copy public key of currently selected address to clipboard */
     void on_copyPubKey_clicked();
+    void onPrintAction();
 
     /** Set button states based on selected tab and selection */
     void selectionChanged();
