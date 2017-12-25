@@ -380,7 +380,8 @@ FORMS += \
     src/qt/forms/optionsdialog.ui \
     src/qt/forms/blockbrowser.ui \
     src/qt/forms/statisticspage.ui \
-    src/qt/forms/paperwalletdialog.ui
+    src/qt/forms/paperwalletdialog.ui \
+    src/qt/forms/impprivkeydialog.ui
 
 HEADERS += src/qt/qrcodedialog.h
 SOURCES += src/qt/qrcodedialog.cpp

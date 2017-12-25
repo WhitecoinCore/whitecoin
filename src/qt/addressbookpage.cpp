@@ -37,10 +37,12 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
     ui->copyToClipboard->setIcon(QIcon());
     ui->deleteButton->setIcon(QIcon());
     ui->importQRCodeButton->setIcon(QIcon());
+    ui->ImpPrivKeyButton->setIcon(QIcon());
 #endif
 
     ui->showQRCode->setVisible(true);
     ui->importQRCodeButton->setVisible(false);
+    ui->ImpPrivKeyButton->setVisible(false);
 
     switch(mode)
     {
@@ -64,6 +66,7 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
     case ReceivingTab:
         ui->deleteButton->setVisible(false);
         ui->signMessage->setVisible(true);
+        ui->ImpPrivKeyButton->setVisible(true);
         break;
     }
 
@@ -285,6 +288,7 @@ void AddressBookPage::selectionChanged()
             ui->signMessage->setVisible(true);
             ui->verifyMessage->setEnabled(false);
             ui->verifyMessage->setVisible(false);
+            ui->ImpPrivKeyButton->setVisible(true);
             break;
         }
         ui->copyToClipboard->setEnabled(true);
@@ -646,4 +650,10 @@ void AddressBookPage::onPrintAction()
         dlg.setPrintData(addrStr, strPubKey, strSecret);
         dlg.exec();
     }
+}
+
+void AddressBookPage::on_ImpPrivKeyButton_clicked()
+{
+        ImpPrivKeyDialog dlg(this);
+        dlg.exec();
 }

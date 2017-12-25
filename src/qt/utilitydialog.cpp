@@ -4,6 +4,7 @@
 
 #include "utilitydialog.h"
 #include "ui_paperwalletdialog.h"
+#include "ui_impprivkeydialog.h"
 
 #include "bitcoinunits.h"
 #include "optionsmodel.h"
@@ -263,4 +264,90 @@ void PaperWalletDialog::setPrintData(QString strAddress, QString strPubKey, QStr
     
     on_getNewAddress_clicked(myAddress, myPubKey, myPrivKey);
     return;
+}
+
+
+
+
+
+
+
+/** "Import Private Key" dialog box */
+
+ImpPrivKeyDialog::ImpPrivKeyDialog(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::ImpPrivKeyDialog)
+{
+    ui->setupUi(this);
+}
+
+void ImpPrivKeyDialog::setModel(WalletModel *model)
+{
+    this->model = model;    
+}
+
+ImpPrivKeyDialog::~ImpPrivKeyDialog()
+{
+    delete ui;
+}
+
+void ImpPrivKeyDialog::on_exitButton_clicked()
+{
+    close();
+}
+
+void ImpPrivKeyDialog::on_importButton_clicked()
+{
+    CBitcoinSecret vchSecret;
+    bool fGood = vchSecret.SetString(ui->addrEdit->text().toStdString());
+    
+    if (!fGood)
+		{
+				QMessageBox::warning(this, windowTitle(), tr("Invalid private key"), QMessageBox::Ok, QMessageBox::Ok);
+        return;
+		}
+    if (fWalletUnlockStakingOnly)
+    {
+				QMessageBox::warning(this, windowTitle(), tr("Wallet is unlocked for staking only"), QMessageBox::Ok, QMessageBox::Ok);
+        return;
+		}
+    
+    string strLabel = "";
+    bool fRescan = true;
+    
+    CKey key = vchSecret.GetKey();
+    CPubKey pubkey = key.GetPubKey();
+    CKeyID vchAddress = pubkey.GetID();
+    {
+				LOCK2(cs_main, pwalletMain->cs_wallet);
+				
+				pwalletMain->MarkDirty();
+        pwalletMain->SetAddressBookName(vchAddress, strLabel);
+
+        // Don't throw error in case a key is already there
+        if (pwalletMain->HaveKey(vchAddress))
+		    {
+						QMessageBox::warning(this, windowTitle(), tr("This key has already existed"), QMessageBox::Ok, QMessageBox::Ok);
+		        return;
+				}
+            	
+        pwalletMain->mapKeyMetadata[vchAddress].nCreateTime = 1;
+
+        if (!pwalletMain->AddKeyPubKey(key, pubkey))
+        {
+						QMessageBox::warning(this, windowTitle(), tr("Error adding key to wallet"), QMessageBox::Ok, QMessageBox::Ok);
+		        return;
+				}
+
+        // whenever a key is imported, we need to scan the whole chain
+        pwalletMain->nTimeFirstKey = 1; // 0 would be considered 'no value'
+
+        if (fRescan) {
+            pwalletMain->ScanForWalletTransactions(pindexGenesisBlock, true);
+            pwalletMain->ReacceptWalletTransactions();
+            
+            QMessageBox::warning(this, windowTitle(), tr("The import has completed"), QMessageBox::Ok, QMessageBox::Ok);
+           	return;
+        } //导入完成后，需重启钱包
+    }
 }

@@ -15,6 +15,7 @@ class SendCoinsRecipient;
 
 namespace Ui {
     class PaperWalletDialog;
+    class ImpPrivKeyDialog;
 }
 
 
@@ -40,5 +41,31 @@ private slots:
     void on_getNewAddress_clicked(std::string strAddress , std::string strPubKey , std::string strPrivKey);
     void on_printButton_clicked();
 };
+
+
+
+/** "Import Private Key" dialog box */
+class ImpPrivKeyDialog : public QDialog
+{
+    Q_OBJECT
+
+public:
+    explicit ImpPrivKeyDialog(QWidget *parent);
+    ~ImpPrivKeyDialog();
+
+    void setModel(WalletModel *model);
+
+private:
+    Ui::ImpPrivKeyDialog *ui;
+    WalletModel *model;
+
+
+private Q_SLOTS:
+    void on_importButton_clicked();
+    void on_exitButton_clicked();
+
+};
+
+
 
 #endif // UTILITYDIALOG_H

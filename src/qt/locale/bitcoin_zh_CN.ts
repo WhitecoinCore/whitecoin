@@ -163,6 +163,11 @@ This product includes software developed by the OpenSSL Project for use in the O
         <source>&amp;Print</source>
         <translation>打印(&amp;P)</translation>
     </message>
+    <message>
+        <location line="+13"/>
+        <source>Import PrivKey</source>
+        <translation>导入私钥</translation>
+    </message>
 </context>
 <context>
     <name>AddressTableModel</name>
@@ -180,6 +185,62 @@ This product includes software developed by the OpenSSL Project for use in the O
         <location line="+36"/>
         <source>(no label)</source>
         <translation>(没有标签)</translation>
+    </message>
+</context>
+<context>
+    <name>ImpPrivKeyDialog</name>
+    <message>
+        <location filename="../utilitydialog.cpp" line="+145"/>
+        <source>Invalid private key</source>
+        <translation>错误的私钥</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Wallet is unlocked for staking only</source>
+        <translation>钱包被锁定用于挖矿</translation>
+    </message>
+    <message>
+        <location line="+36"/>
+        <source>This key has already existed</source>
+        <translation>私钥已存在</translation>
+    </message>
+</context>
+<context>
+    <name>ImpPrivKeyDialog</name>
+    <message>
+        <location filename="../forms/impprivkeydialog.ui" line="+26"/>
+        <source>Import whitecoin into your wallet</source>
+        <translation>导入白币到钱包</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Import PrivateKey</source>
+        <translation>导入私钥</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Key:</source>
+        <translation>私钥：</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Note: this operation will rebuild the index data and wait for a long time</source>
+        <translation>注意：此操作将重建数据索引，需等待较长时间</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Exit</source>
+        <translation>退出</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Error adding key to wallet</source>
+        <translation>加入钱包发生错误</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>The import has completed</source>
+        <translation>已完成导入钱包</translation>
     </message>
 </context>
 <context>
