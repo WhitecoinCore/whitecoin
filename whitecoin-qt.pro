@@ -281,7 +281,9 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/blockbrowser.h \
     src/qt/statisticspage.h \
     src/qt/verticallabel.h \
-    src/qt/utilitydialog.h
+    src/qt/utilitydialog.h \
+    src/qt/intro.h \
+    src/qt/scicon.h
 
 SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/transactiontablemodel.cpp \
@@ -360,7 +362,9 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/scrypt.cpp \
     src/pbkdf2.cpp \
     src/qt/verticallabel.cpp \
-    src/qt/utilitydialog.cpp
+    src/qt/utilitydialog.cpp \
+    src/qt/intro.cpp \
+    src/qt/scicon.cpp
 
 RESOURCES += \
     src/qt/bitcoin.qrc
@@ -381,7 +385,8 @@ FORMS += \
     src/qt/forms/blockbrowser.ui \
     src/qt/forms/statisticspage.ui \
     src/qt/forms/paperwalletdialog.ui \
-    src/qt/forms/impprivkeydialog.ui
+    src/qt/forms/impprivkeydialog.ui \
+    src/qt/forms/intro.ui
 
 HEADERS += src/qt/qrcodedialog.h
 SOURCES += src/qt/qrcodedialog.cpp

@@ -1,5 +1,63 @@
 ﻿<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
 <context>
+    <name>Intro</name>
+    <message>
+        <location filename="../forms/intro.ui" line="+14"/>
+        <source>Welcome</source>
+        <translation>欢迎</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Welcome to Whitecoin.</source>
+        <translation>欢迎使用白币QT钱包。</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>You can choose where Whitecoin will store its data.</source>
+        <translation>您可以选择白币钱包数据存储目录。</translation>
+    </message>
+    <message>
+    		<location line="+17"/>
+        <source>Whitecoin will download and store a copy of the Whitecoin block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>白币钱包程序会下载储存一份完整的白币块链(blockchain)数据。至少需要 %1 GB的存储空间，随着时间推移会需要更多的存储空间。钱包文件也储存在该目录。</translation>
+    </message>
+    <message>
+    		<location line="+17"/>
+        <source>Use the default data directory</source>
+        <translation>使用默认的数据目录</translation>
+    </message>
+    <message>
+    		<location line="+17"/>
+        <source>Use a custom data directory:</source>
+        <translation>使用自定义的数据目录：</translation>
+    </message>
+    <message>
+    		<location line="+17"/>
+        <source>Whitecoin</source>
+        <translation>白币</translation>
+    </message>
+    <message>
+    		<location line="+17"/>
+        <source>Error: Specified data directory "%1" cannot be created.</source>
+        <translation>错误：无法创建 指定的数据目录 "%1" </translation>
+    </message>
+    <message>
+    		<location line="+17"/>
+        <source>Error</source>
+        <translation>错误</translation>
+    </message>
+    <message numerus="yes">
+    		<location line="+17"/>
+        <source>%n GB of free space available</source>
+        <translation><numerusform>有 %n GB 空闲空间</numerusform></translation>
+    </message>
+    <message numerus="yes">
+    		<location line="+17"/>
+        <source>(of %n GB needed)</source>
+        <translation><numerusform>(需要%n GB空间)</numerusform></translation>
+    </message>
+</context>
+<context>
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
