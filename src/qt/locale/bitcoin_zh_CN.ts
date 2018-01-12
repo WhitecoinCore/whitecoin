@@ -2890,6 +2890,36 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <source>to</source>
         <translation>到</translation>
     </message>
+    <message>
+        <location line="+8"/>
+        <source>Total:</source>
+        <translation>合计：</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Date:</source>
+        <translation>日期：</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>All:</source>
+        <translation>全部：</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Type:</source>
+        <translation>类型：</translation>
+    </message>
+    <message>
+    		<location line="+8"/>
+        <source>Show transaction total</source>
+        <translation>显示交易总和</translation>
+    </message>
+    <message>
+    		<location line="+8"/>
+        <source>Export all transactions</source>
+        <translation>导出全部交易记录</translation>
+    </message>
 </context>
 <context>
     <name>WalletModel</name>
