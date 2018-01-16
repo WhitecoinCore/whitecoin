@@ -125,14 +125,6 @@ contains(USE_DBUS, 1) {
     QT += dbus
 }
 
-contains(USE_ZXING, 1) {
-    HEADERS += src/qt/snapwidget.h
-    HEADERS += src/qt/qimagesource.h
-    SOURCES += src/qt/qimagesource.cpp
-    SOURCES += src/qt/snapwidget.cpp
-    FORMS += src/qt/forms/snapwidget.ui
-}
-
 contains(BITCOIN_NEED_QT_PLUGINS, 1) {
     DEFINES += BITCOIN_NEED_QT_PLUGINS
     QTPLUGIN += qcncodecs qjpcodecs qtwcodecs qkrcodecs qtaccessiblewidgets
@@ -388,15 +380,19 @@ FORMS += \
     src/qt/forms/impprivkeydialog.ui \
     src/qt/forms/intro.ui
 
-HEADERS += src/qt/qrcodedialog.h
-SOURCES += src/qt/qrcodedialog.cpp
-FORMS += src/qt/forms/qrcodedialog.ui
+contains(USE_QRCODE, 1) {
+    HEADERS += src/qt/qrcodedialog.h
+    SOURCES += src/qt/qrcodedialog.cpp
+    FORMS += src/qt/forms/qrcodedialog.ui
+}
 
-HEADERS += src/qt/snapwidget.h
-HEADERS += src/qt/qimagesource.h
-SOURCES += src/qt/qimagesource.cpp
-SOURCES += src/qt/snapwidget.cpp
-FORMS += src/qt/forms/snapwidget.ui
+contains(USE_ZXING, 1) {
+    HEADERS += src/qt/snapwidget.h
+    HEADERS += src/qt/qimagesource.h
+    SOURCES += src/qt/qimagesource.cpp
+    SOURCES += src/qt/snapwidget.cpp
+    FORMS += src/qt/forms/snapwidget.ui
+}
 
 CODECFORTR = UTF-8
 
