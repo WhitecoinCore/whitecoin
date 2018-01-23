@@ -740,6 +740,20 @@
       </spacer>
      </item>
      <item>
+      <widget class="QPushButton" name="quickButton">
+       <property name="text">
+        <string>Quick Send</string>
+       </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>:/icons/quitpay</normaloff>:/icons/quitpay</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="sendButton">
        <property name="minimumSize">
         <size>

@@ -254,6 +254,74 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
     return SendCoinsReturn(OK, 0, hex);
 }
 
+WalletModel::SendCoinsReturn WalletModel::quickCoins(const std::string strAddress, const qint64 dbAmount, const CCoinControl *coinControl)
+{
+    QSet<QString> setAddress;
+    QString hex;
+    int64_t txValue = 0;
+    
+    if(!validateAddress(QString::fromStdString(strAddress)))
+    {
+        return InvalidAddress;
+    }
+    setAddress.insert(QString::fromStdString(strAddress));
+
+    if(dbAmount <= 0)
+    {
+    		LogPrintf("quickCoins dbAmount<=0......\n");
+        return InvalidAmount;
+    }
+        
+    qint64 nBalance = getBalance(coinControl);
+    if(dbAmount > nBalance)
+    {
+    		LogPrintf("quickCoins dbAmount > nBalance......\n");
+        return AmountExceedsBalance;
+    }
+    
+     
+    {
+        LOCK2(cs_main, wallet->cs_wallet);        
+        
+        //1、形成支付方案(创建交易)
+        std::vector<std::pair<CScript, int64_t> > vecSend;
+        CWalletTx wtx;
+        CReserveKey keyChange(wallet);
+        int64_t nFeeRequired = 0;  
+        
+        //返回本次发送的金额
+        bool fCreated = wallet->CreateQuickTransaction(strAddress, dbAmount, vecSend, wtx, keyChange, nFeeRequired, txValue ,coinControl);
+        LogPrintf("quickCoins fCreated = %i,dbAmount=%i, txValue=%i, nFeeRequired=%i\n", fCreated, dbAmount, txValue, nFeeRequired);
+
+        //2、检查交易、广播交易
+        if(!fCreated)
+        {
+            if((dbAmount + nFeeRequired) > nBalance) // FIXME: could cause collisions in the future
+            {
+                return SendCoinsReturn(AmountWithFeeExceedsBalance, nFeeRequired);
+            }
+            LogPrintf("quickCoins Transaction Creation Failed......\n");
+            return TransactionCreationFailed;
+        }
+        if(!uiInterface.ThreadSafeAskFee(nFeeRequired, tr("Sending...").toStdString()))
+        {
+            return Aborted;
+        }
+        
+        LogPrintf("quickCoins CommitTransaction......\n");
+        if(!wallet->CommitTransaction(wtx, keyChange))
+        {
+        		LogPrintf("CommitTransaction fail.......\n");
+            return TransactionCommitFailed;
+        }
+        hex = QString::fromStdString(wtx.GetHash().GetHex());
+    }
+    
+    checkBalanceChanged(); // update balance immediately, otherwise there could be a short noticeable delay until pollBalanceChanged hits
+    
+    return SendCoinsReturn(OK, txValue, hex);
+}
+
 OptionsModel *WalletModel::getOptionsModel()
 {
     return optionsModel;

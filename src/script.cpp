@@ -1721,7 +1721,10 @@ bool SignSignature(const CKeyStore &keystore, const CScript& fromPubKey, CTransa
 
     txnouttype whichType;
     if (!Solver(keystore, fromPubKey, hash, nHashType, txin.scriptSig, whichType))
+    {
+    		LogPrintf("SignSignature Solver error:1 nIn = %i ,nHashType = %i\n", nIn, nHashType);
         return false;
+     }
 
     if (whichType == TX_SCRIPTHASH)
     {
@@ -1738,11 +1741,17 @@ bool SignSignature(const CKeyStore &keystore, const CScript& fromPubKey, CTransa
             Solver(keystore, subscript, hash2, nHashType, txin.scriptSig, subType) && subType != TX_SCRIPTHASH;
         // Append serialized subscript whether or not it is completely signed:
         txin.scriptSig << static_cast<valtype>(subscript);
-        if (!fSolved) return false;
+        if (!fSolved)
+        {
+        	LogPrintf("SignSignature Solver error:2 nIn = %i ,nHashType = %i\n", nIn, nHashType);
+        	return false;
+        }
     }
 
     // Test solution
-    return VerifyScript(txin.scriptSig, fromPubKey, txTo, nIn, STANDARD_SCRIPT_VERIFY_FLAGS, 0);
+    bool verifyRet = VerifyScript(txin.scriptSig, fromPubKey, txTo, nIn, STANDARD_SCRIPT_VERIFY_FLAGS, 0);
+    LogPrintf("SignSignature verifyRet = %i\n", verifyRet);
+    return verifyRet;
 }
 
 bool SignSignature(const CKeyStore &keystore, const CTransaction& txFrom, CTransaction& txTo, unsigned int nIn, int nHashType)
@@ -1753,6 +1762,7 @@ bool SignSignature(const CKeyStore &keystore, const CTransaction& txFrom, CTrans
     assert(txin.prevout.hash == txFrom.GetHash());
     const CTxOut& txout = txFrom.vout[txin.prevout.n];
 
+		LogPrintf("SignSignature 100 nHashType = %i\n", nHashType);
     return SignSignature(keystore, txout.scriptPubKey, txTo, nIn, nHashType);
 }
 

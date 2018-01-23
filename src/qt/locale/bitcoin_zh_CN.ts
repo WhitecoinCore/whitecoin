@@ -2066,7 +2066,42 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+4"/>
         <source>Send To QR</source>
-        <translation>按二维码支付</translation>
+        <translation>扫二维码支付</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Quick Send</source>
+        <translation>敏捷支付</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Quickly sending may need to create several transactions ,so this payment need more time and fee. Are you sure you want to send ?</source>
+        <translation>敏捷支付可能会产生多次支付，因此需要更多手续费和时间，你确定发送币？</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Please fill in the amount of the transaction.</source>
+        <translation>请填上交易金额。</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Please fill in the address of the transaction.</source>
+        <translation>请填上交易地址。</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Unlock wallet was fail</source>
+        <translation>钱包解锁失败</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Please set CoinControl true.</source>
+        <translation>请打开币控制开关</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>%1 whitecoins had been sent,the remaining %2 whitecoins continue ?</source>
+        <translation>%1个白币已经发送，剩余%2个白币继续发送吗？</translation>
     </message>
 </context>
 <context>
