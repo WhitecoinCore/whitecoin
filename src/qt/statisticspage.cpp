@@ -1,5 +1,6 @@
 #include "statisticspage.h"
 #include "ui_statisticspage.h"
+#include "util.h"
 #include "main.h"
 #include "wallet.h"
 #include "init.h"
@@ -35,10 +36,12 @@ double hardnessPrevious2 = -1;
 int stakeminPrevious = -1;
 int stakemaxPrevious = -1;
 QString stakecPrevious = "";
+uint64_t destroyedStakec =  65217844.265830 * COIN;  //https://www.richlist.eu/whitecoin/stats/destroyed
 
 int getBlockHashrate(int);
 void StatisticsPage::updateStatistics()
 {
+		double nMint = ((pindexBest->nMint) / COIN);
     double pHardness = GetDifficulty();
     double pHardness2 = GetDifficulty(GetLastBlockIndex(pindexBest, true));
 
@@ -72,6 +75,7 @@ void StatisticsPage::updateStatistics()
     {
         phase = "POS";
     }
+    uint64_t aliveVolume = (volume * COIN - destroyedStakec) / COIN;
 
     QString subsidy = QString::number(nSubsidy, 'f', 6);
     QString hardness = QString::number(pHardness, 'f', 6);
@@ -130,6 +134,10 @@ void StatisticsPage::updateStatistics()
     } else {
         ui->volumeBox->setText(qVolume + " XWC");
     }
+    
+    ui->rewardBox->setText(QString::number(nMint, 'f', 6) + " XWC");
+    ui->circBox->setText(QLocale(QLocale::English).toString(aliveVolume) + " XWC"); 
+    
     updatePrevious(nHeight, nMinWeight, nNetworkWeight, phase, nSubsidy, pHardness, pHardness2, pPawrate2, lPawrate, peers, volume);
 }
 
