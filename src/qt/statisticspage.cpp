@@ -136,7 +136,7 @@ void StatisticsPage::updateStatistics()
     }
     
     ui->rewardBox->setText(QString::number(nMint, 'f', 6) + " XWC");
-    ui->circBox->setText(QLocale(QLocale::English).toString(aliveVolume) + " XWC"); 
+    //ui->circBox->setText(QLocale(QLocale::English).toString(aliveVolume) + " XWC"); 
     
     updatePrevious(nHeight, nMinWeight, nNetworkWeight, phase, nSubsidy, pHardness, pHardness2, pPawrate2, lPawrate, peers, volume);
 }
