@@ -7,6 +7,7 @@ class OptionsModel;
 class AddressTableModel;
 class TransactionTableModel;
 class CWallet;
+class PeerTableModel;
 
 QT_BEGIN_NAMESPACE
 class QDateTime;
@@ -30,6 +31,7 @@ public:
     ~ClientModel();
 
     OptionsModel *getOptionsModel();
+    PeerTableModel *getPeerTableModel();
 
     //! Return number of connections, default is in- and outbound (total)
     int getNumConnections(unsigned int flags = CONNECTIONS_ALL) const;
@@ -58,6 +60,7 @@ public:
 
 private:
     OptionsModel *optionsModel;
+    PeerTableModel *peerTableModel;
 
     int cachedNumBlocks;
 

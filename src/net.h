@@ -65,6 +65,7 @@ struct CNodeSignals
 
 CNodeSignals& GetNodeSignals();
 
+typedef int NodeId;
 
 enum
 {
@@ -119,6 +120,7 @@ extern CCriticalSection cs_vAddedNodes;
 class CNodeStats
 {
 public:
+    NodeId nodeid;
     uint64_t nServices;
     int64_t nLastSend;
     int64_t nLastRecv;

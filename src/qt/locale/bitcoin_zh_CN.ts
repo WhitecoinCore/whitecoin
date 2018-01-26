@@ -1619,6 +1619,21 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
 </context>
 <context>
+    <name>PeerTableModel</name>
+    <message>
+        <source>User Agent</source>
+        <translation>用户代理</translation>
+    </message>
+    <message>
+        <source>Node/Service</source>
+        <translation>节点/服务</translation>
+    </message>
+    <message>
+        <source>Ping Time</source>
+        <translation>Ping 时间</translation>
+    </message>
+</context>
+<context>
     <name>RPCConsole</name>
     <message>
         <location filename="../forms/rpcconsole.ui" line="+46"/>
@@ -1816,6 +1831,90 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+2"/>
         <source>%1 h %2 m</source>
         <translation>%1 时 %2 分</translation>
+    </message>
+    <message>
+        <source>&amp;Peers</source>
+        <location line="+5"/>
+        <translation>同伴节点(&amp;P)</translation>
+    </message>
+    <message>
+        <source>Select a peer to view detailed information.</source>
+        <location line="+5"/>
+        <translation>选择节点查看详细信息。</translation>
+    </message>
+    <message>
+        <source>Direction</source>
+        <location line="+5"/>
+        <translation>方向</translation>
+    </message>
+    <message>
+        <source>Version</source>
+        <location line="+5"/>
+        <translation>版本</translation>
+    </message>
+    <message>
+        <source>User Agent</source>
+        <location line="+5"/>
+        <translation>用户代理</translation>
+    </message>
+    <message>
+        <source>Ping Time</source>
+        <location line="+5"/>
+        <translation>Ping时间</translation>
+    </message>
+    <message>
+        <source>Node/Services</source>
+        <location line="+5"/>
+        <translation>节点/服务</translation>
+    </message>
+    <message>
+        <source>Services</source>
+        <location line="+5"/>
+        <translation>服务</translation>
+    </message>
+    <message>
+        <source>Starting Height</source>
+        <translation>开始高度</translation>
+    </message>
+    <message>
+        <source>Sync Height</source>
+        <translation>同步高度</translation>
+    </message>
+    <message>
+        <source>Ban Score</source>
+        <translation>禁止得分</translation>
+    </message>
+    <message>
+        <source>Connection Time</source>
+        <translation>连接时间</translation>
+    </message>
+    <message>
+        <source>Last Send</source>
+        <translation>最后发送</translation>
+    </message>
+    <message>
+        <source>Last Receive</source>
+        <translation>最后接收</translation>
+    </message>
+    <message>
+        <source>Bytes Sent</source>
+        <translation>发送字节</translation>
+    </message>
+    <message>
+        <source>Bytes Received</source>
+        <translation>接收字节</translation>
+    </message>
+    <message>
+        <source>Ping Time</source>
+        <translation>Ping 时间</translation>
+    </message>
+    <message>
+        <source>Time Offset</source>
+        <translation>时间偏移</translation>
+    </message>
+    <message>
+        <source>Last block time</source>
+        <translation>上一数据块时间</translation>
     </message>
 </context>
 <context>

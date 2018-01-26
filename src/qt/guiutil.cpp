@@ -8,6 +8,7 @@
 
 #include "util.h"
 #include "init.h"
+#include "protocol.h"
 
 #include <QDateTime>
 #include <QDoubleValidator>
@@ -525,6 +526,65 @@ void SetBlackThemeQSS(QApplication& app)
                       "QPushButton     {color: #ffffff; background: rgb(14,105,162); border: 0px; border-radius:0px;padding: 5px 15px 5px 15px;}"
 
                 );
+}
+
+QString formatDurationStr(int secs)
+{
+    QStringList strList;
+    int days = secs / 86400;
+    int hours = (secs % 86400) / 3600;
+    int mins = (secs % 3600) / 60;
+    int seconds = secs % 60;
+
+    if (days)
+        strList.append(QString(QObject::tr("%1 d")).arg(days));
+    if (hours)
+        strList.append(QString(QObject::tr("%1 h")).arg(hours));
+    if (mins)
+        strList.append(QString(QObject::tr("%1 m")).arg(mins));
+    if (seconds || (!days && !hours && !mins))
+        strList.append(QString(QObject::tr("%1 s")).arg(seconds));
+
+    return strList.join(" ");
+}
+
+QString formatServicesStr(quint64 mask)
+{
+    QStringList strList;
+
+    // Just scan the last 8 bits for now.
+    for (int i = 0; i < 8; i++) {
+        uint64_t check = 1 << i;
+        if (mask & check)
+        {
+            switch (check)
+            {
+            case NODE_NETWORK:
+                strList.append("NETWORK");
+                break;
+            case NODE_GETUTXO:
+                strList.append("GETUTXO");
+                break;
+            default:
+                strList.append(QString("%1[%2]").arg("UNKNOWN").arg(check));
+            }
+        }
+    }
+
+    if (strList.size())
+        return strList.join(" & ");
+    else
+        return QObject::tr("None");
+}
+
+QString formatTimeOffset(int64_t nTimeOffset)
+{
+  return QString(QObject::tr("%1 s")).arg(QString::number((int)nTimeOffset, 10));
+}
+
+QString formatPingTime(double dPingTime)
+{
+    return dPingTime == 0 ? QObject::tr("N/A") : QString(QObject::tr("%1 ms")).arg(QString::number((int)(dPingTime * 1000), 10));
 }
 
 } // namespace GUIUtil

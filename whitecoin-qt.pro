@@ -275,7 +275,8 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/verticallabel.h \
     src/qt/utilitydialog.h \
     src/qt/intro.h \
-    src/qt/scicon.h
+    src/qt/scicon.h \
+    src/qt/peertablemodel.h
 
 SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/transactiontablemodel.cpp \
@@ -356,7 +357,8 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/verticallabel.cpp \
     src/qt/utilitydialog.cpp \
     src/qt/intro.cpp \
-    src/qt/scicon.cpp
+    src/qt/scicon.cpp \
+    src/qt/peertablemodel.cpp
 
 RESOURCES += \
     src/qt/bitcoin.qrc
