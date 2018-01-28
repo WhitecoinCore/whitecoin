@@ -1554,12 +1554,13 @@ bool CWallet::CreateQuickTransaction(const std::string strAddress, const int64_t
         		nTransactionFee = MIN_TX_FEE;
         		nFeeRet = nTransactionFee;
         		
-						//1.1 获取UNTX
+						//1.1 获取UNTX with coin control
 				    vector<COutput> vCoins;
 				    AvailableCoins(vCoins, true, coinControl);
 				    LogPrintf("CreateQuickTransaction,1.1 vCoins.size = %i\n", vCoins.size());
+				    
 						
-						//1.2 形成支付方案的UNTX，不限制长度
+						//1.2 形成支付方案setCoinsRet，不限制长度
 						int64_t nValue = 0;
 						int64_t nValueRet = 0;	
 						std::set<std::pair<const CWalletTx*,unsigned int> > setCoinsRet;
@@ -1585,21 +1586,20 @@ bool CWallet::CreateQuickTransaction(const std::string strAddress, const int64_t
             }
 						
 						
+						//1.3 构建交易体: 仅在在长度限额之内合成1笔
 						//226+148*2=522
 						unsigned int txSizeLimit = 8000;
 						unsigned int iVin = 0;
 						unsigned int txSize = 0;
 						unsigned int txVin = 0;
 						CWalletTx  theWtxNew;
-						vector< CWalletTx > vecWtxNew;
+						vector< CWalletTx > vecWtxNew;						
 						
-						//1.3 构建交易体: 仅在在长度限额之内合成1笔
 				    BOOST_FOREACH(const PAIRTYPE(const CWalletTx*,unsigned int)& coin, setCoinsRet)
 				    {
 				    		txSize = 226 + 148 * iVin;
-				    		iVin++;
 				    		
-				    		if (iVin == 1)
+				    		if (iVin == 0)
 				    		{
 				    				wtxNew.BindWallet(this);
 				    				wtxNew.nLockTime = LOCKTIME_THRESHOLD;
@@ -1616,11 +1616,12 @@ bool CWallet::CreateQuickTransaction(const std::string strAddress, const int64_t
 				        		wtxNew.vin.push_back(CTxIn(coin.first->GetHash(), coin.second,CScript(), std::numeric_limits<unsigned int>::max()-1));
 				        		//输入合计
 				        		txVin += coin.first->vout[coin.second].nValue;
+				        		
+				        		iVin++;
 				        }
 				        else
 				        {
-				        		//达到长度限额
-				
+				        		//达到长度限额				
 										//退出
 				        		break;
 				        }
@@ -1641,7 +1642,7 @@ bool CWallet::CreateQuickTransaction(const std::string strAddress, const int64_t
 							vecSendOut.push_back(make_pair(scriptPubKey, txValue));
 							txVoutRet = txValue;
 							
-							//压入输出部分(不找零，无手续费)
+							//压入输出部分(无找零，无手续费)
 				      BOOST_FOREACH (const PAIRTYPE(CScript, int64_t)& s, vecSendOut)
 				          wtxNew.vout.push_back(CTxOut(s.second, s.first));
 							
@@ -1673,18 +1674,9 @@ bool CWallet::CreateQuickTransaction(const std::string strAddress, const int64_t
 									return false;
 							}
 							LogPrintf("CreateQuickTransaction,1.5 TX_SIZE nBytes = %i\n", nBytes);
-							
-							
-							//1.6 是否包含足额交易费
-              /*int64_t nPayFee = nTransactionFee * (1 + (int64_t)nBytes / 1000);
-              int64_t nMinFee = GetMinFee(wtxNew, 1, GMF_SEND, nBytes);
 
-              if (nFeeRet < max(nPayFee, nMinFee))
-              {
-                  nFeeRet = max(nPayFee, nMinFee);
-              }*/
 							
-					    //Fill vtxPrev by copying from previous transactions vtxPrev
+					    //1.6 Fill vtxPrev by copying from previous transactions vtxPrev
 					    wtxNew.AddSupportingTransactions(txdb);
 					    wtxNew.fTimeReceivedIsTxTime = true;
 		
