@@ -1,16 +1,19 @@
 #include "transactionview.h"
 
-#include "transactionfilterproxy.h"
-#include "transactionrecord.h"
+#include "util.h"
+#include "ui_interface.h"
+
+#include "guiutil.h"
+#include "bitcoinunits.h"
 #include "walletmodel.h"
 #include "addresstablemodel.h"
 #include "transactiontablemodel.h"
-#include "bitcoinunits.h"
-#include "csvmodelwriter.h"
+#include "transactionfilterproxy.h"
+#include "transactionrecord.h"
 #include "transactiondescdialog.h"
 #include "editaddressdialog.h"
 #include "optionsmodel.h"
-#include "guiutil.h"
+#include "csvmodelwriter.h"
 
 #include <QScrollBar>
 #include <QComboBox>
@@ -162,7 +165,7 @@ TransactionView::TransactionView(QWidget *parent) :
     connect(editLabelAction, SIGNAL(triggered()), this, SLOT(editLabel()));
     connect(showDetailsAction, SIGNAL(triggered()), this, SLOT(showDetails()));
     connect(showTotalAction, SIGNAL(triggered()), this, SLOT(showTotal()));
-     connect(showExportAction, SIGNAL(triggered()), this, SLOT(exportClicked()));
+    connect(showExportAction, SIGNAL(triggered()), this, SLOT(exportClicked()));
 }
 
 void TransactionView::setModel(WalletModel *model)
@@ -450,9 +453,17 @@ void TransactionView::focusTransaction(const QModelIndex &idx)
 
 void TransactionView::showTotal()
 {
-	  float fTotal=0;
-	  for (int i=0;i<=transactionProxyModel->rowCount();i++)
-	  	fTotal+=transactionProxyModel->data(transactionProxyModel->index(i,4)).toFloat();
-
-    totalWidget->setText(tr("Date:")+dateWidget->currentText()+" "+tr("Type:")+typeWidget->currentText()+" "+tr("Total:")+QObject::tr("%1").arg(fTotal)+" XWC");
+	  qint64 fTotal = 0;
+	  int unit = model->getOptionsModel()->getDisplayUnit();
+	  
+	  for (int i=0;i<=transactionProxyModel->rowCount()-1;i++)
+	  {
+	  	if (transactionProxyModel->data(transactionProxyModel->index(i,4),TransactionTableModel::StatusRole).toInt() == 0)
+	  	{
+	  			fTotal += transactionProxyModel->data(transactionProxyModel->index(i,4),TransactionTableModel::AmountRole).toLongLong();
+	  	}
+		}
+		
+		QString amountText = BitcoinUnits::format(unit, fTotal, false);
+    totalWidget->setText(tr("Date:")+dateWidget->currentText()+" "+tr("Type:")+typeWidget->currentText()+" "+tr("Total:")+QObject::tr("%1").arg(amountText)+" XWC");
 }

@@ -18,6 +18,7 @@ class SendCoinsDialog;
 class SignVerifyMessageDialog;
 class Notificator;
 class RPCConsole;
+class TransactionReport;
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -67,9 +68,10 @@ private:
     BlockBrowser *blockBrowser;
 
     QWidget *transactionsPage;
+    QWidget *transactionsReportPage;
     AddressBookPage *addressBookPage;
     AddressBookPage *receiveCoinsPage;
-    SendCoinsDialog *sendCoinsPage;
+    SendCoinsDialog *sendCoinsPage;    
     SignVerifyMessageDialog *signVerifyMessageDialog;
 
     QLabel *labelEncryptionIcon;
@@ -83,6 +85,7 @@ private:
     QAction *overviewAction;
 
     QAction *historyAction;
+    QAction *reportAction;
     QAction *quitAction;
     QAction *sendCoinsAction;
     QAction *addressBookAction;
@@ -107,6 +110,7 @@ private:
     QSystemTrayIcon *trayIcon;
     Notificator *notificator;
     TransactionView *transactionView;
+    TransactionReport *transactionReport;
     RPCConsole *rpcConsole;
 
     QMovie *syncIconMovie;
@@ -160,6 +164,8 @@ private slots:
 
     /** Switch to statistics page*/
     void gotoStatisticsPage();
+    /** Switch to account report page */
+    void gotoTransactionsReportPage();
 
     /** Switch to block explorer*/
     void gotoBlockBrowser();

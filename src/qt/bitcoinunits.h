@@ -23,6 +23,13 @@ public:
         mBTC,
         uBTC
     };
+    
+    enum SeparatorStyle
+    {
+        separatorNever,
+        separatorStandard,
+        separatorAlways
+    };
 
     //! @name Static API
     //! Unit conversion and formatting
