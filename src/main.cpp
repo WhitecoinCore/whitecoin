@@ -2760,6 +2760,8 @@ string GetWarnings(string strFor)
     if (!CLIENT_VERSION_IS_RELEASE)
         strStatusBar = _("This is a pre-release test build - use at your own risk - do not use for mining or merchant applications");
 
+    // These nPriority values set an upper limit on what should be used by the development team, when issuing alert messages,
+    // as they are more important than anything else to this client's user..
     // Misc warnings like out of disk space and clock is wrong
     if (strMiscWarning != "")
     {
@@ -2768,6 +2770,11 @@ string GetWarnings(string strFor)
     }
 
     // Alerts
+    // Any network wide alerts that have shown up, and have a greater priority
+    // than what is listed above, will now be checked and the highest 
+    // priorty one is picked & shown to the user.
+    // NOTE: If two alerts have the same priority, it will be the 1st one
+    // found, that gets shown to the user.
     {
         LOCK(cs_mapAlerts);
         BOOST_FOREACH(PAIRTYPE(const uint256, CAlert)& item, mapAlerts)

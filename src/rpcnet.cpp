@@ -313,3 +313,66 @@ Value getnettotals(const Array& params, bool fHelp)
     obj.push_back(Pair("timemillis", GetTimeMillis()));
     return obj;
 }
+
+Value getnetworkinfo(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() != 0)
+        throw runtime_error(
+            "getnetworkinfo\n"
+            "Returns an object containing various state info regarding P2P networking.\n"
+            "\nResult:\n"
+            "{\n"
+            "  \"version\": xxxxx,           (numeric) the server version\n"
+            "  \"protocolversion\": xxxxx,   (numeric) the protocol version\n"
+            "  \"timeoffset\": xxxxx,        (numeric) the time offset\n"
+            "  \"connections\": xxxxx,       (numeric) the number of connections\n"
+            "  \"proxy\": \"host:port\",     (string, optional) the proxy used by the server\n"
+            "    \"address\": \"xxxx\",      (string) network address\n"
+            "    \"port\": xxx,              (numeric) network port\n"
+            "    \"score\": xxx              (numeric) relative score\n"
+            "  \"alerts\": [,                (array) list of alerts on network\n"
+            "    \"alertid\": \"xxx\",       (numeric) the ID number for this alert\n"
+            "    \"priority\": xxx,          (numeric) the alert priority\n"
+            "    \"minver\": xxx             (numeric) the minimum protocal version this effects\n"
+            "    \"maxver\": xxx             (numeric) the maximum protocal version this effects\n"
+            "    \"relayuntil\": xxx         (numeric) relay this alert to other nodes until this time\n"
+            "    \"expiration\": xxx         (numeric) when this alert will expire\n"
+            "    \"statusbar\": \"xxxx\",    (string) status bar & tooltip string displayed\n"
+            "  ]\n"
+            "}\n"
+            "\nExamples:\n"
+        );
+
+    proxyType proxy;
+    GetProxy(NET_IPV4, proxy);
+
+    Object obj;
+    obj.push_back(Pair("version",       (int)CLIENT_VERSION));
+    obj.push_back(Pair("protocolversion",(int)PROTOCOL_VERSION));
+    obj.push_back(Pair("timeoffset",    GetTimeOffset()));
+    obj.push_back(Pair("connections",   (int)vNodes.size()));
+    obj.push_back(Pair("proxy",         (proxy.IsValid() ? proxy.ToStringIPPort() : string())));
+
+    
+    // Add in the list of alerts currently on the network
+    Array localAlerts;
+    if( !mapAlerts.empty() ) {
+          // Parse all the alerts, and prepare a JSON response list          
+          LOCK(cs_mapAlerts);
+          for( map<uint256, CAlert>::iterator mi = mapAlerts.begin(); mi != mapAlerts.end(); mi++ ) {
+               const CAlert& alert = (*mi).second;
+               Object rec;
+               rec.push_back( Pair("AlertID", alert.nID) );
+               rec.push_back( Pair("Priority", alert.nPriority) );
+               rec.push_back( Pair("MinVer", alert.nMinVer) );
+               rec.push_back( Pair("MaxVer", alert.nMaxVer) );
+               rec.push_back( Pair("RelayUntil", alert.nRelayUntil) );
+               rec.push_back( Pair("Expiration", alert.nExpiration) );
+               rec.push_back( Pair("StatusBar", alert.strStatusBar) );
+               localAlerts.push_back(rec);
+          }
+    }
+    obj.push_back(Pair("alerts", localAlerts));
+    
+    return obj;
+}

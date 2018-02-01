@@ -97,6 +97,10 @@ public:
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
         nLastPOWBlock = 10000;
+        
+        //Registered Message PubKey
+        mapBroadcastMessPubKey.insert(pair<std::string,vector<unsigned char>>("Ray",   ParseHex("04bf1c0874e989ca090e7eb5d5dd8a04224f2db5cc80d28a256ee676a33396f21622aacb06a9159eaf02ada44238f935f12dd35dad2f6f9075e325ee1219c88533")));
+        mapBroadcastMessPubKey.insert(pair<std::string,vector<unsigned char>>("Lizhi", ParseHex("04cd377cb31be7b1b4484f8b42e9ca3b748fa9fb3ab1f877ecb9907bfd8623cdaba04c15db1ac897bc384a355e3e099bd78696b3ff03e7955ab43bf3c30bb6e7ec")));
     }
 
     virtual const CBlock& GenesisBlock() const { return genesis; }
