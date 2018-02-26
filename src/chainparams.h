@@ -57,7 +57,7 @@ public:
     const uint256& HashGenesisBlock() const { return hashGenesisBlock; }
     const MessageStartChars& MessageStart() const { return pchMessageStart; }
     const vector<unsigned char>& AlertKey() const { return vAlertPubKey; }
-    const map<std::string, vector<unsigned char>>& mapMessKey() const { return mapBroadcastMessPubKey; }
+    const map<std::string, vector<unsigned char> >& mapMessKey() const { return mapBroadcastMessPubKey; }
     int GetDefaultPort() const { return nDefaultPort; }
     const CBigNum& ProofOfWorkLimit() const { return bnProofOfWorkLimit; }  
     int SubsidyHalvingInterval() const { return nSubsidyHalvingInterval; }
@@ -77,7 +77,7 @@ protected:
     MessageStartChars pchMessageStart;
     // Raw pub key bytes for the broadcast alert signing key.
     vector<unsigned char> vAlertPubKey;
-    std::map<std::string, vector<unsigned char>> mapBroadcastMessPubKey;
+    std::map<std::string, vector<unsigned char> > mapBroadcastMessPubKey;
     int nDefaultPort;
     int nRPCPort;
     CBigNum bnProofOfWorkLimit;
