@@ -9,7 +9,9 @@
 #include "guiutil.h"
 
 #include "qrcodedialog.h"
+#ifdef USE_ZXING
 #include "snapwidget.h"
+#endif
 #include "utilitydialog.h"
 
 #include "wallet.h"
@@ -375,8 +377,10 @@ void AddressBookPage::on_showQRCode_clicked()
 
 void AddressBookPage::on_importQRCodeButton_clicked()
 {
+#ifdef USE_ZXING
         SnapWidget* snap = new SnapWidget(this);
         connect(snap, SIGNAL(finished(QString)), this, SLOT(onSnapClosed(QString))); 
+#endif
 }
  
 void AddressBookPage::onSnapClosed(QString strAddressURL)
@@ -386,10 +390,10 @@ void AddressBookPage::onSnapClosed(QString strAddressURL)
         //to do : some more parsing and validation is needed here
         //todo: prompt for a label
         //todo: display a dialog if it doesn't work
-        //todo: 新增收款地址
+        //todo: 鏂板鏀舵鍦板潃
         //emit importWallet(strAddressURL);
         
-        //新增付款地址
+        //鏂板浠樻鍦板潃
 		    if (strAddressURL.size() > 34) {
 		        QString _address;
 		        QString _label;
