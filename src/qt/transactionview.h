@@ -17,6 +17,7 @@ class QDateTimeEdit;
 class QLabel;
 QT_END_NAMESPACE
 
+
 /** Widget showing the transaction list for a wallet, including a filter row.
     Using the filter row, the user can view or export a subset of the transactions.
   */
@@ -81,6 +82,7 @@ public slots:
     void changedAmount(const QString &amount);
     void exportClicked();
     void focusTransaction(const QModelIndex&);
+    void broadcastClicked();
 
 };
 
