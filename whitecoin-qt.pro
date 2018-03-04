@@ -112,6 +112,8 @@ contains(USE_ZXING, 1) {
     DEFINES += USE_ZXING
     INCLUDEPATH += $$ZXING_INCLUDE_PATH
     LIBS += $$join(ZXING_LIB_PATH,,-L,) -lzxing
+    message(ZXING_INCLUDE_PATH=$$ZXING_INCLUDE_PATH)
+    message(ZXING_LIB_PATH=$$ZXING_LIB_PATH)
 }
 
 
