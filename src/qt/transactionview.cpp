@@ -12,6 +12,7 @@
 #include "transactionrecord.h"
 #include "transactiondescdialog.h"
 #include "editaddressdialog.h"
+#include "sendrawdialog.h"
 #include "optionsmodel.h"
 #include "csvmodelwriter.h"
 
@@ -30,6 +31,7 @@
 #include <QDateTimeEdit>
 #include <QStyledItemDelegate>
 #include <QLabel>
+
 
 TransactionView::TransactionView(QWidget *parent) :
     QWidget(parent), model(0), transactionProxyModel(0),
@@ -127,8 +129,8 @@ TransactionView::TransactionView(QWidget *parent) :
     transactionView = view;
 
     totalWidget= new QLabel(tr("Total:"),this);
-    vlayout->addWidget(totalWidget); 
-    
+    vlayout->addWidget(totalWidget);
+
     // Actions
     QAction *copyAddressAction = new QAction(tr("Copy address"), this);
     QAction *copyLabelAction = new QAction(tr("Copy label"), this);
@@ -138,6 +140,7 @@ TransactionView::TransactionView(QWidget *parent) :
     QAction *showDetailsAction = new QAction(tr("Show transaction details"), this);
     QAction *showTotalAction = new QAction(tr("Show transaction total"), this);
     QAction *showExportAction = new QAction(tr("Export all transactions"), this);
+    QAction *broadcastAction = new QAction(tr("Broadcast this transaction"), this);
 
     contextMenu = new QMenu();
     contextMenu->addAction(copyAddressAction);
@@ -146,8 +149,11 @@ TransactionView::TransactionView(QWidget *parent) :
     contextMenu->addAction(copyTxIDAction);
     contextMenu->addAction(editLabelAction);
     contextMenu->addAction(showDetailsAction);
+
+    contextMenu->addSeparator();
     contextMenu->addAction(showTotalAction);
     contextMenu->addAction(showExportAction);
+    contextMenu->addAction(broadcastAction);
 
     // Connect actions
     connect(dateWidget, SIGNAL(activated(int)), this, SLOT(chooseDate(int)));
@@ -166,6 +172,7 @@ TransactionView::TransactionView(QWidget *parent) :
     connect(showDetailsAction, SIGNAL(triggered()), this, SLOT(showDetails()));
     connect(showTotalAction, SIGNAL(triggered()), this, SLOT(showTotal()));
     connect(showExportAction, SIGNAL(triggered()), this, SLOT(exportClicked()));
+    connect(broadcastAction, SIGNAL(triggered()), this, SLOT(broadcastClicked()));
 }
 
 void TransactionView::setModel(WalletModel *model)
@@ -193,7 +200,7 @@ void TransactionView::setModel(WalletModel *model)
         transactionView->horizontalHeader()->resizeSection(TransactionTableModel::Type, 120);
         transactionView->horizontalHeader()->setResizeMode(TransactionTableModel::ToAddress, QHeaderView::Stretch);
         transactionView->horizontalHeader()->resizeSection(TransactionTableModel::Amount, 100);
-        	
+
         showTotal();
     }
 }
@@ -308,6 +315,22 @@ void TransactionView::exportClicked()
                               QMessageBox::Abort, QMessageBox::Abort);
     }
 }
+
+void TransactionView::broadcastClicked()
+{
+    if(!transactionView->selectionModel())
+        return;
+    QModelIndexList selection = transactionView->selectionModel()->selectedRows();
+    if(!selection.isEmpty())
+    {
+    		QModelIndex idx = selection.at(0);
+    		QString desc = idx.data(TransactionTableModel::TxIDRole).toString(); 
+    		
+        SendRawDialog dlg(desc,this);
+        dlg.exec();
+    }
+}
+
 
 void TransactionView::contextualMenu(const QPoint &point)
 {
@@ -455,7 +478,7 @@ void TransactionView::showTotal()
 {
 	  qint64 fTotal = 0;
 	  int unit = model->getOptionsModel()->getDisplayUnit();
-	  
+
 	  for (int i=0;i<=transactionProxyModel->rowCount()-1;i++)
 	  {
 	  	if (transactionProxyModel->data(transactionProxyModel->index(i,4),TransactionTableModel::StatusRole).toInt() == 0)
@@ -463,7 +486,7 @@ void TransactionView::showTotal()
 	  			fTotal += transactionProxyModel->data(transactionProxyModel->index(i,4),TransactionTableModel::AmountRole).toLongLong();
 	  	}
 		}
-		
+
 		QString amountText = BitcoinUnits::format(unit, fTotal, false);
     totalWidget->setText(tr("Date:")+dateWidget->currentText()+" "+tr("Type:")+typeWidget->currentText()+" "+tr("Total:")+QObject::tr("%1").arg(amountText)+" XWC");
 }

@@ -1,9 +1,9 @@
 /*
- * Qt4 bitcoin GUI.
+ * Qt4 and  Qt5 bitcoin GUI.
  *
  * W.J. van der Laan 2011-2012
  * The Bitcoin Developers 2011-2012
- * The Whitecoin Developers 2014-2017
+ * The Whitecoin Developers 2014-2018
  */
 
 #include <QApplication>
@@ -37,6 +37,7 @@
 #include "blockbrowser.h"
 #include "utilitydialog.h"
 #include "transactionreport.h"
+#include "sendrawdialog.h"
 
 
 #ifdef Q_OS_MAC
@@ -69,6 +70,7 @@
 extern CWallet* pwalletMain;
 extern int64_t nLastCoinStakeSearchInterval;
 double GetPoSKernelPS();
+
 
 BitcoinGUI::BitcoinGUI(QWidget *parent):
     QMainWindow(parent),
@@ -386,6 +388,8 @@ void BitcoinGUI::createActions()
     verifyMessageAction = new QAction(tr("&Verify message..."), this);
     paperWalletAction = new QAction(tr("&Print paper wallets"), this);
     paperWalletAction->setStatusTip(tr("Print paper wallets"));
+    broadcastAction = new QAction(tr("&Broadcast"), this);
+    broadcastAction->setStatusTip(tr("Broadcast Data to Network"));
 
     exportAction = new QAction(tr("&Export..."), this);
     exportAction->setToolTip(tr("Export the data in the current tab to a file"));
@@ -405,6 +409,7 @@ void BitcoinGUI::createActions()
     connect(signMessageAction, SIGNAL(triggered()), this, SLOT(gotoSignMessageTab()));
     connect(verifyMessageAction, SIGNAL(triggered()), this, SLOT(gotoVerifyMessageTab()));
     connect(paperWalletAction, SIGNAL(triggered()), this, SLOT(printPaperWallets()));
+    connect(broadcastAction, SIGNAL(triggered()), this, SLOT(broadcastClicked()));
 }
 
 void BitcoinGUI::createMenuBar()
@@ -435,6 +440,7 @@ void BitcoinGUI::createMenuBar()
 
     QMenu *help = appMenuBar->addMenu(tr("&Help"));
     help->addAction(openRPCConsoleAction);
+    help->addAction(broadcastAction);
     help->addSeparator();
     help->addAction(aboutAction);
     help->addAction(aboutQtAction);
@@ -1201,4 +1207,11 @@ void BitcoinGUI::printPaperWallets()
         dlg.setModel(walletModel);
         dlg.exec();
     }
+}
+
+void BitcoinGUI::broadcastClicked()
+{
+		QString desc = "";
+    SendRawDialog dlg(desc,this);
+    dlg.exec();
 }

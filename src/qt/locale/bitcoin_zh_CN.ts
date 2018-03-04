@@ -651,6 +651,16 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>纸钱包打印(&amp;P)</translation>
     </message>
     <message>
+        <location line="+8"/>
+        <source>&amp;Broadcast</source>
+        <translation>广播数据(&amp;B)</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Broadcast Data to Network</source>
+        <translation>向网络广播数据</translation>
+    </message>
+    <message>
         <location line="+17"/>
         <source>Tabs toolbar</source>
         <translation>分页工具栏</translation>
@@ -3212,6 +3222,49 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     		<location line="+8"/>
         <source>Export all transactions</source>
         <translation>导出全部交易记录</translation>
+    </message>
+    <message>
+    		<location line="+8"/>
+        <source>Broadcast this transaction</source>
+        <translation>广播本次交易</translation>
+    </message>
+</context>
+<context>
+    <name>SendRawDialog</name>
+    <message>
+        <location filename="../sendrawdialog.cpp" line="+212"/>
+        <source>TX decode failed</source>
+        <translation>交易ID解码失败</translation>
+    </message>
+    <message>
+    		<location line="+8"/>
+        <source>No information available about transaction</source>
+        <translation>没有可用的交易信息</translation>
+    </message>
+    <message>
+    		<location line="+8"/>
+        <source>TX rejected</source>
+        <translation>交易被拒绝</translation>
+    </message>
+    <message>
+    		<location line="+8"/>
+        <source>Input your hex string :</source>
+        <translation>输入二进制数据：</translation>
+    </message>
+    <message>
+    		<location line="+8"/>
+        <source>Broadcast Data</source>
+        <translation>数据广播窗口</translation>
+    </message>
+    <message>
+    		<location line="+8"/>
+        <source>Broadcast</source>
+        <translation>广播</translation>
+    </message>
+    <message>
+    		<location line="+8"/>
+        <source>Exit</source>
+        <translation>关闭</translation>
     </message>
 </context>
 <context>

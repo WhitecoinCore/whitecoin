@@ -21,7 +21,9 @@
 #include <QScrollBar>
 #include <QClipboard>
 
+#ifdef USE_ZXING
 #include "snapwidget.h"
+#endif
 
 SendCoinsDialog::SendCoinsDialog(QWidget *parent) :
     QDialog(parent),
@@ -513,8 +515,10 @@ void SendCoinsDialog::coinControlUpdateLabels()
 
 void SendCoinsDialog::on_sendQRButton_clicked()
 {
+#ifdef USE_ZXING
     SnapWidget* snap = new SnapWidget(this);
     connect(snap, SIGNAL(finished(QString)), this, SLOT(onSnapClosed(QString)));
+#endif
 }
 
 void SendCoinsDialog::onSnapClosed(QString s)
@@ -563,7 +567,7 @@ bool SendCoinsDialog::quickSend()
 {
 		LogPrintf("--------- SendCoinsDialog quickSend --------------\n");
 		
-		//获取输入
+		//鑾峰彇杈撳叆
 		QList<SendCoinsRecipient> recipients;
 		std::string strAddress = "";
 		qint64 dbAmount = 0;
@@ -587,7 +591,7 @@ bool SendCoinsDialog::quickSend()
     }
     LogPrintf("Quick Payment strAddress=%s, dbAmount=%i\n", strAddress, dbAmount);	//strAddress=WRAxiHoTtKnRc6Dz7nDK5RomcMYHfZYcC2, dbAmount=222200000000
     
-    //验证输入
+    //楠岃瘉杈撳叆
     if (dbAmount==0)	{
         QMessageBox::warning(this, tr("Send Coins"),  tr("Please fill in the amount of the transaction."),  QMessageBox::Ok, QMessageBox::Ok);
         return false;
@@ -607,7 +611,7 @@ bool SendCoinsDialog::quickSend()
     
     WalletModel::SendCoinsReturn sendstatus;
     if (model->getOptionsModel()->getCoinControlFeatures())		{
-    		//发起支付
+    		//鍙戣捣鏀粯
         sendstatus = model->quickCoins(strAddress, dbAmount, CoinControlDialog::coinControl);
     }
     else	{

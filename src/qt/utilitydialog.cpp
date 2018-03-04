@@ -1,4 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin developers
+// Copyright (c) 2015-2018 The Whitecoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -34,11 +35,20 @@
 #include <qrencode.h>
 #endif
 
+
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+#include <qnumeric.h>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QPainter>
+#else
 // Use QT5's new modular classes
 #include <QtPrintSupport/QPrinter>
 #include <QtPrintSupport/QPrintDialog>
 #include <QtPrintSupport/QPrintPreviewDialog>
 #include <QPainter>
+#endif
+
 
 
 /** "PaperWallet" dialog box */
@@ -348,6 +358,6 @@ void ImpPrivKeyDialog::on_importButton_clicked()
             
             QMessageBox::warning(this, windowTitle(), tr("The import has completed"), QMessageBox::Ok, QMessageBox::Ok);
            	return;
-        } //导入完成后，需重启钱包
+        } //瀵煎叆瀹屾垚鍚庯紝闇�閲嶅惎閽卞寘
     }
 }

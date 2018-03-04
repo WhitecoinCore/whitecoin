@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = whitecoin-qt
-VERSION = 2.4.0.0
+VERSION = 2.4.1.0
 INCLUDEPATH += src src/json src/qt
 QT += network
 QT += printsupport
@@ -279,7 +279,8 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/intro.h \
     src/qt/scicon.h \
     src/qt/peertablemodel.h \
-    src/qt/transactionreport.h
+    src/qt/transactionreport.h \
+    src/qt/sendrawdialog.h
 
 SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/transactiontablemodel.cpp \
@@ -362,7 +363,8 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/intro.cpp \
     src/qt/scicon.cpp \
     src/qt/peertablemodel.cpp \
-    src/qt/transactionreport.cpp
+    src/qt/transactionreport.cpp \
+    src/qt/sendrawdialog.cpp
 
 RESOURCES += \
     src/qt/bitcoin.qrc
@@ -384,7 +386,8 @@ FORMS += \
     src/qt/forms/statisticspage.ui \
     src/qt/forms/paperwalletdialog.ui \
     src/qt/forms/impprivkeydialog.ui \
-    src/qt/forms/intro.ui
+    src/qt/forms/intro.ui \
+    src/qt/forms/sendrawdialog.ui
 
 contains(USE_QRCODE, 1) {
     HEADERS += src/qt/qrcodedialog.h
