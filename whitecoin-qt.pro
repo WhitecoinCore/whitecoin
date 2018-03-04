@@ -108,12 +108,24 @@ contains(USE_UPNP, -) {
 # use: qmake "USE_ZXING=1"
 # libzxing https://github.com/ClaireDuSoleil/ZebraCrossing) must be available for support
 contains(USE_ZXING, 1) {
+# unix:ZXING_INCLUDE_PATH=/home/peter/github/ZebraCrossing/src/libsrc
+# unix:ZXING_LIB_PATH=/home/peter/github/ZebraCrossing
+#At linux platform should set ZXING_INCLUDE_PATH and ZXING_LIB_PATH to zxing
+   unix:ZXING_INCLUDE_PATH = 0
+   unix:ZXING_LIB_PATH=0
     message(Building with ZXING support)
     DEFINES += USE_ZXING
     INCLUDEPATH += $$ZXING_INCLUDE_PATH
     LIBS += $$join(ZXING_LIB_PATH,,-L,) -lzxing
-    message(ZXING_INCLUDE_PATH=$$ZXING_INCLUDE_PATH)
-    message(ZXING_LIB_PATH=$$ZXING_LIB_PATH)
+
+    contains(ZXING_INCLUDE_PATH,0) {
+          error(Should set ZXING_INCLUDE_PATH and ZXING_INCLUDE_PATH to zxing )
+    }else
+    {
+        message(ZXING_INCLUDE_PATH=$$ZXING_INCLUDE_PATH)
+        message(ZXING_LIB_PATH=$$ZXING_LIB_PATH)
+
+    }
 }
 
 
