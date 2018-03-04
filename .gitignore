@@ -1,3 +1,4 @@
+#The following types of files will not be pulled down by git commands.
 src/*.exe
 src/whitecoin
 src/whitecoind
