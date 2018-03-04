@@ -25,6 +25,8 @@ SnapWidget::SnapWidget(QWidget* _parent)
 
     setupUi(this);
     this->setMinimumWidth(50);
+
+    this->setStyleSheet("background-color:rgb(162,192,213);");
     prepareMask();
     show();
 }
@@ -101,7 +103,7 @@ void SnapWidget::prepareMask()
     //this looks ok on windows and ubuntu
     int captionHeight = style()->pixelMetric(QStyle::PM_TitleBarHeight, &option, this);
     QRegion rgn(-7, -captionHeight, fw, fh);
-    QRegion rgn2(5, cancelButton->height() + 3, fw - 28, fh - 75);
+    QRegion rgn2(5, cancelButton->height() + 18, fw - 18, fh - 80);
 #endif
     r = rgn.subtracted(rgn2);
     setMask(r);
