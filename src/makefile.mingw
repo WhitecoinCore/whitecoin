@@ -6,21 +6,21 @@ USE_UPNP:=0
 USE_WALLET:=1
 
 INCLUDEPATHS= \
- -I"C:\boost-1.50.0-mgw" \
- -I"C:\db-4.8.30.NC-mgw\build_unix" \
- -I"C:\openssl-1.0.1c-mgw\include"
+ -I"C:\Coin\BaseLib\boost_1_58_0" \
+ -I"C:\Coin\BaseLib\db-5.3.28.NC\build_unix" \
+ -I"C:\Coin\BaseLib\openssl-1.0.2k\include"
 
 LIBPATHS= \
- -L"C:\boost-1.50.0-mgw\stage\lib" \
- -L"C:\db-4.8.30.NC-mgw\build_unix" \
- -L"C:\openssl-1.0.1c-mgw"
+ -L"C:\Coin\BaseLib\boost_1_58_0\stage\lib" \
+ -L"C:\Coin\BaseLib\db-5.3.28.NC\build_unix" \
+ -L"C:\Coin\BaseLib\openssl-1.0.2k"
 
 LIBS= \
- -l boost_system-mgw44-mt-1_53 \
- -l boost_filesystem-mgw44-mt-1_53 \
- -l boost_program_options-mgw44-mt-1_53 \
- -l boost_thread-mgw44-mt-1_53 \
- -l boost_chrono-mgw44-mt-1_53 \
+ -l boost_system-mgw49-mt-s-1_58 \
+ -l boost_filesystem-mgw49-mt-s-1_58 \
+ -l boost_program_options-mgw49-mt-s-1_58 \
+ -l boost_thread-mgw49-mt-s-1_58 \
+ -l boost_chrono-mgw49-mt-s-1_58 \
  -l db_cxx \
  -l ssl \
  -l crypto
@@ -36,13 +36,13 @@ ifndef USE_UPNP
 	override USE_UPNP = -
 endif
 ifneq (${USE_UPNP}, -)
- INCLUDEPATHS += -I"C:\miniupnpc-1.6-mgw"
- LIBPATHS += -L"C:\miniupnpc-1.6-mgw"
+ INCLUDEPATHS += -I"C:\Coin\BaseLib\miniupnpc-1.9.2/"
+ LIBPATHS += -L"C:\Coin\BaseLib\miniupnpc-1.9.2/"
  LIBS += -l miniupnpc -l iphlpapi
  DEFS += -DMINIUPNP_STATICLIB -DSTATICLIB -DUSE_UPNP=$(USE_UPNP)
 endif
 
-LIBS += -l kernel32 -l user32 -l gdi32 -l comdlg32 -l winspool -l winmm -l shell32 -l comctl32 -l ole32 -l oleaut32 -l uuid -l rpcrt4 -l advapi32 -l ws2_32 -l mswsock -l shlwapi
+LIBS += -l kernel32 -l user32 -l gdi32 -l comdlg32 -l winspool -l winmm -l shell32 -l comctl32 -l ole32 -l oleaut32 -l uuid -l rpcrt4 -l advapi32 -l ws2_32 -l mswsock -l iphlpapi -l mingwthrd -l mingw32 -l uxtheme -l dwmapi -l dnsapi -l iphlpapi -l crypt32 -l mpr -l version
 
 # TODO: make the mingw builds smarter about dependencies, like the linux/osx builds are
 HEADERS = $(wildcard *.h)
@@ -114,8 +114,10 @@ obj/scrypt-x86.o: scrypt-x86.S
 obj/scrypt-x86_64.o: scrypt-x86_64.S
 	$(CXX) -c $(xCXXFLAGS) -MMD -o $@ $<
 
+
+# Required library (shlwapi) present in the file so I was confused when it failed to build. Everything went well when I placed the library at the end of the linked files.
 whitecoind.exe: $(OBJS:obj/%=obj/%)
-	g++ $(CFLAGS) $(LDFLAGS) -o $@ $(LIBPATHS) $^ $(LIBS)
+	g++ $(CFLAGS) $(LDFLAGS) -o $@ $(LIBPATHS) $^ $(LIBS)  -l shlwapi
 
 clean:
 	-del /Q whitecoind
