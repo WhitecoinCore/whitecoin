@@ -1,1 +1,24 @@
 # List of fixed seed nodes for main network
+addnode=dnsseed-cn.whitecoin.info
+addnode=106.14.241.134
+addnode=70.113.14.176
+addnode=180.30.68.174
+addnode=69.132.90.21
+addnode=211.127.220.30
+addnode=118.123.245.187
+addnode=37.97.167.55
+addnode=89.241.99.179
+addnode=120.78.227.31
+addnode=69.126.52.11
+addnode=39.106.20.110
+addnode=149.210.226.50
+addnode=164.132.54.231
+addnode=84.106.182.30
+addnode=47.96.255.57
+addnode=47.95.121.143
+addnode=88.113.33.83
+addnode=dnsseed.oizopower.nl
+addnode=seed1.oizopower.nl
+addnode=seed2.oizopower.nl
+addnode=seed3.oizopower.nl
+
