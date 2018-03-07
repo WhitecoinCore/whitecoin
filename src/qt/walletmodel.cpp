@@ -590,3 +590,107 @@ bool WalletModel::importPrivateKey(QString privKey)
     }
     return true;
 }
+
+QString WalletModel::hashCoins(const QList<SendCoinsRecipient> &recipients, const CCoinControl *coinControl)
+{   
+    qint64 total = 0;
+    QSet<QString> setAddress;
+    QString hex;
+
+    if(recipients.empty())
+    {
+        return "Empty";
+    }
+
+    // Pre-check input data for validity
+    foreach(const SendCoinsRecipient &rcp, recipients)
+    {
+        if(!validateAddress(rcp.address))
+        {
+            return "InvalidAddress";
+        }
+        setAddress.insert(rcp.address);
+
+        if(rcp.amount <= 0)
+        {
+            return "InvalidAmount";
+        }
+        total += rcp.amount;
+    }
+
+    if(recipients.size() > setAddress.size())
+    {
+        return "DuplicateAddress";
+    }
+
+    qint64 nBalance = getBalance(coinControl);
+
+    if(total > nBalance)
+    {
+        return "AmountExceedsBalance";
+    }
+
+    if((total + nTransactionFee) > nBalance)
+    {
+        return "AmountWithFeeExceedsBalance";
+    }
+
+    {
+        LOCK2(cs_main, wallet->cs_wallet);
+
+        // Sendmany
+        std::vector<std::pair<CScript, int64_t> > vecSend;
+        foreach(const SendCoinsRecipient &rcp, recipients)
+        {
+            CScript scriptPubKey;
+            scriptPubKey.SetDestination(CBitcoinAddress(rcp.address.toStdString()).Get());
+            vecSend.push_back(make_pair(scriptPubKey, rcp.amount));
+            
+            //insert infomation into blockchain
+						if (rcp.remark.length()>=1)
+						{				
+								std::string strMess = rcp.remark.toStdString();
+								const char* pszMess =strMess.c_str();
+                CScript scriptP = CScript() << OP_RETURN << vector<unsigned char>((const unsigned char*)pszMess, (const unsigned char*)pszMess + strlen(pszMess));                
+                LogPrintf("insert scriptP=%s\n",scriptP.ToString().c_str());
+                vecSend.push_back(make_pair(scriptP, CENT));
+             }
+        }
+
+        CWalletTx wtx;
+        CReserveKey keyChange(wallet);
+        int64_t nFeeRequired = 0;
+        bool fCreated = wallet->CreateTransaction(vecSend, wtx, keyChange, nFeeRequired, coinControl);
+
+        if(!fCreated)
+        {
+            if((total + nFeeRequired) > nBalance) // FIXME: could cause collisions in the future
+            {
+                return "AmountWithFeeExceedsBalance";
+            }
+            return "TransactionCreationFailed";
+        }
+        if(!uiInterface.ThreadSafeAskFee(nFeeRequired, tr("Sending...").toStdString()))
+        {
+            return "Aborted";
+        }
+        hex = QString::fromStdString(wtx.GetHash().GetHex());
+        
+        
+        //transaction ID
+    		QString strTxID;
+        uint256 hashTxID = wtx.GetHash();
+        strTxID = QString::fromStdString(hashTxID.ToString());
+        LogPrintf("hashCoins, strTxID = %s\n", strTxID.toStdString());
+        	
+        //transaction hex        
+        QString strTxHash;
+        CTransaction tx = static_cast<CTransaction>(wtx);
+        CDataStream ssTx(SER_NETWORK, PROTOCOL_VERSION);
+    		ssTx << tx;
+    		strTxHash = QString::fromStdString(HexStr(ssTx.begin(), ssTx.end()));
+    		LogPrintf("hashCoins, 1...strTxHash = %s\n", strTxHash.toStdString());
+        
+        return strTxHash;
+    }
+}

@@ -2361,6 +2361,11 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <source>%1 whitecoins had been sent,the remaining %2 whitecoins continue ?</source>
         <translation>%1个白币已经发送，剩余%2个白币继续发送吗？</translation>
     </message>
+    <message>
+        <location line="+4"/>
+        <source>TX HEX</source>
+        <translation>交易代码</translation>
+    </message>
 </context>
 <context>
     <name>SendCoinsEntry</name>

@@ -326,7 +326,7 @@ void TransactionView::broadcastClicked()
     		QModelIndex idx = selection.at(0);
     		QString desc = idx.data(TransactionTableModel::TxIDRole).toString(); 
     		
-        SendRawDialog dlg(desc,this);
+        SendRawDialog dlg(desc, "", this);
         dlg.exec();
     }
 }

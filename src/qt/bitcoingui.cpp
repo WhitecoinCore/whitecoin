@@ -1,9 +1,9 @@
 /*
- * Qt4 and  Qt5 bitcoin GUI.
+ * Qt4 bitcoin GUI.
  *
  * W.J. van der Laan 2011-2012
  * The Bitcoin Developers 2011-2012
- * The Whitecoin Developers 2014-2018
+ * The Whitecoin Developers 2014-2017
  */
 
 #include <QApplication>
@@ -70,7 +70,6 @@
 extern CWallet* pwalletMain;
 extern int64_t nLastCoinStakeSearchInterval;
 double GetPoSKernelPS();
-
 
 BitcoinGUI::BitcoinGUI(QWidget *parent):
     QMainWindow(parent),
@@ -1211,7 +1210,6 @@ void BitcoinGUI::printPaperWallets()
 
 void BitcoinGUI::broadcastClicked()
 {
-		QString desc = "";
-    SendRawDialog dlg(desc,this);
+    SendRawDialog dlg("" ,"" ,this);
     dlg.exec();
 }

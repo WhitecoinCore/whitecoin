@@ -15,35 +15,40 @@
 
 using namespace std;
     	
-SendRawDialog::SendRawDialog(const QString &txID, QWidget *parent) :
+SendRawDialog::SendRawDialog(const QString &txID, const QString &txHEX, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SendRawDialog)
 {
     ui->setupUi(this);
     
-    if (txID.isEmpty())
+    if (txID.isEmpty() && txHEX.isEmpty())
     	 	return;
-        
-    //1. txID
-    QString txIDdesc = txID.left(64);    
     
-    //2. hex code of transaction(getrawtransaction)
-    uint256 hash;
-    hash.SetHex(txID.toStdString().c_str());
-    
-    CTransaction tx;
-    uint256 hashBlock = 0;
-    if (!GetTransaction(hash, tx, hashBlock))
+    if (txHEX.isEmpty())
     {
-				QMessageBox::warning(this, windowTitle(), tr("No information available about transaction"), QMessageBox::Ok, QMessageBox::Ok);
+			    //1. txID
+			    QString txIDdesc = txID.left(64);    
+			    
+			    //2. hex code of transaction(getrawtransaction)
+			    uint256 hash;
+			    hash.SetHex(txID.toStdString().c_str());
+			    
+			    CTransaction tx;
+			    uint256 hashBlock = 0;
+			    if (!GetTransaction(hash, tx, hashBlock))
+			    {
+							QMessageBox::warning(this, windowTitle(), tr("No information available about transaction"), QMessageBox::Ok, QMessageBox::Ok);
+					}
+			
+			    CDataStream ssTx(SER_NETWORK, PROTOCOL_VERSION);
+			    ssTx << tx;
+			    string strHex = HexStr(ssTx.begin(), ssTx.end());
+			    
+			    QString txHexCode = QString::fromStdString(strHex);
+			    ui->detailText->setText(txHexCode);
+		} else  {
+					ui->detailText->setText(txHEX);
 		}
-
-    CDataStream ssTx(SER_NETWORK, PROTOCOL_VERSION);
-    ssTx << tx;
-    string strHex = HexStr(ssTx.begin(), ssTx.end());
-    
-    QString txHex = QString::fromStdString(strHex);
-    ui->detailText->setText(txHex);
 }
 
 SendRawDialog::~SendRawDialog()

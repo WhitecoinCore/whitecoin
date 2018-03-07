@@ -20,7 +20,7 @@ class SendRawDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit SendRawDialog(const QString &txID, QWidget *parent = 0);
+    explicit SendRawDialog(const QString &txID, const QString &txHEX, QWidget *parent = 0);
     ~SendRawDialog();
     
     void setModel(WalletModel *model);

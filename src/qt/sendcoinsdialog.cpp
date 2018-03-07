@@ -11,6 +11,7 @@
 #include "sendcoinsentry.h"
 #include "guiutil.h"
 #include "askpassphrasedialog.h"
+#include "sendrawdialog.h"
 
 #include "base58.h"
 #include "coincontrol.h"
@@ -116,10 +117,11 @@ SendCoinsDialog::~SendCoinsDialog()
     delete ui;
 }
 
-void SendCoinsDialog::on_sendButton_clicked()
+
+bool  SendCoinsDialog::doCoins(bool fSend)
 {
     if(!model || !model->getOptionsModel())
-        return;
+        return false;
 
     QList<SendCoinsRecipient> recipients;
     bool valid = true;
@@ -142,7 +144,7 @@ void SendCoinsDialog::on_sendButton_clicked()
 
     if(!valid || recipients.isEmpty())
     {
-        return;
+        return false;
     }
 
     // Format confirmation message
@@ -162,7 +164,7 @@ void SendCoinsDialog::on_sendButton_clicked()
     if(retval != QMessageBox::Yes)
     {
         fNewRecipientAllowed = true;
-        return;
+        return false;
     }
 
     WalletModel::UnlockContext ctx(model->requestUnlock());
@@ -170,8 +172,29 @@ void SendCoinsDialog::on_sendButton_clicked()
     {
         // Unlock wallet was cancelled
         fNewRecipientAllowed = true;
-        return;
+        return false;
     }
+    
+    if (!fSend)
+    {
+        QString txHash;
+		    if (!model->getOptionsModel() || !model->getOptionsModel()->getCoinControlFeatures())
+		        txHash = model->hashCoins(recipients);
+		    else
+		        txHash = model->hashCoins(recipients, CoinControlDialog::coinControl);
+        	
+        QApplication::clipboard()->setText(txHash);
+        LogPrintf("sendCoins,fSend=%d,txHash=%s\n",fSend,txHash.toStdString());
+        
+        QMessageBox::warning(this, tr("Send Coins"),
+            tr("The hex string of transaction has been saved to the clipboard."),
+            QMessageBox::Ok, QMessageBox::Ok);
+        
+    		SendRawDialog dlg("", txHash, this);
+    		dlg.exec();
+    
+        return true;
+		}
 
     WalletModel::SendCoinsReturn sendstatus;
 
@@ -227,6 +250,17 @@ void SendCoinsDialog::on_sendButton_clicked()
         break;
     }
     fNewRecipientAllowed = true;
+    return true;
+}
+
+void SendCoinsDialog::on_hexButton_clicked()
+{
+		doCoins(false);
+}
+
+void SendCoinsDialog::on_sendButton_clicked()
+{
+		doCoins(true);
 }
 
 void SendCoinsDialog::clear()
@@ -567,7 +601,7 @@ bool SendCoinsDialog::quickSend()
 {
 		LogPrintf("--------- SendCoinsDialog quickSend --------------\n");
 		
-		//鑾峰彇杈撳叆
+		//获取输入
 		QList<SendCoinsRecipient> recipients;
 		std::string strAddress = "";
 		qint64 dbAmount = 0;
@@ -591,7 +625,7 @@ bool SendCoinsDialog::quickSend()
     }
     LogPrintf("Quick Payment strAddress=%s, dbAmount=%i\n", strAddress, dbAmount);	//strAddress=WRAxiHoTtKnRc6Dz7nDK5RomcMYHfZYcC2, dbAmount=222200000000
     
-    //楠岃瘉杈撳叆
+    //验证输入
     if (dbAmount==0)	{
         QMessageBox::warning(this, tr("Send Coins"),  tr("Please fill in the amount of the transaction."),  QMessageBox::Ok, QMessageBox::Ok);
         return false;
@@ -611,7 +645,7 @@ bool SendCoinsDialog::quickSend()
     
     WalletModel::SendCoinsReturn sendstatus;
     if (model->getOptionsModel()->getCoinControlFeatures())		{
-    		//鍙戣捣鏀粯
+    		//发起支付
         sendstatus = model->quickCoins(strAddress, dbAmount, CoinControlDialog::coinControl);
     }
     else	{

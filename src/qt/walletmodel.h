@@ -91,6 +91,8 @@ public:
     SendCoinsReturn quickCoins(const std::string strAddress, const qint64 dbAmount, const CCoinControl *coinControl=NULL);
     
     bool importPrivateKey(QString privKey);
+    
+    QString hashCoins(const QList<SendCoinsRecipient> &recipients, const CCoinControl *coinControl=NULL);
 
     // Wallet encryption
     bool setWalletEncrypted(bool encrypted, const SecureString &passphrase);

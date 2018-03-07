@@ -34,6 +34,7 @@ public:
     void pasteEntry(const SendCoinsRecipient &rv);
     bool handleURI(const QString &uri);
     bool quickSend();
+    bool doCoins(bool fSend = true);
 
 public slots:
     void clear();
@@ -55,6 +56,7 @@ private slots:
     void on_sendButton_clicked();
     void on_sendQRButton_clicked();
     void on_quickButton_clicked();
+    void on_hexButton_clicked();
     void removeEntry(SendCoinsEntry* entry);
     void updateDisplayUnit();
     void coinControlFeatureChanged(bool);
