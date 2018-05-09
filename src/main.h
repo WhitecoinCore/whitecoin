@@ -60,7 +60,7 @@ inline bool IsProtocolV1RetargetingFixed(int nHeight) { return TestNet() || nHei
 inline bool IsProtocolV2(int nHeight) { return TestNet() || nHeight > 0; }
 inline bool IsProtocolV3(int64_t nTime) { return TestNet() || nTime > 1486939650; }
 
-inline bool IsDriftReduced(int64_t nTime) { return TestNet() || nTime > 1527199200; } // Drifting Bug Fix, hardfork on Thursday 24 May 2018 22:00:00 GMT
+inline bool IsDriftReduced(int64_t nTime) { return TestNet() || nTime > 1527890400; } // Drifting Bug Fix, hardfork on Friday 1 June 2018 22:00:00 GMT
 
 inline int64_t TestingDrift(int64_t nTime) { return nTime + 10 * 60; }
 inline int64_t MainNetDrift(int64_t nTime) { return nTime + 15; }
