@@ -1087,7 +1087,7 @@ int64_t GetProofOfWorkReward(int64_t nFees)
 // miner's coin stake reward
 int64_t GetProofOfStakeReward(const CBlockIndex* pindexPrev, int64_t nCoinAge, int64_t nFees)
 {
-    int Reward = (pindexPrev->nTime > 1527890400) ? 5 : 2;
+    int Reward = (pindexPrev->nTime > FORK_TIME) ? 5 : 2;
     return (Reward * COIN) + nFees;
 }
 

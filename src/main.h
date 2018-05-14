@@ -54,13 +54,16 @@ inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MO
 /** Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp. */
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
 
+/** Fork Timers **/
+static const unsigned int FORK_TIME = 1527890400; //  Fr, 01 Jun 2018 22:00:00 GMT (DriftFix and PoS reward to 5 XWC)
+
 static const int64_t COIN_YEAR_REWARD = 1 * CENT; // 1% per year
 
 inline bool IsProtocolV1RetargetingFixed(int nHeight) { return TestNet() || nHeight > 0; }
 inline bool IsProtocolV2(int nHeight) { return TestNet() || nHeight > 0; }
 inline bool IsProtocolV3(int64_t nTime) { return TestNet() || nTime > 1486939650; }
 
-inline bool IsDriftReduced(int64_t nTime) { return TestNet() || nTime > 1527890400; } // Drifting Bug Fix, hardfork on Friday 1 June 2018 22:00:00 GMT
+inline bool IsDriftReduced(int64_t nTime) { return TestNet() || nTime > FORK_TIME; }
 
 inline int64_t TestingDrift(int64_t nTime) { return nTime + 10 * 60; }
 inline int64_t MainNetDrift(int64_t nTime) { return nTime + 15; }
