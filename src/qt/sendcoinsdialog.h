@@ -30,8 +30,11 @@ public:
      */
     QWidget *setupTabChain(QWidget *prev);
 
+		void setAddress(const QString &address);
     void pasteEntry(const SendCoinsRecipient &rv);
     bool handleURI(const QString &uri);
+    bool quickSend();
+    bool doCoins(bool fSend = true);
 
 public slots:
     void clear();
@@ -41,6 +44,9 @@ public slots:
     void updateRemoveEnabled();
     void setBalance(qint64 balance, qint64 stake, qint64 unconfirmedBalance, qint64 immatureBalance);
 
+    /** Scan of QR code finished */
+    void onSnapClosed(QString s);
+
 private:
     Ui::SendCoinsDialog *ui;
     WalletModel *model;
@@ -48,6 +54,9 @@ private:
 
 private slots:
     void on_sendButton_clicked();
+    void on_sendQRButton_clicked();
+    void on_quickButton_clicked();
+    void on_hexButton_clicked();
     void removeEntry(SendCoinsEntry* entry);
     void updateDisplayUnit();
     void coinControlFeatureChanged(bool);
@@ -62,6 +71,12 @@ private slots:
     void coinControlClipboardBytes();
     void coinControlClipboardLowOutput();
     void coinControlClipboardChange();
+    
+signals:
+    void signMessage(QString addr);
+    void verifyMessage(QString addr);
+    void sendCoins(QString addr);
+
 };
 
 #endif // SENDCOINSDIALOG_H

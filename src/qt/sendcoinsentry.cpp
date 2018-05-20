@@ -8,6 +8,8 @@
 #include "optionsmodel.h"
 #include "addresstablemodel.h"
 
+#include "script.h"
+
 #include <QApplication>
 #include <QClipboard>
 
@@ -88,7 +90,9 @@ void SendCoinsEntry::clear()
     ui->payTo->clear();
     ui->addAsLabel->clear();
     ui->payAmount->clear();
-    ui->payTo->setFocus();
+    ui->payInfo->clear();
+    
+    ui->payTo->setFocus();    
     // update the display unit, to not use the default ("BTC")
     updateDisplayUnit();
 }
@@ -123,6 +127,12 @@ bool SendCoinsEntry::validate()
         ui->payTo->setValid(false);
         retval = false;
     }
+    
+    if (ui->payInfo->text().length() > MAX_OP_RETURN_RELAY)
+    {
+        ui->payInfo->setValid(false);
+        retval = false;
+    }
 
     return retval;
 }
@@ -134,6 +144,7 @@ SendCoinsRecipient SendCoinsEntry::getValue()
     rv.address = ui->payTo->text();
     rv.label = ui->addAsLabel->text();
     rv.amount = ui->payAmount->value();
+    rv.remark = ui->payInfo->text();
 
     return rv;
 }
@@ -141,7 +152,8 @@ SendCoinsRecipient SendCoinsEntry::getValue()
 QWidget *SendCoinsEntry::setupTabChain(QWidget *prev)
 {
     QWidget::setTabOrder(prev, ui->payTo);
-    QWidget::setTabOrder(ui->payTo, ui->addressBookButton);
+    QWidget::setTabOrder(ui->payTo, ui->payInfo);
+   	QWidget::setTabOrder(ui->payInfo, ui->addressBookButton);
     QWidget::setTabOrder(ui->addressBookButton, ui->pasteButton);
     QWidget::setTabOrder(ui->pasteButton, ui->deleteButton);
     QWidget::setTabOrder(ui->deleteButton, ui->addAsLabel);
@@ -153,6 +165,57 @@ void SendCoinsEntry::setValue(const SendCoinsRecipient &value)
     ui->payTo->setText(value.address);
     ui->addAsLabel->setText(value.label);
     ui->payAmount->setValue(value.amount);
+}
+
+void SendCoinsEntry::setAddress(const QString &address)
+{
+    //may have been scanned in so it must be parsed first 
+    //QMessageBox::warning(this, tr("GR-Snap"), tr("The String Of Address is %1.").arg(address),  QMessageBox::Ok, QMessageBox::Ok);  
+    if (address.size() > 34) {
+        QString _address;
+        QString _label;
+        QString _amount;     
+        int x = address.indexOf(":", 0, Qt::CaseInsensitive);
+        if (x) {
+            _address = address.mid(x+1, 34);
+        }
+        //QMessageBox::warning(this, tr("GR-Snap"), tr("The Address = %1.").arg(_address),  QMessageBox::Ok, QMessageBox::Ok);
+        
+        int y = address.indexOf("label=", 0, Qt::CaseInsensitive);
+        if (y) {
+		    		QString tmpURL= address.mid(y+6, address.size()-y-6);
+		    		int z = tmpURL.indexOf("&", 0, Qt::CaseInsensitive);
+		    		
+		    		//QMessageBox::warning(this, tr("GR-Snap"), tr("The label = %1.").arg(tmpURL),  QMessageBox::Ok, QMessageBox::Ok);
+		    		if (z) {
+		        		_label = tmpURL.mid(0, z);
+		      	} else {
+		      			_label = tmpURL;
+		      	}
+		     }
+		     int p = address.indexOf("amount=", 0, Qt::CaseInsensitive);
+         if (p) {
+         		QString tmpURL = address.mid(p+7, address.size()-p-7);
+         		int z = tmpURL.indexOf("&", 0, Qt::CaseInsensitive);
+         		
+         		//QMessageBox::warning(this, tr("GR-Snap"), tr("The amount = %1.").arg(tmpURL),  QMessageBox::Ok, QMessageBox::Ok);
+         		if (z) {
+		        		_amount = tmpURL.mid(0, z);
+		      	} else {
+		      			_amount = tmpURL;
+		      	}
+		      	//QMessageBox::warning(this, tr("GR-Snap"), tr("The amount is %1.").arg(_amount),  QMessageBox::Ok, QMessageBox::Ok);
+         }
+         
+        //Todo: parse out label and amount from incoming string
+        ui->payTo->setText(_address);
+        ui->addAsLabel->setText(_label);
+        ui->payAmount->setValue(_amount.toDouble() * COIN);
+    }
+    else {
+        ui->payTo->setText(address);
+    }
+    ui->payAmount->setFocus();
 }
 
 bool SendCoinsEntry::isClear()

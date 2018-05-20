@@ -98,6 +98,12 @@
             </property>
             <item row="0" column="0">
              <widget class="QLabel" name="label">
+              <property name="font">
+               <font>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
               <property name="text">
                <string>Spendable:</string>
               </property>
@@ -107,8 +113,8 @@
              <widget class="QLabel" name="labelBalance">
               <property name="font">
                <font>
-                <weight>75</weight>
-                <bold>true</bold>
+                <weight>50</weight>
+                <bold>false</bold>
                </font>
               </property>
               <property name="cursor">
@@ -130,6 +136,12 @@
             </item>
             <item row="1" column="0">
              <widget class="QLabel" name="label_6">
+              <property name="font">
+               <font>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
               <property name="text">
                <string>Stake:</string>
               </property>
@@ -139,8 +151,8 @@
              <widget class="QLabel" name="labelStake">
               <property name="font">
                <font>
-                <weight>75</weight>
-                <bold>true</bold>
+                <weight>50</weight>
+                <bold>false</bold>
                </font>
               </property>
               <property name="cursor">
@@ -162,6 +174,12 @@
             </item>
             <item row="2" column="0">
              <widget class="QLabel" name="label_3">
+              <property name="font">
+               <font>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
               <property name="text">
                <string>Unconfirmed:</string>
               </property>
@@ -171,8 +189,8 @@
              <widget class="QLabel" name="labelUnconfirmed">
               <property name="font">
                <font>
-                <weight>75</weight>
-                <bold>true</bold>
+                <weight>50</weight>
+                <bold>false</bold>
                </font>
               </property>
               <property name="cursor">
@@ -194,6 +212,12 @@
             </item>
             <item row="3" column="0">
              <widget class="QLabel" name="labelImmatureText">
+              <property name="font">
+               <font>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
               <property name="text">
                <string>Immature:</string>
               </property>
@@ -203,8 +227,8 @@
              <widget class="QLabel" name="labelImmature">
               <property name="font">
                <font>
-                <weight>75</weight>
-                <bold>true</bold>
+                <weight>50</weight>
+                <bold>false</bold>
                </font>
               </property>
               <property name="toolTip">
@@ -230,6 +254,12 @@
             </item>
             <item row="5" column="0">
              <widget class="QLabel" name="labelTotalText">
+              <property name="font">
+               <font>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
               <property name="text">
                <string>Total:</string>
               </property>
@@ -239,8 +269,8 @@
              <widget class="QLabel" name="labelTotal">
               <property name="font">
                <font>
-                <weight>75</weight>
-                <bold>true</bold>
+                <weight>50</weight>
+                <bold>false</bold>
                </font>
               </property>
               <property name="cursor">

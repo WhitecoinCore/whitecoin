@@ -1,32 +1,20 @@
+# Whitecoin core
 
-Whitecoin development tree
+## What is Whitecoin?
+Whitecoin (XWC) is a cryptocurrency with a focus on innovative software to make fast, safe and cheap transactions. XWC is a proof-of-stake based coin driven by an active community of volunteers. The community centric approach is one of the reason why this coin is still in active development after its initial introduction in 2014.
 
-Whitecoin is a PoS-based cryptocurrency.
+**Learn more**
+* [Official Whitecoin website](https://www.whitecoin.info/)
+* [Join our Discord server](https://discordapp.com/invite/GbpdbMt)
+* [BitcoinTalk page](https://bitcointalk.org/index.php?topic=804288.0)
 
-Development process
-===========================
+## How to contribute?
+We accept and welcome contributions. Feel free to reach out on Discord if you have any questions for your first code contribution.
 
-Developers work in their own trees, then submit pull requests when
-they think their feature or bug fix is ready.
+Please note that your code will be thoroughly reviewed and tested before its accepted. We expect you to rework and resubmit patches if they don't fit in to maintain code quality.
 
-The patch will be accepted if there is broad consensus that it is a
-good thing.  Developers should expect to rework and resubmit patches
-if they don't match the project's coding conventions (see coding.txt)
-or are controversial.
-
-The master branch is regularly built and tested, but is not guaranteed
-to be completely stable. Tags are regularly created to indicate new
-stable release versions of Whitecoin.
-
-Feature branches are created when there are major new features being
-worked on by several people.
-
-From time to time a pull request will become outdated. If this occurs, and
-the pull is no longer automatically mergeable; a comment on the pull will
-be used to issue a warning of closure. The pull will be closed 15 days
-after the warning if action is not taken by the author. Pull requests closed
-in this manner will have their corresponding issue labeled 'stagnant'.
-
-Issues with no commits will be given a similar warning, and closed after
-15 days from their last activity. Issues closed in this manner will be 
-labeled 'stale'.
+**Fixing an issue**
+* Fork the repository on [GitHub](https://github.com/Whitecoin-org/whitecoin)
+* Make the changes to your forked repository
+* Submit a pull request to the `development` branch
+* The patch will be reviewed and added to a new release if there is abroad consensus that it is a good improvement

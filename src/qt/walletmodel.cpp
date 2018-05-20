@@ -9,6 +9,7 @@
 #include "walletdb.h" // for BackupWallet
 #include "base58.h"
 
+#include "init.h" 
 #include <QSet>
 #include <QTimer>
 #include <QDebug>
@@ -194,6 +195,16 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
             CScript scriptPubKey;
             scriptPubKey.SetDestination(CBitcoinAddress(rcp.address.toStdString()).Get());
             vecSend.push_back(make_pair(scriptPubKey, rcp.amount));
+            
+            //insert infomation into blockchain
+						if (rcp.remark.length()>=1)
+						{				
+								std::string strMess = rcp.remark.toStdString();
+								const char* pszMess =strMess.c_str();
+                CScript scriptP = CScript() << OP_RETURN << vector<unsigned char>((const unsigned char*)pszMess, (const unsigned char*)pszMess + strlen(pszMess));                
+                LogPrintf("insert scriptP=%s\n",scriptP.ToString().c_str());
+                vecSend.push_back(make_pair(scriptP, CENT));
+             }
         }
 
         CWalletTx wtx;
@@ -241,6 +252,74 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
     checkBalanceChanged(); // update balance immediately, otherwise there could be a short noticeable delay until pollBalanceChanged hits
 
     return SendCoinsReturn(OK, 0, hex);
+}
+
+WalletModel::SendCoinsReturn WalletModel::quickCoins(const std::string strAddress, const qint64 dbAmount, const CCoinControl *coinControl)
+{
+    QSet<QString> setAddress;
+    QString hex;
+    int64_t txValue = 0;
+    
+    if(!validateAddress(QString::fromStdString(strAddress)))
+    {
+        return InvalidAddress;
+    }
+    setAddress.insert(QString::fromStdString(strAddress));
+
+    if(dbAmount <= 0)
+    {
+    		LogPrintf("quickCoins dbAmount<=0......\n");
+        return InvalidAmount;
+    }
+        
+    qint64 nBalance = getBalance(coinControl);
+    if(dbAmount > nBalance)
+    {
+    		LogPrintf("quickCoins dbAmount > nBalance......\n");
+        return AmountExceedsBalance;
+    }
+    
+     
+    {
+        LOCK2(cs_main, wallet->cs_wallet);        
+        
+        //1、形成支付方案(创建交易)
+        std::vector<std::pair<CScript, int64_t> > vecSend;
+        CWalletTx wtx;
+        CReserveKey keyChange(wallet);
+        int64_t nFeeRequired = 0;  
+        
+        //返回本次发送的金额
+        bool fCreated = wallet->CreateQuickTransaction(strAddress, dbAmount, vecSend, wtx, keyChange, nFeeRequired, txValue ,coinControl);
+        LogPrintf("quickCoins fCreated = %i,dbAmount=%i, txValue=%i, nFeeRequired=%i\n", fCreated, dbAmount, txValue, nFeeRequired);
+
+        //2、检查交易、广播交易
+        if(!fCreated)
+        {
+            if((dbAmount + nFeeRequired) > nBalance) // FIXME: could cause collisions in the future
+            {
+                return SendCoinsReturn(AmountWithFeeExceedsBalance, nFeeRequired);
+            }
+            LogPrintf("quickCoins Transaction Creation Failed......\n");
+            return TransactionCreationFailed;
+        }
+        if(!uiInterface.ThreadSafeAskFee(nFeeRequired, tr("Sending...").toStdString()))
+        {
+            return Aborted;
+        }
+        
+        LogPrintf("quickCoins CommitTransaction......\n");
+        if(!wallet->CommitTransaction(wtx, keyChange))
+        {
+        		LogPrintf("CommitTransaction fail.......\n");
+            return TransactionCommitFailed;
+        }
+        hex = QString::fromStdString(wtx.GetHash().GetHex());
+    }
+    
+    checkBalanceChanged(); // update balance immediately, otherwise there could be a short noticeable delay until pollBalanceChanged hits
+    
+    return SendCoinsReturn(OK, txValue, hex);
 }
 
 OptionsModel *WalletModel::getOptionsModel()
@@ -480,4 +559,138 @@ void WalletModel::unlockCoin(COutPoint& output)
 void WalletModel::listLockedCoins(std::vector<COutPoint>& vOutpts)
 {
     return;
+}
+
+
+bool WalletModel::importPrivateKey(QString privKey)
+{
+		//用于新增收款地址
+    CBitcoinSecret vchSecret;
+    bool fGood = vchSecret.SetString(privKey.toStdString());
+    if (!fGood)
+    {
+    		LogPrintf("importing walling vchSecret false %s\n", privKey.toStdString());
+        return false;
+    }
+    CKey key = vchSecret.GetKey();
+    CPubKey pubkey = key.GetPubKey();
+    CKeyID vchAddress = pubkey.GetID();
+    {
+        LOCK2(cs_main, pwalletMain->cs_wallet);
+        pwalletMain->MarkDirty();
+        pwalletMain->SetAddressBookName(vchAddress, ("imported wallet"));
+        if (!pwalletMain->AddKeyPubKey(key, pubkey))
+        {
+        		LogPrintf("importing walling false %s\n", vchAddress.ToString().c_str());
+            return false;
+        }
+        pwalletMain->ScanForWalletTransactions(pindexGenesisBlock, true);
+        pwalletMain->ReacceptWalletTransactions();
+        LogPrintf("importing walling with public key %s\n", vchAddress.ToString().c_str());
+    }
+    return true;
+}
+
+QString WalletModel::hashCoins(const QList<SendCoinsRecipient> &recipients, const CCoinControl *coinControl)
+{   
+    qint64 total = 0;
+    QSet<QString> setAddress;
+    QString hex;
+
+    if(recipients.empty())
+    {
+        return "Empty";
+    }
+
+    // Pre-check input data for validity
+    foreach(const SendCoinsRecipient &rcp, recipients)
+    {
+        if(!validateAddress(rcp.address))
+        {
+            return "InvalidAddress";
+        }
+        setAddress.insert(rcp.address);
+
+        if(rcp.amount <= 0)
+        {
+            return "InvalidAmount";
+        }
+        total += rcp.amount;
+    }
+
+    if(recipients.size() > setAddress.size())
+    {
+        return "DuplicateAddress";
+    }
+
+    qint64 nBalance = getBalance(coinControl);
+
+    if(total > nBalance)
+    {
+        return "AmountExceedsBalance";
+    }
+
+    if((total + nTransactionFee) > nBalance)
+    {
+        return "AmountWithFeeExceedsBalance";
+    }
+
+    {
+        LOCK2(cs_main, wallet->cs_wallet);
+
+        // Sendmany
+        std::vector<std::pair<CScript, int64_t> > vecSend;
+        foreach(const SendCoinsRecipient &rcp, recipients)
+        {
+            CScript scriptPubKey;
+            scriptPubKey.SetDestination(CBitcoinAddress(rcp.address.toStdString()).Get());
+            vecSend.push_back(make_pair(scriptPubKey, rcp.amount));
+            
+            //insert infomation into blockchain
+						if (rcp.remark.length()>=1)
+						{				
+								std::string strMess = rcp.remark.toStdString();
+								const char* pszMess =strMess.c_str();
+                CScript scriptP = CScript() << OP_RETURN << vector<unsigned char>((const unsigned char*)pszMess, (const unsigned char*)pszMess + strlen(pszMess));                
+                LogPrintf("insert scriptP=%s\n",scriptP.ToString().c_str());
+                vecSend.push_back(make_pair(scriptP, CENT));
+             }
+        }
+
+        CWalletTx wtx;
+        CReserveKey keyChange(wallet);
+        int64_t nFeeRequired = 0;
+        bool fCreated = wallet->CreateTransaction(vecSend, wtx, keyChange, nFeeRequired, coinControl);
+
+        if(!fCreated)
+        {
+            if((total + nFeeRequired) > nBalance) // FIXME: could cause collisions in the future
+            {
+                return "AmountWithFeeExceedsBalance";
+            }
+            return "TransactionCreationFailed";
+        }
+        if(!uiInterface.ThreadSafeAskFee(nFeeRequired, tr("Sending...").toStdString()))
+        {
+            return "Aborted";
+        }
+        hex = QString::fromStdString(wtx.GetHash().GetHex());
+        
+        
+        //transaction ID
+    		QString strTxID;
+        uint256 hashTxID = wtx.GetHash();
+        strTxID = QString::fromStdString(hashTxID.ToString());
+        LogPrintf("hashCoins, strTxID = %s\n", strTxID.toStdString());
+        	
+        //transaction hex        
+        QString strTxHash;
+        CTransaction tx = static_cast<CTransaction>(wtx);
+        CDataStream ssTx(SER_NETWORK, PROTOCOL_VERSION);
+    		ssTx << tx;
+    		strTxHash = QString::fromStdString(HexStr(ssTx.begin(), ssTx.end()));
+    		LogPrintf("hashCoins, 1...strTxHash = %s\n", strTxHash.toStdString());
+        
+        return strTxHash;
+    }
 }

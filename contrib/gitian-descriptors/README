@@ -25,7 +25,7 @@ Once you've got the right hardware and software:
 
     # To build
     cd whitecoin
-    git pull
-    cd ../gitian-builder
-    git pull
-    ./bin/gbuild --commit bitcoin=HEAD ../whitecoin/contrib/gitian-descriptors/gitian.yml
+    git clone https://github.com/Whitecoin-org/whitecoin.git
+    cd whitecoin 
+    qmake
+    make 

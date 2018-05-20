@@ -219,6 +219,54 @@ std::string getOutputs(std::string txid)
     return str;
 }
 
+std::string getOutputOP(std::string txid)
+{
+    uint256 hash;
+    hash.SetHex(txid);
+
+    CTransaction tx;
+    uint256 hashBlock = 0;
+    if (!GetTransaction(hash, tx, hashBlock))
+        return "fail";
+
+    CDataStream ssTx(SER_NETWORK, PROTOCOL_VERSION);
+    ssTx << tx;
+
+    std::string str = "";
+    std::string strOP = "";
+    std::string strCode = "";
+    std::string remark = "";
+    for (unsigned int v = 0; v < tx.vout.size(); v++)
+    {
+        const CTxOut& txout = tx.vout[v];
+        CTxDestination source;
+        ExtractDestination(txout.scriptPubKey, source);
+        
+        //find OP_RETURN
+        CScript scriptP = txout.scriptPubKey;
+        strOP = scriptP.ToString();
+        LogPrintf("get OP_RETURN strOP=%s\n",strOP.c_str());
+        int findOP = scriptP.Find(OP_RETURN);   
+             
+        if (findOP == 1)
+        {
+        	strCode = strOP.substr(10,strOP.length()-10);
+        	LogPrintf("get OP_RETURN strCode=%s\n",strCode.c_str());
+        	
+        	//2位1个字符，16进制转10进制，再转ascii
+        	for (unsigned int i=0; i<=(strCode.length()-2); i=i+2)
+        	{
+        		int dec_hex = fun16to10(strCode.substr(0+i,2).c_str());//"48"
+        		LogPrintf("get OP_RETURN itoascii=%s\n",itoascii(dec_hex));
+        		remark.append(itoascii(dec_hex));
+        	}
+      	}
+    }
+    str.append(remark);
+
+    return str;
+}
+
 std::string getInputs(std::string txid)
 {
     uint256 hash;
@@ -363,7 +411,7 @@ void BlockBrowser::updateExplorer(bool block)
         }
         int Pawrate = getBlockHashrate(height);
         double Pawrate2 = 0.000;
-        Pawrate2 = ((double)Pawrate / 1000);
+        Pawrate2 = ((double)Pawrate / 1000 / 1000);
         std::string hash = getBlockHash(height);
         std::string merkle = getBlockMerkle(height);
         int nBits = getBlocknBits(height);
@@ -414,6 +462,10 @@ void BlockBrowser::updateExplorer(bool block)
         ui->outputBox->setText(QOutputs);
         ui->inputBox->setText(QInputs);
         ui->feesBox->setText(QFees + " XWC");
+        
+        std::string outOP = getOutputOP(txid);
+        QString QOutputOP = QString::fromUtf8(outOP.c_str());
+        ui->opInfo->setText(QOutputOP);
     }
 }
 

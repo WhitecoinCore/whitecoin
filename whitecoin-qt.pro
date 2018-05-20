@@ -1,8 +1,9 @@
 TEMPLATE = app
 TARGET = whitecoin-qt
-VERSION = 2.0.0.0
+VERSION = 2.5.1.0
 INCLUDEPATH += src src/json src/qt
 QT += network
+QT += printsupport
 DEFINES += ENABLE_WALLET
 DEFINES += BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
@@ -19,6 +20,31 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 # use: BOOST_THREAD_LIB_SUFFIX=_win32-...
 # or when linking against a specific BerkelyDB version: BDB_LIB_SUFFIX=-4.8
 
+win32:BOOST_LIB_SUFFIX=-mgw49-mt-s-1_57
+win32:BOOST_THREAD_LIB_SUFFIX=-mgw49-mt-s-1_57
+win32:BOOST_INCLUDE_PATH=C:/deps/boost_1_57_0
+win32:BOOST_LIB_PATH=C:/deps/boost_1_57_0/stage/lib
+win32:BDB_INCLUDE_PATH=C:/deps/db-5.3.28.NC/build_unix
+win32:BDB_LIB_PATH=C:/deps/db-5.3.28.NC/build_unix
+win32:OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.0.2l/include
+win32:OPENSSL_LIB_PATH=C:/deps/openssl-1.0.2l/
+win32:MINIUPNPC_INCLUDE_PATH=C:/deps/
+win32:MINIUPNPC_LIB_PATH=C:/deps/miniupnpc
+win32:QRENCODE_INCLUDE_PATH=C:/deps/qrencode-3.4.4
+win32:QRENCODE_LIB_PATH=C:/deps/qrencode-3.4.4/.libs
+
+macx:BOOST_LIB_SUFFIX= -mt
+macx:BOOST_INCLUDE_PATH=/usr/local/include
+macx:BOOST_LIB_PATH=/usr/local/lib
+macx:BDB_INCLUDE_PATH = /usr/local/opt/berkeley-db@4/include
+macx:BDB_LIB_PATH = /usr/local/opt/berkeley-db@4/lib
+macx:OPENSSL_INCLUDE_PATH=/usr/local/opt/openssl/include
+macx:OPENSSL_LIB_PATH=/usr/local/opt/openssl/lib
+macx:MINIUPNPC_INCLUDE_PATH=/usr/local/include
+macx:MINIUPNPC_LIB_PATH=/usr/local/lib
+macx:QRENCODE_INCLUDE_PATH=/usr/local/include
+macx:QRENCODE_LIB_PATH=/usr/local/lib
+
 # Dependency library locations can be customized with:
 #    BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
 #    BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
@@ -29,11 +55,11 @@ UI_DIR = build
 
 # use: qmake "RELEASE=1"
 contains(RELEASE, 1) {
-    # Mac: compile for maximum compatibility (10.5, 32-bit)
-    macx:QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.5.sdk
-    macx:QMAKE_CFLAGS += -mmacosx-version-min=10.5 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.5.sdk
-    macx:QMAKE_LFLAGS += -mmacosx-version-min=10.5 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.5.sdk
-    macx:QMAKE_OBJECTIVE_CFLAGS += -mmacosx-version-min=10.5 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.5.sdk
+    # Mac: compile for maximum compatibility (10.7, 64-bit)
+    macx:QMAKE_CXXFLAGS += -mmacosx-version-min=10.7 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk
+    macx:QMAKE_CFLAGS += -mmacosx-version-min=10.7 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk
+    macx:QMAKE_LFLAGS += -mmacosx-version-min=10.7 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk
+    macx:QMAKE_OBJECTIVE_CFLAGS += -mmacosx-version-min=10.7 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk
 
     !windows:!macx {
         # Linux: static link
@@ -78,6 +104,30 @@ contains(USE_UPNP, -) {
     LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
     win32:LIBS += -liphlpapi
 }
+
+# use: qmake "USE_ZXING=1"
+# libzxing https://github.com/ClaireDuSoleil/ZebraCrossing) must be available for support
+contains(USE_ZXING, 1) {
+# unix:ZXING_INCLUDE_PATH=/home/peter/github/ZebraCrossing/src/libsrc
+# unix:ZXING_LIB_PATH=/home/peter/github/ZebraCrossing
+#At linux platform should set ZXING_INCLUDE_PATH and ZXING_LIB_PATH to zxing
+   unix:ZXING_INCLUDE_PATH = 0
+   unix:ZXING_LIB_PATH=0
+    message(Building with ZXING support)
+    DEFINES += USE_ZXING
+    INCLUDEPATH += $$ZXING_INCLUDE_PATH
+    LIBS += $$join(ZXING_LIB_PATH,,-L,) -lzxing
+
+    contains(ZXING_INCLUDE_PATH,0) {
+          error(Should set ZXING_INCLUDE_PATH and ZXING_INCLUDE_PATH to zxing )
+    }else
+    {
+        message(ZXING_INCLUDE_PATH=$$ZXING_INCLUDE_PATH)
+        message(ZXING_LIB_PATH=$$ZXING_LIB_PATH)
+
+    }
+}
+
 
 # use: qmake "USE_DBUS=1" or qmake "USE_DBUS=0"
 linux:count(USE_DBUS, 0) {
@@ -235,7 +285,14 @@ HEADERS += src/qt/bitcoingui.h \
     src/threadsafety.h \
     src/tinyformat.h \
     src/qt/blockbrowser.h \
-    src/qt/statisticspage.h
+    src/qt/statisticspage.h \
+    src/qt/verticallabel.h \
+    src/qt/utilitydialog.h \
+    src/qt/intro.h \
+    src/qt/scicon.h \
+    src/qt/peertablemodel.h \
+    src/qt/transactionreport.h \
+    src/qt/sendrawdialog.h
 
 SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/transactiontablemodel.cpp \
@@ -312,7 +369,14 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/scrypt-x86.S \
     src/scrypt-x86_64.S \
     src/scrypt.cpp \
-    src/pbkdf2.cpp
+    src/pbkdf2.cpp \
+    src/qt/verticallabel.cpp \
+    src/qt/utilitydialog.cpp \
+    src/qt/intro.cpp \
+    src/qt/scicon.cpp \
+    src/qt/peertablemodel.cpp \
+    src/qt/transactionreport.cpp \
+    src/qt/sendrawdialog.cpp
 
 RESOURCES += \
     src/qt/bitcoin.qrc
@@ -331,12 +395,24 @@ FORMS += \
     src/qt/forms/rpcconsole.ui \
     src/qt/forms/optionsdialog.ui \
     src/qt/forms/blockbrowser.ui \
-    src/qt/forms/statisticspage.ui
+    src/qt/forms/statisticspage.ui \
+    src/qt/forms/paperwalletdialog.ui \
+    src/qt/forms/impprivkeydialog.ui \
+    src/qt/forms/intro.ui \
+    src/qt/forms/sendrawdialog.ui
 
 contains(USE_QRCODE, 1) {
-HEADERS += src/qt/qrcodedialog.h
-SOURCES += src/qt/qrcodedialog.cpp
-FORMS += src/qt/forms/qrcodedialog.ui
+    HEADERS += src/qt/qrcodedialog.h
+    SOURCES += src/qt/qrcodedialog.cpp
+    FORMS += src/qt/forms/qrcodedialog.ui
+}
+
+contains(USE_ZXING, 1) {
+    HEADERS += src/qt/snapwidget.h
+    HEADERS += src/qt/qimagesource.h
+    SOURCES += src/qt/qimagesource.cpp
+    SOURCES += src/qt/snapwidget.cpp
+    FORMS += src/qt/forms/snapwidget.ui
 }
 
 CODECFORTR = UTF-8
@@ -436,7 +512,9 @@ contains(RELEASE, 1) {
 
 !windows:!macx {
     DEFINES += LINUX
-    LIBS += -lrt -ldl
+    LIBS += -lrt -ldl -lz
 }
 
 system($$QMAKE_LRELEASE -silent $$_PRO_FILE_)
+
+DISTFILES +=

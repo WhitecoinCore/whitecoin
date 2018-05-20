@@ -1,5 +1,63 @@
 ﻿<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
 <context>
+    <name>Intro</name>
+    <message>
+        <location filename="../forms/intro.ui" line="+14"/>
+        <source>Welcome</source>
+        <translation>欢迎</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Welcome to Whitecoin.</source>
+        <translation>欢迎使用白币QT钱包。</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>You can choose where Whitecoin will store its data.</source>
+        <translation>您可以选择白币钱包数据存储目录。</translation>
+    </message>
+    <message>
+    		<location line="+17"/>
+        <source>Whitecoin will download and store a copy of the Whitecoin block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>白币钱包程序会下载储存一份完整的白币块链(blockchain)数据。至少需要 %1 GB的存储空间，随着时间推移会需要更多的存储空间。钱包文件也储存在该目录。</translation>
+    </message>
+    <message>
+    		<location line="+17"/>
+        <source>Use the default data directory</source>
+        <translation>使用默认的数据目录</translation>
+    </message>
+    <message>
+    		<location line="+17"/>
+        <source>Use a custom data directory:</source>
+        <translation>使用自定义的数据目录：</translation>
+    </message>
+    <message>
+    		<location line="+17"/>
+        <source>Whitecoin</source>
+        <translation>白币</translation>
+    </message>
+    <message>
+    		<location line="+17"/>
+        <source>Error: Specified data directory "%1" cannot be created.</source>
+        <translation>错误：无法创建 指定的数据目录 "%1" </translation>
+    </message>
+    <message>
+    		<location line="+17"/>
+        <source>Error</source>
+        <translation>错误</translation>
+    </message>
+    <message numerus="yes">
+    		<location line="+17"/>
+        <source>%n GB of free space available</source>
+        <translation><numerusform>有 %n GB 空闲空间</numerusform></translation>
+    </message>
+    <message numerus="yes">
+    		<location line="+17"/>
+        <source>(of %n GB needed)</source>
+        <translation><numerusform>(需要%n GB空间)</numerusform></translation>
+    </message>
+</context>
+<context>
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
@@ -138,6 +196,36 @@ This product includes software developed by the OpenSSL Project for use in the O
         <source>Could not write to file %1.</source>
         <translation>无法写入文件 %1 。</translation>
     </message>
+    <message>
+        <location line="+13"/>
+        <source>Import QR</source>
+        <translation>识别二维码</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Copy Private Key</source>
+        <translation>复制私钥</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Copy Public Key</source>
+        <translation>复制公钥</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Copy Address KeyID</source>
+        <translation>复制地址ID</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>&amp;Print</source>
+        <translation>打印(&amp;P)</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Import PrivKey</source>
+        <translation>导入私钥</translation>
+    </message>
 </context>
 <context>
     <name>AddressTableModel</name>
@@ -155,6 +243,62 @@ This product includes software developed by the OpenSSL Project for use in the O
         <location line="+36"/>
         <source>(no label)</source>
         <translation>(没有标签)</translation>
+    </message>
+</context>
+<context>
+    <name>ImpPrivKeyDialog</name>
+    <message>
+        <location filename="../utilitydialog.cpp" line="+145"/>
+        <source>Invalid private key</source>
+        <translation>错误的私钥</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Wallet is unlocked for staking only</source>
+        <translation>钱包被锁定用于挖矿</translation>
+    </message>
+    <message>
+        <location line="+36"/>
+        <source>This key has already existed</source>
+        <translation>私钥已存在</translation>
+    </message>
+</context>
+<context>
+    <name>ImpPrivKeyDialog</name>
+    <message>
+        <location filename="../forms/impprivkeydialog.ui" line="+26"/>
+        <source>Import whitecoin into your wallet</source>
+        <translation>导入白币到钱包</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Import PrivateKey</source>
+        <translation>导入私钥</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Key:</source>
+        <translation>私钥：</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Note: this operation will rebuild the index data and wait for a long time</source>
+        <translation>注意：此操作将重建数据索引，需等待较长时间</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Exit</source>
+        <translation>退出</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Error adding key to wallet</source>
+        <translation>加入钱包发生错误</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>The import has completed</source>
+        <translation>已完成导入钱包</translation>
     </message>
 </context>
 <context>
@@ -502,6 +646,21 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>帮助(&amp;H)</translation>
     </message>
     <message>
+        <location line="+8"/>
+        <source>&amp;Print paper wallets</source>
+        <translation>纸钱包打印(&amp;P)</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>&amp;Broadcast</source>
+        <translation>广播数据(&amp;B)</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Broadcast Data to Network</source>
+        <translation>向网络广播数据</translation>
+    </message>
+    <message>
         <location line="+17"/>
         <source>Tabs toolbar</source>
         <translation>分页工具栏</translation>
@@ -589,9 +748,19 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>发送交易</translation>
     </message>
     <message>
+        <location line="+27"/>
+        <source>Transactions &amp;Report</source>
+        <translation>交易汇总</translation>
+    </message>
+    <message>
         <location line="+1"/>
         <source>Incoming transaction</source>
         <translation>流入交易</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Browse transaction report</source>
+        <translation>查看交易报表</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1339,7 +1508,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="-173"/>
         <source>Stake:</source>
-        <translation>用于权益累积：</translation>
+        <translation>权益正在成熟：</translation>
     </message>
     <message>
         <location line="+32"/>
@@ -1467,6 +1636,160 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+0"/>
         <source>PNG Images (*.png)</source>
         <translation>PNG图片(*.png)</translation>
+    </message>
+</context>
+<context>
+    <name>PeerTableModel</name>
+    <message>
+        <source>User Agent</source>
+        <translation>用户代理</translation>
+    </message>
+    <message>
+        <source>Node/Service</source>
+        <translation>节点/服务</translation>
+    </message>
+    <message>
+        <source>Ping Time</source>
+        <translation>Ping 时间</translation>
+    </message>
+</context>
+<context>
+    <name>TransactionReport</name>
+    <message>
+        <source>All</source>
+        <translation>全部</translation>
+    </message>
+    <message>
+        <source>Today</source>
+        <translation>今天</translation>
+    </message>
+    <message>
+        <source>Yesterday</source>
+        <translation>昨天</translation>
+    </message>
+    <message>
+        <source>This week</source>
+        <translation>本周</translation>
+    </message>
+    <message>
+        <source>Last week</source>
+        <translation>上周</translation>
+    </message>
+    <message>
+        <source>This month</source>
+        <translation>本月</translation>
+    </message>
+    <message>
+        <source>Last month</source>
+        <translation>上月</translation>
+    </message>
+    <message>
+        <source>This year</source>
+        <translation>今年</translation>
+    </message>
+    <message>
+        <source>Range...</source>
+        <translation>范围...</translation>
+    </message>
+    <message>
+        <source>Received with</source>
+        <translation>接收于</translation>
+    </message>
+    <message>
+        <source>Sent to</source>
+        <translation>发送给</translation>
+    </message>
+    <message>
+        <source>To yourself</source>
+        <translation>到自己</translation>
+    </message>
+    <message>
+        <source>Mined</source>
+        <translation>挖矿所得</translation>
+    </message>
+    <message>
+        <source>Other</source>
+        <translation>其他</translation>
+    </message>
+    <message>
+        <source>Enter address or label to search</source>
+        <translation>输入地址或标签进行搜索</translation>
+    </message>
+    <message>
+        <source>Min amount</source>
+        <translation>最小金额</translation>
+    </message>
+    <message>
+        <source>Export Transaction History</source>
+        <translation>导出交易历史</translation>
+    </message>
+    <message>
+        <source>Exporting Failed</source>
+        <translation>导出失败</translation>
+    </message>
+    <message>
+        <source>There was an error trying to save the transaction history to %1.</source>
+        <translation>导出交易历史到 %1 时发生错误。</translation>
+    </message>
+    <message>
+        <source>Exporting Successful</source>
+        <translation>导出成功</translation>
+    </message>
+    <message>
+        <source>The transaction history was successfully saved to %1.</source>
+        <translation>交易历史已成功保存到 %1。</translation>
+    </message>
+    <message>
+        <source>Comma separated file (*.csv)</source>
+        <translation>逗号分隔文件 (*.csv)</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>日期</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>类别</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation>标签</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>地址</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>金额</translation>
+    </message>
+    <message>
+        <source>ID</source>
+        <translation>ID</translation>
+    </message>
+    <message>
+        <source>Range:</source>
+        <translation>范围：</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>到</translation>
+    </message>
+    <message>
+        <source>AddressLabel</source>
+        <translation>地址标签名</translation>
+    </message>
+    <message>
+        <source>DateRange</source>
+        <translation>日期范围</translation>
+    </message>
+    <message>
+        <source>Payment amount</source>
+        <translation>支付金额</translation>
+    </message>
+    <message>
+        <source>Number of payments</source>
+        <translation>支付笔数</translation>
     </message>
 </context>
 <context>
@@ -1667,6 +1990,90 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+2"/>
         <source>%1 h %2 m</source>
         <translation>%1 时 %2 分</translation>
+    </message>
+    <message>
+        <source>&amp;Peers</source>
+        <location line="+5"/>
+        <translation>同伴节点(&amp;P)</translation>
+    </message>
+    <message>
+        <source>Select a peer to view detailed information.</source>
+        <location line="+5"/>
+        <translation>选择节点查看详细信息。</translation>
+    </message>
+    <message>
+        <source>Direction</source>
+        <location line="+5"/>
+        <translation>方向</translation>
+    </message>
+    <message>
+        <source>Version</source>
+        <location line="+5"/>
+        <translation>版本</translation>
+    </message>
+    <message>
+        <source>User Agent</source>
+        <location line="+5"/>
+        <translation>用户代理</translation>
+    </message>
+    <message>
+        <source>Ping Time</source>
+        <location line="+5"/>
+        <translation>Ping时间</translation>
+    </message>
+    <message>
+        <source>Node/Services</source>
+        <location line="+5"/>
+        <translation>节点/服务</translation>
+    </message>
+    <message>
+        <source>Services</source>
+        <location line="+5"/>
+        <translation>服务</translation>
+    </message>
+    <message>
+        <source>Starting Height</source>
+        <translation>开始高度</translation>
+    </message>
+    <message>
+        <source>Sync Height</source>
+        <translation>同步高度</translation>
+    </message>
+    <message>
+        <source>Ban Score</source>
+        <translation>禁止得分</translation>
+    </message>
+    <message>
+        <source>Connection Time</source>
+        <translation>连接时间</translation>
+    </message>
+    <message>
+        <source>Last Send</source>
+        <translation>最后发送</translation>
+    </message>
+    <message>
+        <source>Last Receive</source>
+        <translation>最后接收</translation>
+    </message>
+    <message>
+        <source>Bytes Sent</source>
+        <translation>发送字节</translation>
+    </message>
+    <message>
+        <source>Bytes Received</source>
+        <translation>接收字节</translation>
+    </message>
+    <message>
+        <source>Ping Time</source>
+        <translation>Ping 时间</translation>
+    </message>
+    <message>
+        <source>Time Offset</source>
+        <translation>时间偏移</translation>
+    </message>
+    <message>
+        <source>Last block time</source>
+        <translation>上一数据块时间</translation>
     </message>
 </context>
 <context>
@@ -1914,6 +2321,51 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <source>WARNING: unknown change address</source>
         <translation>警告：未知的零钱地址</translation>
     </message>
+    <message>
+        <location line="+4"/>
+        <source>Send To QR</source>
+        <translation>扫二维码支付</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Quick Send</source>
+        <translation>敏捷支付</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Quickly sending may need to create several transactions ,so this payment need more time and fee. Are you sure you want to send ?</source>
+        <translation>敏捷支付可能会产生多次支付，因此需要更多手续费和时间，你确定发送币？</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Please fill in the amount of the transaction.</source>
+        <translation>请填上交易金额。</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Please fill in the address of the transaction.</source>
+        <translation>请填上交易地址。</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Unlock wallet was fail</source>
+        <translation>钱包解锁失败</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Please set CoinControl true.</source>
+        <translation>请打开币控制开关</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>%1 whitecoins had been sent,the remaining %2 whitecoins continue ?</source>
+        <translation>%1个白币已经发送，剩余%2个白币继续发送吗？</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>TX HEX</source>
+        <translation>交易代码</translation>
+    </message>
 </context>
 <context>
     <name>SendCoinsEntry</name>
@@ -1977,6 +2429,92 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location filename="../sendcoinsentry.cpp" line="+1"/>
         <source>Enter a Whitecoin address (e.g. WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</source>
         <translation>输入一个白币地址 (例：WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Remark</source>
+        <translation>附言</translation>
+    </message>
+    <message>
+        <location filename="../sendcoinsentry.cpp" line="+1"/>
+        <source>Insert additional information into your transaction</source>
+        <translation>为你的交易输入附言</translation>
+    </message>
+</context>
+<context>
+    <name>SnapWidget</name>
+    <message>
+        <location filename="../forms/snapwidget.ui" line="+14"/>
+        <source>Scan QR Code</source>
+        <translation>扫描二维码信息</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Snap</source>
+        <translation>扫描</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+</context>
+<context>
+    <name>StatisticsPage</name>
+    <message>
+        <location filename="../forms/statisticspage.ui" line="+212"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20px; font-weight:600; color:#000000;&quot;&gt;General Informations&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20px; font-weight:600; color:#000000;&quot;&gt;一般资料&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Block Height&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;当前区块高度&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Mining Phase&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;当前挖矿阶段&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Connections:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;已连接节点个数：&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;POS difficulty&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;POS难度值&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Total Volume:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;当前全网总量&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Your stake weight&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;你正在挖矿的币量&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Network stake weight&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;全网挖矿的币量&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Stake Rewarde:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;当前每块报酬&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Coins In Circulation:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;当前流通量&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Update Statistics</source>
+        <translation>更新统计信息</translation>
     </message>
 </context>
 <context>
@@ -2345,6 +2883,11 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <source>unknown</source>
         <translation>未知</translation>
     </message>
+    <message>
+        <location line="+67"/>
+        <source>Decode Remark</source>
+        <translation>附言</translation>
+    </message>
 </context>
 <context>
     <name>TransactionDescDialog</name>
@@ -2655,6 +3198,79 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <source>to</source>
         <translation>到</translation>
     </message>
+    <message>
+        <location line="+8"/>
+        <source>Total:</source>
+        <translation>合计：</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Date:</source>
+        <translation>日期：</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>All:</source>
+        <translation>全部：</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Type:</source>
+        <translation>类型：</translation>
+    </message>
+    <message>
+    		<location line="+8"/>
+        <source>Show transaction total</source>
+        <translation>显示交易总和</translation>
+    </message>
+    <message>
+    		<location line="+8"/>
+        <source>Export all transactions</source>
+        <translation>导出全部交易记录</translation>
+    </message>
+    <message>
+    		<location line="+8"/>
+        <source>Broadcast this transaction</source>
+        <translation>广播本次交易</translation>
+    </message>
+</context>
+<context>
+    <name>SendRawDialog</name>
+    <message>
+        <location filename="../sendrawdialog.cpp" line="+212"/>
+        <source>TX decode failed</source>
+        <translation>交易ID解码失败</translation>
+    </message>
+    <message>
+    		<location line="+8"/>
+        <source>No information available about transaction</source>
+        <translation>没有可用的交易信息</translation>
+    </message>
+    <message>
+    		<location line="+8"/>
+        <source>TX rejected</source>
+        <translation>交易被拒绝</translation>
+    </message>
+    <message>
+    		<location line="+8"/>
+        <source>Input your hex string :</source>
+        <translation>输入二进制数据：</translation>
+    </message>
+    <message>
+    		<location line="+8"/>
+        <source>Broadcast Data</source>
+        <translation>数据广播窗口</translation>
+    </message>
+    <message>
+    		<location line="+8"/>
+        <source>Broadcast</source>
+        <translation>广播</translation>
+    </message>
+    <message>
+    		<location line="+8"/>
+        <source>Exit</source>
+        <translation>关闭</translation>
+    </message>
 </context>
 <context>
     <name>WalletModel</name>
@@ -2662,6 +3278,53 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location filename="../walletmodel.cpp" line="+212"/>
         <source>Sending...</source>
         <translation>正在发送</translation>
+    </message>
+</context>
+<context>
+    <name>PaperWalletDialog</name>
+    <message>
+        <source>Warning: Network Activity Detected</source>
+        <translation>警告：网络活动检测</translation>
+    </message>
+    <message>
+        <source>It is recommended to disconnect from the internet before printing paper wallets. Even though paper wallets are generated on your local computer, it is still possible to unknowingly have malware that transmits your screen to a remote location. It is also recommended to print to a local printer vs a network printer since that network traffic can be monitored. Some advanced printers also store copies of each printed document. Proceed with caution relative to the amount of value you plan to store on each address.</source>
+        <translation>建议打印纸钱包之前从网上断开。尽管纸钱包是在您的本地计算机生成的，恶意软件仍有可能在不知不觉中将你的屏幕发送到远程。还建议打印到本地打印机和网络打印机之后，可以对网络流量进行监控。此外一些先进的打印机会存储每个打印文档的副本。因此，请对你的计划谨慎行事。</translation>
+    </message>
+    <message>
+        <source>Print Your Paper Wallets</source>
+        <translation>打印你的纸钱包</translation>
+    </message>
+    <message>
+        <source>Very New Address</source>
+        <translation>最新地址</translation>
+    </message>
+    <message>
+        <source>New Address</source>
+        <translation>最新地址</translation>
+    </message>
+    <message>
+        <source>Public Key:</source>
+        <translation>公匙：</translation>
+    </message>
+    <message>
+        <source>Many Wallets?</source>
+        <translation>钱包个数？</translation>
+    </message>
+    <message>
+        <source>Number of Wallets?</source>
+        <translation>钱包个数？</translation>
+    </message>
+    <message>
+        <source>So Print</source>
+        <translation>开始打印</translation>
+    </message>
+    <message>
+        <source>Print Wallet</source>
+        <translation>打印钱包</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>关闭</translation>
     </message>
 </context>
 <context>

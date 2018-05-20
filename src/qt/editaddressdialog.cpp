@@ -135,3 +135,9 @@ void EditAddressDialog::setAddress(const QString &address)
     this->address = address;
     ui->addressEdit->setText(address);
 }
+
+void EditAddressDialog::setLabel(const QString &addrLabel)
+{
+    this->addrLabel = addrLabel;
+    ui->labelEdit->setText(addrLabel);
+}

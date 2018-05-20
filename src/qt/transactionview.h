@@ -14,7 +14,9 @@ class QModelIndex;
 class QMenu;
 class QFrame;
 class QDateTimeEdit;
+class QLabel;
 QT_END_NAMESPACE
+
 
 /** Widget showing the transaction list for a wallet, including a filter row.
     Using the filter row, the user can view or export a subset of the transactions.
@@ -49,6 +51,7 @@ private:
     QComboBox *typeWidget;
     QLineEdit *addressWidget;
     QLineEdit *amountWidget;
+    QLabel *totalWidget;
 
     QMenu *contextMenu;
 
@@ -67,6 +70,7 @@ private slots:
     void copyLabel();
     void copyAmount();
     void copyTxID();
+    void showTotal();
 
 signals:
     void doubleClicked(const QModelIndex&);
@@ -78,6 +82,7 @@ public slots:
     void changedAmount(const QString &amount);
     void exportClicked();
     void focusTransaction(const QModelIndex&);
+    void broadcastClicked();
 
 };
 

@@ -51,7 +51,7 @@ public:
         pchMessageStart[1] = 0x2d;
         pchMessageStart[2] = 0x43;
         pchMessageStart[3] = 0xf3;
-        vAlertPubKey = ParseHex("044153e2e67649872cc674f07e4a3dc1ae53dcd7aadc36bff5dba46ce0d41e551a780457a7b6656c83acc69496efed4b7d436351d07d726a2edc023a304e271872");
+        vAlertPubKey = ParseHex("04bf1c0874e989ca090e7eb5d5dd8a04224f2db5cc80d28a256ee676a33396f21622aacb06a9159eaf02ada44238f935f12dd35dad2f6f9075e325ee1219c88533");
         nDefaultPort = 15814;
         nRPCPort = 15815;
         bnProofOfWorkLimit = CBigNum(~uint256(0) >> 20);
@@ -81,9 +81,11 @@ public:
         assert(hashGenesisBlock == uint256("0x000007d69ba0f79b4823effb06b08663e2e4c51ed03aaeb547e2e0b83fd37b73"));
         assert(genesis.hashMerkleRoot == uint256("0x73513debc549137a47f2afb73173a2d2b4b0c13f57a57387ae3849a928e1e08d"));
 
-        vSeeds.push_back(CDNSSeedData("oizo1", "seed1.oizopower.nl"));
-        vSeeds.push_back(CDNSSeedData("oizo2", "seed2.oizopower.nl"));
-        vSeeds.push_back(CDNSSeedData("oizo3", "seed3.oizopower.nl"));
+        vSeeds.push_back(CDNSSeedData("dnsseed-eu", "dnsseed.oizopower.nl"));
+        vSeeds.push_back(CDNSSeedData("dnsseed-cn", "dnsseed-cn.whitecoin.info"));
+        vSeeds.push_back(CDNSSeedData("seed1", "seed1.oizopower.nl"));
+        vSeeds.push_back(CDNSSeedData("seed3", "seed3.oizopower.nl"));
+        vSeeds.push_back(CDNSSeedData("xwcseeder", "xwcseeder.ftc-c.com"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 73);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 87);
@@ -94,6 +96,10 @@ public:
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
         nLastPOWBlock = 10000;
+        
+        //Registered Message PubKey
+        mapBroadcastMessPubKey.insert(pair<std::string,vector<unsigned char> >("Ray",   ParseHex("04bf1c0874e989ca090e7eb5d5dd8a04224f2db5cc80d28a256ee676a33396f21622aacb06a9159eaf02ada44238f935f12dd35dad2f6f9075e325ee1219c88533")));
+        mapBroadcastMessPubKey.insert(pair<std::string,vector<unsigned char> >("Lizhi", ParseHex("04cd377cb31be7b1b4484f8b42e9ca3b748fa9fb3ab1f877ecb9907bfd8623cdaba04c15db1ac897bc384a355e3e099bd78696b3ff03e7955ab43bf3c30bb6e7ec")));
     }
 
     virtual const CBlock& GenesisBlock() const { return genesis; }
@@ -124,7 +130,7 @@ public:
         pchMessageStart[2] = 0x9c;
         pchMessageStart[3] = 0xe7;
         bnProofOfWorkLimit = CBigNum(~uint256(0) >> 16);
-        vAlertPubKey = ParseHex("043693201c0fe5a136889b1036ce7aa2cc4ef7d9dfc06e049b73112744256ab446d753b5031aad5e353cb33417737e74159de7e70c3b07879eb14f98714a93d482");
+        vAlertPubKey = ParseHex("046cf758b2a6cb1bf1a144beea816fe63ddc8def9315e697f278225f49ab868d1ec3151e1edc2badcb3090b9eb1f71ba0c5b07b8d4a9bb13d52b5c08b577deddcd");
         nDefaultPort = 24070;
         nRPCPort = 24071;
         strDataDir = "testnet";

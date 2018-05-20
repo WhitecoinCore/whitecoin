@@ -11,6 +11,7 @@
 #include "sendcoinsentry.h"
 #include "guiutil.h"
 #include "askpassphrasedialog.h"
+#include "sendrawdialog.h"
 
 #include "base58.h"
 #include "coincontrol.h"
@@ -20,6 +21,10 @@
 #include <QTextDocument>
 #include <QScrollBar>
 #include <QClipboard>
+
+#ifdef USE_ZXING
+#include "snapwidget.h"
+#endif
 
 SendCoinsDialog::SendCoinsDialog(QWidget *parent) :
     QDialog(parent),
@@ -32,12 +37,15 @@ SendCoinsDialog::SendCoinsDialog(QWidget *parent) :
     ui->addButton->setIcon(QIcon());
     ui->clearButton->setIcon(QIcon());
     ui->sendButton->setIcon(QIcon());
+    ui->sendQRButton->setIcon(QIcon());
+    ui->quickButton->setIcon(QIcon());
 #endif
 
 #if QT_VERSION >= 0x040700
     /* Do not move this to the XML file, Qt before 4.7 will choke on it */
     ui->lineEditCoinControlChange->setPlaceholderText(tr("Enter a Whitecoin address (e.g. WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)"));
 #endif
+
 
     addEntry();
 
@@ -109,10 +117,11 @@ SendCoinsDialog::~SendCoinsDialog()
     delete ui;
 }
 
-void SendCoinsDialog::on_sendButton_clicked()
+
+bool  SendCoinsDialog::doCoins(bool fSend)
 {
     if(!model || !model->getOptionsModel())
-        return;
+        return false;
 
     QList<SendCoinsRecipient> recipients;
     bool valid = true;
@@ -135,7 +144,7 @@ void SendCoinsDialog::on_sendButton_clicked()
 
     if(!valid || recipients.isEmpty())
     {
-        return;
+        return false;
     }
 
     // Format confirmation message
@@ -155,7 +164,7 @@ void SendCoinsDialog::on_sendButton_clicked()
     if(retval != QMessageBox::Yes)
     {
         fNewRecipientAllowed = true;
-        return;
+        return false;
     }
 
     WalletModel::UnlockContext ctx(model->requestUnlock());
@@ -163,8 +172,29 @@ void SendCoinsDialog::on_sendButton_clicked()
     {
         // Unlock wallet was cancelled
         fNewRecipientAllowed = true;
-        return;
+        return false;
     }
+    
+    if (!fSend)
+    {
+        QString txHash;
+		    if (!model->getOptionsModel() || !model->getOptionsModel()->getCoinControlFeatures())
+		        txHash = model->hashCoins(recipients);
+		    else
+		        txHash = model->hashCoins(recipients, CoinControlDialog::coinControl);
+        	
+        QApplication::clipboard()->setText(txHash);
+        LogPrintf("sendCoins,fSend=%d,txHash=%s\n",fSend,txHash.toStdString());
+        
+        QMessageBox::warning(this, tr("Send Coins"),
+            tr("The hex string of transaction has been saved to the clipboard."),
+            QMessageBox::Ok, QMessageBox::Ok);
+        
+    		SendRawDialog dlg("", txHash, this);
+    		dlg.exec();
+    
+        return true;
+		}
 
     WalletModel::SendCoinsReturn sendstatus;
 
@@ -220,6 +250,17 @@ void SendCoinsDialog::on_sendButton_clicked()
         break;
     }
     fNewRecipientAllowed = true;
+    return true;
+}
+
+void SendCoinsDialog::on_hexButton_clicked()
+{
+		doCoins(false);
+}
+
+void SendCoinsDialog::on_sendButton_clicked()
+{
+		doCoins(true);
 }
 
 void SendCoinsDialog::clear()
@@ -503,5 +544,177 @@ void SendCoinsDialog::coinControlUpdateLabels()
         ui->labelCoinControlAutomaticallySelected->show();
         ui->widgetCoinControl->hide();
         ui->labelCoinControlInsuffFunds->hide();
+    }
+}
+
+void SendCoinsDialog::on_sendQRButton_clicked()
+{
+#ifdef USE_ZXING
+    SnapWidget* snap = new SnapWidget(this);
+    connect(snap, SIGNAL(finished(QString)), this, SLOT(onSnapClosed(QString)));
+#endif
+}
+
+void SendCoinsDialog::onSnapClosed(QString s)
+{
+    emit sendCoins(s);
+    LogPrintf("setAddress.2 address=%s\n",s.toStdString());
+}
+
+void SendCoinsDialog::setAddress(const QString &address)
+{
+    SendCoinsEntry *entry = 0;
+    // Replace the first entry if it is still unused
+    if(ui->entries->count() == 1)
+    {
+        SendCoinsEntry *first = qobject_cast<SendCoinsEntry*>(ui->entries->itemAt(0)->widget());
+        if(first->isClear())
+        {
+            entry = first;
+        }
+    }
+    if(!entry)
+    {
+        entry = addEntry();
+    }
+
+    entry->setAddress(address);
+    LogPrintf("setAddress.1 address=%s\n",address.toStdString());
+}
+
+void SendCoinsDialog::on_quickButton_clicked()
+{
+    QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Confirm send coins"),
+                          tr("Quickly sending may need to create several transactions ,so this payment need more time and fee. Are you sure you want to send ?"),
+          QMessageBox::Yes|QMessageBox::Cancel,
+          QMessageBox::Cancel);
+    
+    if(retval != QMessageBox::Yes)
+    {
+        return;
+    }
+    
+		quickSend();
+}
+
+bool SendCoinsDialog::quickSend()
+{
+		LogPrintf("--------- SendCoinsDialog quickSend --------------\n");
+		
+		//获取输入
+		QList<SendCoinsRecipient> recipients;
+		std::string strAddress = "";
+		qint64 dbAmount = 0;
+    for(int i = 0; i < 1; ++i)
+    {
+        SendCoinsEntry *entry = qobject_cast<SendCoinsEntry*>(ui->entries->itemAt(i)->widget());
+        if(entry)
+        {
+        		if(entry->validate())
+            {
+                recipients.append(entry->getValue());
+                
+                foreach(const SendCoinsRecipient &rcp, recipients)
+    						{
+                		strAddress = rcp.address.toStdString();
+                		dbAmount = rcp.amount;
+              	}
+            }
+						//entry->clear();
+        }
+    }
+    LogPrintf("Quick Payment strAddress=%s, dbAmount=%i\n", strAddress, dbAmount);	//strAddress=WRAxiHoTtKnRc6Dz7nDK5RomcMYHfZYcC2, dbAmount=222200000000
+    
+    //验证输入
+    if (dbAmount==0)	{
+        QMessageBox::warning(this, tr("Send Coins"),  tr("Please fill in the amount of the transaction."),  QMessageBox::Ok, QMessageBox::Ok);
+        return false;
+    }
+    if (strAddress=="")	{
+        QMessageBox::warning(this, tr("Send Coins"),  tr("Please fill in the address of the transaction."),  QMessageBox::Ok, QMessageBox::Ok);
+        return false;
+    }
+    
+    WalletModel::UnlockContext ctx(model->requestUnlock());
+    if(!ctx.isValid())
+    {
+        // Unlock wallet was cancelled
+        QMessageBox::warning(this, tr("Send Coins"),  tr("Unlock wallet was fail"),  QMessageBox::Ok, QMessageBox::Ok);
+        return false;
+    }
+    
+    WalletModel::SendCoinsReturn sendstatus;
+    if (model->getOptionsModel()->getCoinControlFeatures())		{
+    		//发起支付
+        sendstatus = model->quickCoins(strAddress, dbAmount, CoinControlDialog::coinControl);
+    }
+    else	{
+        QMessageBox::warning(this, tr("Send Coins"),  tr("Please set CoinControl true."),  QMessageBox::Ok, QMessageBox::Ok);
+        return false;
+    }
+
+    switch(sendstatus.status)
+    {
+    case WalletModel::InvalidAddress:
+        QMessageBox::warning(this, tr("Send Coins"),
+            tr("The recipient address is not valid, please recheck."),
+            QMessageBox::Ok, QMessageBox::Ok);
+        break;
+    case WalletModel::InvalidAmount:
+        QMessageBox::warning(this, tr("Send Coins"),
+            tr("The amount to pay must be larger than 0."),
+            QMessageBox::Ok, QMessageBox::Ok);
+        break;
+    case WalletModel::AmountExceedsBalance:
+        QMessageBox::warning(this, tr("Send Coins"),
+            tr("The amount exceeds your balance."),
+            QMessageBox::Ok, QMessageBox::Ok);
+        break;
+    case WalletModel::AmountWithFeeExceedsBalance:
+        QMessageBox::warning(this, tr("Send Coins"),
+            tr("The total exceeds your balance when the %1 transaction fee is included.").
+            arg(BitcoinUnits::formatWithUnit(model->getOptionsModel()->getDisplayUnit(), sendstatus.fee)),
+            QMessageBox::Ok, QMessageBox::Ok);
+        break;
+    case WalletModel::DuplicateAddress:
+        QMessageBox::warning(this, tr("Send Coins"),
+            tr("Duplicate address found, can only send to each address once per send operation."),
+            QMessageBox::Ok, QMessageBox::Ok);
+        break;
+    case WalletModel::TransactionCreationFailed:
+        QMessageBox::warning(this, tr("Send Coins"),
+            tr("Error: Transaction creation failed!"),
+            QMessageBox::Ok, QMessageBox::Ok);
+        break;
+    case WalletModel::TransactionCommitFailed:
+        QMessageBox::warning(this, tr("Send Coins"),
+            tr("Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here."),
+            QMessageBox::Ok, QMessageBox::Ok);
+        break;
+    case WalletModel::Aborted: // User aborted, nothing to do
+        break;
+    case WalletModel::OK:
+        accept();
+        CoinControlDialog::coinControl->UnSelectAll();
+        coinControlUpdateLabels();
+        
+        LogPrintf("quickCoins SendCoinsReturn sendstatus.fee= %i, sendstatus.fee=%d\n", sendstatus.fee, (double)sendstatus.fee/COIN);  //sendstatus.fee= 219990000, sendstatus.fee=2.1999
+        LogPrintf("quickCoins SendCoinsReturn dbAmount= %i\n", dbAmount);  //dbAmount= 300000000
+        qint64 reAmount = (dbAmount - sendstatus.fee);
+        
+        SendCoinsEntry *entry = qobject_cast<SendCoinsEntry*>(ui->entries->itemAt(0)->widget());
+        SendCoinsRecipient rv;
+        rv.address = QString::fromStdString(strAddress);
+        rv.amount = reAmount;
+		    entry->setValue(rv);
+		                
+        QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Confirm send coins"),
+											                          tr("%1 whitecoins had been sent,the remaining %2 whitecoins continue ?").arg((double)sendstatus.fee/COIN).arg((double)reAmount/COIN),
+																								QMessageBox::Yes|QMessageBox::Cancel, QMessageBox::Cancel);
+		    if(retval == QMessageBox::Yes)
+		    {
+						quickSend();
+		    }
+        break;
     }
 }

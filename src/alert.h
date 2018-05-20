@@ -7,12 +7,18 @@
 #define _BITCOINALERT_H_ 1
 
 #include "serialize.h"
+#include "sync.h"
 
 #include <set>
 #include <string>
 
+class CAlert;
 class CNode;
 class uint256;
+
+extern std::map<uint256, CAlert> mapAlerts;
+extern CCriticalSection cs_mapAlerts;
+
 
 /** Alerts are for notifying old versions if they become too obsolete and
  * need to upgrade.  The message is displayed in the status bar.

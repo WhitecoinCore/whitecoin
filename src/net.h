@@ -32,6 +32,13 @@ static const int PING_INTERVAL = 2 * 60;
 /** Time after which to disconnect, after waiting for a ping response (or inactivity). */
 static const int TIMEOUT_INTERVAL = 20 * 60;
 
+//In favor of whitenode and Expand the network
+static const int allowCONNECTIONS = 8;
+static const int allowMinTIMES = 3;
+static const int allowDefaultTIMES = 24;
+static const int MAX_OUTBOUND_CONNECTIONS = allowCONNECTIONS * allowMinTIMES;
+static const int MAX_CONNECTIONS = allowCONNECTIONS * allowDefaultTIMES;
+
 inline unsigned int ReceiveFloodSize() { return 1000*GetArg("-maxreceivebuffer", 5*1000); }
 inline unsigned int SendBufferSize() { return 1000*GetArg("-maxsendbuffer", 1*1000); }
 
@@ -58,6 +65,7 @@ struct CNodeSignals
 
 CNodeSignals& GetNodeSignals();
 
+typedef int NodeId;
 
 enum
 {
@@ -112,6 +120,7 @@ extern CCriticalSection cs_vAddedNodes;
 class CNodeStats
 {
 public:
+    NodeId nodeid;
     uint64_t nServices;
     int64_t nLastSend;
     int64_t nLastRecv;

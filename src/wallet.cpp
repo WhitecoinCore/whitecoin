@@ -1200,9 +1200,21 @@ int64_t CWallet::GetStake() const
     for (map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it)
     {
         const CWalletTx* pcoin = &(*it).second;
+        
+        //LogPrintf("CWallet::GetStake: vin.size()=%d\n",pcoin->vin.size()); //vin.size()=7
+        //LogPrintf("CWallet::GetStake: vin[0].prevout.IsNull()=%d\n",pcoin->vin[0].prevout.IsNull()); //vin[0].prevout.IsNull()=0
+        //LogPrintf("CWallet::GetStake: vout.size()=%d\n",pcoin->vout.size()); //vout.size()=2
+        //LogPrintf("CWallet::GetStake: vout[0].IsEmpty()=%d\n",pcoin->vout[0].IsEmpty()); //vout[0].IsEmpty()=0
+        
+        //LogPrintf("CWallet::GetStake: IsCoinBase=%d\n",pcoin->IsCoinBase()); 
+        //LogPrintf("CWallet::GetStake: IsCoinStake=%d\n",pcoin->IsCoinStake()); //IsCoinStake=0
+        //LogPrintf("CWallet::GetStake: GetBlocksToMaturity=%d\n",pcoin->GetBlocksToMaturity()); //GetBlocksToMaturity=0
+        //LogPrintf("CWallet::GetStake: GetDepthInMainChain=%d\n",pcoin->GetDepthInMainChain()); //GetDepthInMainChain=838
+        
         if (pcoin->IsCoinStake() && pcoin->GetBlocksToMaturity() > 0 && pcoin->GetDepthInMainChain() > 0)
             nTotal += CWallet::GetCredit(*pcoin);
     }
+    LogPrintf("CWallet::GetStake: nTotal=%d\n",nTotal);
     return nTotal;
 }
 
@@ -1444,7 +1456,7 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64_t> >& vecSend, 
                 if (!SelectCoins(nTotalValue, wtxNew.nTime, setCoins, nValueIn, coinControl))
                     return false;
 
-                int64_t nChange = nValueIn - nValue - nFeeRet;
+                int64_t nChange = nValueIn - nValue - nFeeRet;//输入- 输出- 费用= 找零
 
                 if (nChange > 0)
                 {
@@ -1530,24 +1542,175 @@ bool CWallet::CreateTransaction(CScript scriptPubKey, int64_t nValue, CWalletTx&
     return CreateTransaction(vecSend, wtxNew, reservekey, nFeeRet, coinControl);
 }
 
+
+bool CWallet::CreateQuickTransaction(const std::string strAddress, const int64_t dbAmount, const vector<pair<CScript, int64_t> >& vecSend, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, int64_t& txVoutRet, const CCoinControl* coinControl)
+{
+	
+    {
+        LOCK2(cs_main, cs_wallet);
+        // txdb must be opened before the mapWallet lock
+        CTxDB txdb("r");
+        {
+        		nTransactionFee = MIN_TX_FEE;
+        		nFeeRet = nTransactionFee;
+        		
+						//1.1 获取UNTX with coin control
+				    vector<COutput> vCoins;
+				    AvailableCoins(vCoins, true, coinControl);
+				    LogPrintf("CreateQuickTransaction,1.1 vCoins.size = %i\n", vCoins.size());
+				    
+						
+						//1.2 形成支付方案setCoinsRet，不限制长度
+						int64_t nValue = 0;
+						int64_t nValueRet = 0;	
+						std::set<std::pair<const CWalletTx*,unsigned int> > setCoinsRet;
+						unsigned int needTX = 0;
+				    BOOST_FOREACH(const COutput& out, vCoins)
+				    {
+				        nValue += out.tx->vout[out.i].nValue;
+				        
+				        if (nValue <= dbAmount)	{
+				        		needTX++;
+				        		//准备输入部分
+				        		nValueRet += out.tx->vout[out.i].nValue;
+				        		setCoinsRet.insert(make_pair(out.tx, out.i));
+				        } else {
+				        		//break;
+				        		nValue = nValue - out.tx->vout[out.i].nValue;
+				        		continue;
+				      	}
+				    }
+						LogPrintf("CreateQuickTransaction,1.2 setCoinsRet:needTX = %i ,nValueRet = %i, nValue = %i\n", needTX, nValueRet, nValue);
+						if (needTX < 1)  {
+                 return false;
+            }
+						
+						
+						//1.3 构建交易体: 仅在在长度限额之内合成1笔
+						//226+148*2=522
+						unsigned int txSizeLimit = 8000;
+						unsigned int iVin = 0;
+						unsigned int txSize = 0;
+						unsigned int txVin = 0;
+						CWalletTx  theWtxNew;
+						vector< CWalletTx > vecWtxNew;						
+						
+				    BOOST_FOREACH(const PAIRTYPE(const CWalletTx*,unsigned int)& coin, setCoinsRet)
+				    {
+				    		txSize = 226 + 148 * iVin;
+				    		
+				    		if (iVin == 0)
+				    		{
+				    				wtxNew.BindWallet(this);
+				    				wtxNew.nLockTime = LOCKTIME_THRESHOLD;
+				    				wtxNew.vin.clear();
+				    				wtxNew.vout.clear();
+				    				wtxNew.fFromMe = true;
+				    		}
+				    			
+				    		if (txSize <= txSizeLimit)
+				    		{
+				    				//在长度限额之内
+				    				
+				    				//压入输入部分
+				        		wtxNew.vin.push_back(CTxIn(coin.first->GetHash(), coin.second,CScript(), std::numeric_limits<unsigned int>::max()-1));
+				        		//输入合计
+				        		txVin += coin.first->vout[coin.second].nValue;
+				        		
+				        		iVin++;
+				        }
+				        else
+				        {
+				        		//达到长度限额				
+										//退出
+				        		break;
+				        }
+				     }
+				     
+				  		//准备输出部分
+							CScript scriptPubKey;
+							int64_t txValue = 0;
+							
+							scriptPubKey.SetDestination(CBitcoinAddress(strAddress).Get());
+							nFeeRet =  nTransactionFee * (1 + (int64_t)txSize / 1000); //按每千字节10000聪收取，不足1千字节按1千字节收取
+							txValue = txVin - nFeeRet;  //本次交易的输入减去交易费
+							if (txValue <= 0)  {
+                 return false;
+							}
+							
+							vector< pair<CScript, int64_t> > vecSendOut;
+							vecSendOut.push_back(make_pair(scriptPubKey, txValue));
+							txVoutRet = txValue;
+							
+							//压入输出部分(无找零，无手续费)
+				      BOOST_FOREACH (const PAIRTYPE(CScript, int64_t)& s, vecSendOut)
+				          wtxNew.vout.push_back(CTxOut(s.second, s.first));
+							
+							LogPrintf("CreateQuickTransaction,1.3 vecSendOut:txVin = %i, txValue = %i, nFeeRet = %i, nTransactionFee = %i, txSize = %i\n", txVin, txValue, nFeeRet, nTransactionFee, txSize);
+							txVin = 0;//本次输入清零
+							
+							//1.4 签名
+							int nIn = 0;
+							unsigned int nSignIn = 0;
+							BOOST_FOREACH(const PAIRTYPE(const CWalletTx*,unsigned int)& coin, setCoinsRet)
+							{
+									nSignIn++;
+									//对本次花费的输入进行签名
+									if (nSignIn <= iVin)
+									{
+											if (!SignSignature(*this, *coin.first, wtxNew, nIn++))
+											{
+													LogPrintf("CreateQuickTransaction,1.4 SignSignature error nSignIn = %i ,iVin = %i\n", nSignIn, iVin);
+											 		return false;
+											}
+									 }
+							}
+							
+							//1.5 检查长度限制
+							unsigned int nBytes = ::GetSerializeSize(*(CTransaction*)&wtxNew, SER_NETWORK, PROTOCOL_VERSION);
+							if (nBytes >= MAX_STANDARD_TX_SIZE)
+							{
+									LogPrintf("CreateQuickTransaction,1.5 TX_SIZE error nBytes = %i\n", nBytes);
+									return false;
+							}
+							LogPrintf("CreateQuickTransaction,1.5 TX_SIZE nBytes = %i\n", nBytes);
+
+							
+					    //1.6 Fill vtxPrev by copying from previous transactions vtxPrev
+					    wtxNew.AddSupportingTransactions(txdb);
+					    wtxNew.fTimeReceivedIsTxTime = true;
+		
+        }
+    }
+    
+		return true;
+}
+
+
 uint64_t CWallet::GetStakeWeight() const
 {
     // Choose coins to use
     int64_t nBalance = GetBalance();
 
-    if (nBalance <= nReserveBalance)
+    if (nBalance <= nReserveBalance)	{
+    		LogPrintf("GetStakeWeight nBalance = 0\n");
         return 0;
+    }
 
     vector<const CWalletTx*> vwtxPrev;
 
     set<pair<const CWalletTx*,unsigned int> > setCoins;
     int64_t nValueIn = 0;
 
-    if (!SelectCoinsForStaking(nBalance - nReserveBalance, setCoins, nValueIn))
+    if (!SelectCoinsForStaking(nBalance - nReserveBalance, setCoins, nValueIn))	{
+    		LogPrintf("GetStakeWeight SelectCoinsForStaking = 0\n");
         return 0;
+    }
 
-    if (setCoins.empty())
+    if (setCoins.empty())	{
+    		LogPrintf("GetStakeWeight setCoins = 0\n");
         return 0;
+    }
 
     uint64_t nWeight = 0;
 
@@ -1740,7 +1903,7 @@ bool CWallet::CommitTransaction(CWalletTx& wtxNew, CReserveKey& reservekey)
 {
     {
         LOCK2(cs_main, cs_wallet);
-        LogPrintf("CommitTransaction:\n%s", wtxNew.ToString());
+        LogPrintf("CommitTransaction:%s\n", wtxNew.ToString());
         {
             // This is only to keep the database open to defeat the auto-flush for the
             // duration of this scope.  This is the only place where this optimization
@@ -1773,10 +1936,11 @@ bool CWallet::CommitTransaction(CWalletTx& wtxNew, CReserveKey& reservekey)
         mapRequestCount[wtxNew.GetHash()] = 0;
 
         // Broadcast
+        LogPrintf("CommitTransaction: Broadcast hash = %s\n", wtxNew.ToString());
         if (!wtxNew.AcceptToMemoryPool(true))
         {
             // This must not fail. The transaction has already been signed and recorded.
-            LogPrintf("CommitTransaction() : Error: Transaction not valid\n");
+            LogPrintf("CommitTransaction() AcceptToMemoryPool: Error: Transaction not valid\n");
             return false;
         }
         wtxNew.RelayWalletTransaction();

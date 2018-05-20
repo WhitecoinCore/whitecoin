@@ -8,6 +8,7 @@
 
 #include "util.h"
 #include "init.h"
+#include "protocol.h"
 
 #include <QDateTime>
 #include <QDoubleValidator>
@@ -23,6 +24,9 @@
 
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
+#if BOOST_FILESYSTEM_VERSION >= 3
+#include <boost/filesystem/detail/utf8_codecvt_facet.hpp>
+#endif
 
 #ifdef WIN32
 #ifdef _WIN32_WINNT
@@ -40,6 +44,10 @@
 #include "shlwapi.h"
 #include "shlobj.h"
 #include "shellapi.h"
+#endif
+
+#if BOOST_FILESYSTEM_VERSION >= 3
+static boost::filesystem::detail::utf8_codecvt_facet utf8;
 #endif
 
 namespace GUIUtil {
@@ -420,6 +428,30 @@ bool SetStartOnSystemStartup(bool fAutoStart) { return false; }
 
 #endif
 
+
+#if BOOST_FILESYSTEM_VERSION >= 3
+boost::filesystem::path qstringToBoostPath(const QString &path)
+{
+    return boost::filesystem::path(path.toStdString(), utf8);
+}
+
+QString boostPathToQString(const boost::filesystem::path &path)
+{
+    return QString::fromStdString(path.string(utf8));
+}
+#else
+#warning Conversion between boost path and QString can use invalid character encoding with boost_filesystem v2 and older
+boost::filesystem::path qstringToBoostPath(const QString &path)
+{
+    return boost::filesystem::path(path.toStdString());
+}
+
+QString boostPathToQString(const boost::filesystem::path &path)
+{
+    return QString::fromStdString(path.string());
+}
+#endif
+
 HelpMessageBox::HelpMessageBox(QWidget *parent) :
     QMessageBox(parent)
 {
@@ -463,20 +495,16 @@ void HelpMessageBox::showOrPrint()
 void SetBlackThemeQSS(QApplication& app)
 {
     app.setStyleSheet(
-                     "QWidget        { background: rgb(255,255,255); }"
-                     "QMainWindow { background:white url(:/images/wallet_logo_background) no-repeat right bottom; background-origin: border; font-family:'Open Sans,sans-serif'; } "
+                      "QWidget        { background: rgb(255,255,255); }"
+                      "QMainWindow { background:white url(:/images/wallet_logo_background) no-repeat right bottom; background-origin: border; font-family:'Open Sans,sans-serif'; } "
                       "QFrame         { border: none; }"
                       "QComboBox      { color: rgb(14,105,162); }"
                       "QComboBox QAbstractItemView::item { color: rgb(14,105,162); }"
-                      "QPushButton    { background: rgb(17,133,202); color: rgb(255,255,255); }"
                       "QDoubleSpinBox { background: rgb(255,255,255); color: rgb(63,67,72); border-color: rgb(194,194,194); }"
                       "QLineEdit      { background: rgb(255,255,255); color: rgb(63,67,72); border-color: rgb(194,194,194); }"
                       "QTextEdit      { background: rgb(255,255,255); color: rgb(63,67,72); }"
                       "QPlainTextEdit { background: rgb(255,255,255); color: rgb(63,67,72); }"
-                      "QMenuBar       { background: rgb(14,105,162); color: rgb(255,255,255); }"
-                      "QMenu          { background: rgb(255,255,255); color: rgb(14,105,162); }"
                       "QMenu::item:selected { background-color: rgb(48,140,198); }"
-                      "QLabel         { color: rgb(14,105,162); }"
                       "QScrollBar     { color: rgb(14,105,162); }"
                       "QCheckBox      { color: rgb(14,105,162); }"
                       "QRadioButton   { color: rgb(14,105,162); }"
@@ -488,13 +516,75 @@ void SetBlackThemeQSS(QApplication& app)
                       "QToolBar QToolButton:hover { color: black; background-color: white; border: none; } "
                       "QToolBar QToolButton:pressed {color: black; background-color: white; border: none; } "
                       "QToolBar QToolButton:checked { color: black; background-color: white; border: none; } "
-                       "QProgressBar   { color: rgb(149,148,148); border-color: rgb(255,255,255); border-width: 3px; border-style: solid; }"
-                      "QProgressBar::chunk { background: rgb(17,133,202); }"
+                      "QProgressBar { background-color: white; border: 0px solid grey; border-radius: 3px; padding: 1px; text-align: center; color: #000;} "
+                      "QProgressBar::chunk { background: #6ebff2; border-radius: 3px; margin: 0px; }"
                       "QTreeView::item { background: rgb(255,255,255); color: rgb(41,44,48); }"
                       "QTreeView::item:selected { background-color: rgb(48,140,198); }"
                       "QTableView     { background: rgb(255,255,255); color: rgb(87,94,102); gridline-color: rgb(157,160,165); }"
                       "QHeaderView::section { background: rgb(14,105,162); color: rgb(255,255,255); }"
-                      "QToolBar       { background: rgb(14,105,162); border: none; }");
+                      "QToolBar       { background: rgb(14,105,162); border: none; }"
+                      "QPushButton     {color: #ffffff; background: rgb(14,105,162); border: 0px; border-radius:0px;padding: 5px 15px 5px 15px;}"
+
+                );
+}
+
+QString formatDurationStr(int secs)
+{
+    QStringList strList;
+    int days = secs / 86400;
+    int hours = (secs % 86400) / 3600;
+    int mins = (secs % 3600) / 60;
+    int seconds = secs % 60;
+
+    if (days)
+        strList.append(QString(QObject::tr("%1 d")).arg(days));
+    if (hours)
+        strList.append(QString(QObject::tr("%1 h")).arg(hours));
+    if (mins)
+        strList.append(QString(QObject::tr("%1 m")).arg(mins));
+    if (seconds || (!days && !hours && !mins))
+        strList.append(QString(QObject::tr("%1 s")).arg(seconds));
+
+    return strList.join(" ");
+}
+
+QString formatServicesStr(quint64 mask)
+{
+    QStringList strList;
+
+    // Just scan the last 8 bits for now.
+    for (int i = 0; i < 8; i++) {
+        uint64_t check = 1 << i;
+        if (mask & check)
+        {
+            switch (check)
+            {
+            case NODE_NETWORK:
+                strList.append("NETWORK");
+                break;
+            case NODE_GETUTXO:
+                strList.append("GETUTXO");
+                break;
+            default:
+                strList.append(QString("%1[%2]").arg("UNKNOWN").arg(check));
+            }
+        }
+    }
+
+    if (strList.size())
+        return strList.join(" & ");
+    else
+        return QObject::tr("None");
+}
+
+QString formatTimeOffset(int64_t nTimeOffset)
+{
+  return QString(QObject::tr("%1 s")).arg(QString::number((int)nTimeOffset, 10));
+}
+
+QString formatPingTime(double dPingTime)
+{
+    return dPingTime == 0 ? QObject::tr("N/A") : QString(QObject::tr("%1 ms")).arg(QString::number((int)(dPingTime * 1000), 10));
 }
 
 } // namespace GUIUtil

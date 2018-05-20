@@ -112,6 +112,20 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="importQRCodeButton">
+       <property name="text">
+        <string>Import QR</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="ImpPrivKeyButton">
+       <property name="text">
+        <string>Import PrivKey</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>

@@ -216,7 +216,7 @@ QString TransactionDesc::toHTML(CWallet *wallet, CWalletTx &wtx, TransactionReco
     strHTML += "<b>" + tr("Transaction ID") + ":</b> " + TransactionRecord::formatSubTxId(wtx.GetHash(), rec->idx) + "<br>";
 
     if (wtx.IsCoinBase() || wtx.IsCoinStake())
-        strHTML += "<br>" + tr("Generated coins must mature 510 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to \"not accepted\" and it won't be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.") + "<br>";
+        strHTML += "<br>" + tr("Generated coins must mature 120 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to \"not accepted\" and it won't be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.") + "<br>";
 
     //
     // Debug view
@@ -266,6 +266,37 @@ QString TransactionDesc::toHTML(CWallet *wallet, CWalletTx &wtx, TransactionReco
         strHTML += "</ul>";
     }
 
+
+    std::string strOP = "";
+    std::string strCode = "";
+		std::string remark = "";
+    for (unsigned int v = 0; v < wtx.vout.size(); v++)
+    {
+        const CTxOut& txout = wtx.vout[v];
+        CTxDestination source;
+        ExtractDestination(txout.scriptPubKey, source);
+        
+        //find OP_RETURN
+        CScript scriptP = txout.scriptPubKey;
+        strOP = scriptP.ToString();
+
+        int findOP = scriptP.Find(OP_RETURN);            
+        if (findOP == 1)
+        {
+        	strCode = strOP.substr(10,strOP.length()-10);
+        	LogPrintf("get OP_RETURN strCode=%s\n",strCode.c_str());
+        	
+        	//2位1个字符，16进制转10进制，再转ascii
+        	for (unsigned int i=0; i<=(strCode.length()-2); i=i+2)
+        	{
+        		int dec_hex = fun16to10(strCode.substr(0+i,2).c_str());//"48"
+        		LogPrintf("get OP_RETURN itoascii=%s\n",itoascii(dec_hex));
+        		remark.append(itoascii(dec_hex));
+        	}
+      	}
+    }    		
+		strHTML += "<b>" + tr("Decode Remark") + ":</b> " + QString::fromStdString(remark) + "<br>";
+		
     strHTML += "</font></html>";
     return strHTML;
 }
