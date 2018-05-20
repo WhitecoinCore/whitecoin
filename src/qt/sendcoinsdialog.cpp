@@ -47,6 +47,11 @@ SendCoinsDialog::SendCoinsDialog(QWidget *parent) :
 #endif
 
 
+#ifdef USE_QRCODE
+       ui->sendQRButton->setVisible(true);
+#else
+       ui->sendQRButton->setVisible(false);
+#endif
     addEntry();
 
     connect(ui->addButton, SIGNAL(clicked()), this, SLOT(addEntry()));
@@ -547,6 +552,7 @@ void SendCoinsDialog::coinControlUpdateLabels()
     }
 }
 
+#ifdef USE_QRCODE
 void SendCoinsDialog::on_sendQRButton_clicked()
 {
 #ifdef USE_ZXING
@@ -554,6 +560,7 @@ void SendCoinsDialog::on_sendQRButton_clicked()
     connect(snap, SIGNAL(finished(QString)), this, SLOT(onSnapClosed(QString)));
 #endif
 }
+#endif
 
 void SendCoinsDialog::onSnapClosed(QString s)
 {

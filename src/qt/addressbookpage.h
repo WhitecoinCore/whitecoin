@@ -72,14 +72,17 @@ private slots:
     void on_signMessage_clicked();
     /** Open the verify message tab in the Sign/Verify Message dialog with currently selected address */
     void on_verifyMessage_clicked();
+#ifdef USE_QRCODE
     /** Generate a QR Code from the currently selected address */
     void on_showQRCode_clicked();
+    /** Import from a QR Code into your wallet */
+    void on_importQRCodeButton_clicked();
+#endif
     /** Copy label of currently selected address entry to clipboard (no button) */
     void onCopyLabelAction();
     /** Edit currently selected address entry (no button) */
     void onEditAction();
-    /** Import from a QR Code into your wallet */
-    void on_importQRCodeButton_clicked();
+
     /** Copy private key of currently selected address to clipboard */
     void on_copyPriKey_clicked();
     /** Copy a serialization of just the secret parameter (32 bytes) to clipboard */
