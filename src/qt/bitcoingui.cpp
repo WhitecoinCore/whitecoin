@@ -481,6 +481,8 @@ void BitcoinGUI::createToolBars()
     toolbar->setOrientation(Qt::Vertical);
     toolbar->setMovable(false);
 
+    toolbar->setStyleSheet("QWidget {padding-right: 0px;}");
+
     addToolBar(Qt::LeftToolBarArea, toolbar);
 
     foreach(QAction *action, toolbar->actions()) {
