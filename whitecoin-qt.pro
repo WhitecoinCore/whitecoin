@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = whitecoin-qt
-VERSION = 2.5.1.0
+VERSION = 2.5.2.0
 INCLUDEPATH += src src/json src/qt
 QT += network
 QT += printsupport
