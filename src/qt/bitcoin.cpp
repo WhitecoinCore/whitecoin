@@ -143,7 +143,8 @@ int main(int argc, char *argv[])
 
     // Set the default font to ubuntu.ttf as we use that as default now
     QFontDatabase::addApplicationFont(":/fonts/ubuntu");
-    app.setFont(QFont("Ubuntu"));
+    app.setFont(QFont("Ubuntu",8));
+
     
     // Now that settings and translations are available, ask user for data directory
     Intro::pickDataDirectory();
