@@ -26,7 +26,7 @@ SnapWidget::SnapWidget(QWidget* _parent)
     setupUi(this);
     this->setMinimumWidth(50);
 
-    this->setStyleSheet("background-color:rgb(162,192,213);");
+    this->setStyleSheet("background-color: #c3a7e2;");
     prepareMask();
     show();
 }

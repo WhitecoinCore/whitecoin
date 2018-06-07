@@ -449,7 +449,7 @@ static QWidget* makeToolBarSpacer()
 {
     QWidget* spacer = new QWidget();
     spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    spacer->setStyleSheet(fUseBlackTheme ? "QWidget { background: rgb(14,105,162); }" : "QWidget { background: none; }");
+    spacer->setStyleSheet(fUseBlackTheme ? "QWidget { background: rgb(242,245,249); }" : "QWidget { background: none; }");
     return spacer;
 }
 
@@ -460,16 +460,11 @@ void BitcoinGUI::createToolBars()
     toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
 
     QWidget* header = new QWidget();
-    header->setMinimumSize(180, 120);
+    header->setMinimumSize(180, 70);
+    header->setMaximumHeight(80);
     header->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
-    header->setStyleSheet(fUseBlackTheme ? "QWidget { background-color: rgb(14,105,162); background-repeat: no-repeat; background-image: url(:/images/header); background-position: center center; }" : "QWidget { background: none; background-repeat: no-repeat; background-image: url(:/images/header); background-position: center center; }");
+    header->setStyleSheet(fUseBlackTheme ? "QWidget { background-color: rgb(242,245,249); background-repeat: no-repeat; background-image: url(:/images/header); background-position: center center; }" : "QWidget { background: none; background-repeat: no-repeat; background-image: url(:/images/header); background-position: center center; }");
     toolbar->addWidget(header);
-
-    if (fUseBlackTheme)
-    {
-        toolbar->addWidget(makeToolBarSpacer());
-    }
-
 
     toolbar->setIconSize(QSize(50,25));
     toolbar->addAction(overviewAction);

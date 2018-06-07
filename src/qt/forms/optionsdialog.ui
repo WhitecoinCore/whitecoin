@@ -362,7 +362,7 @@
        <item>
         <widget class="QCheckBox" name="useBlackTheme">
          <property name="text">
-          <string>Use blue visual theme (requires restart)</string>
+          <string>Use whitecoin visual theme (requires restart)</string>
          </property>
         </widget>
        </item>

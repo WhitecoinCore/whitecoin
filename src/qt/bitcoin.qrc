@@ -136,4 +136,7 @@
         <file alias="zh_TW">locale/bitcoin_zh_TW.qm</file>
     </qresource>
     <qresource prefix="/"/>
+    <qresource prefix="/fonts">
+        <file alias="ubuntu">res/fonts/ubuntu.ttf</file>
+    </qresource>
 </RCC>

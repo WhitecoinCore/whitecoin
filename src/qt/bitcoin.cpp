@@ -27,6 +27,7 @@
 #include <QTranslator>
 #include <QSplashScreen>
 #include <QLibraryInfo>
+#include <QFontDatabase>
 
 #if defined(BITCOIN_NEED_QT_PLUGINS) && !defined(_BITCOIN_QT_PLUGINS_INCLUDED)
 #define _BITCOIN_QT_PLUGINS_INCLUDED
@@ -85,7 +86,7 @@ static void InitMessage(const std::string &message)
 {
     if(splashref)
     {
-        splashref->showMessage(QString::fromStdString(message), Qt::AlignBottom|Qt::AlignHCenter, QColor(255,255,255));
+        splashref->showMessage(QString::fromStdString(message), Qt::AlignBottom|Qt::AlignHCenter, QColor(41,42,43));
         QApplication::instance()->processEvents();
     }
     LogPrintf("init message: %s\n", message);
@@ -140,6 +141,9 @@ int main(int argc, char *argv[])
     Q_INIT_RESOURCE(bitcoin);
     QApplication app(argc, argv);
 
+    // Set the default font to ubuntu.ttf as we use that as default now
+    QFontDatabase::addApplicationFont(":/fonts/ubuntu");
+    app.setFont(QFont("Ubuntu"));
     
     // Now that settings and translations are available, ask user for data directory
     Intro::pickDataDirectory();
