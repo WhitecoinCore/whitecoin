@@ -126,23 +126,23 @@ public:
         // The characters are rarely used upper ASCII, not valid as UTF-8, and produce
         // a large 4-byte int at any alignment.
         pchMessageStart[0] = 0x31;
-        pchMessageStart[1] = 0x56;
-        pchMessageStart[2] = 0x9c;
-        pchMessageStart[3] = 0xe7;
+        pchMessageStart[1] = 0xcd;
+        pchMessageStart[2] = 0xd1;
+        pchMessageStart[3] = 0xf7;
         bnProofOfWorkLimit = CBigNum(~uint256(0) >> 16);
-        vAlertPubKey = ParseHex("046cf758b2a6cb1bf1a144beea816fe63ddc8def9315e697f278225f49ab868d1ec3151e1edc2badcb3090b9eb1f71ba0c5b07b8d4a9bb13d52b5c08b577deddcd");
-        nDefaultPort = 24070;
-        nRPCPort = 24071;
+        vAlertPubKey = ParseHex("04b4f5ab1a9e79cd0e30eb6dbd1d2b53c16d3da561a11b7edee2c8ffc6ddb8f3a9894845b48c7fae8e1b84525431af64574aa182239413dd4186c625930cd56649");
+        nDefaultPort = 25070;
+        nRPCPort = 25071;
         strDataDir = "testnet";
 
         // Modify the testnet genesis block so the timestamp is valid for a later start.
         genesis.nBits  = bnProofOfWorkLimit.GetCompact();
-        genesis.nNonce = 216178;
+        genesis.nNonce = 226817;
         hashGenesisBlock = genesis.GetHash();
-        //assert(hashGenesisBlock == uint256("0x0000724595fb3b9609d441cbfb9577615c292abf07d996d3edabc48de843642d"));
-
+       assert(hashGenesisBlock == uint256("0x0000241305777bc86e9c45bbbe2cf3c13c8d22755ef05b5a95bc7880922ed5df"));
         vFixedSeeds.clear();
         vSeeds.clear();
+        vSeeds.push_back(CDNSSeedData("172.104.117.39", "172.104.117.39"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 196);
@@ -152,7 +152,7 @@ public:
 
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
 
-        nLastPOWBlock = 0x7fffffff;
+        nLastPOWBlock = 10000;
     }
     virtual Network NetworkID() const { return CChainParams::TESTNET; }
 };
