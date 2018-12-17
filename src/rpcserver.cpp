@@ -250,6 +250,7 @@ static const CRPCCommand vRPCCommands[] =
     { "verifymessage",          &verifymessage,          false,     false,     false },
 
 #ifdef ENABLE_WALLET
+    { "setgenerate", 		    &setgenerate, 		     true,      false,     true },
     { "getmininginfo",          &getmininginfo,          true,      false,     false },
     { "getstakinginfo",         &getstakinginfo,         true,      false,     false },
     { "getnewaddress",          &getnewaddress,          true,      false,     true },
