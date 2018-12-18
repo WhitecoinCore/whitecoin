@@ -135,17 +135,39 @@ public:
         nRPCPort = 25071;
         strDataDir = "testnet";
 
+
         // Modify the testnet genesis block so the timestamp is valid for a later start.
         genesis.nBits  = bnProofOfWorkLimit.GetCompact();
-        genesis.nNonce = 226817;
+        genesis.nNonce = 150657;
+        genesis.nTime    = 1545114000;
         hashGenesisBlock = genesis.GetHash();
-       assert(hashGenesisBlock == uint256("0x0000241305777bc86e9c45bbbe2cf3c13c8d22755ef05b5a95bc7880922ed5df"));
+
+/*
+        hashGenesisBlock = uint256("0x01");
+        if (true && genesis.GetHash() != hashGenesisBlock)
+        {
+                uint256 hashTarget = CBigNum().SetCompact(genesis.nBits).getuint256();
+                    LogPrintf("recalculating params for mainnet.\n");
+                    LogPrintf("old TestNet genesis nonce: %d\n", genesis.nNonce);
+                    LogPrintf("old TestNet genesis hash:  %s\n", hashGenesisBlock.ToString().c_str());
+                    // deliberately empty for loop finds nonce value.
+
+                    for(genesis.nNonce == 0; genesis.GetHash() > hashTarget; genesis.nNonce++){ }
+
+                    LogPrintf("new TestNet genesis merkle root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
+                    LogPrintf("new TestNet genesis nonce: %d\n", genesis.nNonce);
+                    LogPrintf("new TestNet genesis hash: %s\n", genesis.GetHash().ToString().c_str());
+        }
+*/
+       assert(hashGenesisBlock == uint256("0000a17e5bfeea11754901c7acf929cf157856b386b851c5a3f7920b9e5dab49"));
+
         vFixedSeeds.clear();
         vSeeds.clear();
         vSeeds.push_back(CDNSSeedData("172.104.117.39", "172.104.117.39"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 196);
+
         base58Prefixes[SECRET_KEY]     = std::vector<unsigned char>(1, 239);
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xCF).convert_to_container<std::vector<unsigned char> >();
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
@@ -226,3 +248,5 @@ bool SelectParamsFromCommandLine() {
     }
     return true;
 }
+
+
