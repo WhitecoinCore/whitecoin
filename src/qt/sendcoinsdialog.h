@@ -57,7 +57,9 @@ private slots:
 #ifdef USE_QRCODE
     void on_sendQRButton_clicked();
 #endif
+#ifdef  OPEN_QUICK_SENDING
     void on_quickButton_clicked();
+#endif
     void on_hexButton_clicked();
     void removeEntry(SendCoinsEntry* entry);
     void updateDisplayUnit();

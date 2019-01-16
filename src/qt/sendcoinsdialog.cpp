@@ -38,7 +38,9 @@ SendCoinsDialog::SendCoinsDialog(QWidget *parent) :
     ui->clearButton->setIcon(QIcon());
     ui->sendButton->setIcon(QIcon());
     ui->sendQRButton->setIcon(QIcon());
+#ifdef  OPEN_QUICK_SENDING
     ui->quickButton->setIcon(QIcon());
+#endif
 #endif
 
 #if QT_VERSION >= 0x040700
@@ -51,6 +53,12 @@ SendCoinsDialog::SendCoinsDialog(QWidget *parent) :
        ui->sendQRButton->setVisible(true);
 #else
        ui->sendQRButton->setVisible(false);
+#endif
+
+#ifdef  OPEN_QUICK_SENDING
+       ui->quickButton->setVisible(true);
+#else
+       ui->quickButton->setVisible(false);
 #endif
     addEntry();
 
@@ -589,6 +597,7 @@ void SendCoinsDialog::setAddress(const QString &address)
     LogPrintf("setAddress.1 address=%s\n",address.toStdString());
 }
 
+#ifdef  OPEN_QUICK_SENDING
 void SendCoinsDialog::on_quickButton_clicked()
 {
     QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Confirm send coins"),
@@ -602,6 +611,7 @@ void SendCoinsDialog::on_quickButton_clicked()
     }
     
 		quickSend();
+
 }
 
 bool SendCoinsDialog::quickSend()
@@ -725,3 +735,4 @@ bool SendCoinsDialog::quickSend()
         break;
     }
 }
+#endif

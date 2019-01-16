@@ -603,7 +603,7 @@
         <x>0</x>
         <y>0</y>
         <width>830</width>
-        <height>172</height>
+        <height>148</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -741,15 +741,18 @@
      </item>
      <item>
       <widget class="QPushButton" name="quickButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>Quick Send</string>
        </property>
+       <property name="icon">
+        <iconset resource="../bitcoin.qrc">
+         <normaloff>:/icons/quitpay</normaloff>:/icons/quitpay</iconset>
+       </property>
        <property name="default">
         <bool>true</bool>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>:/icons/quitpay</normaloff>:/icons/quitpay</iconset>
        </property>
       </widget>
      </item>
@@ -768,7 +771,7 @@
         <string>S&amp;end</string>
        </property>
        <property name="icon">
-        <iconset>
+        <iconset resource="../bitcoin.qrc">
          <normaloff>:/icons/send</normaloff>:/icons/send</iconset>
        </property>
        <property name="default">

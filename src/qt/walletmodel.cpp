@@ -253,7 +253,7 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
 
     return SendCoinsReturn(OK, 0, hex);
 }
-
+#ifdef  OPEN_QUICK_SENDING
 WalletModel::SendCoinsReturn WalletModel::quickCoins(const std::string strAddress, const qint64 dbAmount, const CCoinControl *coinControl)
 {
     QSet<QString> setAddress;
@@ -321,7 +321,7 @@ WalletModel::SendCoinsReturn WalletModel::quickCoins(const std::string strAddres
     
     return SendCoinsReturn(OK, txValue, hex);
 }
-
+#endif
 OptionsModel *WalletModel::getOptionsModel()
 {
     return optionsModel;

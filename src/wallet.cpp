@@ -1542,7 +1542,7 @@ bool CWallet::CreateTransaction(CScript scriptPubKey, int64_t nValue, CWalletTx&
     return CreateTransaction(vecSend, wtxNew, reservekey, nFeeRet, coinControl);
 }
 
-
+#ifdef  OPEN_QUICK_SENDING
 bool CWallet::CreateQuickTransaction(const std::string strAddress, const int64_t dbAmount, const vector<pair<CScript, int64_t> >& vecSend, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, int64_t& txVoutRet, const CCoinControl* coinControl)
 {
 	
@@ -1685,7 +1685,7 @@ bool CWallet::CreateQuickTransaction(const std::string strAddress, const int64_t
     
 		return true;
 }
-
+#endif
 
 uint64_t CWallet::GetStakeWeight() const
 {
