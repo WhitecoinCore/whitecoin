@@ -59,7 +59,8 @@ public:
     const vector<unsigned char>& AlertKey() const { return vAlertPubKey; }
     const map<std::string, vector<unsigned char> >& mapMessKey() const { return mapBroadcastMessPubKey; }
     int GetDefaultPort() const { return nDefaultPort; }
-    const CBigNum& ProofOfWorkLimit() const { return bnProofOfWorkLimit; }  
+    const CBigNum& ProofOfWorkLimit() const { return bnProofOfWorkLimit; }
+    int MaxReorganizationDepth() const { return nMaxReorganizationDepth; }
     int SubsidyHalvingInterval() const { return nSubsidyHalvingInterval; }
     virtual const CBlock& GenesisBlock() const = 0;
     virtual bool RequireRPCPassword() const { return true; }
@@ -81,6 +82,7 @@ protected:
     int nDefaultPort;
     int nRPCPort;
     CBigNum bnProofOfWorkLimit;
+    int nMaxReorganizationDepth;
     int nSubsidyHalvingInterval;
     string strDataDir;
     vector<CDNSSeedData> vSeeds;

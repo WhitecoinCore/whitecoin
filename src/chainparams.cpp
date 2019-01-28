@@ -54,6 +54,7 @@ public:
         vAlertPubKey = ParseHex("04bf1c0874e989ca090e7eb5d5dd8a04224f2db5cc80d28a256ee676a33396f21622aacb06a9159eaf02ada44238f935f12dd35dad2f6f9075e325ee1219c88533");
         nDefaultPort = 15814;
         nRPCPort = 15815;
+        nMaxReorganizationDepth = 100;
         bnProofOfWorkLimit = CBigNum(~uint256(0) >> 20);
 
         // Build the genesis block. Note that the output of the genesis coinbase cannot
@@ -130,6 +131,7 @@ public:
         pchMessageStart[2] = 0xd1;
         pchMessageStart[3] = 0xf7;
         bnProofOfWorkLimit = CBigNum(~uint256(0) >> 16);
+        nMaxReorganizationDepth = 100;
         vAlertPubKey = ParseHex("04b4f5ab1a9e79cd0e30eb6dbd1d2b53c16d3da561a11b7edee2c8ffc6ddb8f3a9894845b48c7fae8e1b84525431af64574aa182239413dd4186c625930cd56649");
         nDefaultPort = 25070;
         nRPCPort = 25071;
@@ -192,6 +194,7 @@ public:
         pchMessageStart[2] = 0xb3;
         pchMessageStart[3] = 0xee;
         bnProofOfWorkLimit = CBigNum(~uint256(0) >> 1);
+        nMaxReorganizationDepth = 100;
         genesis.nTime = 1411111111;
         genesis.nBits  = bnProofOfWorkLimit.GetCompact();
         genesis.nNonce = 2;

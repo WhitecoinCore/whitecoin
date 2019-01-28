@@ -39,6 +39,10 @@ CTxMemPool mempool;
 map<uint256, CBlockIndex*> mapBlockIndex;
 set<pair<COutPoint, unsigned int> > setStakeSeen;
 
+// Track spent outputs (previnput) in last blocks (down to maxreorgdepth) to
+// prevent the attacks with spam blocks which to overflow the disk space.
+map<COutPoint, int> mapMainChainLastSpentOuts;
+
 CBigNum bnProofOfStakeLimit(~uint256(0) >> 20);
 CBigNum bnProofOfStakeLimitV2(~uint256(0) >> 48);
 
@@ -1449,9 +1453,16 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
 bool CBlock::DisconnectBlock(CTxDB& txdb, CBlockIndex* pindex)
 {
     // Disconnect in reverse order
-    for (int i = vtx.size()-1; i >= 0; i--)
-        if (!vtx[i].DisconnectInputs(txdb))
+    for (int i = vtx.size()-1; i >= 0; i--) {
+        if (!vtx[i].DisconnectInputs(txdb)) {
             return false;
+        }
+        for (unsigned int j = vtx[i].vin.size(); j-- > 0;) {
+            const COutPoint& out = vtx[i].vin[j].prevout;
+            // erase the spent input
+            mapMainChainLastSpentOuts.erase(out);
+        }
+    }
 
     // Update block index on disk without changing it in memory.
     // The memory index structure will be changed after the db commits.
@@ -1609,6 +1620,22 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
         blockindexPrev.hashNext = pindex->GetBlockHash();
         if (!txdb.WriteBlockIndex(blockindexPrev))
             return error("ConnectBlock() : WriteBlockIndex failed");
+    }
+
+    // add new entries
+    for (const CTransaction& tx: vtx) {
+        if (tx.IsCoinBase())
+            continue;
+        for (const CTxIn& in: tx.vin) {
+            mapMainChainLastSpentOuts.insert(std::make_pair(in.prevout, pindex->nHeight));
+        }
+    }
+
+     // delete old entries
+    for (auto it = mapMainChainLastSpentOuts.begin(); it != mapMainChainLastSpentOuts.end(); ++it) {
+        if (it->second < pindex->nHeight - Params().MaxReorganizationDepth()) {
+            mapMainChainLastSpentOuts.erase(it->first);
+        }
     }
 
     // Watch for transactions paying to me
@@ -2093,6 +2120,10 @@ bool CBlock::AcceptBlock()
     CBlockIndex* pindexPrev = (*mi).second;
     int nHeight = pindexPrev->nHeight+1;
 
+    int nMaxReorgDepth = GetArg("-maxreorg", Params().MaxReorganizationDepth());
+        if (nBestHeight - nHeight >= nMaxReorgDepth)
+            return error("AcceptBlock(): forked chain older than max reorganization depth (height %d)", nHeight);
+
     if (IsProtocolV2(nHeight) && nVersion < 7)
         return DoS(100, error("AcceptBlock() : reject too old nVersion = %d", nVersion));
     else if (!IsProtocolV2(nHeight) && nVersion > 6)
@@ -2151,6 +2182,65 @@ bool CBlock::AcceptBlock()
     if (vtx[0].vin[0].scriptSig.size() < expect.size() ||
         !std::equal(expect.begin(), expect.end(), vtx[0].vin[0].scriptSig.begin()))
         return DoS(100, error("AcceptBlock() : block height mismatch in coinbase"));
+
+    if (IsProofOfStake()) {
+            CTxDB txdb("r");
+            bool fSpentInMainChain = false;
+            for (const CTxIn& in : vtx[1].vin) {
+                const COutPoint& prevout = in.prevout;
+                CTxIndex txindex;
+                if (txdb.ReadTxIndex(prevout.hash, txindex)) {
+                    if (prevout.n < txindex.vSpent.size()) {
+                        CDiskTxPos & txpos = txindex.vSpent[prevout.n];
+                        if (!txpos.IsNull()) {
+                            fSpentInMainChain = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (fSpentInMainChain) {
+                // If the stake input was already spent in the main chain
+                // This orphan block should be not after or same the height of spent
+                for (CTxIn in : vtx[1].vin) {
+                    auto it = mapMainChainLastSpentOuts.find(in.prevout);
+                    if (it == mapMainChainLastSpentOuts.end()) {
+                        return false;
+                    }
+                    if (it->second <= pindexPrev->nHeight) {
+                        return false;
+                    }
+                }
+            }
+
+            // if this is on a fork
+            if (pindexPrev != pindexBest && pindexPrev != NULL) {
+                // start at the block we're adding on to
+                CBlockIndex *last = pindexPrev;
+
+                // while that block is not on the main chain
+                while (!last->pnext && pindexPrev != NULL) {
+                    CBlock bl;
+                    bl.ReadFromDisk(last, true);
+                    // loop through every spent input from said block
+                    for (CTransaction t : bl.vtx) {
+                        for (CTxIn in: t.vin) {
+                            // loop through every spent input in the staking transaction of the new block
+                            for (CTxIn stakeIn : vtx[1].vin) {
+                                // if they spend the same input
+                                if (stakeIn.prevout == in.prevout) {
+                                    // reject the block
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+
+                    // go to the parent block
+                    last = pindexPrev->pprev;
+                }
+            }
+        }
 
     // Write block to history file
     if (!CheckDiskSpace(::GetSerializeSize(*this, SER_DISK, CLIENT_VERSION)))

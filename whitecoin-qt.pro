@@ -6,8 +6,10 @@ QT += network
 QT += printsupport
 DEFINES += ENABLE_WALLET
 DEFINES += BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
+DEFINES += BOOST_NO_CXX11_SCOPED_ENUMS
 CONFIG += no_include_pwd
 CONFIG += thread
+CONFIG += c++11
 
 greaterThan(QT_MAJOR_VERSION, 4) {
     QT += widgets
@@ -517,4 +519,9 @@ contains(RELEASE, 1) {
 
 system($$QMAKE_LRELEASE -silent $$_PRO_FILE_)
 
-DISTFILES +=
+DISTFILES += \
+    src/makefile.unix \
+    src/makefile.bsd \
+    src/makefile.linux-mingw \
+    src/makefile.osx \
+    src/makefile.mingw
