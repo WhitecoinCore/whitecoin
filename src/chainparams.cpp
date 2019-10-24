@@ -83,7 +83,8 @@ public:
         assert(genesis.hashMerkleRoot == uint256("0x73513debc549137a47f2afb73173a2d2b4b0c13f57a57387ae3849a928e1e08d"));
 
         vSeeds.push_back(CDNSSeedData("dnsseed-eu", "dnsseed.oizopower.nl"));
-        vSeeds.push_back(CDNSSeedData("dnsseed-cn", "dnsseed-cn.whitecoin.info"));
+        vSeeds.push_back(CDNSSeedData("dnsseed-cn", "dnsseeder.whitecoin.in"));
+        vSeeds.push_back(CDNSSeedData("dnsseed-cn1", "dnsseeder.whitecoin.pub"));
         vSeeds.push_back(CDNSSeedData("seed1", "seed1.oizopower.nl"));
         vSeeds.push_back(CDNSSeedData("seed3", "seed3.oizopower.nl"));
 
