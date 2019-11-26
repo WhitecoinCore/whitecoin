@@ -4,8 +4,8 @@
 Whitecoin (XWC) is a cryptocurrency with a focus on innovative software to make fast, safe and cheap transactions. XWC is a proof-of-stake based coin driven by an active community of volunteers. The community centric approach is one of the reason why this coin is still in active development after its initial introduction in 2014.
 
 **Learn more**
-* [Official Whitecoin website](https://www.whitecoin.info/)
-* [Join our Discord server](https://discordapp.com/invite/GbpdbMt)
+* [Official Whitecoin website](https://www.xwccore.com/)
+* [Join our Discord server](https://discord.gg/fsWkUMD)
 * [BitcoinTalk page](https://bitcointalk.org/index.php?topic=804288.0)
 
 ## How to contribute?
