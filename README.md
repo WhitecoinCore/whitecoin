@@ -14,7 +14,7 @@ We accept and welcome contributions. Feel free to reach out on Discord if you ha
 Please note that your code will be thoroughly reviewed and tested before its accepted. We expect you to rework and resubmit patches if they don't fit in to maintain code quality.
 
 **Fixing an issue**
-* Fork the repository on [GitHub](https://github.com/Whitecoin-org/whitecoin)
+* Fork the repository on [GitHub](https://github.com/WhitecoinCore/whitecoin)
 * Make the changes to your forked repository
 * Submit a pull request to the `development` branch
 * The patch will be reviewed and added to a new release if there is abroad consensus that it is a good improvement
