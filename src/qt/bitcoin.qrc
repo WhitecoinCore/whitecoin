@@ -89,6 +89,12 @@
         <file alias="splash">res/images/splash2.png</file>
         <file alias="wallet_logo_background">res/images/wallet_logo_background.png</file>
         <file alias="paper_wallet">res/images/paper_wallet.png</file>
+        <file>res/images/firstpage_img.png</file>
+        <file>res/images/firstpage_share1.png</file>
+        <file>res/images/firstpage_share2.png</file>
+        <file>res/images/firstpage_share3.png</file>
+        <file>res/images/firstpage_share4.png</file>
+        <file>res/images/firstpage_share5.png</file>
     </qresource>
     <qresource prefix="/movies">
         <file alias="update_spinner">res/movies/update_spinner.mng</file>
