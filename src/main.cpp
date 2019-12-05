@@ -21,6 +21,7 @@
 using namespace std;
 using namespace boost;
 
+#define FIX_MEMORY_LEAK_BUG  1
 #if defined(NDEBUG)
 # error "Whitecoin cannot be compiled without assertions."
 #endif
@@ -1462,11 +1463,13 @@ bool CBlock::DisconnectBlock(CTxDB& txdb, CBlockIndex* pindex)
         if (!vtx[i].DisconnectInputs(txdb)) {
             return false;
         }
+#ifdef FIX_MEMORY_LEAK_BUG
         for (unsigned int j = vtx[i].vin.size(); j-- > 0;) {
             const COutPoint& out = vtx[i].vin[j].prevout;
             // erase the spent input
             mapMainChainLastSpentOuts.erase(out);
         }
+#endif
     }
 
     // Update block index on disk without changing it in memory.
@@ -1626,7 +1629,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
         if (!txdb.WriteBlockIndex(blockindexPrev))
             return error("ConnectBlock() : WriteBlockIndex failed");
     }
-
+#ifdef FIX_MEMORY_LEAK_BUG
     // add new entries
     for (const CTransaction& tx: vtx) {
         if (tx.IsCoinBase())
@@ -1642,6 +1645,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
             mapMainChainLastSpentOuts.erase(it->first);
         }
     }
+#endif
 
     // Watch for transactions paying to me
     BOOST_FOREACH(CTransaction& tx, vtx)
@@ -2124,10 +2128,11 @@ bool CBlock::AcceptBlock()
         return DoS(10, error("AcceptBlock() : prev block not found"));
     CBlockIndex* pindexPrev = (*mi).second;
     int nHeight = pindexPrev->nHeight+1;
-
+#ifdef FIX_MEMORY_LEAK_BUG
     int nMaxReorgDepth = GetArg("-maxreorg", Params().MaxReorganizationDepth());
         if (nBestHeight - nHeight >= nMaxReorgDepth)
             return error("AcceptBlock(): forked chain older than max reorganization depth (height %d)", nHeight);
+#endif
 
     if (IsProtocolV2(nHeight) && nVersion < 7)
         return DoS(100, error("AcceptBlock() : reject too old nVersion = %d", nVersion));
@@ -2188,6 +2193,7 @@ bool CBlock::AcceptBlock()
         !std::equal(expect.begin(), expect.end(), vtx[0].vin[0].scriptSig.begin()))
         return DoS(100, error("AcceptBlock() : block height mismatch in coinbase"));
 
+#ifdef FIX_MEMORY_LEAK_BUG
     if (IsProofOfStake()) {
             CTxDB txdb("r");
             bool fSpentInMainChain = false;
@@ -2246,6 +2252,7 @@ bool CBlock::AcceptBlock()
                 }
             }
         }
+#endif
 
     // Write block to history file
     if (!CheckDiskSpace(::GetSerializeSize(*this, SER_DISK, CLIENT_VERSION)))
