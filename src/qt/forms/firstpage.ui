@@ -61,7 +61,7 @@
     <bool>true</bool>
    </property>
    <property name="placeholderText">
-    <string>一起加入新开发团官网whitecoin.in。开发组成员与我们在一起。</string>
+    <string>一起加入新开发团官网xwccore.com。开发组成员与我们在一起。</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">
