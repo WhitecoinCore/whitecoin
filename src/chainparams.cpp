@@ -168,6 +168,9 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         vSeeds.push_back(CDNSSeedData("dnsseed-test", "dnsseeder.xwccore.org"));
+        vSeeds.push_back(CDNSSeedData("test-seeed1", "testseed1.whitecoin.in"));
+
+		
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 196);
