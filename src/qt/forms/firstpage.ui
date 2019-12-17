@@ -32,7 +32,7 @@
     <bool>true</bool>
    </property>
    <property name="placeholderText">
-    <string>新社区生态，欢迎您的加入</string>
+    <string>Welcome to the new community ecology</string>
    </property>
   </widget>
   <widget class="QTextBrowser" name="textBrowser_info">
@@ -45,10 +45,10 @@
     </rect>
    </property>
    <property name="placeholderText">
-    <string>为了维护整个白币社区与投资者的权益，白币开发团队本着保持初心，坚守区块链的最初的理念，不受利和名的影响与社区合作，发起（倡议书）社区成员与投资者团结起来，远离whitecoin.info，远离ICO-白币。</string>
+    <string>In order to protect the rights and interests of the whole community and investors, the development team of whitecoin keeps the original intention, adheres to the original concept of block chain, and works with the community regardless of the influence of profits and fame.</string>
    </property>
   </widget>
-  <widget class="QTextEdit" name="textEdit">
+  <widget class="QTextEdit" name="textBrowser_adv">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -61,7 +61,7 @@
     <bool>true</bool>
    </property>
    <property name="placeholderText">
-    <string>一起加入新开发团官网whitecoin.in。开发组成员与我们在一起。</string>
+    <string>Join the new development group website whitecoin.in. Development team members are with us.</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">
@@ -93,7 +93,7 @@
     <pixmap resource="../bitcoin.qrc">:/images/res/images/firstpage_img.png</pixmap>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="QLabel" name="label_officelink">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -103,10 +103,10 @@
     </rect>
    </property>
    <property name="text">
-    <string>官网链接</string>
+    <string>Official Link</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_4">
+  <widget class="QLabel" name="label_official_media">
    <property name="geometry">
     <rect>
      <x>120</x>
@@ -116,7 +116,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>官方媒体</string>
+    <string>Official Media</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_5">

@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="de" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="de">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -15,11 +17,12 @@
         <location line="+41"/>
         <source>Copyright © 2009-2014 The Bitcoin developers
 Copyright © 2012-2014 The NovaCoin developers
-Copyright © 2014 The Blackcoin developers</source>
-        <translation type="unfinished"/>
+Copyright © 2014-2016 The Blackcoin developers
+Copyright © 2014-2018 The Whitecoin developers</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+16"/>
         <source>
 This is experimental software.
 
@@ -92,7 +95,17 @@ Dieses Produkt enthält Software, die vom OpenSSL-Projekt zur Verwendung im Open
         <translation>Ausgewählte Adresse aus der Liste entfernen</translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location line="+10"/>
+        <source>Import QR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Import PrivKey</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-27"/>
         <source>Verify a message to ensure it was signed with a specified Whitecoin address</source>
         <translation>Verifizieren Sie ob eine Nachricht einer bestimmten Whitecoin Adresse signiert wurde</translation>
     </message>
@@ -107,7 +120,7 @@ Dieses Produkt enthält Software, die vom OpenSSL-Projekt zur Verwendung im Open
         <translation>&amp;Löschen</translation>
     </message>
     <message>
-        <location filename="../addressbookpage.cpp" line="+66"/>
+        <location filename="../addressbookpage.cpp" line="+91"/>
         <source>Copy &amp;Label</source>
         <translation>&amp;Bezeichnung kopieren</translation>
     </message>
@@ -117,7 +130,27 @@ Dieses Produkt enthält Software, die vom OpenSSL-Projekt zur Verwendung im Open
         <translation>&amp;Editieren</translation>
     </message>
     <message>
-        <location line="+248"/>
+        <location line="+1"/>
+        <source>&amp;Print</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Copy Private Key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy Public Key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy Address KeyID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+265"/>
         <source>Export Address Book Data</source>
         <translation>Adressbuch exportieren</translation>
     </message>
@@ -135,6 +168,50 @@ Dieses Produkt enthält Software, die vom OpenSSL-Projekt zur Verwendung im Open
         <location line="+0"/>
         <source>Could not write to file %1.</source>
         <translation>Datei konnte nicht geschrieben werden: %1</translation>
+    </message>
+    <message>
+        <location line="+110"/>
+        <location line="+41"/>
+        <location line="+48"/>
+        <location line="+60"/>
+        <source>Wallet is unlocked for staking only.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-144"/>
+        <location line="+41"/>
+        <location line="+48"/>
+        <location line="+60"/>
+        <source>Not copying because wallet is locked.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-138"/>
+        <location line="+40"/>
+        <location line="+48"/>
+        <location line="+61"/>
+        <source>Address &quot;%1&quot; doesn&apos;t have keyID </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-140"/>
+        <location line="+40"/>
+        <location line="+48"/>
+        <location line="+70"/>
+        <source>Address &quot;%1&quot; doesn&apos;t have private key </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-109"/>
+        <location line="+48"/>
+        <location line="+52"/>
+        <source>Address &quot;%1&quot; doesn&apos;t have public key </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-38"/>
+        <source>Have a mistake at GetPrivKey.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -180,7 +257,7 @@ Dieses Produkt enthält Software, die vom OpenSSL-Projekt zur Verwendung im Open
     <message>
         <location line="+33"/>
         <source>Serves to disable the trivial sendmoney when OS account compromised. Provides no real security.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
@@ -257,7 +334,7 @@ Dieses Produkt enthält Software, die vom OpenSSL-Projekt zur Verwendung im Open
     <message>
         <location line="-140"/>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+82"/>
@@ -309,17 +386,17 @@ Dieses Produkt enthält Software, die vom OpenSSL-Projekt zur Verwendung im Open
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <location filename="../bitcoingui.cpp" line="+297"/>
+        <location filename="../bitcoingui.cpp" line="+407"/>
         <source>Sign &amp;message...</source>
         <translation>&amp;Nachricht signieren...</translation>
     </message>
     <message>
-        <location line="-64"/>
+        <location line="-128"/>
         <source>Show general overview of wallet</source>
         <translation>Allgemeine Wallet-Übersicht anzeigen</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+31"/>
         <source>&amp;Transactions</source>
         <translation>&amp;Transaktionen</translation>
     </message>
@@ -329,7 +406,7 @@ Dieses Produkt enthält Software, die vom OpenSSL-Projekt zur Verwendung im Open
         <translation>Transaktionsverlauf durchsehen</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+21"/>
         <source>&amp;Address Book</source>
         <translation>&amp;Addressbuch</translation>
     </message>
@@ -339,12 +416,12 @@ Dieses Produkt enthält Software, die vom OpenSSL-Projekt zur Verwendung im Open
         <translation>Liste der gespeicherten Adressen und Bezeichnungen bearbeiten</translation>
     </message>
     <message>
-        <location line="-18"/>
+        <location line="-44"/>
         <source>Show the list of addresses for receiving payments</source>
         <translation>Liste mit Adressen für eingehende Zahlungen anzeigen</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+94"/>
         <source>E&amp;xit</source>
         <translation>B&amp;eenden</translation>
     </message>
@@ -389,27 +466,27 @@ Dieses Produkt enthält Software, die vom OpenSSL-Projekt zur Verwendung im Open
         <translation>Passphrase &amp;ändern...</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+13"/>
         <source>&amp;Export...</source>
         <translation>&amp;Exportieren...</translation>
     </message>
     <message>
-        <location line="-55"/>
+        <location line="-114"/>
         <source>Send coins to a Whitecoin address</source>
         <translation>Senden Sie Coins an eine Whitecoin Adresse</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+94"/>
         <source>Modify configuration options for Whitecoin</source>
         <translation>Konfigurationsoptionen für Whitecoin ändern</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+21"/>
         <source>Export the data in the current tab to a file</source>
         <translation>Die Daten in der aktuellen Ansicht in eine Datei exportieren</translation>
     </message>
     <message>
-        <location line="-13"/>
+        <location line="-17"/>
         <source>Encrypt or decrypt wallet</source>
         <translation>Wallet verschlüsseln oder entschlüsseln</translation>
     </message>
@@ -424,7 +501,7 @@ Dieses Produkt enthält Software, die vom OpenSSL-Projekt zur Verwendung im Open
         <translation>Ändert die Passphrase, die für die Wallet-Verschlüsselung benutzt wird</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+14"/>
         <source>&amp;Debug window</source>
         <translation>&amp;Debugfenster</translation>
     </message>
@@ -434,23 +511,23 @@ Dieses Produkt enthält Software, die vom OpenSSL-Projekt zur Verwendung im Open
         <translation>Debugging- und Diagnosekonsole öffnen</translation>
     </message>
     <message>
-        <location line="-5"/>
+        <location line="-9"/>
         <source>&amp;Verify message...</source>
         <translation>Nachricht &amp;verifizieren...</translation>
     </message>
     <message>
-        <location line="-214"/>
-        <location line="+555"/>
+        <location line="-317"/>
+        <location line="+673"/>
         <source>Whitecoin</source>
         <translation>Whitecoin</translation>
     </message>
     <message>
-        <location line="-555"/>
+        <location line="-673"/>
         <source>Wallet</source>
         <translation>Wallet</translation>
     </message>
     <message>
-        <location line="+193"/>
+        <location line="+296"/>
         <source>&amp;About Whitecoin</source>
         <translation>&amp;Über Whitecoin</translation>
     </message>
@@ -475,12 +552,12 @@ Dieses Produkt enthält Software, die vom OpenSSL-Projekt zur Verwendung im Open
         <translation>Wallet sperren</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+38"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+9"/>
         <source>&amp;Settings</source>
         <translation>&amp;Einstellungen</translation>
     </message>
@@ -490,29 +567,32 @@ Dieses Produkt enthält Software, die vom OpenSSL-Projekt zur Verwendung im Open
         <translation>&amp;Hilfe</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+18"/>
         <source>Tabs toolbar</source>
         <translation>Registerkartenleiste</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+49"/>
         <location line="+9"/>
         <source>[testnet]</source>
         <translation>[Testnetz]</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+58"/>
+        <location line="+62"/>
         <source>Whitecoin client</source>
         <translation>Whitecoin Anwendung</translation>
     </message>
     <message numerus="yes">
         <location line="+70"/>
         <source>%n active connection(s) to Whitecoin network</source>
-        <translation><numerusform>%n aktive Verbindung zum Whitecoin Netzwerk</numerusform><numerusform>%n aktive Verbindungen zum Whitecoin Netzwerk</numerusform></translation>
+        <translation>
+            <numerusform>%n aktive Verbindung zum Whitecoin Netzwerk</numerusform>
+            <numerusform>%n aktive Verbindungen zum Whitecoin Netzwerk</numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+488"/>
+        <location line="+537"/>
         <source>Staking.&lt;br&gt;Your weight is %1&lt;br&gt;Network weight is %2&lt;br&gt;Expected time to earn reward is %3</source>
         <translation>Erzeuge Zinsen.&lt;br&gt;Ihr Gewicht ist %1&lt;br&gt;Das Gesamtgewicht ist %2&lt;br&gt;Die erwartete Zeit bis zur nächsten Vergütung ist %3</translation>
     </message>
@@ -537,27 +617,87 @@ Dieses Produkt enthält Software, die vom OpenSSL-Projekt zur Verwendung im Open
         <translation>Es werden keine Zinsen werden erzeugt, da Sie keine reifen Coins haben</translation>
     </message>
     <message>
-        <location line="-812"/>
+        <location line="-940"/>
         <source>&amp;Dashboard</source>
         <translation>&amp;Übersicht / Dashboard</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="-10"/>
+        <source>&amp;First Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>First Page: Importent Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
         <source>&amp;Receive</source>
         <translation>&amp;Empfangen</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+11"/>
         <source>&amp;Send</source>
         <translation>&amp;Senden</translation>
     </message>
     <message>
-        <location line="+49"/>
+        <location line="+22"/>
+        <source>Transactions &amp;Report</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Browse transaction report</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>&amp;Statistics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>View statistics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>&amp;Block Explorer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Explore the BlockChain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+48"/>
         <source>&amp;Unlock Wallet...</source>
         <translation>Wallet &amp;entsperren</translation>
     </message>
     <message>
-        <location line="+277"/>
+        <location line="+6"/>
+        <source>&amp;Print paper wallets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Print paper wallets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>&amp;Broadcast</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Broadcast Data to Network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+283"/>
         <source>Up to date</source>
         <translation>Auf aktuellem Stand</translation>
     </message>
@@ -594,7 +734,7 @@ Typ: %3
 Adresse: %4</translation>
     </message>
     <message>
-        <location line="+100"/>
+        <location line="+146"/>
         <location line="+15"/>
         <source>URI handling</source>
         <translation>URI Verarbeitung</translation>
@@ -611,17 +751,17 @@ Adresse: %4</translation>
         <translation>Die Wallet ist &lt;b&gt;nicht verschlüsselt&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+9"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
         <translation>Wallet ist &lt;b&gt;verschlüsselt&lt;/b&gt; und aktuell &lt;b&gt;entsperrt&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+9"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation>Wallet ist &lt;b&gt;verschlüsselt&lt;/b&gt; und aktuell &lt;b&gt;gesperrt&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+25"/>
         <source>Backup Wallet</source>
         <translation>Wallet sichern</translation>
     </message>
@@ -643,36 +783,51 @@ Adresse: %4</translation>
     <message numerus="yes">
         <location line="+91"/>
         <source>%n second(s)</source>
-        <translation><numerusform>%n Sekunde</numerusform><numerusform>%n Sekunden</numerusform></translation>
+        <translation>
+            <numerusform>%n Sekunde</numerusform>
+            <numerusform>%n Sekunden</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n minute(s)</source>
-        <translation><numerusform>%n Minute</numerusform><numerusform>%n Minuten</numerusform></translation>
+        <translation>
+            <numerusform>%n Minute</numerusform>
+            <numerusform>%n Minuten</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
-        <location line="-429"/>
-        <location line="+433"/>
+        <location line="-478"/>
+        <location line="+482"/>
         <source>%n hour(s)</source>
-        <translation><numerusform>%n Stunde</numerusform><numerusform>%n Stunden</numerusform></translation>
+        <translation>
+            <numerusform>%n Stunde</numerusform>
+            <numerusform>%n Stunden</numerusform>
+        </translation>
     </message>
     <message>
-        <location line="-456"/>
+        <location line="-505"/>
         <source>Processed %1 blocks of transaction history.</source>
         <translation>%1 Block der Transaktionshistorie heruntergeladen.</translation>
     </message>
     <message numerus="yes">
         <location line="+27"/>
-        <location line="+433"/>
+        <location line="+482"/>
         <source>%n day(s)</source>
-        <translation><numerusform>%n Tag</numerusform><numerusform>%n Tage</numerusform></translation>
+        <translation>
+            <numerusform>%n Tag</numerusform>
+            <numerusform>%n Tage</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
-        <location line="-429"/>
+        <location line="-478"/>
         <location line="+6"/>
         <source>%n week(s)</source>
-        <translation><numerusform>%n Woche</numerusform><numerusform>%n Wochen
-</numerusform></translation>
+        <translation>
+            <numerusform>%n Woche</numerusform>
+            <numerusform>%n Wochen
+</numerusform>
+        </translation>
     </message>
     <message>
         <location line="+0"/>
@@ -682,7 +837,10 @@ Adresse: %4</translation>
     <message numerus="yes">
         <location line="+0"/>
         <source>%n year(s)</source>
-        <translation><numerusform>%n Jahr</numerusform><numerusform>%n Jahre</numerusform></translation>
+        <translation>
+            <numerusform>%n Jahr</numerusform>
+            <numerusform>%n Jahre</numerusform>
+        </translation>
     </message>
     <message>
         <location line="+5"/>
@@ -717,23 +875,145 @@ Adresse: %4</translation>
     <message>
         <location line="+69"/>
         <source>This transaction is over the size limit. You can still send it for a fee of %1, which goes to the nodes that process your transaction and helps to support the network. Do you want to pay the fee?</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+324"/>
+        <location line="+373"/>
         <source>Not staking</source>
         <translation>Aktuell nicht für eine Verzinsung freigeschaltet.</translation>
     </message>
     <message>
-        <location filename="../bitcoin.cpp" line="+104"/>
+        <location filename="../bitcoin.cpp" line="+108"/>
         <source>A fatal error occurred. Whitecoin can no longer continue safely and will quit.</source>
         <translation>Ein fataler Fehler ist aufgetreten. Whitecoin kann nicht fortgesetzt werden und wird beendet.</translation>
     </message>
 </context>
 <context>
+    <name>BlockBrowser</name>
+    <message>
+        <location filename="../forms/blockbrowser.ui" line="+35"/>
+        <source>Form</source>
+        <translation type="unfinished">Formular</translation>
+    </message>
+    <message>
+        <location line="+38"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#666a80;&quot;&gt;Block Explorer&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+38"/>
+        <source>Fees:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Block Timestamp:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Block Hashrate:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Transaction ID:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>0.00</source>
+        <translation type="unfinished">0.00</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Block Difficulty:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>000</source>
+        <translation type="unfinished">000</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Block Merkle:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Block Hash:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <location line="+84"/>
+        <source>0x0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-77"/>
+        <source>Block nNonce:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Block nBits:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Block Height:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <location line="+20"/>
+        <location line="+7"/>
+        <location line="+59"/>
+        <source>0</source>
+        <translation type="unfinished">0</translation>
+    </message>
+    <message>
+        <location line="-7"/>
+        <source>0000 KH/s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Value out:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Jump to Block</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>Outputs:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Inputs:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Decode Transaction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>Decode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ClientModel</name>
     <message>
-        <location filename="../clientmodel.cpp" line="+110"/>
+        <location filename="../clientmodel.cpp" line="+121"/>
         <source>Network Alert</source>
         <translation>Netzwerkalarm</translation>
     </message>
@@ -761,9 +1041,8 @@ Adresse: %4</translation>
         <translation>Betrag:</translation>
     </message>
     <message>
-        <location line="+32"/>
         <source>Priority:</source>
-        <translation>Priorität:</translation>
+        <translation type="vanished">Priorität:</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -776,7 +1055,7 @@ Adresse: %4</translation>
         <translation>Zu geringer Ausgabebetrag:</translation>
     </message>
     <message>
-        <location filename="../coincontroldialog.cpp" line="+537"/>
+        <location filename="../coincontroldialog.cpp" line="+493"/>
         <source>no</source>
         <translation>nein</translation>
     </message>
@@ -841,7 +1120,7 @@ Adresse: %4</translation>
         <translation>Priorität</translation>
     </message>
     <message>
-        <location filename="../coincontroldialog.cpp" line="-500"/>
+        <location filename="../coincontroldialog.cpp" line="-456"/>
         <source>Copy address</source>
         <translation>Adresse kopieren</translation>
     </message>
@@ -882,9 +1161,8 @@ Adresse: %4</translation>
         <translation>Byte kopieren</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy priority</source>
-        <translation>Priorität kopieren</translation>
+        <translation type="vanished">Priorität kopieren</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -897,42 +1175,35 @@ Adresse: %4</translation>
         <translation>Wechselgeld kopieren</translation>
     </message>
     <message>
-        <location line="+317"/>
         <source>highest</source>
-        <translation>am höchsten</translation>
+        <translation type="vanished">am höchsten</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>high</source>
-        <translation>hoch</translation>
+        <translation type="vanished">hoch</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>medium-high</source>
-        <translation>mittel-hoch</translation>
+        <translation type="vanished">mittel-hoch</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>medium</source>
-        <translation>mittel</translation>
+        <translation type="vanished">mittel</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>low-medium</source>
-        <translation>niedrig-mittel</translation>
+        <translation type="vanished">niedrig-mittel</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>low</source>
-        <translation>niedrig</translation>
+        <translation type="vanished">niedrig</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>lowest</source>
-        <translation>am niedrigsten</translation>
+        <translation type="vanished">am niedrigsten</translation>
     </message>
     <message>
-        <location line="+140"/>
+        <location line="+423"/>
         <source>DUST</source>
         <translation>STAUB</translation>
     </message>
@@ -942,22 +1213,13 @@ Adresse: %4</translation>
         <translation>ja</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+9"/>
         <source>This label turns red, if the transaction size is bigger than 10000 bytes.
 
  This means a fee of at least %1 per kb is required.
 
  Can vary +/- 1 Byte per input.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Transactions with higher priority get more likely into a block.
-
-This label turns red, if the priority is smaller than &quot;medium&quot;.
-
- This means a fee of at least %1 per kb is required.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -966,18 +1228,18 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
  This means a fee of at least %2 is required. 
 
  Amounts below 0.546 times the minimum relay fee are shown as DUST.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This label turns red, if the change is smaller than %1.
 
  This means a fee of at least %2 is required.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+36"/>
-        <location line="+66"/>
+        <location line="+35"/>
+        <location line="+58"/>
         <source>(no label)</source>
         <translation>(keine Bezeichnung)</translation>
     </message>
@@ -1061,9 +1323,37 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
 </context>
 <context>
+    <name>FreespaceChecker</name>
+    <message>
+        <location filename="../intro.cpp" line="+70"/>
+        <source>A new data directory will be created.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Directory already exists. Add %1 if you intend to create a new directory here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Path already exists, and is not a directory.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Cannot create data directory here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>GUIUtil::HelpMessageBox</name>
     <message>
-        <location filename="../guiutil.cpp" line="+426"/>
+        <location filename="../guiutil.cpp" line="+458"/>
         <location line="+12"/>
         <source>Whitecoin-Qt</source>
         <translation>Whitecoin-Qt
@@ -1103,6 +1393,129 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+1"/>
         <source>Show splash screen on startup (default: 1)</source>
         <translation>Startbildschirm beim Starten anzeigen (Standard: 1)</translation>
+    </message>
+</context>
+<context>
+    <name>ImpPrivKeyDialog</name>
+    <message>
+        <location filename="../forms/impprivkeydialog.ui" line="+14"/>
+        <source>Import whitecoin into your wallet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Import PrivateKey</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+33"/>
+        <location line="+3"/>
+        <source>Your private address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Key:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>Note: this operation will rebuild the index data and wait for a long time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../utilitydialog.cpp" line="+316"/>
+        <source>Invalid private key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Wallet is unlocked for staking only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>This key has already existed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Error adding key to wallet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>The import has completed</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Intro</name>
+    <message>
+        <location filename="../forms/intro.ui" line="+14"/>
+        <source>Welcome</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Welcome to Whitecoin.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>You can choose where Whitecoin will store its data.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Whitecoin will download and store a copy of the Whitecoin block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Use the default data directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Use a custom data directory:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../intro.cpp" line="+82"/>
+        <source>Whitecoin</source>
+        <translation type="unfinished">Whitecoin</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Error: Specified data directory &quot;%1&quot; cannot be created.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+24"/>
+        <source>Error</source>
+        <translation type="unfinished">Fehler</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+9"/>
+        <source>%n GB of free space available</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location line="+3"/>
+        <source>(of %n GB needed)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -1183,14 +1596,19 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Port des Proxies (z.B. 9050)</translation>
     </message>
     <message>
-        <location line="-57"/>
+        <location line="+140"/>
+        <source>Use whitecoin visual theme (requires restart)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-197"/>
         <source>Connect to the Whitecoin network through a SOCKS5 proxy (e.g. when connecting through Tor).</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Connect through SOCKS5 proxy:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+90"/>
@@ -1253,22 +1671,15 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Coin &amp;control features anzeigen (nur Experten!)</translation>
     </message>
     <message>
-        <location line="+7"/>
-        <source>Whether to select the coin outputs randomly or with minimal coin age.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+3"/>
         <source>Minimize weight consumption (experimental)</source>
-        <translation>Minimiere Verbrauch von Gewicht (experimentell) (Standard: 0)</translation>
+        <translation type="vanished">Minimiere Verbrauch von Gewicht (experimentell) (Standard: 0)</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Use blue visual theme (requires restart)</source>
-        <translation>Verwende das schwarze Whitecoin Wallet Design (Neustart erforderlich)</translation>
+        <translation type="vanished">Verwende das schwarze Whitecoin Wallet Design (Neustart erforderlich)</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+78"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
@@ -1288,7 +1699,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Standard</translation>
     </message>
     <message>
-        <location line="+148"/>
+        <location line="+147"/>
         <location line="+9"/>
         <source>Warning</source>
         <translation>Warnung</translation>
@@ -1314,27 +1725,27 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+46"/>
-        <location line="+247"/>
+        <location line="+277"/>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Whitecoin network after a connection is established, but this process has not completed yet.</source>
         <translation>Die angezeigte Information kann falsch sein. Die Brieftasche synchronisiert automatisch mit dem Whitecoin Netzwerk nachdem eine Verbindung zustande gekommen ist, aber dieser Prozess ist nicht abgeschlossen.</translation>
     </message>
     <message>
-        <location line="-173"/>
+        <location line="-191"/>
         <source>Stake:</source>
         <translation>Stake:</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+38"/>
         <source>Unconfirmed:</source>
         <translation>Unbestätigt:</translation>
     </message>
     <message>
-        <location line="-113"/>
+        <location line="-131"/>
         <source>Wallet</source>
         <translation>Wallet</translation>
     </message>
     <message>
-        <location line="+49"/>
+        <location line="+55"/>
         <source>Spendable:</source>
         <translation>Ausgabebereit:</translation>
     </message>
@@ -1344,7 +1755,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Ihr aktuell verfügbarer Kontostand</translation>
     </message>
     <message>
-        <location line="+80"/>
+        <location line="+98"/>
         <source>Immature:</source>
         <translation>Unreif:</translation>
     </message>
@@ -1354,7 +1765,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Erarbeiteter Betrag der noch nicht gereift ist</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+29"/>
         <source>Total:</source>
         <translation>Gesamtbetrag:</translation>
     </message>
@@ -1369,12 +1780,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>&lt;b&gt;Letzte Transaktionen&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="-118"/>
+        <location line="-130"/>
         <source>Total of transactions that have yet to be confirmed, and do not yet count toward the current balance</source>
         <translation>Anzahl der unbestätigten Transaktionen die somit noch nicht zum aktuellen Kontostand zählen.</translation>
     </message>
     <message>
-        <location line="-32"/>
+        <location line="-38"/>
         <source>Total of coins that was staked, and do not yet count toward the current balance</source>
         <translation>Anzahl der unbestätigten Transaktionen die somit noch nicht zum aktuellen Kontostand zählen.</translation>
     </message>
@@ -1386,11 +1797,219 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
 </context>
 <context>
+    <name>PaperWalletDialog</name>
+    <message>
+        <location filename="../forms/paperwalletdialog.ui" line="+14"/>
+        <source>Print Your Paper Wallets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+44"/>
+        <source>New Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+92"/>
+        <source>Print Wallet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+33"/>
+        <source>Number of Wallets?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>1</source>
+        <translation type="unfinished">1</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>2</source>
+        <translation type="unfinished">2</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>3</source>
+        <translation type="unfinished">3</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>4</source>
+        <translation type="unfinished">4</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>5</source>
+        <translation type="unfinished">5</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>6</source>
+        <translation type="unfinished">6</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>7</source>
+        <translation type="unfinished">7</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>8</source>
+        <translation type="unfinished">8</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>9</source>
+        <translation type="unfinished">9</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>10</source>
+        <translation type="unfinished">10</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>11</source>
+        <translation type="unfinished">11</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>12</source>
+        <translation type="unfinished">12</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;SimSun&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Public Key:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../utilitydialog.cpp" line="-298"/>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Warning: Network Activity Detected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>It is recommended to disconnect from the internet before printing paper wallets. Even though paper wallets are generated on your local computer, it is still possible to unknowingly have malware that transmits your screen to a remote location. It is also recommended to print to a local printer vs a network printer since that network traffic can be monitored. Some advanced printers also store copies of each printed document. Proceed with caution relative to the amount of value you plan to store on each address.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+45"/>
+        <source>Error encoding Address into QR Code.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Error encoding private key into QR Code.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+93"/>
+        <source>failed to open file, is it writable?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PaymentServer</name>
     <message>
         <location filename="../paymentserver.cpp" line="+107"/>
         <source>Cannot start whitecoin: click-to-pay handler</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PeerTableModel</name>
+    <message>
+        <location filename="../peertablemodel.cpp" line="+118"/>
+        <source>Node/Service</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>User Agent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Ping Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <location filename="../bitcoin.cpp" line="+69"/>
+        <location line="+7"/>
+        <source>Whitecoin</source>
+        <translation type="unfinished">Whitecoin</translation>
+    </message>
+    <message>
+        <location line="-6"/>
+        <source>Error: Specified data directory &quot;%1&quot; does not exist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Error: Cannot parse configuration file: %1. Only use key=value syntax.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../guiutil.cpp" line="+77"/>
+        <source>%1 d</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 h</source>
+        <translation type="unfinished">%1 h</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 m</source>
+        <translation type="unfinished">%1 m</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <location line="+36"/>
+        <source>%1 s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-5"/>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>N/A</source>
+        <translation type="unfinished">k.A.</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>%1 ms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../transactionreport.cpp" line="+409"/>
+        <location line="+25"/>
+        <location line="+29"/>
+        <location filename="../transactionview.cpp" line="+491"/>
+        <source>%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1454,7 +2073,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
 <context>
     <name>RPCConsole</name>
     <message>
-        <location filename="../forms/rpcconsole.ui" line="+46"/>
+        <location filename="../forms/rpcconsole.ui" line="+49"/>
         <source>Client name</source>
         <translation>Clientname</translation>
     </message>
@@ -1467,11 +2086,25 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+36"/>
         <location line="+53"/>
         <location line="+23"/>
+        <location line="+470"/>
+        <location line="+16"/>
+        <location line="+23"/>
+        <location line="+30"/>
+        <location line="+16"/>
+        <location line="+16"/>
+        <location line="+30"/>
+        <location line="+23"/>
+        <location line="+23"/>
+        <location line="+30"/>
+        <location line="+16"/>
+        <location line="+30"/>
+        <location line="+16"/>
+        <location line="+30"/>
         <source>N/A</source>
         <translation>k.A.</translation>
     </message>
     <message>
-        <location line="-194"/>
+        <location line="-963"/>
         <source>Client version</source>
         <translation>Clientversion</translation>
     </message>
@@ -1532,16 +2165,100 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+64"/>
+        <location filename="../rpcconsole.cpp" line="+374"/>
         <source>In:</source>
         <translation>Eingang:</translation>
     </message>
     <message>
         <location line="+80"/>
+        <location filename="../rpcconsole.cpp" line="+1"/>
         <source>Out:</source>
         <translation>Ausgang:</translation>
     </message>
     <message>
-        <location line="-383"/>
+        <location line="+41"/>
+        <source>&amp;Peers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+85"/>
+        <source>Ping Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>Time Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Direction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+55"/>
+        <source>User Agent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>Services</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>Starting Height</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>Ban Score</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Sync Height</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+39"/>
+        <source>Connection Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Last Send</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+39"/>
+        <source>Bytes Sent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Last Receive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>Bytes Received</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+36"/>
+        <location filename="../rpcconsole.cpp" line="-156"/>
+        <location line="+343"/>
+        <source>Select a peer to view detailed information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-828"/>
         <source>Last block time</source>
         <translation>Letzte Blockzeit</translation>
     </message>
@@ -1558,7 +2275,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+7"/>
         <source>Show the Whitecoin-Qt help message to get a list with possible Whitecoin command-line options.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1576,12 +2293,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Erstellungsdatum</translation>
     </message>
     <message>
-        <location line="-104"/>
+        <location line="-107"/>
         <source>Whitecoin - Debug window</source>
         <translation>Whitecoin - Debug Fenster</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+28"/>
         <source>Whitecoin Core</source>
         <translation>Whitecoin Kern</translation>
     </message>
@@ -1601,7 +2318,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Konsole zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../rpcconsole.cpp" line="+325"/>
+        <location filename="../rpcconsole.cpp" line="-215"/>
         <source>Welcome to the Whitecoin RPC console.</source>
         <translation>Willkommen zur Whitecoin RPC Anwendung.</translation>
     </message>
@@ -1616,7 +2333,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Bitte &lt;b&gt;help&lt;/b&gt; eingeben, um eine Übersicht verfügbarer Befehle zu erhalten.</translation>
     </message>
     <message>
-        <location line="+127"/>
+        <location line="+134"/>
         <source>%1 B</source>
         <translation>%1 B</translation>
     </message>
@@ -1651,12 +2368,56 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <source>%1 h %2 m</source>
         <translation>%1 h %2 m</translation>
     </message>
+    <message>
+        <location line="+97"/>
+        <source>via %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <location line="+1"/>
+        <source>never</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Inbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Outbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <location line="+1"/>
+        <source>Fetching...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SendCoinsDialog</name>
     <message>
         <location filename="../forms/sendcoinsdialog.ui" line="+14"/>
-        <location filename="../sendcoinsdialog.cpp" line="+182"/>
+        <location filename="../sendcoinsdialog.cpp" line="+202"/>
+        <location line="+20"/>
+        <location line="+5"/>
+        <location line="+5"/>
+        <location line="+5"/>
+        <location line="+6"/>
+        <location line="+5"/>
+        <location line="+5"/>
+        <location line="+394"/>
+        <location line="+4"/>
+        <location line="+8"/>
+        <location line="+10"/>
+        <location line="+7"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+5"/>
@@ -1687,7 +2448,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Unzureichender Kontostand!</translation>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="+86"/>
         <source>Quantity:</source>
         <translation>Anzahl:</translation>
     </message>
@@ -1708,17 +2469,15 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Betrag:</translation>
     </message>
     <message>
-        <location line="+35"/>
         <source>Priority:</source>
-        <translation>Priorität:</translation>
+        <translation type="vanished">Priorität:</translation>
     </message>
     <message>
-        <location line="+19"/>
         <source>medium</source>
-        <translation>mittel</translation>
+        <translation type="vanished">mittel</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+54"/>
         <source>Fee:</source>
         <translation>Gebühr:</translation>
     </message>
@@ -1748,7 +2507,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Standard Adresse für Wechselgeld</translation>
     </message>
     <message>
-        <location line="+106"/>
+        <location line="+115"/>
         <source>Send to multiple recipients at once</source>
         <translation>In einer Transaktion an mehrere Empfänger auf einmal überweisen</translation>
     </message>
@@ -1768,12 +2527,22 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>&amp;Zurücksetzen</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+18"/>
+        <source>Send To QR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
         <source>Balance:</source>
         <translation>Kontostand:</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+44"/>
+        <source>Quick Send</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+20"/>
         <source>Confirm the send action</source>
         <translation>Überweisung bestätigen</translation>
     </message>
@@ -1783,12 +2552,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>&amp;Überweisen</translation>
     </message>
     <message>
-        <location filename="../sendcoinsdialog.cpp" line="-174"/>
+        <location filename="../sendcoinsdialog.cpp" line="-659"/>
         <source>Enter a Whitecoin address (e.g. WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</source>
         <translation>Empfängeradresse (z.b. WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+27"/>
         <source>Copy quantity</source>
         <translation>Anzahl kopieren</translation>
     </message>
@@ -1813,9 +2582,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Byte kopieren</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy priority</source>
-        <translation>Priorität kopieren</translation>
+        <translation type="vanished">Priorität kopieren</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1828,17 +2596,19 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Wechselgeld kopieren</translation>
     </message>
     <message>
-        <location line="+87"/>
+        <location line="+86"/>
         <source>&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</source>
         <translation>&lt;b&gt;%1&lt;/b&gt; bis %2 (%3)</translation>
     </message>
     <message>
         <location line="+5"/>
+        <location line="+431"/>
+        <location line="+125"/>
         <source>Confirm send coins</source>
         <translation>Überweisung bestätigen</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-555"/>
         <source>Are you sure you want to send %1?</source>
         <translation>Sins Sie sicher, dass Sie an %1 versenden möchten?</translation>
     </message>
@@ -1848,42 +2618,54 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>und</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+30"/>
+        <source>The hex string of transaction has been saved to the clipboard.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <location line="+454"/>
         <source>The recipient address is not valid, please recheck.</source>
         <translation>Die Zahlungsadresse ist ungültig, bitte nochmals überprüfen.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-449"/>
+        <location line="+454"/>
         <source>The amount to pay must be larger than 0.</source>
         <translation>Der zu zahlende Betrag muss größer als 0 sein.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-449"/>
+        <location line="+454"/>
         <source>The amount exceeds your balance.</source>
         <translation>Der angegebene Betrag übersteigt Ihren Kontostand.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-449"/>
+        <location line="+454"/>
         <source>The total exceeds your balance when the %1 transaction fee is included.</source>
         <translation>Der angegebene Betrag übersteigt aufgrund der Transaktionsgebühr in Höhe von %1 Ihren Kontostand.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="-448"/>
+        <location line="+454"/>
         <source>Duplicate address found, can only send to each address once per send operation.</source>
         <translation>Doppelte Adresse gefunden, pro Überweisung kann an jede Adresse nur einmalig etwas überwiesen werden.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-449"/>
+        <location line="+454"/>
         <source>Error: Transaction creation failed!</source>
         <translation>Fehler: Erstellung der Transaktion fehlgeschlagen</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-449"/>
+        <location line="+454"/>
         <source>Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+247"/>
+        <location line="-202"/>
         <source>WARNING: Invalid Whitecoin address</source>
         <translation>Warnung: Ungültige Whitecoin Adresse</translation>
     </message>
@@ -1897,6 +2679,36 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <source>WARNING: unknown change address</source>
         <translation>Warnung: Unbekannte Wechselgeldadresse</translation>
     </message>
+    <message>
+        <location line="+81"/>
+        <source>Quickly sending may need to create several transactions ,so this payment need more time and fee. Are you sure you want to send ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+43"/>
+        <source>Please fill in the amount of the transaction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Please fill in the address of the transaction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Unlock wallet was fail</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Please set CoinControl true.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+60"/>
+        <source>%1 whitecoins had been sent,the remaining %2 whitecoins continue ?</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SendCoinsEntry</name>
@@ -1906,23 +2718,23 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Formular</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+31"/>
         <source>A&amp;mount:</source>
         <translation>&amp;Betrag:</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="-13"/>
         <source>Pay &amp;To:</source>
         <translation>&amp;Empfänger:</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+44"/>
         <source>The address to send the payment to (e.g. WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+60"/>
-        <location filename="../sendcoinsentry.cpp" line="+26"/>
+        <location filename="../sendcoinsentry.cpp" line="+28"/>
         <source>Enter a label for this address to add it to your address book</source>
         <translation>Adressbezeichnung eingeben (diese wird zusammen mit der Adresse dem Adressbuch hinzugefügt)</translation>
     </message>
@@ -1957,9 +2769,62 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Diesen Empfänger entfernen</translation>
     </message>
     <message>
+        <location line="+23"/>
+        <source>Remark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Insert additional information into your transaction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
         <source>Enter a Whitecoin address (e.g. WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</source>
         <translation>Empfängeradresse (z.b. WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</translation>
+    </message>
+</context>
+<context>
+    <name>SendRawDialog</name>
+    <message>
+        <location filename="../forms/sendrawdialog.ui" line="+14"/>
+        <source>Broadcast Data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Input your hex string :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+38"/>
+        <source>Broadcast</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sendrawdialog.cpp" line="+40"/>
+        <source>No information available about transaction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+43"/>
+        <source>TX decode failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>transaction already in block %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>TX rejected</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1983,7 +2848,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+18"/>
         <source>The address to sign the message with (e.g. WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+10"/>
@@ -2047,12 +2912,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+21"/>
         <source>The address the message was signed with (e.g. WPT7ufM1tz2uzV7x9sG26z4CuhWs2B18Rw)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+40"/>
         <source>Verify the message to ensure it was signed with the specified Whitecoin address</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2143,6 +3008,114 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
 </context>
 <context>
+    <name>SnapWidget</name>
+    <message>
+        <location filename="../forms/snapwidget.ui" line="+17"/>
+        <source>Scan QR Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+24"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+435"/>
+        <source>Snap</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StatisticsPage</name>
+    <message>
+        <location filename="../forms/statisticspage.ui" line="+17"/>
+        <source>Digging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+56"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Block Height&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>00000</source>
+        <translation type="unfinished">00000</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Mining Phase&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>POW-POS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Connections:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <location line="+56"/>
+        <location line="+14"/>
+        <source>0</source>
+        <translation type="unfinished">0</translation>
+    </message>
+    <message>
+        <location line="-63"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;POS difficulty&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>0.0002</source>
+        <translation type="unfinished">0.0002</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Total Volume:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>250</source>
+        <translation type="unfinished">250</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Stake Reward:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>2</source>
+        <translation type="unfinished">2</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Your stake weight&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Network stake weight&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#666a80;&quot;&gt;General Information&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+89"/>
+        <source>Update Statistics</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TrafficGraphWidget</name>
     <message>
         <location filename="../trafficgraphwidget.cpp" line="+75"/>
@@ -2185,7 +3158,10 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message numerus="yes">
         <location line="+7"/>
         <source>, broadcast through %n node(s)</source>
-        <translation><numerusform>, über %n Knoten übertragen</numerusform><numerusform>, über %n Knoten übertragen</numerusform></translation>
+        <translation>
+            <numerusform>, über %n Knoten übertragen</numerusform>
+            <numerusform>, über %n Knoten übertragen</numerusform>
+        </translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2238,7 +3214,10 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message numerus="yes">
         <location line="-102"/>
         <source>matures in %n more block(s)</source>
-        <translation><numerusform>reift noch %n weiteren Block</numerusform><numerusform>reift noch %n weitere Blöcke</numerusform></translation>
+        <translation>
+            <numerusform>reift noch %n weiteren Block</numerusform>
+            <numerusform>reift noch %n weitere Blöcke</numerusform>
+        </translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2280,11 +3259,20 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+3"/>
-        <source>Generated coins must mature 510 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
-        <translation>Generierte Coins müssen 510 Bestätigungen erhalten bevor sie verfügbar sind. Dieser Block wurde ans Netzwerk gesendet und der Blockkette angehängt als der Block generiert wurde. Wenn er der Blockkette nicht erfolgreich angehängt werden konnte, wird er den Status in &quot;nicht Akzeptiert&quot; ändern und wird nicht verfügbar sein. Das kann zufällig geschehen wenn eine andere Leitung den Block innerhalb von ein paar Sekunden generiert.</translation>
+        <source>Generated coins must mature 120 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
+        <translation type="unfinished">Generierte Coins müssen 510 Bestätigungen erhalten bevor sie verfügbar sind. Dieser Block wurde ans Netzwerk gesendet und der Blockkette angehängt als der Block generiert wurde. Wenn er der Blockkette nicht erfolgreich angehängt werden konnte, wird er den Status in &quot;nicht Akzeptiert&quot; ändern und wird nicht verfügbar sein. Das kann zufällig geschehen wenn eine andere Leitung den Block innerhalb von ein paar Sekunden generiert. {120 ?}</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+79"/>
+        <source>Decode Remark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generated coins must mature 510 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
+        <translation type="vanished">Generierte Coins müssen 510 Bestätigungen erhalten bevor sie verfügbar sind. Dieser Block wurde ans Netzwerk gesendet und der Blockkette angehängt als der Block generiert wurde. Wenn er der Blockkette nicht erfolgreich angehängt werden konnte, wird er den Status in &quot;nicht Akzeptiert&quot; ändern und wird nicht verfügbar sein. Das kann zufällig geschehen wenn eine andere Leitung den Block innerhalb von ein paar Sekunden generiert.</translation>
+    </message>
+    <message>
+        <location line="-72"/>
         <source>Debug information</source>
         <translation>Debuginformationen</translation>
     </message>
@@ -2321,7 +3309,10 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message numerus="yes">
         <location line="-36"/>
         <source>Open for %n more block(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="unfinished">
+            <numerusform>Offen für %n weiteren Block</numerusform>
+            <numerusform>Offen für %n weitere Blöcke</numerusform>
+        </translation>
     </message>
     <message>
         <location line="+67"/>
@@ -2340,6 +3331,180 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+6"/>
         <source>This pane shows a detailed description of the transaction</source>
         <translation>Dieser Bereich zeigt eine detaillierte Beschreibung der Transaktion an</translation>
+    </message>
+</context>
+<context>
+    <name>TransactionReport</name>
+    <message>
+        <location filename="../transactionreport.cpp" line="-406"/>
+        <location line="+18"/>
+        <source>All</source>
+        <translation type="unfinished">Alle</translation>
+    </message>
+    <message>
+        <location line="-17"/>
+        <source>Today</source>
+        <translation type="unfinished">Heute</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Yesterday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This week</source>
+        <translation type="unfinished">Diese Woche</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Last week</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This month</source>
+        <translation type="unfinished">Diesen Monat</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Last month</source>
+        <translation type="unfinished">Letzten Monat</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This year</source>
+        <translation type="unfinished">Dieses Jahr</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Range...</source>
+        <translation type="unfinished">Zeitraum...</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Received with</source>
+        <translation type="unfinished">Empfangen über</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Sent to</source>
+        <translation type="unfinished">Überwiesen an</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>To yourself</source>
+        <translation type="unfinished">Eigenüberweisung</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Mined</source>
+        <translation type="unfinished">Erarbeitet</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Other</source>
+        <translation type="unfinished">Andere</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Enter address or label to search</source>
+        <translation type="unfinished">Zu suchende Adresse oder Bezeichnung eingeben</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Min amount</source>
+        <translation type="unfinished">Minimaler Betrag</translation>
+    </message>
+    <message>
+        <location line="+43"/>
+        <source>Show transaction total</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+161"/>
+        <source>Export Transaction Report</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Comma separated file (*.csv)</source>
+        <translation type="unfinished">Kommagetrennte-Datei (*.csv)</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <location line="+81"/>
+        <location line="+25"/>
+        <location line="+33"/>
+        <source>AddressLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-138"/>
+        <location line="+81"/>
+        <location line="+25"/>
+        <location line="+33"/>
+        <source>DateRange</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-138"/>
+        <location line="+81"/>
+        <location line="+25"/>
+        <location line="+33"/>
+        <source>Type</source>
+        <translation type="unfinished">Typ</translation>
+    </message>
+    <message>
+        <location line="-138"/>
+        <location line="+81"/>
+        <location line="+25"/>
+        <location line="+33"/>
+        <source>Payment amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-138"/>
+        <location line="+81"/>
+        <location line="+25"/>
+        <location line="+33"/>
+        <source>Number of payments</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-136"/>
+        <source>Exporting Failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>There was an error trying to save the transaction history to %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Exporting Successful</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The transaction history was successfully saved to %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+138"/>
+        <source>Total</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+27"/>
+        <source>Range:</source>
+        <translation type="unfinished">Zeitraum:</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>to</source>
+        <translation type="unfinished">bis</translation>
     </message>
 </context>
 <context>
@@ -2377,7 +3542,10 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message numerus="yes">
         <location line="-15"/>
         <source>Open for %n more block(s)</source>
-        <translation><numerusform>Offen für %n weiteren Block</numerusform><numerusform>Offen für %n weitere Blöcke</numerusform></translation>
+        <translation>
+            <numerusform>Offen für %n weiteren Block</numerusform>
+            <numerusform>Offen für %n weitere Blöcke</numerusform>
+        </translation>
     </message>
     <message>
         <location line="+6"/>
@@ -2473,7 +3641,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
 <context>
     <name>TransactionView</name>
     <message>
-        <location filename="../transactionview.cpp" line="+54"/>
+        <location filename="../transactionview.cpp" line="-431"/>
         <location line="+17"/>
         <source>All</source>
         <translation>Alle</translation>
@@ -2544,7 +3712,13 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Minimaler Betrag</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+33"/>
+        <location line="+360"/>
+        <source>Total:</source>
+        <translation type="unfinished">Gesamtbetrag:</translation>
+    </message>
+    <message>
+        <location line="-356"/>
         <source>Copy address</source>
         <translation>Adresse kopieren</translation>
     </message>
@@ -2574,7 +3748,22 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Transaktionsdetails anzeigen</translation>
     </message>
     <message>
-        <location line="+138"/>
+        <location line="+1"/>
+        <source>Show transaction total</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Export all transactions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Broadcast this transaction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+152"/>
         <source>Export Transaction Data</source>
         <translation>Exportiere Transaktionsdaten</translation>
     </message>
@@ -2629,7 +3818,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Kann Datei nicht schreiben %1.</translation>
     </message>
     <message>
-        <location line="+100"/>
+        <location line="+116"/>
         <source>Range:</source>
         <translation>Zeitraum:</translation>
     </message>
@@ -2638,11 +3827,23 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <source>to</source>
         <translation>bis</translation>
     </message>
+    <message>
+        <location line="+53"/>
+        <source>Date:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>WalletModel</name>
     <message>
-        <location filename="../walletmodel.cpp" line="+212"/>
+        <location filename="../walletmodel.cpp" line="+223"/>
+        <location line="+83"/>
+        <location line="+367"/>
         <source>Sending...</source>
         <translation>Wird gesendet...</translation>
     </message>
@@ -2712,7 +3913,7 @@ If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
 for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@foo.com
 </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+27"/>
@@ -2747,17 +3948,17 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+4"/>
         <source>Bind to given address. Use [host]:port notation for IPv6</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Query for peer addresses via DNS lookup, if low on addresses (default: 1 unless -connect)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Always query for peer addresses via DNS lookup (default: 0)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2862,7 +4063,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+4"/>
         <source>Invalid amount for -reservebalance=&lt;amount&gt;</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-89"/>
@@ -2947,7 +4148,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+2"/>
         <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds!</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2957,7 +4158,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+2"/>
         <source>Error: The transaction was rejected! This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2987,12 +4188,12 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="-47"/>
         <source>Connect through SOCKS5 proxy</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Sync time with other nodes. Disable if time on your system is precise e.g. syncing with NTP (default: 1)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+12"/>
@@ -3002,22 +4203,22 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+6"/>
         <source>Output debugging information (default: 0, supplying &lt;category&gt; is optional)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>If &lt;category&gt; is not supplied, output all debugging information.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&lt;category&gt; can be:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Enter regression test mode, which uses a special chain in which blocks can be solved instantly. This is intended for regression testing tools and app development.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3037,7 +4238,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+1"/>
         <source>Set the number of threads to service RPC calls (default: 4)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3077,7 +4278,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+3"/>
         <source>How thorough the block verification is (0-6, default: 1)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3087,7 +4288,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+1"/>
         <source>Keep at most &lt;n&gt; MiB of unconnectable blocks in memory (default: %u)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3107,17 +4308,17 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+5"/>
         <source>Error: Unsupported argument -socks found. Setting SOCKS version isn&apos;t possible anymore, only SOCKS5 proxies are supported.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Initialization sanity check failed. Whitecoin is shutting down.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Error loading block database</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+28"/>
@@ -3257,7 +4458,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+3"/>
         <source>Warning: Deprecated argument -debugnet ignored, use -debug=net</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3267,7 +4468,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Whitecoin Alert&quot; admin@fo
     <message>
         <location line="+3"/>
         <source>Cannot obtain a lock on data directory %s. Whitecoin is probably already running.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3317,6 +4518,49 @@ If the file does not exist, create it with owner-readable-only file permissions.
         <translation>Sie müssen den Wert rpcpassword=&lt;passwort&gt; in der Konfigurationsdatei angeben:
 %s
 Falls die Konfigurationsdatei nicht existiert, erzeugen Sie diese bitte mit Leserechten nur für den Dateibesitzer.</translation>
+    </message>
+</context>
+<context>
+    <name>firstpage</name>
+    <message>
+        <location filename="../forms/firstpage.ui" line="+14"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+63"/>
+        <source>&lt;style&gt; a {text-decoration: none} &lt;/style&gt; &lt;a href=\&quot;http://xwccore.com\&quot;&gt;http://xwccore.com</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-42"/>
+        <location filename="../forms/firstpage.cpp" line="+9"/>
+        <source>Welcome to the new community ecology</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <location filename="../forms/firstpage.cpp" line="+1"/>
+        <source>In order to protect the rights and interests of the whole community and investors, the development team of whitecoin keeps the original intention, adheres to the original concept of block chain, and works with the community regardless of the influence of profits and fame.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <location filename="../forms/firstpage.cpp" line="+1"/>
+        <source>Join the new development group website whitecoin.in. Development team members are with us.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+42"/>
+        <location filename="../forms/firstpage.cpp" line="+1"/>
+        <source>Official Link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <location filename="../forms/firstpage.cpp" line="+1"/>
+        <source>Official Media</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
