@@ -18,14 +18,14 @@
     <rect>
      <x>20</x>
      <y>30</y>
-     <width>311</width>
-     <height>111</height>
+     <width>331</width>
+     <height>121</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>幼圆</family>
-     <pointsize>28</pointsize>
+     <pointsize>26</pointsize>
     </font>
    </property>
    <property name="acceptRichText">
@@ -40,7 +40,7 @@
     <rect>
      <x>20</x>
      <y>160</y>
-     <width>311</width>
+     <width>331</width>
      <height>121</height>
     </rect>
    </property>
@@ -53,7 +53,7 @@
     <rect>
      <x>20</x>
      <y>290</y>
-     <width>311</width>
+     <width>331</width>
      <height>87</height>
     </rect>
    </property>
@@ -64,7 +64,7 @@
     <string>Join the new development group website whitecoin.in. Development team members are with us.</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="label_official_link">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -74,7 +74,10 @@
     </rect>
    </property>
    <property name="text">
-    <string>&lt;style&gt; a {text-decoration: none} &lt;/style&gt; &lt;a href=\&quot;http://xwccore.com\&quot;&gt;http://xwccore.com</string>
+    <string>&lt;style&gt; a {text-decoration: none} &lt;/style&gt; &lt;a href=&quot;http://xwccore.com&quot;&gt;http://xwccore.com&lt;/a&gt;</string>
+   </property>
+   <property name="openExternalLinks">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -98,8 +101,8 @@
     <rect>
      <x>30</x>
      <y>390</y>
-     <width>72</width>
-     <height>15</height>
+     <width>111</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
@@ -111,92 +114,92 @@
     <rect>
      <x>120</x>
      <y>490</y>
-     <width>72</width>
-     <height>15</height>
+     <width>121</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
     <string>Official Media</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_5">
+  <widget class="QToolButton" name="toolButton">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>460</y>
+     <x>260</x>
+     <y>440</y>
      <width>72</width>
-     <height>71</height>
+     <height>72</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/res/images/firstpage_share1.png);</string>
    </property>
    <property name="text">
     <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="../bitcoin.qrc">:/images/res/images/firstpage_share1.png</pixmap>
    </property>
   </widget>
-  <widget class="QLabel" name="label_6">
+  <widget class="QToolButton" name="toolButton_2">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>460</y>
+     <x>340</x>
+     <y>440</y>
      <width>72</width>
-     <height>71</height>
+     <height>72</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/res/images/firstpage_share2.png);</string>
    </property>
    <property name="text">
     <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="../bitcoin.qrc">:/images/res/images/firstpage_share2.png</pixmap>
    </property>
   </widget>
-  <widget class="QLabel" name="label_7">
+  <widget class="QToolButton" name="toolButton_3">
    <property name="geometry">
     <rect>
-     <x>380</x>
-     <y>460</y>
+     <x>420</x>
+     <y>440</y>
      <width>72</width>
-     <height>71</height>
+     <height>72</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/res/images/firstpage_share3.png);</string>
    </property>
    <property name="text">
     <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="../bitcoin.qrc">:/images/res/images/firstpage_share3.png</pixmap>
    </property>
   </widget>
-  <widget class="QLabel" name="label_8">
+  <widget class="QToolButton" name="toolButton_4">
    <property name="geometry">
     <rect>
-     <x>460</x>
-     <y>460</y>
+     <x>500</x>
+     <y>440</y>
      <width>72</width>
-     <height>71</height>
+     <height>72</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/res/images/firstpage_share4.png);</string>
    </property>
    <property name="text">
     <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="../bitcoin.qrc">:/images/res/images/firstpage_share4.png</pixmap>
    </property>
   </widget>
-  <widget class="QLabel" name="label_9">
+  <widget class="QToolButton" name="toolButton_5">
    <property name="geometry">
     <rect>
-     <x>540</x>
-     <y>460</y>
+     <x>580</x>
+     <y>440</y>
      <width>72</width>
-     <height>71</height>
+     <height>72</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/res/images/firstpage_share5.png);</string>
    </property>
    <property name="text">
     <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="../bitcoin.qrc">:/images/res/images/firstpage_share5.png</pixmap>
    </property>
   </widget>
  </widget>

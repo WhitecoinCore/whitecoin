@@ -1,3 +1,5 @@
+#include <QUrl>
+#include <QDesktopServices>
 #include "firstpage.h"
 #include "ui_firstpage.h"
 
@@ -16,4 +18,30 @@ firstpage::firstpage(QWidget *parent) :
 firstpage::~firstpage()
 {
     delete ui;
+}
+
+void firstpage::on_toolButton_clicked()
+{
+    QDesktopServices::openUrl(QUrl("https://www.facebook.com/whitecoin.core"));
+}
+
+void firstpage::on_toolButton_2_clicked()
+{
+    // out link
+    QDesktopServices::openUrl(QUrl("https://t.me/joinchat/OvDtOQ_tPccshwFm71nVyg"));
+}
+
+void firstpage::on_toolButton_3_clicked()
+{
+    QDesktopServices::openUrl(QUrl("https://discord.gg/fsWkUMD"));
+}
+
+void firstpage::on_toolButton_4_clicked()
+{
+    QDesktopServices::openUrl(QUrl("https://twitter.com/WhitecoinC"));
+}
+
+void firstpage::on_toolButton_5_clicked()
+{
+    QDesktopServices::openUrl(QUrl("https://github.com/WhitecoinCore/whitecoin"));
 }
