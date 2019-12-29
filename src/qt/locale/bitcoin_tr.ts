@@ -4557,13 +4557,8 @@ Dosya mevcut değilse, sadece sahibi için okumayla sınırlı izin ile oluştur
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+63"/>
-        <source>&lt;style&gt; a {text-decoration: none} &lt;/style&gt; &lt;a href=\&quot;http://xwccore.com\&quot;&gt;http://xwccore.com</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-42"/>
-        <location filename="../forms/firstpage.cpp" line="+9"/>
+        <location line="+21"/>
+        <location filename="../forms/firstpage.cpp" line="+11"/>
         <source>Welcome to the new community ecology</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4580,7 +4575,12 @@ Dosya mevcut değilse, sadece sahibi için okumayla sınırlı izin ile oluştur
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+13"/>
+        <source>&lt;style&gt; a {text-decoration: none} &lt;/style&gt; &lt;a href=&quot;http://xwccore.com&quot;&gt;http://xwccore.com&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+32"/>
         <location filename="../forms/firstpage.cpp" line="+1"/>
         <source>Official Link</source>
         <translation type="unfinished"></translation>

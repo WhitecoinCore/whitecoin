@@ -788,12 +788,12 @@ Address: %4
     <message>
         <location line="-927"/>
         <source>&amp;First Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">首页</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>First Page: Importent Information</source>
-        <translation type="unfinished"></translation>
+        <translation>首页：重要信息</translation>
     </message>
     <message>
         <location line="+75"/>
@@ -4627,13 +4627,8 @@ If the file does not exist, create it with owner-readable-only file permissions.
         <translation type="obsolete">为了维护整个白币社区与投资者的权益，白币开发团队本着保持初心，坚守区块链的最初的理念，不受利和名的影响与社区合作，发起（倡议书）社区成员与投资者团结起来，远离whitecoin.info，远离ICO-白币。</translation>
     </message>
     <message>
-        <location line="+63"/>
-        <source>&lt;style&gt; a {text-decoration: none} &lt;/style&gt; &lt;a href=\&quot;http://xwccore.com\&quot;&gt;http://xwccore.com</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="-42"/>
-        <location filename="../forms/firstpage.cpp" line="+9"/>
+        <location line="+21"/>
+        <location filename="../forms/firstpage.cpp" line="+11"/>
         <source>Welcome to the new community ecology</source>
         <translation>新社区生态，欢迎您的加入</translation>
     </message>
@@ -4650,7 +4645,12 @@ If the file does not exist, create it with owner-readable-only file permissions.
         <translation>一起加入新开发团官网whitecoin.in。开发组成员与我们在一起。</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+13"/>
+        <source>&lt;style&gt; a {text-decoration: none} &lt;/style&gt; &lt;a href=&quot;http://xwccore.com&quot;&gt;http://xwccore.com&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+32"/>
         <location filename="../forms/firstpage.cpp" line="+1"/>
         <source>Official Link</source>
         <translation>官方链接</translation>

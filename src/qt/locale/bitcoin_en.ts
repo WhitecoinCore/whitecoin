@@ -629,12 +629,12 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-10"/>
         <source>&amp;First Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;First Page</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>First Page: Importent Information</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">First Page: Importent Information</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -4477,11 +4477,6 @@ If the file does not exist, create it with owner-readable-only file permissions.
         <translation type="vanished">Join the new development group website whitecoin.in. Development team members are with us.</translation>
     </message>
     <message>
-        <location line="+63"/>
-        <source>&lt;style&gt; a {text-decoration: none} &lt;/style&gt; &lt;a href=\&quot;http://xwccore.com\&quot;&gt;http://xwccore.com</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>官网链接</source>
         <translation type="vanished">Official Link</translation>
     </message>
@@ -4490,8 +4485,8 @@ If the file does not exist, create it with owner-readable-only file permissions.
         <translation type="vanished">Officail Media</translation>
     </message>
     <message>
-        <location line="-42"/>
-        <location filename="../forms/firstpage.cpp" line="+9"/>
+        <location line="+21"/>
+        <location filename="../forms/firstpage.cpp" line="+11"/>
         <source>Welcome to the new community ecology</source>
         <translation>Welcome to the new community ecology</translation>
     </message>
@@ -4508,7 +4503,12 @@ If the file does not exist, create it with owner-readable-only file permissions.
         <translation>Join the new development group website whitecoin.in. Development team members are with us.</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+13"/>
+        <source>&lt;style&gt; a {text-decoration: none} &lt;/style&gt; &lt;a href=&quot;http://xwccore.com&quot;&gt;http://xwccore.com&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+32"/>
         <location filename="../forms/firstpage.cpp" line="+1"/>
         <source>Official Link</source>
         <translation>Official Link</translation>

@@ -4513,11 +4513,6 @@ Se la dosiero ne ekzistas, kreu ĝin kun permeso &quot;nur posedanto rajtas leg
         <translation type="vanished">一起加入新开发团官网whitecoin.in。开发组成员与我们在一起。</translation>
     </message>
     <message>
-        <location line="+63"/>
-        <source>&lt;style&gt; a {text-decoration: none} &lt;/style&gt; &lt;a href=\&quot;http://xwccore.com\&quot;&gt;http://xwccore.com</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>官网链接</source>
         <translation type="vanished">官网链接</translation>
     </message>
@@ -4526,8 +4521,8 @@ Se la dosiero ne ekzistas, kreu ĝin kun permeso &quot;nur posedanto rajtas leg
         <translation type="vanished">官方媒体</translation>
     </message>
     <message>
-        <location line="-42"/>
-        <location filename="../forms/firstpage.cpp" line="+9"/>
+        <location line="+21"/>
+        <location filename="../forms/firstpage.cpp" line="+11"/>
         <source>Welcome to the new community ecology</source>
         <translation>新社区生态，欢迎您的加入</translation>
     </message>
@@ -4544,7 +4539,12 @@ Se la dosiero ne ekzistas, kreu ĝin kun permeso &quot;nur posedanto rajtas leg
         <translation>一起加入新开发团官网whitecoin.in。开发组成员与我们在一起。</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+13"/>
+        <source>&lt;style&gt; a {text-decoration: none} &lt;/style&gt; &lt;a href=&quot;http://xwccore.com&quot;&gt;http://xwccore.com&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+32"/>
         <location filename="../forms/firstpage.cpp" line="+1"/>
         <source>Official Link</source>
         <translation>官方链接</translation>

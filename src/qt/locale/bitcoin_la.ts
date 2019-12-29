@@ -4465,13 +4465,8 @@ Si plica non existat, crea eam cum permissionibus ut solus eius dominus eam lege
         <translation type="obsolete">为了维护整个白币社区与投资者的权益，白币开发团队本着保持初心，坚守区块链的最初的理念，不受利和名的影响与社区合作，发起（倡议书）社区成员与投资者团结起来，远离whitecoin.info，远离ICO-白币。</translation>
     </message>
     <message>
-        <location line="+63"/>
-        <source>&lt;style&gt; a {text-decoration: none} &lt;/style&gt; &lt;a href=\&quot;http://xwccore.com\&quot;&gt;http://xwccore.com</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-42"/>
-        <location filename="../forms/firstpage.cpp" line="+9"/>
+        <location line="+21"/>
+        <location filename="../forms/firstpage.cpp" line="+11"/>
         <source>Welcome to the new community ecology</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4488,7 +4483,12 @@ Si plica non existat, crea eam cum permissionibus ut solus eius dominus eam lege
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+13"/>
+        <source>&lt;style&gt; a {text-decoration: none} &lt;/style&gt; &lt;a href=&quot;http://xwccore.com&quot;&gt;http://xwccore.com&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+32"/>
         <location filename="../forms/firstpage.cpp" line="+1"/>
         <source>Official Link</source>
         <translation type="unfinished"></translation>
