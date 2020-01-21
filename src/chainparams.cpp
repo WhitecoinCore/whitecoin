@@ -85,8 +85,11 @@ public:
 
         vSeeds.push_back(CDNSSeedData("dnsseed-cn", "dnsseeder.whitecoin.in"));
         vSeeds.push_back(CDNSSeedData("dnsseed-cn1", "dnsseeder.whitecoin.pub"));
-        vSeeds.push_back(CDNSSeedData("dnsseed-eu", "dnsseed.oizopower.nl"));
-        vSeeds.push_back(CDNSSeedData("seed1", "seed1.oizopower.nl"));
+        vSeeds.push_back(CDNSSeedData("seed1", "seed.whitecoin.in"));
+        vSeeds.push_back(CDNSSeedData("seed2", "seed1.whitecoin.in"));
+        vSeeds.push_back(CDNSSeedData("seed3", "seed.xwccore.com"));
+        vSeeds.push_back(CDNSSeedData("seed4", "seed.xwccore.org"));
+
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 73);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 87);
