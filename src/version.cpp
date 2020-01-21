@@ -36,7 +36,7 @@ const std::string CLIENT_NAME("Whitecoin");
 // git will put "#define GIT_ARCHIVE 1" on the next line inside archives. 
 #define GIT_ARCHIVE 1
 #ifdef GIT_ARCHIVE
-#    define GIT_COMMIT_ID "Whitecoin-org"
+#    define GIT_COMMIT_ID "WhitecoinCore"
 #    define GIT_COMMIT_DATE "13-Feb-2017"
 #endif
 
