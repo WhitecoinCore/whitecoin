@@ -4635,7 +4635,7 @@ If the file does not exist, create it with owner-readable-only file permissions.
     <message>
         <location line="+1"/>
         <source>Whitecoin Invitation</source>
-        <translation type="unfinished">一起加入新开发团官网 &lt;a href=&quot;xwccore.com&quot;&gt;http://xwccore.com/&lt;/a&gt; 开发组成员与我们在一起。</translation>
+        <translation type="unfinished">一起加入新开发团官网 &lt;a href=&quot;http://xwccore.com&quot;&gt;http://xwccore.com&lt;/a&gt;, 开发组成员与我们在一起。</translation>
     </message>
     <message>
         <location line="+32"/>
