@@ -140,7 +140,7 @@
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>490</y>
+     <y>480</y>
      <width>121</width>
      <height>16</height>
     </rect>
@@ -153,10 +153,13 @@
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>460</y>
+     <y>450</y>
      <width>72</width>
      <height>72</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">border-image: url(:/images/res/images/firstpage_share1.png);</string>
@@ -169,10 +172,13 @@
    <property name="geometry">
     <rect>
      <x>320</x>
-     <y>460</y>
+     <y>450</y>
      <width>72</width>
      <height>72</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">border-image: url(:/images/res/images/firstpage_share2.png);</string>
@@ -185,10 +191,13 @@
    <property name="geometry">
     <rect>
      <x>400</x>
-     <y>460</y>
+     <y>450</y>
      <width>72</width>
      <height>72</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">border-image: url(:/images/res/images/firstpage_share3.png);</string>
@@ -201,10 +210,13 @@
    <property name="geometry">
     <rect>
      <x>480</x>
-     <y>460</y>
+     <y>450</y>
      <width>72</width>
      <height>72</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">border-image: url(:/images/res/images/firstpage_share4.png);</string>
@@ -217,10 +229,13 @@
    <property name="geometry">
     <rect>
      <x>560</x>
-     <y>460</y>
+     <y>450</y>
      <width>72</width>
      <height>72</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">border-image: url(:/images/res/images/firstpage_share5.png);</string>

@@ -4641,7 +4641,7 @@ If the file does not exist, create it with owner-readable-only file permissions.
         <location line="+32"/>
         <location line="+1"/>
         <source>Official Link</source>
-        <translation>官方链接</translation>
+        <translation>官网链接</translation>
     </message>
     <message>
         <location line="+13"/>
