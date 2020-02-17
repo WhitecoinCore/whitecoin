@@ -4465,57 +4465,29 @@ If the file does not exist, create it with owner-readable-only file permissions.
         <translation>Dialog</translation>
     </message>
     <message>
-        <source>新社区生态，欢迎您的加入</source>
-        <translation type="vanished">Welcome to the new community ecology</translation>
-    </message>
-    <message>
-        <source>为了维护整个白币社区与投资者的权益，白币开发团队本着保持初心，坚守区块链的最初的理念，不受利和名的影响与社区合作，发起（倡议书）社区成员与投资者团结起来，远离whitecoin.info，远离ICO-白币。</source>
-        <translation type="vanished">In order to protect the rights and interests of the whole community and investors, the development team of whitecoin keeps the original intention, adheres to the original concept of block chain, and works with the community regardless of the influence of profits and fame.</translation>
-    </message>
-    <message>
-        <source>一起加入新开发团官网whitecoin.in。开发组成员与我们在一起。</source>
-        <translation type="vanished">Join the new development group website whitecoin.in. Development team members are with us.</translation>
-    </message>
-    <message>
-        <source>官网链接</source>
-        <translation type="vanished">Official Link</translation>
-    </message>
-    <message>
-        <source>官方媒体</source>
-        <translation type="vanished">Officail Media</translation>
-    </message>
-    <message>
-        <location line="+21"/>
         <location filename="../forms/firstpage.cpp" line="+11"/>
         <source>Welcome to the new community ecology</source>
         <translation>Welcome to the new community ecology</translation>
     </message>
     <message>
-        <location line="+13"/>
-        <location filename="../forms/firstpage.cpp" line="+1"/>
-        <source>In order to protect the rights and interests of the whole community and investors, the development team of whitecoin keeps the original intention, adheres to the original concept of block chain, and works with the community regardless of the influence of profits and fame.</source>
-        <translation>In order to protect the rights and interests of the whole community and investors, the development team of whitecoin keeps the original intention, adheres to the original concept of block chain, and works with the community regardless of the influence of profits and fame.</translation>
+        <location line="+1"/>
+        <source>Whitecoin Introduce</source>
+        <translation>The whitecoin team is deeply involved in blockchain technology and the great mission of blockchain to change the world. At the same time, it also  enjoys the funy brought by blockchain. They are trying to make xwc become excellent blockchain product.</translation>
     </message>
     <message>
-        <location line="+16"/>
-        <location filename="../forms/firstpage.cpp" line="+1"/>
-        <source>Join the new development group website whitecoin.in. Development team members are with us.</source>
-        <translation>Join the new development group website whitecoin.in. Development team members are with us.</translation>
-    </message>
-    <message>
-        <location line="+13"/>
-        <source>&lt;style&gt; a {text-decoration: none} &lt;/style&gt; &lt;a href=&quot;http://xwccore.com&quot;&gt;http://xwccore.com&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <location line="+1"/>
+        <source>Whitecoin Invitation</source>
+        <translation type="unfinished">Join the new development group website &lt;a href=&quot;xwccore.com&quot;&gt;http://xwccore.com/&lt;/a&gt;, Development team members are with us.</translation>
     </message>
     <message>
         <location line="+32"/>
-        <location filename="../forms/firstpage.cpp" line="+1"/>
+        <location line="+1"/>
         <source>Official Link</source>
         <translation>Official Link</translation>
     </message>
     <message>
         <location line="+13"/>
-        <location filename="../forms/firstpage.cpp" line="+1"/>
+        <location line="+1"/>
         <source>Official Media</source>
         <translation>Official Media</translation>
     </message>
