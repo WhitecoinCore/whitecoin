@@ -4623,41 +4623,29 @@ If the file does not exist, create it with owner-readable-only file permissions.
         <translation>对话框</translation>
     </message>
     <message>
-        <source>为了维护整个白币社区与投资者的权益，白币开发团队本着保持初心，坚守区块链的最初的理念，不受利和名的影响与社区合作，发起（倡议书）社区成员与投资者团结起来，远离whitecoin.info，远离ICO-白币。</source>
-        <translation type="obsolete">为了维护整个白币社区与投资者的权益，白币开发团队本着保持初心，坚守区块链的最初的理念，不受利和名的影响与社区合作，发起（倡议书）社区成员与投资者团结起来，远离whitecoin.info，远离ICO-白币。</translation>
-    </message>
-    <message>
-        <location line="+21"/>
         <location filename="../forms/firstpage.cpp" line="+11"/>
         <source>Welcome to the new community ecology</source>
         <translation>新社区生态，欢迎您的加入</translation>
     </message>
     <message>
-        <location line="+13"/>
-        <location filename="../forms/firstpage.cpp" line="+1"/>
-        <source>In order to protect the rights and interests of the whole community and investors, the development team of whitecoin keeps the original intention, adheres to the original concept of block chain, and works with the community regardless of the influence of profits and fame.</source>
-        <translation>为了维护整个白币社区与投资者的权益，白币开发团队本着保持初心，坚守区块链的最初的理念，不受利和名的影响与社区合作，发起（倡议书）社区成员与投资者团结起来，远离whitecoin.info，远离ICO-白币。</translation>
+        <location line="+1"/>
+        <source>Whitecoin Introduce</source>
+        <translation>白币技术团队是由来自世界各地的技术精英组成，白币技术团队深耕于区块链技术，投身于区块链改变世界的伟大使命。同时也沐浴区块链的阳光，享受区块链带来的乐趣。他们正努力使XWC成优秀区块链产品。</translation>
     </message>
     <message>
-        <location line="+16"/>
-        <location filename="../forms/firstpage.cpp" line="+1"/>
-        <source>Join the new development group website whitecoin.in. Development team members are with us.</source>
-        <translation>一起加入新开发团官网whitecoin.in。开发组成员与我们在一起。</translation>
-    </message>
-    <message>
-        <location line="+13"/>
-        <source>&lt;style&gt; a {text-decoration: none} &lt;/style&gt; &lt;a href=&quot;http://xwccore.com&quot;&gt;http://xwccore.com&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <location line="+1"/>
+        <source>Whitecoin Invitation</source>
+        <translation type="unfinished">一起加入新开发团官网 &lt;a href=&quot;http://xwccore.com&quot;&gt;http://xwccore.com&lt;/a&gt;, 开发组成员与我们在一起。</translation>
     </message>
     <message>
         <location line="+32"/>
-        <location filename="../forms/firstpage.cpp" line="+1"/>
+        <location line="+1"/>
         <source>Official Link</source>
         <translation>官方链接</translation>
     </message>
     <message>
         <location line="+13"/>
-        <location filename="../forms/firstpage.cpp" line="+1"/>
+        <location line="+1"/>
         <source>Official Media</source>
         <translation>官方媒体</translation>
     </message>
