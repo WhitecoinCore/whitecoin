@@ -83,18 +83,17 @@ public:
         assert(hashGenesisBlock == uint256("0x000007d69ba0f79b4823effb06b08663e2e4c51ed03aaeb547e2e0b83fd37b73"));
         assert(genesis.hashMerkleRoot == uint256("0x73513debc549137a47f2afb73173a2d2b4b0c13f57a57387ae3849a928e1e08d"));
 
-        vSeeds.push_back(CDNSSeedData("dnsseed-eu", "dnsseed.oizopower.nl"));
         vSeeds.push_back(CDNSSeedData("dnsseed-cn", "dnsseeder.whitecoin.in"));
-        vSeeds.push_back(CDNSSeedData("dnsseed-cn1", "dnsseeder.whitecoin.pub"));
-        vSeeds.push_back(CDNSSeedData("seed1", "seed1.oizopower.nl"));
-        vSeeds.push_back(CDNSSeedData("seed3", "seed3.oizopower.nl"));
-
+        vSeeds.push_back(CDNSSeedData("dnsseed-en", "dnsseeder1.whitecoin.in"));
+        vSeeds.push_back(CDNSSeedData("dnsseed", "dnsseeder.whitecoin.pub"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 73);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 87);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1, 73+128);
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x88)(0x7F)(0x1E).convert_to_container<std::vector<unsigned char> >();
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x88)(0x94)(0xED).convert_to_container<std::vector<unsigned char> >();
+        // BIP44 coin type is from https://github.com/satoshilabs/slips/blob/master/slip-0044.md
+        base58Prefixes[EXT_COIN_TYPE] = boost::assign::list_of(0x80)(0x00)(0x00)(0x9B).convert_to_container<std::vector<unsigned char> >();
 
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
@@ -167,7 +166,7 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        vSeeds.push_back(CDNSSeedData("172.104.117.39", "172.104.117.39"));
+        vSeeds.push_back(CDNSSeedData("dnsseed", "dnsseedtest.xwccore.com"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 196);

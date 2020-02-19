@@ -332,6 +332,8 @@ ReadKeyValue(CWallet* pwallet, CDataStream& ssKey, CDataStream& ssValue,
             string strAddress;
             ssKey >> strAddress;
             ssValue >> pwallet->mapAddressBook[CBitcoinAddress(strAddress).Get()];
+            LogPrintf("myaddress:  %s\n", strAddress);
+
         }
         else if (strType == "tx")
         {

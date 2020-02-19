@@ -21,7 +21,8 @@
 using namespace std;
 using namespace boost;
 
-#define FIX_MEMORY_LEAK_BUG  1
+//#define FIX_MEMORY_LEAK_BUG  1
+
 #if defined(NDEBUG)
 # error "Whitecoin cannot be compiled without assertions."
 #endif
@@ -1019,8 +1020,8 @@ uint256 WantedByOrphan(const COrphanBlock* pblockOrphan)
 // Remove a random orphan block (which does not have any dependent orphans).
 void static PruneOrphanBlocks()
 {
-  //  size_t nMaxOrphanBlocksSize = GetArg("-maxorphanblocksmib", DEFAULT_MAX_ORPHAN_BLOCKS) * ((size_t) 1 << 20);
-    while (nOrphanBlocksSize > DEFAULT_MAX_ORPHAN_BLOCKS)
+    size_t nMaxOrphanBlocksSize = GetArg("-maxorphanblocksmib", DEFAULT_MAX_ORPHAN_BLOCKS) * ((size_t) 1 << 20);
+    while (nOrphanBlocksSize > nMaxOrphanBlocksSize)
     {
         // Pick a random orphan block.
         int pos = insecure_rand() % mapOrphanBlocksByPrev.size();
