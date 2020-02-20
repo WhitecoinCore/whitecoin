@@ -10,8 +10,8 @@ software written by Thomas Bernard.
 See readme-qt.rst for instructions on building Whitecoin QT, the
 graphical user interface.
 
-WINDOWS BUILD NOTES
-===================
+WINDOWS BUILD NOTES www.xwccore.com
+===================================
 
 Compilers Supported
 -------------------
