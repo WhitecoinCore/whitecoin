@@ -51,7 +51,7 @@ public:
         pchMessageStart[1] = 0x2d;
         pchMessageStart[2] = 0x43;
         pchMessageStart[3] = 0xf3;
-        vAlertPubKey = ParseHex("0451d957d011ca07d86baa1e85bed41e4b1d0af99908c4a653da5c1247a46f7926a5437b345779f927d259102410209ee1d74ef9b88440a0e1918ed8c7026c30a1");
+        vAlertPubKey = ParseHex("047fa7e48a9852045a59a39ebc35bf9428ff739409808443e63e2e8341a5833f988b386a523bcb23276852b42f8f99b1da994212127de511a24bdf73b39b3a2861");
 
         nDefaultPort = 15814;
         nRPCPort = 15815;
@@ -100,7 +100,7 @@ public:
         nLastPOWBlock = 10000;
         
         //Registered Message PubKey
-        mapBroadcastMessPubKey.insert(pair<std::string,vector<unsigned char> >("Ray",   ParseHex("04d2ec8632363a748df9a54d8b17c5ea96ecb14991f6655f8deb33565cbc16fd7e6158bc255c044a940da636e61c10aeaa2a51060c8ab1a481b29986da3b820c0d")));
+        mapBroadcastMessPubKey.insert(pair<std::string,vector<unsigned char> >("Ray",   ParseHex("0464ae3e87304fb08a296cf4e75407be11214dd5e2bde6554ca2aaa743ecbbb98d8dc517b9f02265dfccafdda81b45fd88311b3147812d982dec213cd5af3ae174")));
         mapBroadcastMessPubKey.insert(pair<std::string,vector<unsigned char> >("Lizhi", ParseHex("04cd377cb31be7b1b4484f8b42e9ca3b748fa9fb3ab1f877ecb9907bfd8623cdaba04c15db1ac897bc384a355e3e099bd78696b3ff03e7955ab43bf3c30bb6e7ec")));
     }
 
@@ -133,7 +133,7 @@ public:
         pchMessageStart[3] = 0xf7;
         bnProofOfWorkLimit = CBigNum(~uint256(0) >> 16);
         nMaxReorganizationDepth = 100;
-        vAlertPubKey = ParseHex("04642b3b8cc53a7bcbe96cf692b8fa8a68ffa89f2c9af62245ad34116b7417947b540f87c9d6a23a3f3f40b05ef5dfa8948296249a7b4e0ccc8b91a46131a72d74");
+        vAlertPubKey = ParseHex("045ed1db845f7ed72b4c0d21946a6c651b804a26b76fbeba0008c90c5b3396003487b85c4bcc7e56680da2a01344bf7c4d2007edc913db001195ba12614556609a");
         nDefaultPort = 25070;
         nRPCPort = 25071;
         strDataDir = "testnet";
