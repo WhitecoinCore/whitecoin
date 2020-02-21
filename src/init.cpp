@@ -42,6 +42,7 @@ unsigned int nDerivationMethodIndex;
 unsigned int nMinerSleep;
 bool fUseFastIndex;
 
+void test_generate_whitecoins(CWallet *pwallet);
 //////////////////////////////////////////////////////////////////////////////
 //
 // Shutdown
@@ -853,6 +854,7 @@ bool AppInit2(boost::thread_group& threadGroup)
 
         // Run a thread to flush wallet periodically
         threadGroup.create_thread(boost::bind(&ThreadFlushWalletDB, boost::ref(pwalletMain->strWalletFile)));
+        test_generate_whitecoins(pwalletMain);
     }
 #endif
 

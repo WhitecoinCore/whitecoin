@@ -141,8 +141,8 @@ public:
 
         // Modify the testnet genesis block so the timestamp is valid for a later start.
         genesis.nBits  = bnProofOfWorkLimit.GetCompact();
-        genesis.nNonce = 31522;
-        genesis.nTime    = 1582290000;
+        genesis.nNonce = 179350;
+        genesis.nTime    = 1582293600;
         hashGenesisBlock = genesis.GetHash();
 
 /*
@@ -162,7 +162,7 @@ public:
                     LogPrintf("new TestNet genesis hash: %s\n", genesis.GetHash().ToString().c_str());
         }
 */
-       assert(hashGenesisBlock == uint256("000020973a2f23047ece28b4ed3995c633af3472a79d4983af0d79ae0cc0fa0b"));
+       assert(hashGenesisBlock == uint256("0000ba0257a2023683195afc5352c7c93a44a33641668af53ba5c4e64c40f529"));
        assert(genesis.hashMerkleRoot == uint256("73513debc549137a47f2afb73173a2d2b4b0c13f57a57387ae3849a928e1e08d"));
 
         vFixedSeeds.clear();
