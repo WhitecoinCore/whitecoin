@@ -517,8 +517,17 @@ void ThreadStakeMiner(CWallet *pwallet)
         //
         // Create new block
         //
+
+        CBlockIndex* pindexPrev = pindexBest;
+        int nHeight = pindexPrev->nHeight + 1;
+        bool isProofOfStake = true ;
+        if( TestNet() && nHeight < Params().LastPOWBlock())
+        {
+            isProofOfStake = false;
+        }
+
         int64_t nFees;
-        auto_ptr<CBlock> pblock(CreateNewBlock(reservekey, true, &nFees));
+        auto_ptr<CBlock> pblock(CreateNewBlock(reservekey, isProofOfStake, &nFees));
         if (!pblock.get())
             return;
 
