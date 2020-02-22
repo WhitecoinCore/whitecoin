@@ -2153,8 +2153,14 @@ bool CBlock::AcceptBlock()
         return DoS(100, error("AcceptBlock() : reject proof-of-work at height %d", nHeight));
 
     // Check coinbase timestamp
-    if (GetBlockTime() > FutureDrift((int64_t)vtx[0].nTime, nHeight))
-        return DoS(50, error("AcceptBlock() : coinbase timestamp is too early"));
+    {
+        int64_t iDriftTime  = FutureDrift((int64_t)vtx[0].nTime, nHeight);
+        if (GetBlockTime() > iDriftTime)
+        {
+            LogPrintf("====error: currtime:%d > iDriftTime:%d , vtx[0].nTime:%d, [currtime-vtx[0].nTime]:%d======\n",GetBlockTime(),iDriftTime, (int64_t)vtx[0].nTime,(GetBlockTime()-vtx[0].nTime) );
+            return DoS(50, error("AcceptBlock() : coinbase timestamp is too early"));
+        }
+    }
 
     // Check coinstake timestamp
     if (IsProofOfStake() && !CheckCoinStakeTimestamp(nHeight, GetBlockTime(), (int64_t)vtx[1].nTime))

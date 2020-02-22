@@ -565,14 +565,30 @@ void static BitcoinMiner(CWallet *pwallet)
     // Each thread has its own key and counter
     CReserveKey reservekey(pwallet);
     unsigned int nExtraNonce = 0;
+    bool fTryToSync = true;
 
     try { while (true) {
 
         // Busy-wait for the network to come online so we don't waste time mining
         // on an obsolete chain. In regtest mode we expect to fly solo.
-        while (vNodes.empty())
+//        while (vNodes.empty())
+//            MilliSleep(1000);
+        while (vNodes.empty() || IsInitialBlockDownload())
+        {
+            fTryToSync = true;
             MilliSleep(1000);
+        }
 
+        if (fTryToSync)
+        {
+            fTryToSync = false;
+            if (vNodes.size() < 3 || pindexBest->GetBlockTime() < GetTime() - 10 * 60)
+            {
+                LogPrintf("======ThreadStakeMiner,nodesize=[%d], error: vNodes.size() < 3 \n", vNodes.size()) ;
+                MilliSleep(60000);
+                continue;
+            }
+        }
 
         //
         // Create new block
@@ -630,19 +646,20 @@ void static BitcoinMiner(CWallet *pwallet)
                 static CCriticalSection cs;
                 {
                     LOCK(cs);
-            int64_t nLimiter = 1;
+                    int64_t nLimiter = 1;
                     int64_t nDelta = GetTime() - nHPSTimerStart;
-            if(nDelta > 0 && nLimiter <= 10+1)
+                    if(nDelta > 0 && nLimiter <= 10+1)
                         dHashesPerSec = 32768 * nHashCounter / (GetTime() - nHPSTimerStart);
-                        //nHPSTimerStart = GetTimeMillis();
-                        //nHashCounter = 0;
-            //nHashesDone = 0;
-                        // LogPrintf("BRAINHash CPU Hashing Rate: %6.0f hash/s\n", dHashesPerSec);
-            // Avoid Debug Log Pollution
-            nLimiter++; // Increment by 1
-                        if (nLimiter >= 5000+1){
-                                nLimiter = 1;
-                        }
+                    //nHPSTimerStart = GetTimeMillis();
+                    //nHashCounter = 0;
+                    //nHashesDone = 0;
+                    // LogPrintf("BRAINHash CPU Hashing Rate: %6.0f hash/s\n", dHashesPerSec);
+                    // Avoid Debug Log Pollution
+                    nLimiter++; // Increment by 1
+                    if (nLimiter >= 5000+1)
+                    {
+                            nLimiter = 1;
+                    }
                 }
             }
 
@@ -700,6 +717,13 @@ void GenerateBitcoins(bool fGenerate, CWallet* pwallet, int nThreads)
 void test_generate_whitecoins(CWallet *pwallet)
 {
     CWallet& wallet = *pwallet;
-    GenerateBitcoins(true, pwallet, 1);
+
+    CBlockIndex* pindexPrev = pindexBest;
+    int nHeight = pindexPrev->nHeight + 1;
+    if( TestNet()  && nHeight <= Params().LastPOWBlock())
+    {
+        GenerateBitcoins(true, pwallet, 1);
+    }
+
  }
 #endif
