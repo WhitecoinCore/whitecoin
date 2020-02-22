@@ -506,28 +506,30 @@ void ThreadStakeMiner(CWallet *pwallet)
         if (fTryToSync)
         {
             fTryToSync = false;
-            if (vNodes.size() < 1 || pindexBest->GetBlockTime() < GetTime() - 10 * 60)
+            if (vNodes.size() < 3 || pindexBest->GetBlockTime() < GetTime() - 10 * 60)
             {
                 LogPrintf("======ThreadStakeMiner,nodesize=[%d], error: vNodes.size() < 3 \n", vNodes.size()) ;
                 MilliSleep(60000);
                 continue;
             }
         }
-        LogPrintf("===========ThreadStakeMiner,nodesize=[%d]===================== \n", vNodes.size()) ;
+
         //
         // Create new block
         //
 
-        CBlockIndex* pindexPrev = pindexBest;
-        int nHeight = pindexPrev->nHeight + 1;
-        bool isProofOfStake = true ;
-        if( TestNet() && nHeight < Params().LastPOWBlock())
+        if( TestNet() )
         {
-            isProofOfStake = false;
+            CBlockIndex* pindexPrev = pindexBest;
+            int nHeight = pindexPrev->nHeight + 1;
+            if( nHeight <= Params().LastPOWBlock())
+            {
+                MilliSleep(60000);
+                continue;
+            }
         }
-
         int64_t nFees;
-        auto_ptr<CBlock> pblock(CreateNewBlock(reservekey, isProofOfStake, &nFees));
+        auto_ptr<CBlock> pblock(CreateNewBlock(reservekey, true, &nFees));
         if (!pblock.get())
             return;
 
@@ -577,6 +579,11 @@ void static BitcoinMiner(CWallet *pwallet)
         //
         unsigned int nTransactionsUpdatedLast = mempool.GetTransactionsUpdated();
         CBlockIndex* pindexPrev = pindexBest;
+        int nHeight = pindexPrev->nHeight + 1;
+        if( !TestNet() ||nHeight > Params().LastPOWBlock())
+        {
+            break;
+        }
 
         int64_t nFees;
         auto_ptr<CBlock> pblocktemplate(CreateNewBlock(reservekey, false, &nFees));
