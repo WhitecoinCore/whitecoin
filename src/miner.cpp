@@ -508,6 +508,7 @@ void ThreadStakeMiner(CWallet *pwallet)
             fTryToSync = false;
             if (vNodes.size() < 3 || pindexBest->GetBlockTime() < GetTime() - 10 * 60)
             {
+                LogPrintf("======ThreadStakeMiner,nodesize=[%d], error: vNodes.size() < 3 \n", vNodes.size()) ;
                 MilliSleep(60000);
                 continue;
             }
@@ -516,6 +517,17 @@ void ThreadStakeMiner(CWallet *pwallet)
         //
         // Create new block
         //
+
+        if( TestNet() )
+        {
+            CBlockIndex* pindexPrev = pindexBest;
+            int nHeight = pindexPrev->nHeight + 1;
+            if( nHeight <= Params().LastPOWBlock())
+            {
+                MilliSleep(60000);
+                continue;
+            }
+        }
         int64_t nFees;
         auto_ptr<CBlock> pblock(CreateNewBlock(reservekey, true, &nFees));
         if (!pblock.get())
@@ -530,10 +542,11 @@ void ThreadStakeMiner(CWallet *pwallet)
             MilliSleep(500);
         }
         else
+        {
             MilliSleep(nMinerSleep);
+        }
     }
 }
-
 
 #ifdef ENABLE_WALLET
 //////////////////////////////////////////////////////////////////////////////
@@ -552,6 +565,7 @@ void static BitcoinMiner(CWallet *pwallet)
     // Each thread has its own key and counter
     CReserveKey reservekey(pwallet);
     unsigned int nExtraNonce = 0;
+    bool fTryToSync = true;
 
     try { while (true) {
 
@@ -559,13 +573,33 @@ void static BitcoinMiner(CWallet *pwallet)
         // on an obsolete chain. In regtest mode we expect to fly solo.
 //        while (vNodes.empty())
 //            MilliSleep(1000);
+        while (vNodes.empty() || IsInitialBlockDownload())
+        {
+            fTryToSync = true;
+            MilliSleep(1000);
+        }
 
+        if (fTryToSync)
+        {
+            fTryToSync = false;
+            if (vNodes.size() < 3 || pindexBest->GetBlockTime() < GetTime() - 10 * 60)
+            {
+                LogPrintf("======ThreadStakeMiner,nodesize=[%d], error: vNodes.size() < 3 \n", vNodes.size()) ;
+                MilliSleep(60000);
+                continue;
+            }
+        }
 
         //
         // Create new block
         //
         unsigned int nTransactionsUpdatedLast = mempool.GetTransactionsUpdated();
         CBlockIndex* pindexPrev = pindexBest;
+        int nHeight = pindexPrev->nHeight + 1;
+        if( !TestNet() ||nHeight > Params().LastPOWBlock())
+        {
+            break;
+        }
 
         int64_t nFees;
         auto_ptr<CBlock> pblocktemplate(CreateNewBlock(reservekey, false, &nFees));
@@ -575,9 +609,9 @@ void static BitcoinMiner(CWallet *pwallet)
 
         IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
 
-        /*LogPrintf("Running BRAINHash Miner with %llu transactions in block (%u bytes)\n", pblock->vtx.size(),
+        LogPrintf("Running BRAINHash Miner with %llu transactions in block (%u bytes)\n", pblock->vtx.size(),
                ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
-*/
+
         uint256 hashTarget = CBigNum().SetCompact(pblock->nBits).getuint256();
         int64_t nStart = GetTime();
         uint256 hash;
@@ -612,19 +646,20 @@ void static BitcoinMiner(CWallet *pwallet)
                 static CCriticalSection cs;
                 {
                     LOCK(cs);
-            int64_t nLimiter = 1;
+                    int64_t nLimiter = 1;
                     int64_t nDelta = GetTime() - nHPSTimerStart;
-            if(nDelta > 0 && nLimiter <= 10+1)
+                    if(nDelta > 0 && nLimiter <= 10+1)
                         dHashesPerSec = 32768 * nHashCounter / (GetTime() - nHPSTimerStart);
-                        //nHPSTimerStart = GetTimeMillis();
-                        //nHashCounter = 0;
-            //nHashesDone = 0;
-                        // LogPrintf("BRAINHash CPU Hashing Rate: %6.0f hash/s\n", dHashesPerSec);
-            // Avoid Debug Log Pollution
-            nLimiter++; // Increment by 1
-                        if (nLimiter >= 5000+1){
-                                nLimiter = 1;
-                        }
+                    //nHPSTimerStart = GetTimeMillis();
+                    //nHashCounter = 0;
+                    //nHashesDone = 0;
+                    // LogPrintf("BRAINHash CPU Hashing Rate: %6.0f hash/s\n", dHashesPerSec);
+                    // Avoid Debug Log Pollution
+                    nLimiter++; // Increment by 1
+                    if (nLimiter >= 5000+1)
+                    {
+                            nLimiter = 1;
+                    }
                 }
             }
 
@@ -677,4 +712,18 @@ void GenerateBitcoins(bool fGenerate, CWallet* pwallet, int nThreads)
     for (int i = 0; i < nThreads; i++)
         minerThreads->create_thread(boost::bind(&BitcoinMiner, pwallet));
 }
+
+
+void test_generate_whitecoins(CWallet *pwallet)
+{
+    CWallet& wallet = *pwallet;
+
+    CBlockIndex* pindexPrev = pindexBest;
+    int nHeight = pindexPrev->nHeight + 1;
+    if( TestNet()  && nHeight <= Params().LastPOWBlock())
+    {
+        GenerateBitcoins(true, pwallet, 1);
+    }
+
+ }
 #endif

@@ -1020,7 +1020,7 @@ uint256 WantedByOrphan(const COrphanBlock* pblockOrphan)
 // Remove a random orphan block (which does not have any dependent orphans).
 void static PruneOrphanBlocks()
 {
-    size_t nMaxOrphanBlocksSize = GetArg("-maxorphanblocksmib", DEFAULT_MAX_ORPHAN_BLOCKS) * ((size_t) 1 << 20);
+    size_t nMaxOrphanBlocksSize = GetArg("-maxorphanblocksmib", DEFAULT_MAX_ORPHAN_BLOCKS);
     while (nOrphanBlocksSize > nMaxOrphanBlocksSize)
     {
         // Pick a random orphan block.
@@ -1056,7 +1056,16 @@ static CBigNum GetProofOfStakeLimit(int nHeight)
 // miner's coin base reward
 int64_t GetProofOfWorkReward(int64_t nFees)
 {
-    int64_t PreMine = 313000000 * COIN;
+    int64_t PreMine = 0;
+    if( !TestNet() )
+    {
+        PreMine = 313000000 * COIN;
+    }
+    else
+    {
+        PreMine = 20000000 * COIN;
+    }
+
     if(pindexBest->nHeight == 1){return PreMine;} else {return 1*COIN;}
 }
 
@@ -2144,8 +2153,14 @@ bool CBlock::AcceptBlock()
         return DoS(100, error("AcceptBlock() : reject proof-of-work at height %d", nHeight));
 
     // Check coinbase timestamp
-    if (GetBlockTime() > FutureDrift((int64_t)vtx[0].nTime, nHeight))
-        return DoS(50, error("AcceptBlock() : coinbase timestamp is too early"));
+    {
+        int64_t iDriftTime  = FutureDrift((int64_t)vtx[0].nTime, nHeight);
+        if (GetBlockTime() > iDriftTime)
+        {
+            LogPrintf("====error: currtime:%d > iDriftTime:%d , vtx[0].nTime:%d, [currtime-vtx[0].nTime]:%d======\n",GetBlockTime(),iDriftTime, (int64_t)vtx[0].nTime,(GetBlockTime()-vtx[0].nTime) );
+            return DoS(50, error("AcceptBlock() : coinbase timestamp is too early"));
+        }
+    }
 
     // Check coinstake timestamp
     if (IsProofOfStake() && !CheckCoinStakeTimestamp(nHeight, GetBlockTime(), (int64_t)vtx[1].nTime))
