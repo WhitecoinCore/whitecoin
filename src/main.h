@@ -54,24 +54,22 @@ inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MO
 /** Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp. */
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
 
-/** Fork Timers **/
-static const unsigned int FORK_TIME = 1527890400; //  Fr, 01 Jun 2018 22:00:00 GMT (DriftFix and PoS reward to 5 XWC)
 
 static const int64_t COIN_YEAR_REWARD = 1 * CENT; // 1% per year
 
 inline bool IsProtocolV1RetargetingFixed(int nHeight) { return TestNet() || nHeight > 0; }
-inline bool IsProtocolV2(int nHeight) { return TestNet() || nHeight > 0; }
+inline bool IsProtocolV2(int nHeight) { return nHeight > 0; }
 inline bool IsProtocolV3(int64_t nTime) { return TestNet() || nTime > 1486939650; }
+inline bool IsProtocolV4(int64_t nTime) { return nTime > Params().SecondForkTime(); }
+inline int GetMinPeerProtoVersion(int64_t nTime) {return  nTime > Params().SecondForkTime() ? 20002 : MIN_PEER_PROTO_VERSION;}
 
-inline bool IsDriftReduced(int64_t nTime) { return TestNet() || nTime > FORK_TIME; }
+inline bool IsDriftReduced(int64_t nTime) { return nTime > Params().FirstForkTime(); }
 
 inline int64_t TestingDrift(int64_t nTime) { return nTime + 10 * 60; }
-inline int64_t MainNetDrift(int64_t nTime) { return nTime + 15; }
+inline int64_t MainNetDrift(int64_t nTime) { return nTime + Params().MamDriftTime(); }
 
 inline int64_t FutureDriftV1(int64_t nTime) { return nTime + 10 * 60; }
-inline int64_t FutureDriftV2(int64_t nTime) {
-    return IsDriftReduced(nTime) ? MainNetDrift(nTime) : TestingDrift(nTime);
-}
+inline int64_t FutureDriftV2(int64_t nTime) { return IsDriftReduced(nTime)? MainNetDrift(nTime) : TestingDrift(nTime) ;}
 
 inline int64_t FutureDrift(int64_t nTime, int nHeight) { return IsProtocolV2(nHeight) ? FutureDriftV2(nTime) : FutureDriftV1(nTime); }
 
@@ -160,8 +158,9 @@ void ThreadStakeMiner(CWallet *pwallet);
 bool GetNodeStateStats(NodeId nodeid, CNodeStateStats &stats);
 
 /** (try to) add transaction to memory pool **/
-bool AcceptToMemoryPool(CTxMemPool& pool, CTransaction &tx, bool fLimitFree,
-                        bool* pfMissingInputs);
+bool AcceptToMemoryPool(CTxMemPool& pool, CTransaction &tx, bool fLimitFree,bool* pfMissingInputs);
+
+SUPPER_CHECK_POINT_TYPE IsSupperCheckPoint(const CScript &scriptPubKeyOut);
 
 
 

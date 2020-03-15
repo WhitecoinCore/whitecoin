@@ -854,9 +854,6 @@ bool AppInit2(boost::thread_group& threadGroup)
 
         // Run a thread to flush wallet periodically
         threadGroup.create_thread(boost::bind(&ThreadFlushWalletDB, boost::ref(pwalletMain->strWalletFile)));
-
-        if(TestNet())
-            threadGroup.create_thread(boost::bind(&WhitecoinMiner, pwalletMain));
     }
 #endif
 

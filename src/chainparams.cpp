@@ -98,6 +98,16 @@ public:
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
         nLastPOWBlock = 10000;
+        nPreMineCoins = 313000000;
+        nFirstForkTime  = 1527890400;       //  Fr, 01 Jun 2018 22:00:00 GMT (DriftFix and PoS reward to 5 XWC)
+        nSecondForkTime = 1584259200;
+        nPosIncreaseTime = 1585641600;
+        nFirstHalfTime = 1615795200;
+        nSecondHalfTime = 1678867200;
+        nThirdHalfTime = 1742025600 ;
+        nFouthHalfTime = 1805097600;
+        nMainNetDriftTime = 15;
+        nDestroyedCoins = (65217844.265830+113468742.46487160);
         
         //Registered Message PubKey
         mapBroadcastMessPubKey.insert(pair<std::string,vector<unsigned char> >("Ray",   ParseHex("0464ae3e87304fb08a296cf4e75407be11214dd5e2bde6554ca2aaa743ecbbb98d8dc517b9f02265dfccafdda81b45fd88311b3147812d982dec213cd5af3ae174")));
@@ -141,8 +151,8 @@ public:
 
         // Modify the testnet genesis block so the timestamp is valid for a later start.
         genesis.nBits  = bnProofOfWorkLimit.GetCompact();
-        genesis.nNonce = 179350;
-        genesis.nTime    = 1582293600;
+        genesis.nNonce = 44353;
+        genesis.nTime    = 1582959000;
         hashGenesisBlock = genesis.GetHash();
 
 /*
@@ -162,12 +172,16 @@ public:
                     LogPrintf("new TestNet genesis hash: %s\n", genesis.GetHash().ToString().c_str());
         }
 */
-       assert(hashGenesisBlock == uint256("0000ba0257a2023683195afc5352c7c93a44a33641668af53ba5c4e64c40f529"));
-       assert(genesis.hashMerkleRoot == uint256("73513debc549137a47f2afb73173a2d2b4b0c13f57a57387ae3849a928e1e08d"));
+       assert(hashGenesisBlock == uint256("0x000050575d004ce5bac0e4f9016719141a289fbf63233b92ee9c4430608f510f"));
+       assert(genesis.hashMerkleRoot == uint256("0x73513debc549137a47f2afb73173a2d2b4b0c13f57a57387ae3849a928e1e08d"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
         vSeeds.push_back(CDNSSeedData("dnsseed", "dnsseedtest.xwccore.com"));
+        vSeeds.push_back(CDNSSeedData("seed1", "172.105.222.248"));
+        vSeeds.push_back(CDNSSeedData("seed2", "47.107.145.191"));
+        vSeeds.push_back(CDNSSeedData("seed3", "139.162.219.31"));
+        vSeeds.push_back(CDNSSeedData("seed3", "103.3.62.84"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 196);
@@ -178,7 +192,18 @@ public:
 
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
 
-        nLastPOWBlock = 10000;
+        nPreMineCoins = 20000000;
+        nLastPOWBlock = 360;
+        nFirstForkTime  = 1527890400;
+        nSecondForkTime = 1583557200;   //2020-03-7 13:00:00
+        nFirstHalfTime = 1583029800;        //2020-03-1 10:00:00
+        nSecondHalfTime = 1583116200;   //2020-03-2 10:00:00
+        nThirdHalfTime = 1583202600 ;     //2020-03-3 10:00:00
+        nFouthHalfTime = 1583287200;     //2020-03-04 10:00:00
+        nPosIncreaseTime = 1582977600 ;//2020-02-29 20:00:00
+        nDestroyedCoins = 1000000;
+
+        nMainNetDriftTime = 120;
     }
     virtual Network NetworkID() const { return CChainParams::TESTNET; }
 };

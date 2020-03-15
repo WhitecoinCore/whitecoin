@@ -539,7 +539,8 @@ void ThreadStakeMiner(CWallet *pwallet)
             SetThreadPriority(THREAD_PRIORITY_NORMAL);
             CheckStake(pblock.get(), *pwallet);
             SetThreadPriority(THREAD_PRIORITY_LOWEST);
-            MilliSleep(500);
+            MilliSleep(1000);
+            LogPrintf("======ThreadStakeMiner,SignBlock block ok==== \n") ;
         }
         else
         {

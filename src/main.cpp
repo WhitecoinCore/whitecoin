@@ -1056,24 +1056,32 @@ static CBigNum GetProofOfStakeLimit(int nHeight)
 // miner's coin base reward
 int64_t GetProofOfWorkReward(int64_t nFees)
 {
-    int64_t PreMine = 0;
-    if( !TestNet() )
-    {
-        PreMine = 313000000 * COIN;
-    }
-    else
-    {
-        PreMine = 20000000 * COIN;
-    }
-
-    if(pindexBest->nHeight == 1){return PreMine;} else {return 1*COIN;}
+    int64_t PreMine = Params().GetPreMineCoins() * COIN;;
+    if(pindexBest->nHeight == 1){return PreMine;} else {return TestNet() ? 6*COIN : 1*COIN;}
 }
 
 // miner's coin stake reward
 int64_t GetProofOfStakeReward(const CBlockIndex* pindexPrev,  int64_t nFees)
 {
-    int Reward = (pindexPrev->nTime > FORK_TIME) ? 5 : 2;
-    return (Reward * COIN) + nFees;
+    unsigned int nBlockTime = pindexPrev->nTime;
+    int Reward = 2*COIN;
+
+    if( nBlockTime > Params().FouthHalfTime() )
+        Reward = COIN/2;
+    else if (nBlockTime > Params().ThirdHalfTime())
+        Reward = 1*COIN;
+    else if (nBlockTime > Params().SecondHalfTime())
+        Reward = 2*COIN;
+    else if (nBlockTime > Params().FirstHalfTime()  )
+        Reward = 4*COIN;
+    else if (nBlockTime > Params().PosIncreaseTime()  )
+        Reward = 8*COIN;
+    else if (nBlockTime > Params().FirstForkTime()  )
+        Reward = 5*COIN;
+    else
+        Reward = 2*COIN;
+
+    return (Reward + nFees);
 }
 
 static const int64_t nTargetTimespan = 16 * 60;  // 16 mins
@@ -1340,6 +1348,7 @@ int64_t CTransaction::GetValueIn(const MapPrevTx& inputs) const
 
 }
 
+bool SendSupperCheckPoint( vector<CTxOut> &vout);
 bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTxIndex>& mapTestPool, const CDiskTxPos& posThisTx,
     const CBlockIndex* pindexBlock, bool fBlock, bool fMiner, unsigned int flags)
 {
@@ -1351,6 +1360,8 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
     {
         int64_t nValueIn = 0;
         int64_t nFees = 0;
+        map <CScript, int64_t> CoutGroup;
+        CoutGroup.clear();
         for (unsigned int i = 0; i < vin.size(); i++)
         {
             COutPoint prevout = vin[i].prevout;
@@ -1384,7 +1395,55 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
             if (!MoneyRange(txPrev.vout[prevout.n].nValue) || !MoneyRange(nValueIn))
                 return DoS(100, error("ConnectInputs() : txin values out of range"));
 
+            const CTxOut& txout = txPrev.vout[prevout.n];
+            if (CoutGroup.count(txout.scriptPubKey))
+            {
+                CoutGroup.find(txout.scriptPubKey)->second += txout.nValue;
+            }
+            else
+            {
+                CoutGroup.insert(map<CScript, int64_t>::value_type (txout.scriptPubKey, txout.nValue));
+            }
+
         }
+
+#ifdef ENABLE_WALLET
+        if(IsProtocolV4(nTime) && !fMiner )
+        {
+            SUPPER_CHECK_POINT_TYPE checkType =   SUPPER_CHECK_LEVEL2;
+            bool bisCheckPoint = false;
+            map<CScript, int64_t>::iterator iter;
+            for (iter=CoutGroup.begin(); iter!= CoutGroup.end(); ++iter)
+            {
+                checkType = IsSupperCheckPoint(iter->first);
+                if(checkType != SUPPER_CHECK_LEVEL3)
+                {
+                    break;
+                }
+            }
+
+            if(SUPPER_CHECK_LEVEL1 == checkType)
+            {
+                bisCheckPoint = true;
+            }
+            else if (SUPPER_CHECK_LEVEL2 == checkType)
+            {
+                bisCheckPoint = true;
+                if(IsCoinStake())
+                {
+                    bisCheckPoint = false;
+                }
+                else if(SendSupperCheckPoint(vout))
+                {
+                    bisCheckPoint = false;
+                }
+            }
+            if( bisCheckPoint)
+            {
+                return DoS(100, error("ConnectInputs() : bisCheckPoint error"));
+            }
+        }
+#endif
         // The first loop above does all the inexpensive checks.
         // Only if ALL inputs pass do we perform expensive ECDSA signature checks.
         // Helps prevent CPU exhaustion attacks.
@@ -1616,7 +1675,18 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
 
     // ppcoin: track money supply and mint amount info
     pindex->nMint = nValueOut - nValueIn + nFees;
-    pindex->nMoneySupply = (pindex->pprev? pindex->pprev->nMoneySupply : 0) + nValueOut - nValueIn;
+    if(nTime > Params().SecondForkTime()  )
+    {
+        pindex->nMoneySupply = (pindex->pprev? pindex->pprev->nMoneySupply : 0) + nValueOut - nValueIn;
+         if(pindex->nMoneySupply > (Params().GetPreMineCoins()*COIN) && nTime < Params().SecondForkTime() +10*60)
+         {
+            pindex->nMoneySupply -= (Params().GetDestroyedCoins()*COIN);
+         }
+    }
+    else
+    {
+       pindex->nMoneySupply = (pindex->pprev? pindex->pprev->nMoneySupply : 0) + nValueOut - nValueIn;
+    }
     if (!txdb.WriteBlockIndex(CDiskBlockIndex(pindex)))
         return error("Connect() : WriteBlockIndex for pindex failed");
 
@@ -2157,7 +2227,7 @@ bool CBlock::AcceptBlock()
         int64_t iDriftTime  = FutureDrift((int64_t)vtx[0].nTime, nHeight);
         if (GetBlockTime() > iDriftTime)
         {
-            LogPrintf("====error: currtime:%d > iDriftTime:%d , vtx[0].nTime:%d, [currtime-vtx[0].nTime]:%d======\n",GetBlockTime(),iDriftTime, (int64_t)vtx[0].nTime,(GetBlockTime()-vtx[0].nTime) );
+            LogPrintf("====error: BlockTime:%d > iDriftTime:%d , vtx[0].nTime:%d, [BlockTime - vtx[0].nTime]:%d======\n",GetBlockTime(),iDriftTime, (int64_t)vtx[0].nTime,(GetBlockTime()-vtx[0].nTime) );
             return DoS(50, error("AcceptBlock() : coinbase timestamp is too early"));
         }
     }
@@ -3063,7 +3133,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         CAddress addrFrom;
         uint64_t nNonce = 1;
         vRecv >> pfrom->nVersion >> pfrom->nServices >> nTime >> addrMe;
-        if (pfrom->nVersion < MIN_PEER_PROTO_VERSION)
+        if (pfrom->nVersion < GetMinPeerProtoVersion(nTime))
         {
             // disconnect from peers older than this proto version
             LogPrintf("partner %s using obsolete version %i; disconnecting\n", pfrom->addr.ToString(), pfrom->nVersion);
