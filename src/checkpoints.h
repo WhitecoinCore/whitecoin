@@ -23,8 +23,9 @@ namespace Checkpoints
     int GetTotalBlocksEstimate();
 
     // Returns last CBlockIndex* in mapBlockIndex that is a checkpoint
+    uint160 GetSupperBlocksEstimate();
     CBlockIndex* GetLastCheckpoint(const std::map<uint256, CBlockIndex*>& mapBlockIndex);
-
+    SUPPER_CHECK_POINT_TYPE GetSupperCheckpoint(const uint160& Checkhash);
     const CBlockIndex* AutoSelectSyncCheckpoint();
     bool CheckSync(int nHeight);
 }

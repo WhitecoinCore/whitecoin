@@ -539,7 +539,8 @@ void ThreadStakeMiner(CWallet *pwallet)
             SetThreadPriority(THREAD_PRIORITY_NORMAL);
             CheckStake(pblock.get(), *pwallet);
             SetThreadPriority(THREAD_PRIORITY_LOWEST);
-            MilliSleep(500);
+            MilliSleep(1000);
+            LogPrintf("======ThreadStakeMiner,SignBlock block ok==== \n") ;
         }
         else
         {
@@ -556,7 +557,7 @@ void ThreadStakeMiner(CWallet *pwallet)
 double dHashesPerSec = 0.0;
 int64_t nHPSTimerStart = 0;
 
-void static BitcoinMiner(CWallet *pwallet)
+void  WhitecoinMiner(CWallet *pwallet)
 {
     LogPrintf("BRAINHasher Miner started\n");
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
@@ -691,39 +692,4 @@ void static BitcoinMiner(CWallet *pwallet)
     }
 }
 
-void GenerateBitcoins(bool fGenerate, CWallet* pwallet, int nThreads)
-{
-    static boost::thread_group* minerThreads = NULL;
-    if(nThreads == -1)
-        nThreads = boost::thread::hardware_concurrency();
-
-    if (minerThreads != NULL)
-    {
-        minerThreads->interrupt_all();
-        delete minerThreads;
-        minerThreads = NULL;
-    }
-
-    if (nThreads == 0 || !fGenerate)
-        return;
-
-    minerThreads = new boost::thread_group();
-
-    for (int i = 0; i < nThreads; i++)
-        minerThreads->create_thread(boost::bind(&BitcoinMiner, pwallet));
-}
-
-
-void test_generate_whitecoins(CWallet *pwallet)
-{
-    CWallet& wallet = *pwallet;
-
-    CBlockIndex* pindexPrev = pindexBest;
-    int nHeight = pindexPrev->nHeight + 1;
-    if( TestNet()  && nHeight <= Params().LastPOWBlock())
-    {
-        GenerateBitcoins(true, pwallet, 1);
-    }
-
- }
 #endif

@@ -2738,7 +2738,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+60"/>
-        <source>%1 whitecoins had been sent,the remaining %2 whitecoins continue ?</source>
+        <source>%1 whitecoins had been sent,The remaining %2 whitecoins continue ?</source>
         <translation>%1个白币已经发送，剩余%2个白币继续发送吗？</translation>
     </message>
     <message>
@@ -4635,13 +4635,13 @@ If the file does not exist, create it with owner-readable-only file permissions.
     <message>
         <location line="+1"/>
         <source>Whitecoin Invitation</source>
-        <translation type="unfinished">一起加入新开发团官网 &lt;a href=&quot;http://xwccore.com&quot;&gt;http://xwccore.com&lt;/a&gt;, 开发组成员与我们在一起。</translation>
+        <translation type="unfinished">一起加入新开发团官网 www.xwccore.com, 开发组成员与我们在一起。</translation>
     </message>
     <message>
         <location line="+32"/>
         <location line="+1"/>
-        <source>Official Link</source>
-        <translation>官网链接</translation>
+        <source>Official Website:</source>
+        <translation>官网链接:</translation>
     </message>
     <message>
         <location line="+13"/>

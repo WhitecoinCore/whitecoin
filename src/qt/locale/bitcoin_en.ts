@@ -649,7 +649,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+22"/>
         <source>Transactions &amp;Report</source>
-        <translation type="unfinished"></translation>
+        <translation type="Tx Report"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4477,7 +4477,7 @@ If the file does not exist, create it with owner-readable-only file permissions.
     <message>
         <location line="+1"/>
         <source>Whitecoin Invitation</source>
-        <translation type="unfinished">Join the new development group website &lt;a href=&quot;http://xwccore.com&quot;&gt;http://xwccore.com&lt;/a&gt;, Development team members are with us.</translation>
+        <translation type="unfinished">Join the new development group website wwww.xwccore.com, Members of the development team stay with us.</translation>
     </message>
     <message>
         <location line="+32"/>
