@@ -260,12 +260,16 @@ BitcoinGUI::~BitcoinGUI()
 void BitcoinGUI::createActions()
 {
     QActionGroup *tabGroup = new QActionGroup(this);
-
-   QFont uiFont("SimHei");
+#ifdef Q_OS_MAC
+    QFont uiFont("PingFangSC-Light");
+    uiFont.setPixelSize(13);
+#else
+    QFont uiFont("SimHei");
+    uiFont.setPixelSize(17);
+#endif
    QString testFontStr(tr("Official Website:"));
    if(testFontStr == QString("Official Website:"))
        uiFont.setFamily("Ubuntu");
-   uiFont.setPixelSize(17);
    uiFont.setWeight(QFont::Bold);
     QIcon fistpageIcon;
     fistpageIcon.addFile(":/icons/overview", QSize(), QIcon::Normal, QIcon::Off);

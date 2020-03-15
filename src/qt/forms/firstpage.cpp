@@ -8,7 +8,12 @@ firstpage::firstpage(QWidget *parent) :
     ui(new Ui::firstpage)
 {
     ui->setupUi(this);
+#ifdef Q_OS_MAC
+    QFont uiFont("PingFangSC-Light");
+#else
     QFont uiFont("SimHei");
+#endif
+
     uiFont.setPixelSize(30);
     uiFont.setWeight(QFont::Normal);
     ui->textBrowser_headline->setFont(uiFont);
@@ -25,7 +30,12 @@ firstpage::firstpage(QWidget *parent) :
     ui->textBrowser_headline->setText(tr("Welcome to the new community ecology"));
     ui->textBrowser_headline->adjustSize();
 
+#ifdef Q_OS_MAC
+    uiFont.setPixelSize(13);
+    uiFont.setWeight(QFont::ExtraLight);
+#else
     uiFont.setPixelSize(16);
+#endif
     ui->textBrowser_info->setFont(uiFont);
     int widthBrowser = ui->textBrowser_info->fontMetrics().width(tr("白币技术团队是由来自世界各地的技术精"));
     if(testFontStr == QString("Official Website:"))
