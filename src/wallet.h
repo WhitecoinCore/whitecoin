@@ -205,7 +205,7 @@ public:
     bool CommitTransaction(CWalletTx& wtxNew, CReserveKey& reservekey);
     
     #ifdef  OPEN_QUICK_SENDING
-    bool CreateQuickTransaction(const std::string strAddress, const int64_t dbAmount,const std::vector<std::pair<CScript, int64_t> >& vecSend, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, int64_t& txVoutRet, const CCoinControl *coinControl=NULL);
+    bool CreateQuickTransaction(CScript scriptPubKey, int64_t dbAmount, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, int64_t& txVoutRet, const CCoinControl* coinControl);
     #endif
     uint64_t GetStakeWeight() const;
     bool CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int64_t nSearchInterval, int64_t nFees, CTransaction& txNew, CKey& key);

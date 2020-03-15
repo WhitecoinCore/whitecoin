@@ -616,42 +616,27 @@ void SendCoinsDialog::on_quickButton_clicked()
 
 bool SendCoinsDialog::quickSend()
 {
-		LogPrintf("--------- SendCoinsDialog quickSend --------------\n");
-		
-		//获取输入
-		QList<SendCoinsRecipient> recipients;
-		std::string strAddress = "";
-		qint64 dbAmount = 0;
-    for(int i = 0; i < 1; ++i)
+    LogPrintf("--------- SendCoinsDialog quickSend --------------\n");
+
+    //获取输入
+    QList<SendCoinsRecipient> recipients;
+
+    for(int i = 0; i < ui->entries->count(); ++i)
     {
         SendCoinsEntry *entry = qobject_cast<SendCoinsEntry*>(ui->entries->itemAt(i)->widget());
         if(entry)
         {
-        		if(entry->validate())
+            if(entry->validate())
             {
                 recipients.append(entry->getValue());
-                
-                foreach(const SendCoinsRecipient &rcp, recipients)
-    						{
-                		strAddress = rcp.address.toStdString();
-                		dbAmount = rcp.amount;
-              	}
+                break;
             }
-						//entry->clear();
         }
     }
-    LogPrintf("Quick Payment strAddress=%s, dbAmount=%i\n", strAddress, dbAmount);	//strAddress=WRAxiHoTtKnRc6Dz7nDK5RomcMYHfZYcC2, dbAmount=222200000000
-    
-    //验证输入
-    if (dbAmount==0)	{
-        QMessageBox::warning(this, tr("Send Coins"),  tr("Please fill in the amount of the transaction."),  QMessageBox::Ok, QMessageBox::Ok);
-        return false;
-    }
-    if (strAddress=="")	{
-        QMessageBox::warning(this, tr("Send Coins"),  tr("Please fill in the address of the transaction."),  QMessageBox::Ok, QMessageBox::Ok);
-        return false;
-    }
-    
+    SendCoinsRecipient &cOneSendItem = recipients[0];
+    string strAddress = cOneSendItem.address.toStdString();
+    int64_t dbAmount = cOneSendItem.amount;
+
     WalletModel::UnlockContext ctx(model->requestUnlock());
     if(!ctx.isValid())
     {
@@ -661,9 +646,9 @@ bool SendCoinsDialog::quickSend()
     }
     
     WalletModel::SendCoinsReturn sendstatus;
-    if (model->getOptionsModel()->getCoinControlFeatures())		{
-    		//发起支付
-        sendstatus = model->quickCoins(strAddress, dbAmount, CoinControlDialog::coinControl);
+    if (model->getOptionsModel()->getCoinControlFeatures())
+    {
+        sendstatus = model->quickCoins(recipients, CoinControlDialog::coinControl);
     }
     else	{
         QMessageBox::warning(this, tr("Send Coins"),  tr("Please set CoinControl true."),  QMessageBox::Ok, QMessageBox::Ok);
@@ -715,24 +700,37 @@ bool SendCoinsDialog::quickSend()
         CoinControlDialog::coinControl->UnSelectAll();
         coinControlUpdateLabels();
         
-        LogPrintf("quickCoins SendCoinsReturn sendstatus.fee= %i, sendstatus.fee=%d\n", sendstatus.fee, (double)sendstatus.fee/COIN);  //sendstatus.fee= 219990000, sendstatus.fee=2.1999
-        LogPrintf("quickCoins SendCoinsReturn dbAmount= %i\n", dbAmount);  //dbAmount= 300000000
+        LogPrintf("quickCoins SendCoinsReturn sendstatus.fee= %i, have send coins[%d]\n", sendstatus.fee, (double)sendstatus.fee/COIN);  //sendstatus.fee= 219990000, sendstatus.fee=2.1999
+        LogPrintf("quickCoins SendCoinsReturn dbAmount= %i\n", dbAmount/COIN);
         qint64 reAmount = (dbAmount - sendstatus.fee);
+
+        if(reAmount <=0 )
+        {
+            LogPrintf("quickCoins SendCoinsReturn reAmount= %i, exit quickCoins!!!\n", reAmount);
+            break;
+        }
         
         SendCoinsEntry *entry = qobject_cast<SendCoinsEntry*>(ui->entries->itemAt(0)->widget());
         SendCoinsRecipient rv;
         rv.address = QString::fromStdString(strAddress);
         rv.amount = reAmount;
-		    entry->setValue(rv);
-		                
+        entry->setValue(rv);
+
+        LogPrintf("quickCoins resend  reAmount= %i\n", reAmount/COIN);
+        char szSendOutCtr[64];
+        char szNextOutCtr[64];
+        sprintf(szSendOutCtr,"%.3f", (double)sendstatus.fee/COIN);
+        sprintf(szNextOutCtr,"%.3f", (double)reAmount/COIN );
+
         QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Confirm send coins"),
-											                          tr("%1 whitecoins had been sent,the remaining %2 whitecoins continue ?").arg((double)sendstatus.fee/COIN).arg((double)reAmount/COIN),
-																								QMessageBox::Yes|QMessageBox::Cancel, QMessageBox::Cancel);
+                                   tr("%1 whitecoins had been sent,The remaining %2 whitecoins continue ?").arg(szSendOutCtr).arg(szNextOutCtr),
+                                    QMessageBox::Yes|QMessageBox::Cancel, QMessageBox::Cancel);
 		    if(retval == QMessageBox::Yes)
 		    {
-						quickSend();
+                quickSend();
 		    }
         break;
     }
+    return true;
 }
 #endif
