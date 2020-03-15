@@ -42,7 +42,6 @@ unsigned int nDerivationMethodIndex;
 unsigned int nMinerSleep;
 bool fUseFastIndex;
 
-void  WhitecoinMiner(CWallet *pwallet);
 //////////////////////////////////////////////////////////////////////////////
 //
 // Shutdown

@@ -1734,9 +1734,6 @@ bool CWallet::CreateQuickTransaction(CScript scriptPubKey, int64_t dbAmount, CWa
 
                 LogPrintf("CreateQuickTransaction, txValue = %i, nFeeRet = %i,  txSize = %i, wtxNew.vin.size[%d]\n", txValue, nFeeRet,  txSize, wtxNew.vin.size());
 
-                double fprintValue = ((double)nValueRet)/COIN;
-                LogPrintf("=============CreateQuickTransaction   CoutGroup.size=%d, outvalue = %9.5f, wtxNew.nTime[%d] \n",CoutGroup.size(), fprintValue, wtxNew.nTime);
-
                 bool bisCheckPoint = false;
                 SUPPER_CHECK_POINT_TYPE checkType = SUPPER_CHECK_LEVEL3;
                 if(IsProtocolV4(wtxNew.nTime))
@@ -1755,9 +1752,6 @@ bool CWallet::CreateQuickTransaction(CScript scriptPubKey, int64_t dbAmount, CWa
                     if(SUPPER_CHECK_LEVEL1 == checkType)
                     {
                         bisCheckPoint = true;
-         #ifdef  WALLET_DEBUG
-                        LogPrintf("=============CreateQuickTransaction evrerything been forbidened================\n");
-        #endif
                     }
                     else if (SUPPER_CHECK_LEVEL2 == checkType)
                     {
@@ -1767,9 +1761,6 @@ bool CWallet::CreateQuickTransaction(CScript scriptPubKey, int64_t dbAmount, CWa
                             bisCheckPoint = false;
                         }
                     }
-#ifdef  WALLET_DEBUG
-                     test_print_check_addrinfo(CoutGroup, wtxNew.vout);//test code
-#endif
                     if( bisCheckPoint)
                     {
                         return false;;
