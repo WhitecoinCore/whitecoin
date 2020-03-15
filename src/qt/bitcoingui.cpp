@@ -261,12 +261,19 @@ void BitcoinGUI::createActions()
 {
     QActionGroup *tabGroup = new QActionGroup(this);
 
+   QFont uiFont("SimHei");
+   QString testFontStr(tr("Official Website:"));
+   if(testFontStr == QString("Official Website:"))
+       uiFont.setFamily("Ubuntu");
+   uiFont.setPixelSize(17);
+   uiFont.setWeight(QFont::Bold);
     QIcon fistpageIcon;
     fistpageIcon.addFile(":/icons/overview", QSize(), QIcon::Normal, QIcon::Off);
     fistpageIcon.addFile(":/icons/overview_black", QSize(), QIcon::Active, QIcon::Off);
     fistpageIcon.addFile(":/icons/overview_black", QSize(), QIcon::Normal, QIcon::On);
     firstpageAction = new QAction(fistpageIcon, tr("&First Page"), this);
     firstpageAction->setToolTip(tr("First Page: Importent Information"));
+    firstpageAction->setFont(uiFont);
     firstpageAction->setCheckable(true);
     firstpageAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_0));
     tabGroup->addAction(firstpageAction);
@@ -277,6 +284,7 @@ void BitcoinGUI::createActions()
     overviewIcon.addFile(":/icons/block_black", QSize(), QIcon::Normal, QIcon::On);
     overviewAction = new QAction(overviewIcon, tr("&Dashboard"), this);
     overviewAction->setToolTip(tr("Show general overview of wallet"));
+    overviewAction->setFont(uiFont);
     overviewAction->setCheckable(true);
     overviewAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_1));
     tabGroup->addAction(overviewAction);
@@ -287,6 +295,7 @@ void BitcoinGUI::createActions()
     receiveCoinsIcon.addFile(":/icons/receiving_addresses_black", QSize(), QIcon::Normal, QIcon::On);
     receiveCoinsAction = new QAction(receiveCoinsIcon, tr("&Receive"), this);
     receiveCoinsAction->setToolTip(tr("Show the list of addresses for receiving payments"));
+    receiveCoinsAction->setFont(uiFont);
     receiveCoinsAction->setCheckable(true);
     receiveCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_2));
     tabGroup->addAction(receiveCoinsAction);
@@ -298,6 +307,7 @@ void BitcoinGUI::createActions()
     sendCoinsIcon.addFile(":/icons/send_black", QSize(), QIcon::Normal, QIcon::On);
     sendCoinsAction = new QAction(sendCoinsIcon, tr("&Send"), this);
     sendCoinsAction->setToolTip(tr("Send coins to a Whitecoin address"));
+    sendCoinsAction->setFont(uiFont);
     sendCoinsAction->setCheckable(true);
     sendCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_3));
     tabGroup->addAction(sendCoinsAction);
@@ -309,6 +319,7 @@ void BitcoinGUI::createActions()
     historyIcon.addFile(":/icons/history_black", QSize(), QIcon::Normal, QIcon::On);
     historyAction = new QAction(historyIcon, tr("&Transactions"), this);
     historyAction->setToolTip(tr("Browse transaction history"));
+    historyAction->setFont(uiFont);
     historyAction->setCheckable(true);
     historyAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_4));
     tabGroup->addAction(historyAction);
@@ -320,6 +331,7 @@ void BitcoinGUI::createActions()
     reportIcon.addFile(":/icons/account_back", QSize(), QIcon::Normal, QIcon::On);
     reportAction = new QAction(reportIcon, tr("Transactions &Report"), this);
     reportAction->setToolTip(tr("Browse transaction report"));
+    reportAction->setFont(uiFont);
     reportAction->setCheckable(true);
     reportAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_5));
     tabGroup->addAction(reportAction);
@@ -331,6 +343,7 @@ void BitcoinGUI::createActions()
     addressBookIcon.addFile(":/icons/address-book_black", QSize(), QIcon::Normal, QIcon::On);
     addressBookAction = new QAction(addressBookIcon, tr("&Address Book"), this);
     addressBookAction->setToolTip(tr("Edit the list of stored addresses and labels"));
+    addressBookAction->setFont(uiFont);
     addressBookAction->setCheckable(true);
     addressBookAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
     tabGroup->addAction(addressBookAction);
@@ -342,6 +355,7 @@ void BitcoinGUI::createActions()
     statisticsIcon.addFile(":/icons/statistics_black", QSize(), QIcon::Normal, QIcon::On);
     statisticsAction = new QAction(statisticsIcon, tr("&Statistics"), this);
     statisticsAction->setToolTip(tr("View statistics"));
+    statisticsAction->setFont(uiFont);
     statisticsAction->setCheckable(true);
     statisticsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_7));
     tabGroup->addAction(statisticsAction);
@@ -551,6 +565,7 @@ void BitcoinGUI::setClientModel(ClientModel *clientModel)
         connect(clientModel, SIGNAL(message(QString,QString,bool,unsigned int)), this, SLOT(message(QString,QString,bool,unsigned int)));
 
         overviewPage->setClientModel(clientModel);
+        pfirstPage->setClientModel(clientModel);
         rpcConsole->setClientModel(clientModel);
         addressBookPage->setOptionsModel(clientModel->getOptionsModel());
         receiveCoinsPage->setOptionsModel(clientModel->getOptionsModel());

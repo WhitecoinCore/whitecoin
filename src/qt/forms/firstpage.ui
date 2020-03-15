@@ -17,9 +17,9 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>10</y>
+     <y>20</y>
      <width>341</width>
-     <height>141</height>
+     <height>131</height>
     </rect>
    </property>
    <property name="font">
@@ -44,10 +44,10 @@
   <widget class="QTextBrowser" name="textBrowser_info">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>160</y>
+     <x>0</x>
+     <y>200</y>
      <width>291</width>
-     <height>141</height>
+     <height>191</height>
     </rect>
    </property>
    <property name="autoFillBackground">
@@ -55,28 +55,6 @@
    </property>
    <property name="styleSheet">
     <string notr="true">QTextEdit { background-color: rgb(255,132,139,0); color: rgb(0,0,0); }</string>
-   </property>
-   <property name="placeholderText">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="textBrowser_adv">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>310</y>
-     <width>291</width>
-     <height>87</height>
-    </rect>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QTextEdit { background-color: rgb(255,132,139,0); color: rgb(0,0,0); }</string>
-   </property>
-   <property name="readOnly">
-    <bool>true</bool>
    </property>
    <property name="placeholderText">
     <string/>
@@ -85,8 +63,8 @@
   <widget class="QLabel" name="label_official_link">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>430</y>
+     <x>130</x>
+     <y>420</y>
      <width>151</width>
      <height>21</height>
     </rect>
@@ -95,13 +73,13 @@
     <string notr="true"/>
    </property>
    <property name="text">
-    <string>&lt;style&gt; a {text-decoration: none} &lt;/style&gt; &lt;a href=&quot;http://xwccore.com&quot;&gt;http://xwccore.com&lt;/a&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://xwccore.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;www.xwccore.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="openExternalLinks">
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="FirstImageLabe">
    <property name="geometry">
     <rect>
      <x>140</x>
@@ -127,7 +105,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>410</y>
+     <y>420</y>
      <width>111</width>
      <height>16</height>
     </rect>
@@ -242,6 +220,35 @@
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelAlerts">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>761</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>761</width>
+     <height>16777215</height>
+    </size>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0, stop:0 #F0D0A0, stop:1 #F8D488);  color:#000000
+</string>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+   <property name="margin">
+    <number>0</number>
    </property>
   </widget>
  </widget>

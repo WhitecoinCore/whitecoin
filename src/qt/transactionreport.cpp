@@ -466,11 +466,13 @@ void TransactionReport::showTotal()
     reportModelT->item(0,2)->setTextAlignment(Qt::AlignCenter);
     reportModelT->item(0,3)->setTextAlignment(Qt::AlignCenter);
     reportModelT->item(0,4)->setTextAlignment(Qt::AlignCenter);
-    reportModelT->item(0,0)->setFont(QFont("Times", 10, QFont::Black));
-    reportModelT->item(0,1)->setFont(QFont("Times", 10, QFont::Black));
-    reportModelT->item(0,2)->setFont(QFont("Times", 10, QFont::Black));
-    reportModelT->item(0,3)->setFont(QFont("Times", 10, QFont::Black));
-    reportModelT->item(0,4)->setFont(QFont("Times", 10, QFont::Black));
+    QFont uiFont("Times");
+    uiFont.setPixelSize(12);
+    reportModelT->item(0,0)->setFont(uiFont);
+    reportModelT->item(0,1)->setFont(uiFont);
+    reportModelT->item(0,2)->setFont(uiFont);
+    reportModelT->item(0,3)->setFont(uiFont);
+    reportModelT->item(0,4)->setFont(uiFont);
     transactionReportT->horizontalHeader()->hide();
 }
 
