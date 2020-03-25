@@ -54,6 +54,11 @@ namespace Checkpoints
         (  1300000,    uint256("0x27e5892afdf24e5ab25121593b592592fd13c8192b4f19091a1a43c5be572637") )
         (  1350000,    uint256("0x5b8046b2a7b25cc4c2f7cd3abe857e75b97bf9df5712d38834943fe5692b64ff") )
         (  1400000,    uint256("0xd851b41cb3e54f87accc0dd029c7cc88ee64ba3a699e647af4614bc5cf4dd525") )
+        (  1450000,    uint256("0xd92c3e04b0e48634a0f87fcc6bcb34540d71d378784894757468bc60f94fb620") )
+        (  1455858,    uint256("0x5c46f2af9121181750a0abff58978a6550203588a8cd7a7200bfbcda3dd0dee2") )
+
+
+
     ;
     static MapSupperCheckpoints mapSupperCheckpoints =
         boost::assign::map_list_of

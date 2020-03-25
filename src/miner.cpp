@@ -500,6 +500,7 @@ void ThreadStakeMiner(CWallet *pwallet)
         {
             nLastCoinStakeSearchInterval = 0;
             fTryToSync = true;
+            LogPrintf("======ThreadStakeMiner,IsInitialBlockDownload = false\n") ;
             MilliSleep(1000);
         }
 
@@ -518,32 +519,34 @@ void ThreadStakeMiner(CWallet *pwallet)
         // Create new block
         //
 
-        if( TestNet() )
-        {
-            CBlockIndex* pindexPrev = pindexBest;
-            int nHeight = pindexPrev->nHeight + 1;
-            if( nHeight <= Params().LastPOWBlock())
-            {
-                MilliSleep(60000);
-                continue;
-            }
-        }
         int64_t nFees;
         auto_ptr<CBlock> pblock(CreateNewBlock(reservekey, true, &nFees));
         if (!pblock.get())
+        {
+            LogPrintf("======ThreadStakeMiner, CreateNewBlock error==== \n") ;
             return;
+        }
 
         // Trying to sign a block
+        static int iFailTimes = 0;
         if (pblock->SignBlock(*pwallet, nFees))
         {
             SetThreadPriority(THREAD_PRIORITY_NORMAL);
             CheckStake(pblock.get(), *pwallet);
             SetThreadPriority(THREAD_PRIORITY_LOWEST);
-            MilliSleep(1000);
+            MilliSleep(500);
             LogPrintf("======ThreadStakeMiner,SignBlock block ok==== \n") ;
+            iFailTimes = 0;
         }
         else
         {
+
+            iFailTimes++;
+            if(iFailTimes >500)
+            {
+                LogPrintf("======ThreadStakeMiner,SignBlock block fail ==== \n") ;
+                iFailTimes = 0;
+            }
             MilliSleep(nMinerSleep);
         }
     }
