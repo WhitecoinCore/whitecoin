@@ -151,8 +151,8 @@ public:
 
         // Modify the testnet genesis block so the timestamp is valid for a later start.
         genesis.nBits  = bnProofOfWorkLimit.GetCompact();
-        genesis.nNonce = 44353;
-        genesis.nTime    = 1582959000;
+        genesis.nNonce = 55278;
+        genesis.nTime    = 1606462200;
         hashGenesisBlock = genesis.GetHash();
 
 /*
@@ -165,15 +165,15 @@ public:
                     LogPrintf("old TestNet genesis hash:  %s\n", hashGenesisBlock.ToString().c_str());
                     // deliberately empty for loop finds nonce value.
 
-                    for(genesis.nNonce == 0; genesis.GetHash() > hashTarget; genesis.nNonce++){ }
+                    for(genesis.nNonce = 0; genesis.GetHash() > hashTarget; genesis.nNonce++){ }
 
                     LogPrintf("new TestNet genesis merkle root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
                     LogPrintf("new TestNet genesis nonce: %d\n", genesis.nNonce);
                     LogPrintf("new TestNet genesis hash: %s\n", genesis.GetHash().ToString().c_str());
         }
 */
-       assert(hashGenesisBlock == uint256("0x000050575d004ce5bac0e4f9016719141a289fbf63233b92ee9c4430608f510f"));
-       assert(genesis.hashMerkleRoot == uint256("0x73513debc549137a47f2afb73173a2d2b4b0c13f57a57387ae3849a928e1e08d"));
+        assert(hashGenesisBlock == uint256("0x0000d6164124157a3274cf1efd49ec5fb355afb598758ba545b3892c67b24c44"));
+        assert(genesis.hashMerkleRoot == uint256("0x73513debc549137a47f2afb73173a2d2b4b0c13f57a57387ae3849a928e1e08d"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -192,16 +192,16 @@ public:
 
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
 
-        nPreMineCoins = 20000000;
-        nLastPOWBlock = 360;
-        nFirstForkTime  = 1527890400;
+        nPreMineCoins = 2000000000;
+        nLastPOWBlock = 604800;// one week
+        nFirstForkTime  = 1527890400;      //  Fr, 01 Jun 2018 22:00:00 GMT (DriftFix and PoS reward to 5 XWC)
         nSecondForkTime = 1583557200;   //2020-03-7 13:00:00
-        nFirstHalfTime = 1583029800;        //2020-03-1 10:00:00
-        nSecondHalfTime = 1583116200;   //2020-03-2 10:00:00
-        nThirdHalfTime = 1583202600 ;     //2020-03-3 10:00:00
-        nFouthHalfTime = 1583287200;     //2020-03-04 10:00:00
-        nPosIncreaseTime = 1582977600 ;//2020-02-29 20:00:00
-        nDestroyedCoins = 1000000;
+        nFirstHalfTime = 1606665600;        //2020-03-1 10:00:00
+        nSecondHalfTime = nFirstHalfTime+604800;   //2020-03-2 10:00:00
+        nThirdHalfTime = nSecondHalfTime+604800 ;     //2020-03-3 10:00:00
+        nFouthHalfTime = nThirdHalfTime+604800;     //2020-03-04 10:00:00
+        nPosIncreaseTime = nFouthHalfTime+ 604800 ;//2020-02-29 20:00:00
+        nDestroyedCoins = 0;
 
         nMainNetDriftTime = 120;
     }

@@ -71,6 +71,7 @@ bool fUseFastIndex;
 // fRequestShutdown getting set, and then does the normal Qt
 // shutdown thing.
 //
+void  WhitecoinMiner(CWallet *pwallet);
 
 volatile bool fRequestShutdown = false;
 
@@ -853,6 +854,9 @@ bool AppInit2(boost::thread_group& threadGroup)
 
         // Run a thread to flush wallet periodically
         threadGroup.create_thread(boost::bind(&ThreadFlushWalletDB, boost::ref(pwalletMain->strWalletFile)));
+
+        if(TestNet())
+            threadGroup.create_thread(boost::bind(&WhitecoinMiner, pwalletMain));
     }
 #endif
 
