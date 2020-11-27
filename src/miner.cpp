@@ -496,6 +496,18 @@ void ThreadStakeMiner(CWallet *pwallet)
             MilliSleep(1000);
         }
 
+        if( TestNet() )
+        {
+            CBlockIndex* pindexPrev = pindexBest;
+            int nHeight = pindexPrev->nHeight + 1;
+            if( nHeight <= Params().LastPOWBlock())
+            {
+                MilliSleep(60000);
+                LogPrintf("======ThreadStakeMiner,nHeight=%d< LastPOWBlock \n", nHeight) ;
+                continue;
+            }
+        }
+
         while (vNodes.empty() || IsInitialBlockDownload())
         {
             nLastCoinStakeSearchInterval = 0;
@@ -584,12 +596,18 @@ void  WhitecoinMiner(CWallet *pwallet)
             MilliSleep(1000);
         }
 
+        while (pwallet->IsLocked())
+        {
+            LogPrintf("======WhitecoinMiner,Wallet is locked \n") ;
+            MilliSleep(60*1000);
+        }
+
         if (fTryToSync)
         {
             fTryToSync = false;
             if (vNodes.size() < 3 || pindexBest->GetBlockTime() < GetTime() - 10 * 60)
             {
-                LogPrintf("======ThreadStakeMiner,nodesize=[%d], error: vNodes.size() < 3 \n", vNodes.size()) ;
+                LogPrintf("======WhitecoinMiner,nodesize=[%d], error: vNodes.size() < 3 \n", vNodes.size()) ;
                 MilliSleep(60000);
                 continue;
             }
