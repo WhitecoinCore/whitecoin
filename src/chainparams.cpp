@@ -178,10 +178,9 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         vSeeds.push_back(CDNSSeedData("dnsseed", "dnsseedtest.xwccore.com"));
-        vSeeds.push_back(CDNSSeedData("seed1", "172.105.222.248"));
-        vSeeds.push_back(CDNSSeedData("seed2", "47.107.145.191"));
-        vSeeds.push_back(CDNSSeedData("seed3", "139.162.219.31"));
-        vSeeds.push_back(CDNSSeedData("seed3", "103.3.62.84"));
+        vSeeds.push_back(CDNSSeedData("seed1", "112.126.86.246"));
+        vSeeds.push_back(CDNSSeedData("seed2", "101.201.37.171"));
+        vSeeds.push_back(CDNSSeedData("seed3", "112.126.86.246"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 196);
