@@ -83,6 +83,7 @@ public:
     int64_t MamDriftTime()    const {return      nMainNetDriftTime;}
     int64_t GetDestroyedCoins() const {return nDestroyedCoins;}
     int64_t GetPreMineCoins() const {return nPreMineCoins;}
+
 protected:
     CChainParams() {};
 
@@ -110,6 +111,7 @@ protected:
     int64_t nMainNetDriftTime;
     int64_t nDestroyedCoins;
     int64_t nPreMineCoins;
+
 };
 
 /**

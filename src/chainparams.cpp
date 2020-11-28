@@ -155,6 +155,7 @@ public:
         genesis.nTime    = 1606478400;
         hashGenesisBlock = genesis.GetHash();
 
+
 /*
         hashGenesisBlock = uint256("0x01");
         if (true && genesis.GetHash() != hashGenesisBlock)
@@ -182,6 +183,7 @@ public:
         vSeeds.push_back(CDNSSeedData("seed1", "112.126.86.246"));
         vSeeds.push_back(CDNSSeedData("seed2", "101.201.37.171"));
         vSeeds.push_back(CDNSSeedData("seed3", "112.126.86.246"));
+        vSeeds.push_back(CDNSSeedData("seed3", "39.107.66.180"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 196);
@@ -193,7 +195,7 @@ public:
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
 
         nPreMineCoins = 2000000000;
-        nLastPOWBlock = 604800;// one week
+        nLastPOWBlock = 604800;//
         nFirstForkTime  = 1527890400;      //  Fr, 01 Jun 2018 22:00:00 GMT (DriftFix and PoS reward to 5 XWC)
         nSecondForkTime = 1583557200;   //2020-03-7 13:00:00
         nFirstHalfTime = 1606665600;        //2020-03-1 10:00:00
@@ -263,7 +265,7 @@ void SelectParams(CChainParams::Network network) {
 
 bool SelectParamsFromCommandLine() {
     bool fRegTest = GetBoolArg("-regtest", false);
-    bool fTestNet = GetBoolArg("-testnet", false);
+    bool fTestNet = GetBoolArg("-testnet", true);
 
     if (fTestNet && fRegTest) {
         return false;

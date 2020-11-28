@@ -599,7 +599,7 @@ void  WhitecoinMiner(CWallet *pwallet)
             fTryToSync = false;
             if (vNodes.size() < 3 || pindexBest->GetBlockTime() < GetTime() - 10 * 60)
             {
-                LogPrintf("======ThreadStakeMiner,nodesize=[%d], error: vNodes.size() < 3 \n", vNodes.size()) ;
+                LogPrintf("======WhitecoinMiner,nodesize=[%d], error: vNodes.size() < 3 \n", vNodes.size()) ;
                 MilliSleep(60000);
                 continue;
             }
