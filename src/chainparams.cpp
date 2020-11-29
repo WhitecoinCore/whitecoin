@@ -151,8 +151,7 @@ public:
 
         // Modify the testnet genesis block so the timestamp is valid for a later start.
         genesis.nBits  = bnProofOfWorkLimit.GetCompact();
-//        genesis.nNonce = 79168;
-//        genesis.nTime    = 1606478400;
+
         genesis.nNonce = 55278;
         genesis.nTime    = 1606462200;
         hashGenesisBlock = genesis.GetHash();
@@ -177,8 +176,6 @@ public:
 */
 
 
-
-//        assert(hashGenesisBlock == uint256("0x000098b61e0e462e7c95e6e999d5b2f4f14cd89d6712511187ee86781bc87451"));
         assert(hashGenesisBlock == uint256("0x0000d6164124157a3274cf1efd49ec5fb355afb598758ba545b3892c67b24c44"));
         assert(genesis.hashMerkleRoot == uint256("0x73513debc549137a47f2afb73173a2d2b4b0c13f57a57387ae3849a928e1e08d"));
 
@@ -188,7 +185,7 @@ public:
         vSeeds.push_back(CDNSSeedData("seed1", "112.126.86.246"));
         vSeeds.push_back(CDNSSeedData("seed2", "101.201.37.171"));
         vSeeds.push_back(CDNSSeedData("seed3", "112.126.86.246"));
-        vSeeds.push_back(CDNSSeedData("seed4", "39.107.66.180"));
+        vSeeds.push_back(CDNSSeedData("seed3", "39.107.66.180"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 196);
