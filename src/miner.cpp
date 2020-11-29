@@ -530,7 +530,17 @@ void ThreadStakeMiner(CWallet *pwallet)
         //
         // Create new block
         //
+        if( TestNet() )
+        {
+            CBlockIndex* pindexPrev = pindexBest;
+            int nHeight = pindexPrev->nHeight + 1;
+            if( nHeight <= Params().LastPOWBlock())
+            {
+                MilliSleep(60000);
 
+                continue;
+            }
+        }
         int64_t nFees;
         auto_ptr<CBlock> pblock(CreateNewBlock(reservekey, true, &nFees));
         if (!pblock.get())
