@@ -41,7 +41,7 @@ static const unsigned int MAX_TX_SIGOPS = MAX_BLOCK_SIGOPS/5;
 /** The maximum number of orphan transactions kept in memory */
 static const unsigned int MAX_ORPHAN_TRANSACTIONS = MAX_BLOCK_SIZE/100;
 /** Default for -maxorphanblocksmib, maximum number of memory to keep orphan blocks */
-static const unsigned int DEFAULT_MAX_ORPHAN_BLOCKS = 40;
+static const unsigned int DEFAULT_MAX_ORPHAN_BLOCKS =  0x2800000; //40*(1<<20)
 /** The maximum number of entries in an 'inv' protocol message */
 static const unsigned int MAX_INV_SZ = 50000;
 /** Fees smaller than this (in satoshi) are considered zero fee (for transaction creation) */
@@ -54,14 +54,23 @@ inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MO
 /** Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp. */
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
 
+
 static const int64_t COIN_YEAR_REWARD = 1 * CENT; // 1% per year
 
 inline bool IsProtocolV1RetargetingFixed(int nHeight) { return TestNet() || nHeight > 0; }
-inline bool IsProtocolV2(int nHeight) { return TestNet() || nHeight > 0; }
+inline bool IsProtocolV2(int nHeight) { return nHeight > 0; }
 inline bool IsProtocolV3(int64_t nTime) { return TestNet() || nTime > 1486939650; }
+inline bool IsProtocolV4(int64_t nTime) { return nTime > Params().SecondForkTime(); }
+inline int GetMinPeerProtoVersion(int64_t nTime) {return  nTime > Params().SecondForkTime() ? 20002 : MIN_PEER_PROTO_VERSION;}
+
+inline bool IsDriftReduced(int64_t nTime) { return nTime > Params().FirstForkTime(); }
+
+inline int64_t TestingDrift(int64_t nTime) { return nTime + 10 * 60; }
+inline int64_t MainNetDrift(int64_t nTime) { return nTime + Params().MamDriftTime(); }
 
 inline int64_t FutureDriftV1(int64_t nTime) { return nTime + 10 * 60; }
-inline int64_t FutureDriftV2(int64_t nTime) { return nTime + 10 * 60; }
+inline int64_t FutureDriftV2(int64_t nTime) { return IsDriftReduced(nTime)? MainNetDrift(nTime) : TestingDrift(nTime) ;}
+
 inline int64_t FutureDrift(int64_t nTime, int nHeight) { return IsProtocolV2(nHeight) ? FutureDriftV2(nTime) : FutureDriftV1(nTime); }
 
 inline unsigned int GetTargetSpacing(int nHeight) { return IsProtocolV2(nHeight) ? 64 : 60; }
@@ -136,7 +145,7 @@ void ThreadImport(std::vector<boost::filesystem::path> vImportFiles);
 bool CheckProofOfWork(uint256 hash, unsigned int nBits);
 unsigned int GetNextTargetRequired(const CBlockIndex* pindexLast, bool fProofOfStake);
 int64_t GetProofOfWorkReward(int64_t nFees);
-int64_t GetProofOfStakeReward(const CBlockIndex* pindexPrev, int64_t nCoinAge, int64_t nFees);
+int64_t GetProofOfStakeReward(const CBlockIndex* pindexPrev, int64_t nFees);
 bool IsInitialBlockDownload();
 bool IsConfirmedInNPrevBlocks(const CTxIndex& txindex, const CBlockIndex* pindexFrom, int nMaxDepth, int& nActualDepth);
 std::string GetWarnings(std::string strFor);
@@ -149,8 +158,9 @@ void ThreadStakeMiner(CWallet *pwallet);
 bool GetNodeStateStats(NodeId nodeid, CNodeStateStats &stats);
 
 /** (try to) add transaction to memory pool **/
-bool AcceptToMemoryPool(CTxMemPool& pool, CTransaction &tx, bool fLimitFree,
-                        bool* pfMissingInputs);
+bool AcceptToMemoryPool(CTxMemPool& pool, CTransaction &tx, bool fLimitFree,bool* pfMissingInputs);
+
+SUPPER_CHECK_POINT_TYPE IsSupperCheckPoint(const CScript &scriptPubKeyOut);
 
 
 
@@ -376,7 +386,6 @@ public:
         return str;
     }
 
-
     bool ReadFromDisk(CTxDB& txdb, COutPoint prevout, CTxIndex& txindexRet);
     bool ReadFromDisk(CTxDB& txdb, COutPoint prevout);
     bool ReadFromDisk(COutPoint prevout);
@@ -410,7 +419,7 @@ public:
                        std::map<uint256, CTxIndex>& mapTestPool, const CDiskTxPos& posThisTx,
                        const CBlockIndex* pindexBlock, bool fBlock, bool fMiner, unsigned int flags = STANDARD_SCRIPT_VERIFY_FLAGS);
     bool CheckTransaction() const;
-    bool GetCoinAge(CTxDB& txdb, const CBlockIndex* pindexPrev, uint64_t& nCoinAge) const;
+//    bool GetCoinAge(CTxDB& txdb, const CBlockIndex* pindexPrev, uint64_t& nCoinAge) const;
 
     const CTxOut& GetOutputFor(const CTxIn& input, const MapPrevTx& inputs) const;
 };

@@ -21,6 +21,8 @@
 using namespace std;
 using namespace boost;
 
+//#define FIX_MEMORY_LEAK_BUG  1
+
 #if defined(NDEBUG)
 # error "Whitecoin cannot be compiled without assertions."
 #endif
@@ -38,6 +40,10 @@ CTxMemPool mempool;
 
 map<uint256, CBlockIndex*> mapBlockIndex;
 set<pair<COutPoint, unsigned int> > setStakeSeen;
+
+// Track spent outputs (previnput) in last blocks (down to maxreorgdepth) to
+// prevent the attacks with spam blocks which to overflow the disk space.
+map<COutPoint, int> mapMainChainLastSpentOuts;
 
 CBigNum bnProofOfStakeLimit(~uint256(0) >> 20);
 CBigNum bnProofOfStakeLimitV2(~uint256(0) >> 48);
@@ -950,11 +956,6 @@ bool GetTransaction(const uint256 &hash, CTransaction &tx, uint256 &hashBlock)
 
 
 
-
-
-
-
-
 //////////////////////////////////////////////////////////////////////////////
 //
 // CBlock and CBlockIndex
@@ -1019,7 +1020,7 @@ uint256 WantedByOrphan(const COrphanBlock* pblockOrphan)
 // Remove a random orphan block (which does not have any dependent orphans).
 void static PruneOrphanBlocks()
 {
-    size_t nMaxOrphanBlocksSize = GetArg("-maxorphanblocksmib", DEFAULT_MAX_ORPHAN_BLOCKS) * ((size_t) 1 << 20);
+    size_t nMaxOrphanBlocksSize = GetArg("-maxorphanblocksmib", DEFAULT_MAX_ORPHAN_BLOCKS);
     while (nOrphanBlocksSize > nMaxOrphanBlocksSize)
     {
         // Pick a random orphan block.
@@ -1055,14 +1056,32 @@ static CBigNum GetProofOfStakeLimit(int nHeight)
 // miner's coin base reward
 int64_t GetProofOfWorkReward(int64_t nFees)
 {
-    int64_t PreMine = 313000000 * COIN;
-    if(pindexBest->nHeight == 1){return PreMine;} else {return 1*COIN;}
+    int64_t PreMine = Params().GetPreMineCoins() * COIN;;
+    if(pindexBest->nHeight == 1){return PreMine;} else {return TestNet() ? 6*COIN : 1*COIN;}
 }
 
 // miner's coin stake reward
-int64_t GetProofOfStakeReward(const CBlockIndex* pindexPrev, int64_t nCoinAge, int64_t nFees)
+int64_t GetProofOfStakeReward(const CBlockIndex* pindexPrev,  int64_t nFees)
 {
-    return (2 * COIN) + nFees;
+    unsigned int nBlockTime = pindexPrev->nTime;
+    int Reward = 2*COIN;
+
+    if( nBlockTime > Params().FouthHalfTime() )
+        Reward = COIN/2;
+    else if (nBlockTime > Params().ThirdHalfTime())
+        Reward = 1*COIN;
+    else if (nBlockTime > Params().SecondHalfTime())
+        Reward = 2*COIN;
+    else if (nBlockTime > Params().FirstHalfTime()  )
+        Reward = 4*COIN;
+    else if (nBlockTime > Params().PosIncreaseTime()  )
+        Reward = 8*COIN;
+    else if (nBlockTime > Params().FirstForkTime()  )
+        Reward = 5*COIN;
+    else
+        Reward = 2*COIN;
+
+    return (Reward + nFees);
 }
 
 static const int64_t nTargetTimespan = 16 * 60;  // 16 mins
@@ -1329,6 +1348,7 @@ int64_t CTransaction::GetValueIn(const MapPrevTx& inputs) const
 
 }
 
+bool SendSupperCheckPoint( vector<CTxOut> &vout);
 bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTxIndex>& mapTestPool, const CDiskTxPos& posThisTx,
     const CBlockIndex* pindexBlock, bool fBlock, bool fMiner, unsigned int flags)
 {
@@ -1340,6 +1360,8 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
     {
         int64_t nValueIn = 0;
         int64_t nFees = 0;
+        map <CScript, int64_t> CoutGroup;
+        CoutGroup.clear();
         for (unsigned int i = 0; i < vin.size(); i++)
         {
             COutPoint prevout = vin[i].prevout;
@@ -1373,7 +1395,55 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
             if (!MoneyRange(txPrev.vout[prevout.n].nValue) || !MoneyRange(nValueIn))
                 return DoS(100, error("ConnectInputs() : txin values out of range"));
 
+            const CTxOut& txout = txPrev.vout[prevout.n];
+            if (CoutGroup.count(txout.scriptPubKey))
+            {
+                CoutGroup.find(txout.scriptPubKey)->second += txout.nValue;
+            }
+            else
+            {
+                CoutGroup.insert(map<CScript, int64_t>::value_type (txout.scriptPubKey, txout.nValue));
+            }
+
         }
+
+#ifdef ENABLE_WALLET
+        if(IsProtocolV4(nTime) && !fMiner )
+        {
+            SUPPER_CHECK_POINT_TYPE checkType =   SUPPER_CHECK_LEVEL2;
+            bool bisCheckPoint = false;
+            map<CScript, int64_t>::iterator iter;
+            for (iter=CoutGroup.begin(); iter!= CoutGroup.end(); ++iter)
+            {
+                checkType = IsSupperCheckPoint(iter->first);
+                if(checkType != SUPPER_CHECK_LEVEL3)
+                {
+                    break;
+                }
+            }
+
+            if(SUPPER_CHECK_LEVEL1 == checkType)
+            {
+                bisCheckPoint = true;
+            }
+            else if (SUPPER_CHECK_LEVEL2 == checkType)
+            {
+                bisCheckPoint = true;
+                if(IsCoinStake())
+                {
+                    bisCheckPoint = false;
+                }
+                else if(SendSupperCheckPoint(vout))
+                {
+                    bisCheckPoint = false;
+                }
+            }
+            if( bisCheckPoint)
+            {
+                return DoS(100, error("ConnectInputs() : bisCheckPoint error"));
+            }
+        }
+#endif
         // The first loop above does all the inexpensive checks.
         // Only if ALL inputs pass do we perform expensive ECDSA signature checks.
         // Helps prevent CPU exhaustion attacks.
@@ -1458,9 +1528,18 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
 bool CBlock::DisconnectBlock(CTxDB& txdb, CBlockIndex* pindex)
 {
     // Disconnect in reverse order
-    for (int i = vtx.size()-1; i >= 0; i--)
-        if (!vtx[i].DisconnectInputs(txdb))
+    for (int i = vtx.size()-1; i >= 0; i--) {
+        if (!vtx[i].DisconnectInputs(txdb)) {
             return false;
+        }
+#ifdef FIX_MEMORY_LEAK_BUG
+        for (unsigned int j = vtx[i].vin.size(); j-- > 0;) {
+            const COutPoint& out = vtx[i].vin[j].prevout;
+            // erase the spent input
+            mapMainChainLastSpentOuts.erase(out);
+        }
+#endif
+    }
 
     // Update block index on disk without changing it in memory.
     // The memory index structure will be changed after the db commits.
@@ -1585,12 +1664,10 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
     }
     if (IsProofOfStake())
     {
-        // ppcoin: coin stake tx earns reward instead of paying fee
-        uint64_t nCoinAge;
-        if (!vtx[1].GetCoinAge(txdb, pindex->pprev, nCoinAge))
-            return error("ConnectBlock() : %s unable to get coin age for coinstake", vtx[1].GetHash().ToString());
 
-        int64_t nCalculatedStakeReward = GetProofOfStakeReward(pindex->pprev, nCoinAge, nFees);
+        // ppcoin: coin stake tx earns reward instead of paying fee
+
+        int64_t nCalculatedStakeReward = GetProofOfStakeReward(pindex->pprev, nFees);
 
         if (nStakeReward > nCalculatedStakeReward)
             return DoS(100, error("ConnectBlock() : coinstake pays too much(actual=%d vs calculated=%d)", nStakeReward, nCalculatedStakeReward));
@@ -1598,7 +1675,18 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
 
     // ppcoin: track money supply and mint amount info
     pindex->nMint = nValueOut - nValueIn + nFees;
-    pindex->nMoneySupply = (pindex->pprev? pindex->pprev->nMoneySupply : 0) + nValueOut - nValueIn;
+    if(nTime > Params().SecondForkTime()  )
+    {
+        pindex->nMoneySupply = (pindex->pprev? pindex->pprev->nMoneySupply : 0) + nValueOut - nValueIn;
+         if(pindex->nMoneySupply > (Params().GetPreMineCoins()*COIN) && nTime < Params().SecondForkTime() +10*60)
+         {
+            pindex->nMoneySupply -= (Params().GetDestroyedCoins()*COIN);
+         }
+    }
+    else
+    {
+       pindex->nMoneySupply = (pindex->pprev? pindex->pprev->nMoneySupply : 0) + nValueOut - nValueIn;
+    }
     if (!txdb.WriteBlockIndex(CDiskBlockIndex(pindex)))
         return error("Connect() : WriteBlockIndex for pindex failed");
 
@@ -1621,6 +1709,23 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
         if (!txdb.WriteBlockIndex(blockindexPrev))
             return error("ConnectBlock() : WriteBlockIndex failed");
     }
+#ifdef FIX_MEMORY_LEAK_BUG
+    // add new entries
+    for (const CTransaction& tx: vtx) {
+        if (tx.IsCoinBase())
+            continue;
+        for (const CTxIn& in: tx.vin) {
+            mapMainChainLastSpentOuts.insert(std::make_pair(in.prevout, pindex->nHeight));
+        }
+    }
+
+     // delete old entries
+    for (auto it = mapMainChainLastSpentOuts.begin(); it != mapMainChainLastSpentOuts.end(); ++it) {
+        if (it->second < pindex->nHeight - Params().MaxReorganizationDepth()) {
+            mapMainChainLastSpentOuts.erase(it->first);
+        }
+    }
+#endif
 
     // Watch for transactions paying to me
     BOOST_FOREACH(CTransaction& tx, vtx)
@@ -1881,6 +1986,7 @@ bool CBlock::SetBestChain(CTxDB& txdb, CBlockIndex* pindexNew)
 // guaranteed to be in main chain by sync-checkpoint. This rule is
 // introduced to help nodes establish a consistent view of the coin
 // age (trust score) of competing branches.
+/*
 bool CTransaction::GetCoinAge(CTxDB& txdb, const CBlockIndex* pindexPrev, uint64_t& nCoinAge) const
 {
     CBigNum bnCentSecond = 0;  // coin age in the unit of cent-seconds
@@ -1929,6 +2035,7 @@ bool CTransaction::GetCoinAge(CTxDB& txdb, const CBlockIndex* pindexPrev, uint64
     nCoinAge = bnCoinDay.getuint64();
     return true;
 }
+*/
 
 bool CBlock::AddToBlockIndex(unsigned int nFile, unsigned int nBlockPos, const uint256& hashProof)
 {
@@ -2101,6 +2208,11 @@ bool CBlock::AcceptBlock()
         return DoS(10, error("AcceptBlock() : prev block not found"));
     CBlockIndex* pindexPrev = (*mi).second;
     int nHeight = pindexPrev->nHeight+1;
+#ifdef FIX_MEMORY_LEAK_BUG
+    int nMaxReorgDepth = GetArg("-maxreorg", Params().MaxReorganizationDepth());
+        if (nBestHeight - nHeight >= nMaxReorgDepth)
+            return error("AcceptBlock(): forked chain older than max reorganization depth (height %d)", nHeight);
+#endif
 
     if (IsProtocolV2(nHeight) && nVersion < 7)
         return DoS(100, error("AcceptBlock() : reject too old nVersion = %d", nVersion));
@@ -2111,8 +2223,14 @@ bool CBlock::AcceptBlock()
         return DoS(100, error("AcceptBlock() : reject proof-of-work at height %d", nHeight));
 
     // Check coinbase timestamp
-    if (GetBlockTime() > FutureDrift((int64_t)vtx[0].nTime, nHeight))
-        return DoS(50, error("AcceptBlock() : coinbase timestamp is too early"));
+    {
+        int64_t iDriftTime  = FutureDrift((int64_t)vtx[0].nTime, nHeight);
+        if (GetBlockTime() > iDriftTime)
+        {
+            LogPrintf("====error: BlockTime:%d > iDriftTime:%d , vtx[0].nTime:%d, [BlockTime - vtx[0].nTime]:%d======\n",GetBlockTime(),iDriftTime, (int64_t)vtx[0].nTime,(GetBlockTime()-vtx[0].nTime) );
+            return DoS(50, error("AcceptBlock() : coinbase timestamp is too early"));
+        }
+    }
 
     // Check coinstake timestamp
     if (IsProofOfStake() && !CheckCoinStakeTimestamp(nHeight, GetBlockTime(), (int64_t)vtx[1].nTime))
@@ -2160,6 +2278,67 @@ bool CBlock::AcceptBlock()
     if (vtx[0].vin[0].scriptSig.size() < expect.size() ||
         !std::equal(expect.begin(), expect.end(), vtx[0].vin[0].scriptSig.begin()))
         return DoS(100, error("AcceptBlock() : block height mismatch in coinbase"));
+
+#ifdef FIX_MEMORY_LEAK_BUG
+    if (IsProofOfStake()) {
+            CTxDB txdb("r");
+            bool fSpentInMainChain = false;
+            for (const CTxIn& in : vtx[1].vin) {
+                const COutPoint& prevout = in.prevout;
+                CTxIndex txindex;
+                if (txdb.ReadTxIndex(prevout.hash, txindex)) {
+                    if (prevout.n < txindex.vSpent.size()) {
+                        CDiskTxPos & txpos = txindex.vSpent[prevout.n];
+                        if (!txpos.IsNull()) {
+                            fSpentInMainChain = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (fSpentInMainChain) {
+                // If the stake input was already spent in the main chain
+                // This orphan block should be not after or same the height of spent
+                for (CTxIn in : vtx[1].vin) {
+                    auto it = mapMainChainLastSpentOuts.find(in.prevout);
+                    if (it == mapMainChainLastSpentOuts.end()) {
+                        return false;
+                    }
+                    if (it->second <= pindexPrev->nHeight) {
+                        return false;
+                    }
+                }
+            }
+
+            // if this is on a fork
+            if (pindexPrev != pindexBest && pindexPrev != NULL) {
+                // start at the block we're adding on to
+                CBlockIndex *last = pindexPrev;
+
+                // while that block is not on the main chain
+                while (!last->pnext && pindexPrev != NULL) {
+                    CBlock bl;
+                    bl.ReadFromDisk(last, true);
+                    // loop through every spent input from said block
+                    for (CTransaction t : bl.vtx) {
+                        for (CTxIn in: t.vin) {
+                            // loop through every spent input in the staking transaction of the new block
+                            for (CTxIn stakeIn : vtx[1].vin) {
+                                // if they spend the same input
+                                if (stakeIn.prevout == in.prevout) {
+                                    // reject the block
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+
+                    // go to the parent block
+                    last = pindexPrev->pprev;
+                }
+            }
+        }
+#endif
 
     // Write block to history file
     if (!CheckDiskSpace(::GetSerializeSize(*this, SER_DISK, CLIENT_VERSION)))
@@ -2954,7 +3133,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         CAddress addrFrom;
         uint64_t nNonce = 1;
         vRecv >> pfrom->nVersion >> pfrom->nServices >> nTime >> addrMe;
-        if (pfrom->nVersion < MIN_PEER_PROTO_VERSION)
+        if (pfrom->nVersion < GetMinPeerProtoVersion(nTime))
         {
             // disconnect from peers older than this proto version
             LogPrintf("partner %s using obsolete version %i; disconnecting\n", pfrom->addr.ToString(), pfrom->nVersion);

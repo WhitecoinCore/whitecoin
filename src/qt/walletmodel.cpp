@@ -253,50 +253,89 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
 
     return SendCoinsReturn(OK, 0, hex);
 }
-
-WalletModel::SendCoinsReturn WalletModel::quickCoins(const std::string strAddress, const qint64 dbAmount, const CCoinControl *coinControl)
+#ifdef  OPEN_QUICK_SENDING
+WalletModel::SendCoinsReturn WalletModel::quickCoins(const QList<SendCoinsRecipient> &recipients, const CCoinControl *coinControl)
 {
+    qint64 total = 0;
     QSet<QString> setAddress;
     QString hex;
-    int64_t txValue = 0;
-    
-    if(!validateAddress(QString::fromStdString(strAddress)))
+     int64_t txValue = 0;
+    if(recipients.empty())
     {
-        return InvalidAddress;
+        return OK;
     }
-    setAddress.insert(QString::fromStdString(strAddress));
 
-    if(dbAmount <= 0)
+    // Pre-check input data for validity
+    foreach(const SendCoinsRecipient &rcp, recipients)
     {
-    		LogPrintf("quickCoins dbAmount<=0......\n");
-        return InvalidAmount;
+        if(!validateAddress(rcp.address))
+        {
+            return InvalidAddress;
+        }
+        setAddress.insert(rcp.address);
+
+        if(rcp.amount <= 0)
+        {
+            return InvalidAmount;
+        }
+        total += rcp.amount;
     }
-        
-    qint64 nBalance = getBalance(coinControl);
-    if(dbAmount > nBalance)
+
+    if(recipients.size() > setAddress.size())
     {
-    		LogPrintf("quickCoins dbAmount > nBalance......\n");
+        return DuplicateAddress;
+    }
+
+    qint64 nBalance = getBalance(coinControl);
+
+    if(total > nBalance)
+    {
         return AmountExceedsBalance;
     }
-    
+
+    if((total + nTransactionFee) > nBalance)
+    {
+        return SendCoinsReturn(AmountWithFeeExceedsBalance, nTransactionFee);
+    }
+
      
     {
         LOCK2(cs_main, wallet->cs_wallet);        
         
-        //1、形成支付方案(创建交易)
+        // Sendmany
         std::vector<std::pair<CScript, int64_t> > vecSend;
-        CWalletTx wtx;
-        CReserveKey keyChange(wallet);
-        int64_t nFeeRequired = 0;  
+        foreach(const SendCoinsRecipient &rcp, recipients)
+        {
+            CScript scriptPubKey;
+            scriptPubKey.SetDestination(CBitcoinAddress(rcp.address.toStdString()).Get());
+            vecSend.push_back(make_pair(scriptPubKey, rcp.amount));
+/*
+            //insert infomation into blockchain
+            if (rcp.remark.length() >= 1)
+            {
+                std::string strMess = rcp.remark.toStdString();
+                const char* pszMess =strMess.c_str();
+                CScript scriptP = CScript() << OP_RETURN << vector<unsigned char>((const unsigned char*)pszMess, (const unsigned char*)pszMess + strlen(pszMess));
+                LogPrintf("insert scriptP=%s\n",scriptP.ToString().c_str());
+                vecSend.push_back(make_pair(scriptP, CENT));
+             }
+*/
+        }
         
-        //返回本次发送的金额
-        bool fCreated = wallet->CreateQuickTransaction(strAddress, dbAmount, vecSend, wtx, keyChange, nFeeRequired, txValue ,coinControl);
-        LogPrintf("quickCoins fCreated = %i,dbAmount=%i, txValue=%i, nFeeRequired=%i\n", fCreated, dbAmount, txValue, nFeeRequired);
+        const PAIRTYPE(CScript, int64_t)& OutPair = vecSend[0]; // quick send only support first send item.
+        CScript scriptPubKey = OutPair.first;
+        int64_t dbAmount = OutPair.second;
+        CWalletTx wtx;
+         CReserveKey keyChange(wallet);
+         int64_t nFeeRequired = 0;
 
-        //2、检查交易、广播交易
+        //return the send out coins number
+        bool fCreated = wallet->CreateQuickTransaction( scriptPubKey, dbAmount, wtx, keyChange, nFeeRequired, txValue ,coinControl);
+        LogPrintf("quickCoins fCreated = %i,dbAmount=%i, txRealSendCons=%i, nFeeRequired=%i\n", fCreated, dbAmount, txValue, nFeeRequired);
+
         if(!fCreated)
         {
-            if((dbAmount + nFeeRequired) > nBalance) // FIXME: could cause collisions in the future
+            if((txValue + nFeeRequired) > nBalance) // FIXME: could cause collisions in the future
             {
                 return SendCoinsReturn(AmountWithFeeExceedsBalance, nFeeRequired);
             }
@@ -311,7 +350,7 @@ WalletModel::SendCoinsReturn WalletModel::quickCoins(const std::string strAddres
         LogPrintf("quickCoins CommitTransaction......\n");
         if(!wallet->CommitTransaction(wtx, keyChange))
         {
-        		LogPrintf("CommitTransaction fail.......\n");
+            LogPrintf("CommitTransaction fail.......\n");
             return TransactionCommitFailed;
         }
         hex = QString::fromStdString(wtx.GetHash().GetHex());
@@ -321,7 +360,7 @@ WalletModel::SendCoinsReturn WalletModel::quickCoins(const std::string strAddres
     
     return SendCoinsReturn(OK, txValue, hex);
 }
-
+#endif
 OptionsModel *WalletModel::getOptionsModel()
 {
     return optionsModel;

@@ -47,9 +47,10 @@ public:
     enum Base58Type {
         PUBKEY_ADDRESS,
         SCRIPT_ADDRESS,
-        SECRET_KEY,
-        EXT_PUBLIC_KEY,
-        EXT_SECRET_KEY,
+        SECRET_KEY,     // BIP16
+        EXT_PUBLIC_KEY, // BIP32
+        EXT_SECRET_KEY, // BIP32
+        EXT_COIN_TYPE,  // BIP44
 
         MAX_BASE58_TYPES
     };
@@ -59,7 +60,8 @@ public:
     const vector<unsigned char>& AlertKey() const { return vAlertPubKey; }
     const map<std::string, vector<unsigned char> >& mapMessKey() const { return mapBroadcastMessPubKey; }
     int GetDefaultPort() const { return nDefaultPort; }
-    const CBigNum& ProofOfWorkLimit() const { return bnProofOfWorkLimit; }  
+    const CBigNum& ProofOfWorkLimit() const { return bnProofOfWorkLimit; }
+    int MaxReorganizationDepth() const { return nMaxReorganizationDepth; }
     int SubsidyHalvingInterval() const { return nSubsidyHalvingInterval; }
     virtual const CBlock& GenesisBlock() const = 0;
     virtual bool RequireRPCPassword() const { return true; }
@@ -70,6 +72,18 @@ public:
     virtual const vector<CAddress>& FixedSeeds() const = 0;
     int RPCPort() const { return nRPCPort; }
     int LastPOWBlock() const { return nLastPOWBlock; }
+    int64_t FirstForkTime()     const {return 	nFirstForkTime;}
+    int64_t SecondForkTime() const {return 	nSecondForkTime;}
+    int64_t PosIncreaseTime() const {return 	nPosIncreaseTime;}
+
+    int64_t FirstHalfTime()       const {return 	nFirstHalfTime;     }
+    int64_t SecondHalfTime() const {return      nSecondHalfTime;}
+    int64_t ThirdHalfTime()     const {return      nThirdHalfTime;  }
+    int64_t FouthHalfTime()    const {return      nFouthHalfTime;   }
+    int64_t MamDriftTime()    const {return      nMainNetDriftTime;}
+    int64_t GetDestroyedCoins() const {return nDestroyedCoins;}
+    int64_t GetPreMineCoins() const {return nPreMineCoins;}
+
 protected:
     CChainParams() {};
 
@@ -81,11 +95,23 @@ protected:
     int nDefaultPort;
     int nRPCPort;
     CBigNum bnProofOfWorkLimit;
+    int nMaxReorganizationDepth;
     int nSubsidyHalvingInterval;
     string strDataDir;
     vector<CDNSSeedData> vSeeds;
     std::vector<unsigned char> base58Prefixes[MAX_BASE58_TYPES];
     int nLastPOWBlock;
+    int64_t nFirstForkTime;
+    int64_t nSecondForkTime;
+    int64_t nPosIncreaseTime;
+    int64_t nFirstHalfTime;
+    int64_t nSecondHalfTime;
+    int64_t nThirdHalfTime;
+    int64_t nFouthHalfTime;
+    int64_t nMainNetDriftTime;
+    int64_t nDestroyedCoins;
+    int64_t nPreMineCoins;
+
 };
 
 /**

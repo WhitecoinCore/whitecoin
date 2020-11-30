@@ -9,6 +9,7 @@
 #include "main.h"
 #include "wallet.h"
 
+
 /* Generate a new block, without valid proof-of-work */
 CBlock* CreateNewBlock(CReserveKey& reservekey, bool fProofOfStake=false, int64_t* pFees = 0);
 

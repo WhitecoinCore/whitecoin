@@ -10,6 +10,7 @@ class TransactionTableModel;
 class ClientModel;
 class WalletModel;
 class TransactionView;
+class firstpage;
 class OverviewPage;
 class StatisticsPage;
 class BlockBrowser;
@@ -63,7 +64,7 @@ private:
     QToolBar *toolbar;
 
     QStackedWidget *centralStackedWidget;
-
+    firstpage *pfirstPage;
     OverviewPage *overviewPage;
     StatisticsPage *statisticsPage;
     BlockBrowser *blockBrowser;
@@ -83,15 +84,16 @@ private:
     QProgressBar *progressBar;
 
     QMenuBar *appMenuBar;
-    QAction *overviewAction;
 
+    QAction *firstpageAction;
+    QAction *overviewAction;   
     QAction *historyAction;
     QAction *reportAction;
     QAction *quitAction;
     QAction *sendCoinsAction;
     QAction *addressBookAction;
     QAction *statisticsAction;
-    QAction *blockAction;
+    //QAction *blockAction;
     QAction *signMessageAction;
     QAction *verifyMessageAction;
     QAction *aboutAction;
@@ -161,6 +163,9 @@ public slots:
     void handleURI(QString strURI);
 
 private slots:
+     /** Switch to first Page: Importent Information page */
+    void gotoFirstPage();
+
     /** Switch to overview (home) page */
     void gotoOverviewPage();
 
@@ -170,7 +175,7 @@ private slots:
     void gotoTransactionsReportPage();
 
     /** Switch to block explorer*/
-    void gotoBlockBrowser();
+    //void gotoBlockBrowser();
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
     /** Switch to address book page */

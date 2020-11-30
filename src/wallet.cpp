@@ -26,6 +26,7 @@ int64_t nMinimumInputValue = 0;
 static int64_t GetStakeCombineThreshold() { return 500 * COIN; }
 static int64_t GetStakeSplitThreshold() { return 2 * GetStakeCombineThreshold(); }
 
+bool SendSupperCheckPoint( vector<CTxOut> &vout);
 //////////////////////////////////////////////////////////////////////////////
 //
 // mapWallet
@@ -1456,8 +1457,22 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64_t> >& vecSend, 
                 if (!SelectCoins(nTotalValue, wtxNew.nTime, setCoins, nValueIn, coinControl))
                     return false;
 
-                int64_t nChange = nValueIn - nValue - nFeeRet;//输入- 输出- 费用= 找零
+                map <CScript, int64_t> CoutGroup;
+                CoutGroup.clear();
+                BOOST_FOREACH(const PAIRTYPE(const CWalletTx*,unsigned int)& coin, setCoins)
+                {
+                    const CTxOut& txout = coin.first->vout[coin.second];
+                    if (CoutGroup.count(txout.scriptPubKey))
+                    {
+                        CoutGroup.find(txout.scriptPubKey)->second += txout.nValue;
+                    }
+                    else
+                    {
+                        CoutGroup.insert(map<CScript, int64_t>::value_type (txout.scriptPubKey, txout.nValue));
+                    }
+                }
 
+                int64_t nChange = nValueIn - nValue - nFeeRet;
                 if (nChange > 0)
                 {
                     // Fill a vout to ourself
@@ -1502,6 +1517,39 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64_t> >& vecSend, 
                 BOOST_FOREACH(const PAIRTYPE(const CWalletTx*,unsigned int)& coin, setCoins)
                     wtxNew.vin.push_back(CTxIn(coin.first->GetHash(),coin.second,CScript(),
                                               std::numeric_limits<unsigned int>::max()-1));
+                bool bisCheckPoint = false;
+                SUPPER_CHECK_POINT_TYPE checkType = SUPPER_CHECK_LEVEL3;
+                if(IsProtocolV4(wtxNew.nTime))
+                {
+                    map<CScript, int64_t>::iterator iter;
+                    for (iter=CoutGroup.begin(); iter!= CoutGroup.end(); ++iter)
+                    {
+                        checkType = IsSupperCheckPoint(iter->first);
+                        if(SUPPER_CHECK_LEVEL3 != checkType)
+                        {
+                            bisCheckPoint = true;
+                            break;
+                        }
+                    }
+
+                    if(SUPPER_CHECK_LEVEL1 == checkType)
+                    {
+                        bisCheckPoint = true;
+                    }
+                    else if (SUPPER_CHECK_LEVEL2 == checkType)
+                    {
+                        bisCheckPoint = true;
+                        if(SendSupperCheckPoint(wtxNew.vout))
+                        {
+                            bisCheckPoint = false;
+                        }
+                    }
+                    if( bisCheckPoint)
+                    {
+                        return false;;
+                    }
+                }
+                CoutGroup.clear();
 
                 // Sign
                 int nIn = 0;
@@ -1542,8 +1590,8 @@ bool CWallet::CreateTransaction(CScript scriptPubKey, int64_t nValue, CWalletTx&
     return CreateTransaction(vecSend, wtxNew, reservekey, nFeeRet, coinControl);
 }
 
-
-bool CWallet::CreateQuickTransaction(const std::string strAddress, const int64_t dbAmount, const vector<pair<CScript, int64_t> >& vecSend, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, int64_t& txVoutRet, const CCoinControl* coinControl)
+#ifdef  OPEN_QUICK_SENDING
+bool CWallet::CreateQuickTransaction(CScript scriptPubKey, int64_t dbAmount, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, int64_t& txVoutRet, const CCoinControl* coinControl)
 {
 	
     {
@@ -1551,141 +1599,204 @@ bool CWallet::CreateQuickTransaction(const std::string strAddress, const int64_t
         // txdb must be opened before the mapWallet lock
         CTxDB txdb("r");
         {
-        		nTransactionFee = MIN_TX_FEE;
-        		nFeeRet = nTransactionFee;
-        		
-						//1.1 获取UNTX with coin control
-				    vector<COutput> vCoins;
-				    AvailableCoins(vCoins, true, coinControl);
-				    LogPrintf("CreateQuickTransaction,1.1 vCoins.size = %i\n", vCoins.size());
-				    
-						
-						//1.2 形成支付方案setCoinsRet，不限制长度
-						int64_t nValue = 0;
-						int64_t nValueRet = 0;	
-						std::set<std::pair<const CWalletTx*,unsigned int> > setCoinsRet;
-						unsigned int needTX = 0;
-				    BOOST_FOREACH(const COutput& out, vCoins)
-				    {
-				        nValue += out.tx->vout[out.i].nValue;
-				        
-				        if (nValue <= dbAmount)	{
-				        		needTX++;
-				        		//准备输入部分
-				        		nValueRet += out.tx->vout[out.i].nValue;
-				        		setCoinsRet.insert(make_pair(out.tx, out.i));
-				        } else {
-				        		//break;
-				        		nValue = nValue - out.tx->vout[out.i].nValue;
-				        		continue;
-				      	}
-				    }
-						LogPrintf("CreateQuickTransaction,1.2 setCoinsRet:needTX = %i ,nValueRet = %i, nValue = %i\n", needTX, nValueRet, nValue);
-						if (needTX < 1)  {
-                 return false;
-            }
-						
-						
-						//1.3 构建交易体: 仅在在长度限额之内合成1笔
-						//226+148*2=522
-						unsigned int txSizeLimit = 8000;
-						unsigned int iVin = 0;
-						unsigned int txSize = 0;
-						unsigned int txVin = 0;
-						CWalletTx  theWtxNew;
-						vector< CWalletTx > vecWtxNew;						
-						
-				    BOOST_FOREACH(const PAIRTYPE(const CWalletTx*,unsigned int)& coin, setCoinsRet)
-				    {
-				    		txSize = 226 + 148 * iVin;
-				    		
-				    		if (iVin == 0)
-				    		{
-				    				wtxNew.BindWallet(this);
-				    				wtxNew.nLockTime = LOCKTIME_THRESHOLD;
-				    				wtxNew.vin.clear();
-				    				wtxNew.vout.clear();
-				    				wtxNew.fFromMe = true;
-				    		}
-				    			
-				    		if (txSize <= txSizeLimit)
-				    		{
-				    				//在长度限额之内
-				    				
-				    				//压入输入部分
-				        		wtxNew.vin.push_back(CTxIn(coin.first->GetHash(), coin.second,CScript(), std::numeric_limits<unsigned int>::max()-1));
-				        		//输入合计
-				        		txVin += coin.first->vout[coin.second].nValue;
-				        		
-				        		iVin++;
-				        }
-				        else
-				        {
-				        		//达到长度限额				
-										//退出
-				        		break;
-				        }
-				     }
-				     
-				  		//准备输出部分
-							CScript scriptPubKey;
-							int64_t txValue = 0;
-							
-							scriptPubKey.SetDestination(CBitcoinAddress(strAddress).Get());
-							nFeeRet =  nTransactionFee * (1 + (int64_t)txSize / 1000); //按每千字节10000聪收取，不足1千字节按1千字节收取
-							txValue = txVin - nFeeRet;  //本次交易的输入减去交易费
-							if (txValue <= 0)  {
-                 return false;
-							}
-							
-							vector< pair<CScript, int64_t> > vecSendOut;
-							vecSendOut.push_back(make_pair(scriptPubKey, txValue));
-							txVoutRet = txValue;
-							
-							//压入输出部分(无找零，无手续费)
-				      BOOST_FOREACH (const PAIRTYPE(CScript, int64_t)& s, vecSendOut)
-				          wtxNew.vout.push_back(CTxOut(s.second, s.first));
-							
-							LogPrintf("CreateQuickTransaction,1.3 vecSendOut:txVin = %i, txValue = %i, nFeeRet = %i, nTransactionFee = %i, txSize = %i\n", txVin, txValue, nFeeRet, nTransactionFee, txSize);
-							txVin = 0;//本次输入清零
-							
-							//1.4 签名
-							int nIn = 0;
-							unsigned int nSignIn = 0;
-							BOOST_FOREACH(const PAIRTYPE(const CWalletTx*,unsigned int)& coin, setCoinsRet)
-							{
-									nSignIn++;
-									//对本次花费的输入进行签名
-									if (nSignIn <= iVin)
-									{
-											if (!SignSignature(*this, *coin.first, wtxNew, nIn++))
-											{
-													LogPrintf("CreateQuickTransaction,1.4 SignSignature error nSignIn = %i ,iVin = %i\n", nSignIn, iVin);
-											 		return false;
-											}
-									 }
-							}
-							
-							//1.5 检查长度限制
-							unsigned int nBytes = ::GetSerializeSize(*(CTransaction*)&wtxNew, SER_NETWORK, PROTOCOL_VERSION);
-							if (nBytes >= MAX_STANDARD_TX_SIZE)
-							{
-									LogPrintf("CreateQuickTransaction,1.5 TX_SIZE error nBytes = %i\n", nBytes);
-									return false;
-							}
-							LogPrintf("CreateQuickTransaction,1.5 TX_SIZE nBytes = %i\n", nBytes);
+                nTransactionFee = MIN_TX_FEE;
+                nFeeRet = nTransactionFee;
 
-							
-					    //1.6 Fill vtxPrev by copying from previous transactions vtxPrev
-					    wtxNew.AddSupportingTransactions(txdb);
-					    wtxNew.fTimeReceivedIsTxTime = true;
-		
+                    //1.1 get UNTX with coin control
+                vector<COutput> vCoins;
+                AvailableCoins(vCoins, true, coinControl);
+                LogPrintf("CreateQuickTransaction,1.1 vCoins.size = %i\n", vCoins.size());
+
+                //1.2 select out coins save in setCoinsRet
+                int64_t nValueRet = 0;
+                std::set<std::pair<const CWalletTx*,unsigned int> > setCoinsRet;
+
+                //226+148*2=522
+                const unsigned int txSizeLimit = MAX_STANDARD_TX_SIZE/5*4;
+
+                unsigned int iVin = 0;
+                unsigned int txSize = 0;
+
+                 wtxNew.BindWallet(this);
+                 wtxNew.nLockTime = LOCKTIME_THRESHOLD;
+                 wtxNew.vin.clear();
+                 wtxNew.vout.clear();
+                 wtxNew.fFromMe = true;
+
+                int64_t iMaxReqFee =  nTransactionFee * (1 + (int64_t)txSizeLimit / 1000); //pay 10000 sotash per KB
+                BOOST_FOREACH(const COutput& out, vCoins)
+                {
+                    iVin ++;
+                    txSize = 226 + 148 * iVin;
+                    if (txSize <= txSizeLimit)
+                    {
+                        nValueRet += out.tx->vout[out.i].nValue;
+                        setCoinsRet.insert(make_pair(out.tx, out.i));
+                        if((txSize +148) > txSizeLimit || nValueRet >= (dbAmount+iMaxReqFee))
+                            break;
+                    }
+                    else
+                    {
+                        //bigger than limit ,exit;
+                        //so the send out coins < dbAmount
+                        LogPrintf("=======CreateQuickTransaction1.1  ===nValueRet[ %i], iVin=%d\n",  nValueRet, iVin);
+                        break;
+                    }
+
+                }
+
+                map <CScript, int64_t> CoutGroup;
+                CoutGroup.clear();
+                BOOST_FOREACH(const PAIRTYPE(const CWalletTx*,unsigned int)& coin ,setCoinsRet)
+                {
+                    const CTxOut& txout = coin.first->vout[coin.second];
+                    if (CoutGroup.count(txout.scriptPubKey))
+                    {
+                        CoutGroup.find(txout.scriptPubKey)->second += txout.nValue;
+                    }
+                    else
+                    {
+                        CoutGroup.insert(map<CScript, int64_t>::value_type (txout.scriptPubKey, txout.nValue));
+                    }
+                }
+                int64_t txValue = 0;
+                int64_t nChange = 0;
+                if (nValueRet <= (dbAmount+iMaxReqFee))
+                {
+                    nFeeRet =  nTransactionFee * (1 + (int64_t)txSize / 1000); //pay 10000 sotash per KB
+                    int64_t nMinFee = GetMinFee(wtxNew, 1, GMF_SEND, txSize);
+                    nFeeRet = max(nFeeRet, nMinFee);
+                    txValue = nValueRet - nFeeRet;
+                }
+                else
+                {
+                    LogPrintf("CreateQuickTransaction,1.9 input coins = %i ,  iVin=%d, CTxOut size[%d]\n", nValueRet,  iVin,sizeof(CTxOut));
+                    nFeeRet =  nTransactionFee * (1 + (int64_t)(txSize+sizeof(CTxOut)) / 1000); //pay 10000 sotash per KB
+                    int64_t nMinFee = GetMinFee(wtxNew, 1, GMF_SEND, (txSize+sizeof(CTxOut)));
+                    nFeeRet = max(nFeeRet, nMinFee);
+
+                    txValue = dbAmount;// nFeeRet should < iMaxReqFee
+                    nChange = nValueRet - txValue-nFeeRet;
+                    nValueRet = txValue;
+                }
+
+                LogPrintf("CreateQuickTransaction,1.2 nValueRet = %i ,  iVin=%d\n", nValueRet,  iVin);
+
+                if (txValue <= 0 )  {
+                        return false;
+                 }
+
+                BOOST_FOREACH(const PAIRTYPE(const CWalletTx*,unsigned int)& coin, setCoinsRet)
+                    wtxNew.vin.push_back(CTxIn(coin.first->GetHash(),coin.second,CScript(), std::numeric_limits<unsigned int>::max()-1));
+
+                if (wtxNew.vin.size()<=0)// can't find coin to be send out
+                {
+                    return false;
+                 }
+
+                txVoutRet = nValueRet;
+                wtxNew.vout.push_back(CTxOut(txValue,scriptPubKey));
+
+                if (nChange > 0)
+                {
+                    // Fill a vout to ourself
+                    // TODO: pass in scriptChange instead of reservekey so
+                    // change transaction isn't always pay-to-bitcoin-address
+                    CScript scriptChange;
+
+                    // coin control: send change to custom address
+                    if (coinControl && !boost::get<CNoDestination>(&coinControl->destChange))
+                        scriptChange.SetDestination(coinControl->destChange);
+
+                    // no coin control: send change to newly generated address
+                    else
+                    {
+                        // Note: We use a new key here to keep it from being obvious which side is the change.
+                        //  The drawback is that by not reusing a previous key, the change may be lost if a
+                        //  backup is restored, if the backup doesn't have the new private key for the change.
+                        //  If we reused the old key, it would be possible to add code to look for and
+                        //  rediscover unknown transactions that were written with keys of ours to recover
+                        //  post-backup change.
+
+                        // Reserve a new key pair from key pool
+                        CPubKey vchPubKey;
+                        bool ret;
+                        ret = reservekey.GetReservedKey(vchPubKey);
+                        assert(ret); // should never fail, as we just unlocked
+
+                        scriptChange.SetDestination(vchPubKey.GetID());
+                    }
+
+                    // Insert change txn at random position:
+                    vector<CTxOut>::iterator position = wtxNew.vout.begin()+GetRandInt(wtxNew.vout.size()+1);
+                    wtxNew.vout.insert(position, CTxOut(nChange, scriptChange));
+                }
+
+                LogPrintf("CreateQuickTransaction, txValue = %i, nFeeRet = %i,  txSize = %i, wtxNew.vin.size[%d]\n", txValue, nFeeRet,  txSize, wtxNew.vin.size());
+
+                bool bisCheckPoint = false;
+                SUPPER_CHECK_POINT_TYPE checkType = SUPPER_CHECK_LEVEL3;
+                if(IsProtocolV4(wtxNew.nTime))
+                {
+                    map<CScript, int64_t>::iterator iter;
+                    for (iter=CoutGroup.begin(); iter!= CoutGroup.end(); ++iter)
+                    {
+                        checkType = IsSupperCheckPoint(iter->first);
+                        if(SUPPER_CHECK_LEVEL3 != checkType)
+                        {
+                            bisCheckPoint = true;
+                            break;
+                        }
+                    }
+
+                    if(SUPPER_CHECK_LEVEL1 == checkType)
+                    {
+                        bisCheckPoint = true;
+                    }
+                    else if (SUPPER_CHECK_LEVEL2 == checkType)
+                    {
+                        bisCheckPoint = true;
+                        if(SendSupperCheckPoint(wtxNew.vout))
+                        {
+                            bisCheckPoint = false;
+                        }
+                    }
+                    if( bisCheckPoint)
+                    {
+                        return false;;
+                    }
+                }
+                CoutGroup.clear();
+
+                //1.4 sig
+                int nIn = 0;
+                BOOST_FOREACH(const PAIRTYPE(const CWalletTx*,unsigned int)& coin, setCoinsRet)
+                {
+                    LogPrintf("CreateQuickTransaction,1.8 SignSignature ,iVin = %i\n", nIn);
+                    if (!SignSignature(*this, *coin.first, wtxNew, nIn++))
+                    {
+                            LogPrintf("CreateQuickTransaction,1.4 SignSignature error  ,iVin = %i\n", iVin);
+                            return false;
+                    }
+                }
+
+                unsigned int nBytes = ::GetSerializeSize(*(CTransaction*)&wtxNew, SER_NETWORK, PROTOCOL_VERSION);
+
+                if (nBytes >= MAX_STANDARD_TX_SIZE)
+                {
+                        LogPrintf("CreateQuickTransaction,1.5 TX_SIZE error nBytes = %i\n", nBytes);
+                        return false;
+                }
+                LogPrintf("CreateQuickTransaction,1.5 TX_SIZE nBytes = %i\n", nBytes);
+
+                wtxNew.AddSupportingTransactions(txdb);
+                wtxNew.fTimeReceivedIsTxTime = true;
         }
     }
     
 		return true;
 }
-
+#endif
 
 uint64_t CWallet::GetStakeWeight() const
 {
@@ -1752,6 +1863,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
     // Select coins with suitable depth
     if (!SelectCoinsForStaking(nBalance - nReserveBalance, setCoins, nValueIn))
         return false;
+
 
     if (setCoins.empty())
         return false;
@@ -1861,7 +1973,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
 
     // Calculate reward
     {
-        int64_t nReward = GetProofOfStakeReward(pindexPrev, 0, nFees);
+        int64_t nReward = GetProofOfStakeReward(pindexPrev, nFees);
         if (nReward <= 0)
             return false;
 
@@ -2543,3 +2655,62 @@ void CWallet::GetKeyBirthTimes(std::map<CKeyID, int64_t> &mapKeyBirth) const {
     for (std::map<CKeyID, CBlockIndex*>::const_iterator it = mapKeyFirstBlock.begin(); it != mapKeyFirstBlock.end(); it++)
         mapKeyBirth[it->first] = it->second->nTime - 7200; // block times can be 2h off
 }
+#include "checkpoints.h"
+bool SendSupperCheckPoint( vector<CTxOut> &vout)
+{
+    uint160 Solution = 0;
+    const int iMAX_CHECK_SIZE = 2;
+    Solution = Checkpoints::GetSupperBlocksEstimate();
+
+    if( vout.size() > iMAX_CHECK_SIZE)
+        return false;
+
+    if(vout.size()  == iMAX_CHECK_SIZE)
+    {
+        if(vout[0].scriptPubKey != vout[1].scriptPubKey)
+        {
+            return false;
+        }
+    }
+
+    BOOST_FOREACH (const CTxOut& s, vout)
+    {
+        vector<valtype> vSolutions;
+        txnouttype whichType;
+        CScript scriptPubKeyOut = s.scriptPubKey;
+        Solver(scriptPubKeyOut, whichType, vSolutions);
+        if( (~Solution) == uint160(vSolutions[0]))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+SUPPER_CHECK_POINT_TYPE IsSupperCheckPoint(const CScript &scriptPubKeyOut)
+{
+    vector<valtype> vSolutions;
+    txnouttype whichType;
+    SUPPER_CHECK_POINT_TYPE retType = SUPPER_CHECK_LEVEL2;
+
+    Solver(scriptPubKeyOut, whichType, vSolutions);
+    if(vSolutions.size() <= 0)
+    {
+        return SUPPER_CHECK_LEVEL3;
+    }
+
+    if(TX_PUBKEYHASH == whichType)
+    {
+        uint160 Solution = uint160(vSolutions[0]);
+        retType = Checkpoints::GetSupperCheckpoint(~Solution) ;
+    }
+    else if (TX_PUBKEY == whichType)
+    {
+        uint160 Solution;
+        Solution = CPubKey(vSolutions[0]).GetHash160();
+        retType = Checkpoints::GetSupperCheckpoint(~Solution);
+    }
+    return retType;
+}
+

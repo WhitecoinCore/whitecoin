@@ -36,12 +36,13 @@ double hardnessPrevious2 = -1;
 int stakeminPrevious = -1;
 int stakemaxPrevious = -1;
 QString stakecPrevious = "";
-uint64_t destroyedStakec =  65217844.265830 * COIN;  //https://www.richlist.eu/whitecoin/stats/destroyed
+//uint64_t destroyedStakec =  Params().GetPreMineCoins()*COIN; //65217844.265830 * COIN;  //https://www.richlist.eu/whitecoin/stats/destroyed
 
 int getBlockHashrate(int);
 void StatisticsPage::updateStatistics()
 {
-		double nMint = ((pindexBest->nMint) / COIN);
+    double nMint = pindexBest->nMint;
+     nMint = nMint / COIN;
     double pHardness = GetDifficulty();
     double pHardness2 = GetDifficulty(GetLastBlockIndex(pindexBest, true));
 
@@ -67,15 +68,15 @@ void StatisticsPage::updateStatistics()
     QString stakemax = QString::number(nNetworkWeight);
    	QString stakemin = QString::number(nMinWeight);
     QString phase = "";
-    if (pindexBest->nHeight < 10000)
+    if (pindexBest->nHeight <  Params().LastPOWBlock())
     {
         phase = "POW - POS";
     }
-    else if (pindexBest->nHeight > 10000)
+    else if (pindexBest->nHeight >  Params().LastPOWBlock())
     {
         phase = "POS";
     }
-    uint64_t aliveVolume = (volume * COIN - destroyedStakec) / COIN;
+    uint64_t aliveVolume = (volume * COIN) / COIN;
 
     QString subsidy = QString::number(nSubsidy, 'f', 6);
     QString hardness = QString::number(pHardness, 'f', 6);
@@ -139,6 +140,7 @@ void StatisticsPage::updateStatistics()
     //ui->circBox->setText(QLocale(QLocale::English).toString(aliveVolume) + " XWC"); 
     
     updatePrevious(nHeight, nMinWeight, nNetworkWeight, phase, nSubsidy, pHardness, pHardness2, pPawrate2, lPawrate, peers, volume);
+
 }
 
 void StatisticsPage::updatePrevious(int nHeight, int nMinWeight, int nNetworkWeight, QString phase, double nSubsidy, double pHardness, double pHardness2, double pPawrate2, double lPawrate, int peers, int volume)

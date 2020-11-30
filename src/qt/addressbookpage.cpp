@@ -8,7 +8,10 @@
 #include "csvmodelwriter.h"
 #include "guiutil.h"
 
+ #ifdef USE_QRCODE
 #include "qrcodedialog.h"
+#endif
+
 #ifdef USE_ZXING
 #include "snapwidget.h"
 #endif
@@ -38,12 +41,19 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
     ui->newAddressButton->setIcon(QIcon());
     ui->copyToClipboard->setIcon(QIcon());
     ui->deleteButton->setIcon(QIcon());
+ #ifdef USE_QRCODE
     ui->importQRCodeButton->setIcon(QIcon());
+#endif
     ui->ImpPrivKeyButton->setIcon(QIcon());
 #endif
 
+#ifdef USE_QRCODE
     ui->showQRCode->setVisible(true);
     ui->importQRCodeButton->setVisible(false);
+#else
+    ui->showQRCode->setVisible(false);
+    ui->importQRCodeButton->setVisible(false);
+#endif
     ui->ImpPrivKeyButton->setVisible(false);
 
     switch(mode)
@@ -63,7 +73,11 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
         ui->labelExplanation->setVisible(false);
         ui->deleteButton->setVisible(true);
         ui->signMessage->setVisible(false);
+ #ifdef USE_QRCODE
         ui->importQRCodeButton->setVisible(true);
+#else
+        ui->importQRCodeButton->setVisible(false);
+#endif
         break;
     case ReceivingTab:
         ui->deleteButton->setVisible(false);
@@ -77,7 +91,9 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
     QAction *copyLabelAction = new QAction(tr("Copy &Label"), this);
     QAction *editAction = new QAction(tr("&Edit"), this);
     QAction *printAction = new QAction(tr("&Print"), this);
+#ifdef USE_QRCODE
     QAction *showQRCodeAction = new QAction(ui->showQRCode->text(), this);
+#endif
     QAction *signMessageAction = new QAction(ui->signMessage->text(), this);
     QAction *verifyMessageAction = new QAction(ui->verifyMessage->text(), this);
     QAction *copyPriKeyAction = new QAction(tr("Copy Private Key"), this);
@@ -97,7 +113,9 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
 
     
     contextMenu->addSeparator();
+#ifdef USE_QRCODE
     contextMenu->addAction(showQRCodeAction);
+#endif
     if(tab == ReceivingTab)  	{
         contextMenu->addAction(signMessageAction);
         contextMenu->addAction(copyPriKeyAction);
@@ -112,7 +130,9 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
     connect(copyLabelAction, SIGNAL(triggered()), this, SLOT(onCopyLabelAction()));
     connect(editAction, SIGNAL(triggered()), this, SLOT(onEditAction()));
     connect(deleteAction, SIGNAL(triggered()), this, SLOT(on_deleteButton_clicked()));
+ #ifdef USE_QRCODE
     connect(showQRCodeAction, SIGNAL(triggered()), this, SLOT(on_showQRCode_clicked()));
+#endif
     connect(signMessageAction, SIGNAL(triggered()), this, SLOT(on_signMessage_clicked()));
     connect(verifyMessageAction, SIGNAL(triggered()), this, SLOT(on_verifyMessage_clicked()));
     connect(copyPriKeyAction, SIGNAL(triggered()), this, SLOT(on_copyPriKey_clicked()));
@@ -293,14 +313,18 @@ void AddressBookPage::selectionChanged()
             ui->ImpPrivKeyButton->setVisible(true);
             break;
         }
+#ifdef USE_QRCODE
         ui->copyToClipboard->setEnabled(true);
         ui->showQRCode->setEnabled(true);
         ui->importQRCodeButton->setEnabled(true);
+#endif
     }
     else
     {
         ui->deleteButton->setEnabled(false);
+#ifdef USE_QRCODE
         ui->showQRCode->setEnabled(false);
+#endif
         ui->copyToClipboard->setEnabled(false);
         ui->signMessage->setEnabled(false);
         ui->verifyMessage->setEnabled(false);
@@ -357,9 +381,10 @@ void AddressBookPage::exportClicked()
                               QMessageBox::Abort, QMessageBox::Abort);
     }
 }
-
+#ifdef USE_QRCODE
 void AddressBookPage::on_showQRCode_clicked()
 {
+
     QTableView *table = ui->tableView;
     QModelIndexList indexes = table->selectionModel()->selectedRows(AddressTableModel::Address);
 
@@ -373,7 +398,9 @@ void AddressBookPage::on_showQRCode_clicked()
         dialog->setAttribute(Qt::WA_DeleteOnClose);
         dialog->show();
     }
+
 }
+
 
 void AddressBookPage::on_importQRCodeButton_clicked()
 {
@@ -383,6 +410,7 @@ void AddressBookPage::on_importQRCodeButton_clicked()
 #endif
 }
  
+#endif
 void AddressBookPage::onSnapClosed(QString strAddressURL)
 {
     if (strAddressURL.size() > 0)

@@ -1,18 +1,21 @@
 TEMPLATE = app
 TARGET = whitecoin-qt
-VERSION = 2.4.1.0
+VERSION = 2.5.4.2
 INCLUDEPATH += src src/json src/qt
 QT += network
 QT += printsupport
 DEFINES += ENABLE_WALLET
 DEFINES += BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
+DEFINES += BOOST_NO_CXX11_SCOPED_ENUMS
 CONFIG += no_include_pwd
 CONFIG += thread
+CONFIG += c++11
 
 greaterThan(QT_MAJOR_VERSION, 4) {
     QT += widgets
     DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
 }
+DEFINES += OPEN_QUICK_SENDING
 
 # for boost 1.37, add -mt to the boost libraries
 # use: qmake BOOST_LIB_SUFFIX=-mt
@@ -20,18 +23,19 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 # use: BOOST_THREAD_LIB_SUFFIX=_win32-...
 # or when linking against a specific BerkelyDB version: BDB_LIB_SUFFIX=-4.8
 
-win32:BOOST_LIB_SUFFIX=-mgw49-mt-s-1_57
-win32:BOOST_THREAD_LIB_SUFFIX=-mgw49-mt-s-1_57
-win32:BOOST_INCLUDE_PATH=C:/deps/boost_1_57_0
-win32:BOOST_LIB_PATH=C:/deps/boost_1_57_0/stage/lib
-win32:BDB_INCLUDE_PATH=C:/deps/db-5.3.28.NC/build_unix
-win32:BDB_LIB_PATH=C:/deps/db-5.3.28.NC/build_unix
-win32:OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.0.2l/include
-win32:OPENSSL_LIB_PATH=C:/deps/openssl-1.0.2l/
-win32:MINIUPNPC_INCLUDE_PATH=C:/deps/
-win32:MINIUPNPC_LIB_PATH=C:/deps/miniupnpc
+win32:BOOST_LIB_SUFFIX=-mgw53-mt-sd-1_64
+win32:BOOST_THREAD_LIB_SUFFIX=-mgw53-mt-s-1_64
+win32:BOOST_INCLUDE_PATH=D:/WorkSpace/xwc/boost_1_64_0
+win32:BOOST_LIB_PATH=D:/WorkSpace/xwc/boost_1_64_0/stage/lib
+win32:BDB_INCLUDE_PATH=D:/WorkSpace/xwc/db-4.8.30.NC/build_unix
+win32:BDB_LIB_PATH=D:/WorkSpace/xwc/db-4.8.30.NC/build_unix
+win32:OPENSSL_INCLUDE_PATH=D:/WorkSpace/xwc/openssl-1.0.2t/include
+win32:OPENSSL_LIB_PATH=D:/WorkSpace/xwc/openssl-1.0.2t
+win32:MINIUPNPC_INCLUDE_PATH=D:/WorkSpace/xwc/miniupnpc-1.6
+win32:MINIUPNPC_LIB_PATH=D:/WorkSpace/xwc/miniupnpc-1.6
 win32:QRENCODE_INCLUDE_PATH=C:/deps/qrencode-3.4.4
 win32:QRENCODE_LIB_PATH=C:/deps/qrencode-3.4.4/.libs
+win32:ROOT_INCLUDE_PATH=E:/WorkSpace/xwc
 
 macx:BOOST_LIB_SUFFIX= -mt
 macx:BOOST_INCLUDE_PATH=/usr/local/include
@@ -148,7 +152,8 @@ INCLUDEPATH += src/leveldb/include src/leveldb/helpers
 LIBS += $$PWD/src/leveldb/libleveldb.a $$PWD/src/leveldb/libmemenv.a
 SOURCES += src/txdb-leveldb.cpp \
     src/qt/blockbrowser.cpp \
-    src/qt/statisticspage.cpp
+    src/qt/statisticspage.cpp \
+    src/qt/forms/firstpage.cpp
 !win32 {
     # we use QMAKE_CXXFLAGS_RELEASE even without RELEASE=1 because we use RELEASE to indicate linking preferences not -O preferences
     genleveldb.commands = cd $$PWD/src/leveldb && CC=$$QMAKE_CC CXX=$$QMAKE_CXX $(MAKE) OPT=\"$$QMAKE_CXXFLAGS $$QMAKE_CXXFLAGS_RELEASE\" libleveldb.a libmemenv.a
@@ -192,7 +197,7 @@ contains(USE_O3, 1) {
     QMAKE_CFLAGS += -msse2
 }
 
-QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wno-ignored-qualifiers -Wformat -Wformat-security -Wno-unused-parameter -Wstack-protector
+QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wno-ignored-qualifiers -Wformat -Wformat-security -Wno-unused-parameter -Wstack-protector
 
 # Input
 DEPENDPATH += src src/json src/qt
@@ -292,7 +297,9 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/scicon.h \
     src/qt/peertablemodel.h \
     src/qt/transactionreport.h \
-    src/qt/sendrawdialog.h
+    src/qt/sendrawdialog.h \
+    src/qt/forms/firstpage.h \
+    src/txdb-leveldb.h
 
 SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/transactiontablemodel.cpp \
@@ -399,7 +406,8 @@ FORMS += \
     src/qt/forms/paperwalletdialog.ui \
     src/qt/forms/impprivkeydialog.ui \
     src/qt/forms/intro.ui \
-    src/qt/forms/sendrawdialog.ui
+    src/qt/forms/sendrawdialog.ui \
+    src/qt/forms/firstpage.ui
 
 contains(USE_QRCODE, 1) {
     HEADERS += src/qt/qrcodedialog.h
@@ -495,7 +503,7 @@ macx:QMAKE_CXXFLAGS_THREAD += -pthread
 macx:QMAKE_INFO_PLIST = share/qt/Info.plist
 
 # Set libraries and includes at end, to use platform-defined defaults if not overridden
-INCLUDEPATH += $$BOOST_INCLUDE_PATH $$BDB_INCLUDE_PATH $$OPENSSL_INCLUDE_PATH $$QRENCODE_INCLUDE_PATH
+INCLUDEPATH += $$BOOST_INCLUDE_PATH $$BDB_INCLUDE_PATH $$OPENSSL_INCLUDE_PATH $$QRENCODE_INCLUDE_PATH $$ROOT_INCLUDE_PATH
 LIBS += $$join(BOOST_LIB_PATH,,-L,) $$join(BDB_LIB_PATH,,-L,) $$join(OPENSSL_LIB_PATH,,-L,) $$join(QRENCODE_LIB_PATH,,-L,)
 LIBS += -lssl -lcrypto -ldb_cxx$$BDB_LIB_SUFFIX
 # -lgdi32 has to happen after -lcrypto (see  #681)
@@ -512,9 +520,14 @@ contains(RELEASE, 1) {
 
 !windows:!macx {
     DEFINES += LINUX
-    LIBS += -lrt -ldl
+    LIBS += -lrt -ldl -lz
 }
 
 system($$QMAKE_LRELEASE -silent $$_PRO_FILE_)
 
-DISTFILES +=
+DISTFILES += \
+    src/makefile.unix \
+    src/makefile.bsd \
+    src/makefile.linux-mingw \
+    src/makefile.osx \
+    src/makefile.mingw

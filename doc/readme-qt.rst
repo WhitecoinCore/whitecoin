@@ -1,8 +1,8 @@
 Whitecoin-qt: Qt5 GUI for Whitecoin
 ===============================
 
-Build instructions
-===================
+Build instructions www.xwccore.com
+===================================
 
 Debian Jessie
 --------------

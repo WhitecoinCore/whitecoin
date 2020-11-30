@@ -10,7 +10,7 @@ Thomas Bernard.
 Mac OS X whitecoind build instructions
 Laszlo Hanyecz <solar@heliacal.net>
 Douglas Huff <dhuff@jrbobdobbs.org>
-
+=============www.xwccore.com===========
 
 See readme-qt.rst for instructions on building Whitecoin QT, the
 graphical user interface.

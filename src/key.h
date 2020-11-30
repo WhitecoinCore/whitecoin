@@ -124,7 +124,9 @@ public:
             Invalidate();
         }
     }
-
+    uint160 GetHash160() const {
+        return Hash160(vch, vch+size());
+    }
     // Get the KeyID of this public key (hash of its serialization)
     CKeyID GetID() const {
         return CKeyID(Hash160(vch, vch+size()));
