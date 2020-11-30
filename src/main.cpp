@@ -21,7 +21,7 @@
 using namespace std;
 using namespace boost;
 
-#define FIX_MEMORY_LEAK_BUG  1
+//#define FIX_MEMORY_LEAK_BUG  1
 
 #if defined(NDEBUG)
 # error "Whitecoin cannot be compiled without assertions."

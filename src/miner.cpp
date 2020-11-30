@@ -496,6 +496,18 @@ void ThreadStakeMiner(CWallet *pwallet)
             MilliSleep(1000);
         }
 
+        if( TestNet() )
+        {
+            CBlockIndex* pindexPrev = pindexBest;
+            int nHeight = pindexPrev->nHeight + 1;
+            if( nHeight <= Params().LastPOWBlock())
+            {
+                MilliSleep(60000);
+                LogPrintf("======ThreadStakeMiner,nHeight=%d< LastPOWBlock \n", nHeight) ;
+                continue;
+            }
+        }
+
         while (vNodes.empty() || IsInitialBlockDownload())
         {
             nLastCoinStakeSearchInterval = 0;
@@ -518,7 +530,17 @@ void ThreadStakeMiner(CWallet *pwallet)
         //
         // Create new block
         //
+        if( TestNet() )
+        {
+            CBlockIndex* pindexPrev = pindexBest;
+            int nHeight = pindexPrev->nHeight + 1;
+            if( nHeight <= Params().LastPOWBlock())
+            {
+                MilliSleep(60000);
 
+                continue;
+            }
+        }
         int64_t nFees;
         auto_ptr<CBlock> pblock(CreateNewBlock(reservekey, true, &nFees));
         if (!pblock.get())
@@ -552,3 +574,154 @@ void ThreadStakeMiner(CWallet *pwallet)
     }
 }
 
+
+#ifdef ENABLE_WALLET
+//////////////////////////////////////////////////////////////////////////////
+//
+// Internal miner
+//
+double dHashesPerSec = 0.0;
+int64_t nHPSTimerStart = 0;
+
+void  WhitecoinMiner(CWallet *pwallet)
+{
+    LogPrintf("BRAINHasher Miner started\n");
+    SetThreadPriority(THREAD_PRIORITY_LOWEST);
+    RenameThread("brain-miner");
+
+    // Each thread has its own key and counter
+    CReserveKey reservekey(pwallet);
+    unsigned int nExtraNonce = 0;
+    bool fTryToSync = true;
+
+    try { while (true) {
+
+        // Busy-wait for the network to come online so we don't waste time mining
+        // on an obsolete chain. In regtest mode we expect to fly solo.
+//        while (vNodes.empty())
+//            MilliSleep(1000);
+        while (vNodes.empty() || IsInitialBlockDownload())
+        {
+            fTryToSync = true;
+            MilliSleep(1000);
+        }
+
+        while (pwallet->IsLocked())
+        {
+            LogPrintf("======WhitecoinMiner,Wallet is locked \n") ;
+            MilliSleep(60*1000);
+        }
+
+        if (fTryToSync)
+        {
+            fTryToSync = false;
+            if (vNodes.size() < 3 || pindexBest->GetBlockTime() < GetTime() - 10 * 60)
+            {
+                LogPrintf("======WhitecoinMiner,nodesize=[%d], error: vNodes.size() < 3 \n", vNodes.size()) ;
+                MilliSleep(60000);
+                continue;
+            }
+        }
+
+        //
+        // Create new block
+        //
+        unsigned int nTransactionsUpdatedLast = mempool.GetTransactionsUpdated();
+        CBlockIndex* pindexPrev = pindexBest;
+        int nHeight = pindexPrev->nHeight + 1;
+        if( !TestNet() ||nHeight > Params().LastPOWBlock())
+        {
+            break;
+        }
+
+        int64_t nFees;
+        auto_ptr<CBlock> pblocktemplate(CreateNewBlock(reservekey, false, &nFees));
+        if (!pblocktemplate.get())
+            return;
+        CBlock *pblock = pblocktemplate.get();
+
+        IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
+
+        LogPrintf("Running BRAINHash Miner with %llu transactions in block (%u bytes)\n", pblock->vtx.size(),
+               ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
+
+        uint256 hashTarget = CBigNum().SetCompact(pblock->nBits).getuint256();
+        int64_t nStart = GetTime();
+        uint256 hash;
+        unsigned int nHashesDone = 0;
+
+        while (true)
+        {
+            hash = pblock->GetPoWHash();
+            ++nHashesDone;
+
+            if (hash <= hashTarget)
+            {
+                // Found a solution
+                SetThreadPriority(THREAD_PRIORITY_NORMAL);
+                CheckWork(pblock, *pwallet, reservekey);
+                SetThreadPriority(THREAD_PRIORITY_LOWEST);
+                break;
+            }
+            ++pblock->nNonce;
+
+            // Meter hashes/sec
+            static int64_t nHashCounter;
+            if (nHPSTimerStart == 0)
+            {
+                nHPSTimerStart = GetTime();
+                nHashCounter = 0;
+            }
+            else
+                ++nHashCounter;// += nHashesDone;
+            if ((GetTime() - nHPSTimerStart) % 4 == 0)
+            {
+                static CCriticalSection cs;
+                {
+                    LOCK(cs);
+                    int64_t nLimiter = 1;
+                    int64_t nDelta = GetTime() - nHPSTimerStart;
+                    if(nDelta > 0 && nLimiter <= 10+1)
+                        dHashesPerSec = 32768 * nHashCounter / (GetTime() - nHPSTimerStart);
+                    //nHPSTimerStart = GetTimeMillis();
+                    //nHashCounter = 0;
+                    //nHashesDone = 0;
+                    // LogPrintf("BRAINHash CPU Hashing Rate: %6.0f hash/s\n", dHashesPerSec);
+                    // Avoid Debug Log Pollution
+                    nLimiter++; // Increment by 1
+                    if (nLimiter >= 5000+1)
+                    {
+                            nLimiter = 1;
+                    }
+                }
+            }
+
+            // Check for stop or if block needs to be rebuilt
+            boost::this_thread::interruption_point();
+            if (vNodes.empty())
+                break;
+            if (pblock->nNonce >= 0xffff0000)
+                break;
+            if (mempool.GetTransactionsUpdated() != nTransactionsUpdatedLast && GetTime() - nStart > 60)
+                break;
+            if (pindexPrev != pindexBest)
+                break;
+
+            // Update nTime every few seconds
+            pblock->UpdateTime(pindexPrev);
+
+            if (TestNet())
+            {
+                // Changing pblock->nTime can change work required on testnet:
+                hashTarget = CBigNum().SetCompact(pblock->nBits).getuint256();
+            }
+        }
+    } }
+    catch (boost::thread_interrupted)
+    {
+        LogPrintf("BRAINHash Miner terminated\n");
+        throw;
+    }
+}
+
+#endif
