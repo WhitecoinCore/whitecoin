@@ -200,11 +200,11 @@ public:
         nLastPOWBlock = 10000;//
         nFirstForkTime  = 1527890400;      //  Fr, 01 Jun 2018 22:00:00 GMT (DriftFix and PoS reward to 5 XWC)
         nSecondForkTime = 1583557200;   //2020-03-7 13:00:00
-        nFirstHalfTime = 1606665600;        //2020-03-1 10:00:00
-        nSecondHalfTime = nFirstHalfTime+604800;   //2020-03-2 10:00:00
-        nThirdHalfTime = nSecondHalfTime+604800 ;     //2020-03-3 10:00:00
-        nFouthHalfTime = nThirdHalfTime+604800;     //2020-03-04 10:00:00
-        nPosIncreaseTime = nFouthHalfTime+ 604800 ;//2020-02-29 20:00:00
+        nFirstHalfTime = 1607593002;        //2020-03-1 10:00:00
+        nSecondHalfTime = nFirstHalfTime+10000;   //2020-03-2 10:00:00
+        nThirdHalfTime = nSecondHalfTime+10000 ;     //2020-03-3 10:00:00
+        nFouthHalfTime = nThirdHalfTime+10000;     //2020-03-04 10:00:00
+        nPosIncreaseTime = nFouthHalfTime+ 10000 ;//2020-02-29 20:00:00
         nDestroyedCoins = 0;
 
         nMainNetDriftTime = 120;
