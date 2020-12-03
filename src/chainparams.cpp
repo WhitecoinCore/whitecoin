@@ -197,7 +197,7 @@ public:
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
 
         nPreMineCoins = 2000000000;
-        nLastPOWBlock = 604800;//
+        nLastPOWBlock = 10000;//
         nFirstForkTime  = 1527890400;      //  Fr, 01 Jun 2018 22:00:00 GMT (DriftFix and PoS reward to 5 XWC)
         nSecondForkTime = 1583557200;   //2020-03-7 13:00:00
         nFirstHalfTime = 1606665600;        //2020-03-1 10:00:00
