@@ -1064,22 +1064,50 @@ int64_t GetProofOfWorkReward(int64_t nFees)
 int64_t GetProofOfStakeReward(const CBlockIndex* pindexPrev,  int64_t nFees)
 {
     unsigned int nBlockTime = pindexPrev->nTime;
+    unsigned int nCurrentHeight = pindexPrev->nHeight;
     int Reward = 2*COIN;
 
-    if( nBlockTime > Params().FouthHalfTime() )
-        Reward = COIN/2;
-    else if (nBlockTime > Params().ThirdHalfTime())
-        Reward = 1*COIN;
-    else if (nBlockTime > Params().SecondHalfTime())
-        Reward = 2*COIN;
-    else if (nBlockTime > Params().FirstHalfTime()  )
-        Reward = 4*COIN;
-    else if (nBlockTime > Params().PosIncreaseTime()  )
-        Reward = 8*COIN;
-    else if (nBlockTime > Params().FirstForkTime()  )
-        Reward = 5*COIN;
+    if( TestNet() )
+    {
+
+        if( nCurrentHeight > Params().FouthHalfHeight() )
+            Reward = COIN/2;
+        else if (nCurrentHeight > Params().ThirdHalfHeight())
+            Reward = 1*COIN;
+        else if (nCurrentHeight > Params().SecondHalfHeight())
+            Reward = 2*COIN;
+        else if (nCurrentHeight > Params().FirstHalfHeight()  )
+            Reward = 4*COIN;
+        else if (nCurrentHeight > Params().PosIncreaseHeight()  )
+            Reward = 8*COIN;
+        else if (nBlockTime > Params().FirstForkTime()  )
+            Reward = 5*COIN;
+        else
+            Reward = 2*COIN;
+    }
     else
-        Reward = 2*COIN;
+    {
+
+#ifdef      OPEN_PROTOCOL_V4
+        if( nCurrentHeight > Params().FouthHalfHeight() )
+            Reward = COIN/2;
+        else if (nCurrentHeight > Params().ThirdHalfHeight())
+            Reward = 1*COIN;
+        else if (nCurrentHeight > Params().SecondHalfHeight())
+            Reward = 2*COIN;
+        else if (nCurrentHeight > Params().FirstHalfHeight()  )
+            Reward = 4*COIN;
+        else if (nCurrentHeight > Params().PosIncreaseHeight()  )
+            Reward = 8*COIN;
+        else if (nBlockTime > Params().FirstForkTime()  )
+#else
+        if (nBlockTime > Params().FirstForkTime()  )
+#endif
+            Reward = 5*COIN;
+        else
+            Reward = 2*COIN;
+    }
+
 
     return (Reward + nFees);
 }
@@ -1347,8 +1375,9 @@ int64_t CTransaction::GetValueIn(const MapPrevTx& inputs) const
     return nResult;
 
 }
-
+#ifdef      OPEN_PROTOCOL_V4
 bool SendSupperCheckPoint( vector<CTxOut> &vout);
+#endif
 bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTxIndex>& mapTestPool, const CDiskTxPos& posThisTx,
     const CBlockIndex* pindexBlock, bool fBlock, bool fMiner, unsigned int flags)
 {
@@ -1360,8 +1389,10 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
     {
         int64_t nValueIn = 0;
         int64_t nFees = 0;
+#ifdef         OPEN_PROTOCOL_V4
         map <CScript, int64_t> CoutGroup;
         CoutGroup.clear();
+#endif
         for (unsigned int i = 0; i < vin.size(); i++)
         {
             COutPoint prevout = vin[i].prevout;
@@ -1395,6 +1426,7 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
             if (!MoneyRange(txPrev.vout[prevout.n].nValue) || !MoneyRange(nValueIn))
                 return DoS(100, error("ConnectInputs() : txin values out of range"));
 
+#ifdef         OPEN_PROTOCOL_V4
             const CTxOut& txout = txPrev.vout[prevout.n];
             if (CoutGroup.count(txout.scriptPubKey))
             {
@@ -1404,10 +1436,12 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
             {
                 CoutGroup.insert(map<CScript, int64_t>::value_type (txout.scriptPubKey, txout.nValue));
             }
+#endif
 
         }
 
 #ifdef ENABLE_WALLET
+#ifdef         OPEN_PROTOCOL_V4
         if(IsProtocolV4(nTime) && !fMiner )
         {
             SUPPER_CHECK_POINT_TYPE checkType =   SUPPER_CHECK_LEVEL2;
@@ -1443,6 +1477,7 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
                 return DoS(100, error("ConnectInputs() : bisCheckPoint error"));
             }
         }
+#endif
 #endif
         // The first loop above does all the inexpensive checks.
         // Only if ALL inputs pass do we perform expensive ECDSA signature checks.
@@ -1675,15 +1710,19 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
 
     // ppcoin: track money supply and mint amount info
     pindex->nMint = nValueOut - nValueIn + nFees;
+#ifdef      OPEN_PROTOCOL_V4
     if(nTime > Params().SecondForkTime()  )
     {
         pindex->nMoneySupply = (pindex->pprev? pindex->pprev->nMoneySupply : 0) + nValueOut - nValueIn;
+
          if(pindex->nMoneySupply > (Params().GetPreMineCoins()*COIN) && nTime < Params().SecondForkTime() +10*60)
          {
             pindex->nMoneySupply -= (Params().GetDestroyedCoins()*COIN);
          }
+
     }
     else
+#endif
     {
        pindex->nMoneySupply = (pindex->pprev? pindex->pprev->nMoneySupply : 0) + nValueOut - nValueIn;
     }

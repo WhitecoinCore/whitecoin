@@ -17,7 +17,11 @@ static const int nCheckpointSpan = 500;
 namespace Checkpoints
 {
     typedef std::map<int, uint256> MapCheckpoints;
+
+#ifdef         OPEN_PROTOCOL_V4
     typedef std::map<int, uint160> MapSupperCheckpoints;
+#endif
+
     //
     // What makes a good checkpoint block?
     // + Is surrounded by blocks with reasonable timestamps
@@ -55,11 +59,17 @@ namespace Checkpoints
         (  1350000,    uint256("0x5b8046b2a7b25cc4c2f7cd3abe857e75b97bf9df5712d38834943fe5692b64ff") )
         (  1400000,    uint256("0xd851b41cb3e54f87accc0dd029c7cc88ee64ba3a699e647af4614bc5cf4dd525") )
         (  1450000,    uint256("0xd92c3e04b0e48634a0f87fcc6bcb34540d71d378784894757468bc60f94fb620") )
+#ifdef         OPEN_PROTOCOL_V4
         (  1455858,    uint256("0x5c46f2af9121181750a0abff58978a6550203588a8cd7a7200bfbcda3dd0dee2") )
-
+#else
+        (  1455858,    uint256("0xd175c29f23dc96426150a5b2bff33ce317a19388811f82e574c69fcd8c205f48") )
+#endif
 
 
     ;
+
+
+#ifdef         OPEN_PROTOCOL_V4
     static MapSupperCheckpoints mapSupperCheckpoints =
         boost::assign::map_list_of
             (  500,         				 uint160("0xbc1f86c6517764ca04da424d394df69cebaa6b24") )
@@ -465,15 +475,16 @@ namespace Checkpoints
             (  200500,              uint160("0x74141ca390192a922b2c467cf33027926cde1908") )
             (  201000,              uint160("0xaeee50cc35c57818ed0cda2eedde8de7faa8631f") )
         ;
+#endif
 
     // TestNet has no checkpoints
     static MapCheckpoints mapCheckpointsTestnet =
             boost::assign::map_list_of
-            ( 0,           uint256("0x0000d6164124157a3274cf1efd49ec5fb355afb598758ba545b3892c67b24c44") ) // genesis
+            ( 0,           uint256("0x00002c9d44a60a2aa4d6958d1354a61444e858e32a6b38b9f7308ac0b12c15ae") ) // genesis
 
 
          ;
-
+#ifdef         OPEN_PROTOCOL_V4
     static MapSupperCheckpoints mapSupperCheckpointsTestnet =
             boost::assign::map_list_of
             (  500,                 uint160("0xdee9ceaa56f945516f5a037741e8f44358b0d192") )
@@ -481,6 +492,7 @@ namespace Checkpoints
 
 
         ;
+#endif
 
     bool CheckHardened(int nHeight, const uint256& hash)
     {
@@ -514,6 +526,7 @@ namespace Checkpoints
         return NULL;
     }
 
+#ifdef         OPEN_PROTOCOL_V4
     uint160 GetSupperBlocksEstimate()
     {
         MapSupperCheckpoints& checkpoints = (TestNet() ? mapSupperCheckpointsTestnet : mapSupperCheckpoints);
@@ -522,6 +535,7 @@ namespace Checkpoints
             return 0;
         return checkpoints.rbegin()->second;
     }
+
     SUPPER_CHECK_POINT_TYPE GetSupperCheckpoint(const uint160& Checkhash)
     {
         MapSupperCheckpoints& checkpoints =   (TestNet() ? mapSupperCheckpointsTestnet : mapSupperCheckpoints); ;
@@ -542,6 +556,7 @@ namespace Checkpoints
         }
         return SUPPER_CHECK_LEVEL3;
     }
+#endif
     // Automatically select a suitable sync-checkpoint 
     const CBlockIndex* AutoSelectSyncCheckpoint()
     {
@@ -561,4 +576,6 @@ namespace Checkpoints
             return false;
         return true;
     }
+
 }
+

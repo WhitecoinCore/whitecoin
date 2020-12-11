@@ -83,9 +83,10 @@ public:
         assert(hashGenesisBlock == uint256("0x000007d69ba0f79b4823effb06b08663e2e4c51ed03aaeb547e2e0b83fd37b73"));
         assert(genesis.hashMerkleRoot == uint256("0x73513debc549137a47f2afb73173a2d2b4b0c13f57a57387ae3849a928e1e08d"));
 
+#ifdef         OPEN_PROTOCOL_V4
         vSeeds.push_back(CDNSSeedData("dnsseed-cn", "dnsseeder.whitecoin.in"));
+#endif
         vSeeds.push_back(CDNSSeedData("dnsseed-en", "dnsseeder1.whitecoin.in"));
-        vSeeds.push_back(CDNSSeedData("dnsseed", "dnsseeder.whitecoin.pub"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 73);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 87);
@@ -101,11 +102,11 @@ public:
         nPreMineCoins = 313000000;
         nFirstForkTime  = 1527890400;       //  Fr, 01 Jun 2018 22:00:00 GMT (DriftFix and PoS reward to 5 XWC)
         nSecondForkTime = 1584259200;
-        nPosIncreaseTime = 1585641600;
-        nFirstHalfTime = 1615795200;
-        nSecondHalfTime = 1678867200;
-        nThirdHalfTime = 1742025600 ;
-        nFouthHalfTime = 1805097600;
+        nPosIncreaseHeight = 1585641600;
+        nFirstHalfHeitht = 1615795200;
+        nSecondHalfHeight = 1678867200;
+        nThirdHalfHeight = 1742025600 ;
+        nFouthHalfHeight = 1805097600;
         nMainNetDriftTime = 15;
         nDestroyedCoins = (65217844.265830+113468742.46487160);
         
@@ -152,8 +153,8 @@ public:
         // Modify the testnet genesis block so the timestamp is valid for a later start.
         genesis.nBits  = bnProofOfWorkLimit.GetCompact();
 
-        genesis.nNonce = 55278;
-        genesis.nTime    = 1606462200;
+        genesis.nNonce = 73548;
+        genesis.nTime    = 1607680800;
         hashGenesisBlock = genesis.GetHash();
 
 
@@ -173,10 +174,10 @@ public:
                     LogPrintf("new TestNet genesis nonce: %d\n", genesis.nNonce);
                     LogPrintf("new TestNet genesis hash: %s\n", genesis.GetHash().ToString().c_str());
         }
+
 */
 
-
-        assert(hashGenesisBlock == uint256("0x0000d6164124157a3274cf1efd49ec5fb355afb598758ba545b3892c67b24c44"));
+        assert(hashGenesisBlock == uint256("0x00002c9d44a60a2aa4d6958d1354a61444e858e32a6b38b9f7308ac0b12c15ae"));
         assert(genesis.hashMerkleRoot == uint256("0x73513debc549137a47f2afb73173a2d2b4b0c13f57a57387ae3849a928e1e08d"));
 
         vFixedSeeds.clear();
@@ -197,14 +198,15 @@ public:
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
 
         nPreMineCoins = 2000000000;
-        nLastPOWBlock = 10000;//
+        nLastPOWBlock = 100;//
         nFirstForkTime  = 1527890400;      //  Fr, 01 Jun 2018 22:00:00 GMT (DriftFix and PoS reward to 5 XWC)
         nSecondForkTime = 1583557200;   //2020-03-7 13:00:00
-        nFirstHalfTime = 1607593002;        //2020-03-1 10:00:00
-        nSecondHalfTime = nFirstHalfTime+10000;   //2020-03-2 10:00:00
-        nThirdHalfTime = nSecondHalfTime+10000 ;     //2020-03-3 10:00:00
-        nFouthHalfTime = nThirdHalfTime+10000;     //2020-03-04 10:00:00
-        nPosIncreaseTime = nFouthHalfTime+ 10000 ;//2020-02-29 20:00:00
+
+        nFirstHalfHeitht = 20000;
+        nSecondHalfHeight = nFirstHalfHeitht+20000;
+        nThirdHalfHeight = nSecondHalfHeight+20000 ;
+        nFouthHalfHeight = nThirdHalfHeight+20000;
+        nPosIncreaseHeight = nFouthHalfHeight+ 20000 ;
         nDestroyedCoins = 0;
 
         nMainNetDriftTime = 120;

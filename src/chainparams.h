@@ -74,12 +74,12 @@ public:
     int LastPOWBlock() const { return nLastPOWBlock; }
     int64_t FirstForkTime()     const {return 	nFirstForkTime;}
     int64_t SecondForkTime() const {return 	nSecondForkTime;}
-    int64_t PosIncreaseTime() const {return 	nPosIncreaseTime;}
+    int64_t PosIncreaseHeight() const {return 	nPosIncreaseHeight;}
 
-    int64_t FirstHalfTime()       const {return 	nFirstHalfTime;     }
-    int64_t SecondHalfTime() const {return      nSecondHalfTime;}
-    int64_t ThirdHalfTime()     const {return      nThirdHalfTime;  }
-    int64_t FouthHalfTime()    const {return      nFouthHalfTime;   }
+    int64_t FirstHalfHeight()       const {return 	nFirstHalfHeitht;     }
+    int64_t SecondHalfHeight() const {return      nSecondHalfHeight;}
+    int64_t ThirdHalfHeight()     const {return      nThirdHalfHeight;  }
+    int64_t FouthHalfHeight()    const {return      nFouthHalfHeight;   }
     int64_t MamDriftTime()    const {return      nMainNetDriftTime;}
     int64_t GetDestroyedCoins() const {return nDestroyedCoins;}
     int64_t GetPreMineCoins() const {return nPreMineCoins;}
@@ -103,11 +103,11 @@ protected:
     int nLastPOWBlock;
     int64_t nFirstForkTime;
     int64_t nSecondForkTime;
-    int64_t nPosIncreaseTime;
-    int64_t nFirstHalfTime;
-    int64_t nSecondHalfTime;
-    int64_t nThirdHalfTime;
-    int64_t nFouthHalfTime;
+    int64_t nPosIncreaseHeight;
+    int64_t nFirstHalfHeitht;
+    int64_t nSecondHalfHeight;
+    int64_t nThirdHalfHeight;
+    int64_t nFouthHalfHeight;
     int64_t nMainNetDriftTime;
     int64_t nDestroyedCoins;
     int64_t nPreMineCoins;

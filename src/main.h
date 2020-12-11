@@ -61,7 +61,12 @@ inline bool IsProtocolV1RetargetingFixed(int nHeight) { return TestNet() || nHei
 inline bool IsProtocolV2(int nHeight) { return nHeight > 0; }
 inline bool IsProtocolV3(int64_t nTime) { return TestNet() || nTime > 1486939650; }
 inline bool IsProtocolV4(int64_t nTime) { return nTime > Params().SecondForkTime(); }
+
+#ifdef      OPEN_PROTOCOL_V4
 inline int GetMinPeerProtoVersion(int64_t nTime) {return  nTime > Params().SecondForkTime() ? 20002 : MIN_PEER_PROTO_VERSION;}
+#else
+inline int GetMinPeerProtoVersion(int64_t nTime) {return  MIN_PEER_PROTO_VERSION;}
+#endif
 
 inline bool IsDriftReduced(int64_t nTime) { return nTime > Params().FirstForkTime(); }
 
@@ -159,8 +164,9 @@ bool GetNodeStateStats(NodeId nodeid, CNodeStateStats &stats);
 
 /** (try to) add transaction to memory pool **/
 bool AcceptToMemoryPool(CTxMemPool& pool, CTransaction &tx, bool fLimitFree,bool* pfMissingInputs);
-
+#ifdef         OPEN_PROTOCOL_V4
 SUPPER_CHECK_POINT_TYPE IsSupperCheckPoint(const CScript &scriptPubKeyOut);
+#endif
 
 
 
