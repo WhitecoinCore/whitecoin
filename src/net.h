@@ -32,11 +32,14 @@ static const int PING_INTERVAL = 2 * 60;
 /** Time after which to disconnect, after waiting for a ping response (or inactivity). */
 static const int TIMEOUT_INTERVAL = 20 * 60;
 
+#ifdef         OPEN_PROTOCOL_V4
 enum SUPPER_CHECK_POINT_TYPE {
     SUPPER_CHECK_LEVEL1  ,
     SUPPER_CHECK_LEVEL2  ,
     SUPPER_CHECK_LEVEL3  ,
 };
+#endif
+
 //In favor of whitenode and Expand the network
 static const int allowCONNECTIONS = 8;
 static const int allowMinTIMES = 3;

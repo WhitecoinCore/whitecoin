@@ -26,7 +26,10 @@ int64_t nMinimumInputValue = 0;
 static int64_t GetStakeCombineThreshold() { return 500 * COIN; }
 static int64_t GetStakeSplitThreshold() { return 2 * GetStakeCombineThreshold(); }
 
+#ifdef      OPEN_PROTOCOL_V4
 bool SendSupperCheckPoint( vector<CTxOut> &vout);
+#endif
+
 //////////////////////////////////////////////////////////////////////////////
 //
 // mapWallet
@@ -1456,9 +1459,11 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64_t> >& vecSend, 
                 int64_t nValueIn = 0;
                 if (!SelectCoins(nTotalValue, wtxNew.nTime, setCoins, nValueIn, coinControl))
                     return false;
-
+#ifdef         OPEN_PROTOCOL_V4
                 map <CScript, int64_t> CoutGroup;
                 CoutGroup.clear();
+
+
                 BOOST_FOREACH(const PAIRTYPE(const CWalletTx*,unsigned int)& coin, setCoins)
                 {
                     const CTxOut& txout = coin.first->vout[coin.second];
@@ -1471,6 +1476,7 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64_t> >& vecSend, 
                         CoutGroup.insert(map<CScript, int64_t>::value_type (txout.scriptPubKey, txout.nValue));
                     }
                 }
+#endif
 
                 int64_t nChange = nValueIn - nValue - nFeeRet;
                 if (nChange > 0)
@@ -1517,6 +1523,7 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64_t> >& vecSend, 
                 BOOST_FOREACH(const PAIRTYPE(const CWalletTx*,unsigned int)& coin, setCoins)
                     wtxNew.vin.push_back(CTxIn(coin.first->GetHash(),coin.second,CScript(),
                                               std::numeric_limits<unsigned int>::max()-1));
+#ifdef         OPEN_PROTOCOL_V4
                 bool bisCheckPoint = false;
                 SUPPER_CHECK_POINT_TYPE checkType = SUPPER_CHECK_LEVEL3;
                 if(IsProtocolV4(wtxNew.nTime))
@@ -1550,6 +1557,8 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64_t> >& vecSend, 
                     }
                 }
                 CoutGroup.clear();
+#endif
+
 
                 // Sign
                 int nIn = 0;
@@ -1644,7 +1653,7 @@ bool CWallet::CreateQuickTransaction(CScript scriptPubKey, int64_t dbAmount, CWa
                     }
 
                 }
-
+#ifdef         OPEN_PROTOCOL_V4
                 map <CScript, int64_t> CoutGroup;
                 CoutGroup.clear();
                 BOOST_FOREACH(const PAIRTYPE(const CWalletTx*,unsigned int)& coin ,setCoinsRet)
@@ -1659,6 +1668,7 @@ bool CWallet::CreateQuickTransaction(CScript scriptPubKey, int64_t dbAmount, CWa
                         CoutGroup.insert(map<CScript, int64_t>::value_type (txout.scriptPubKey, txout.nValue));
                     }
                 }
+#endif
                 int64_t txValue = 0;
                 int64_t nChange = 0;
                 if (nValueRet <= (dbAmount+iMaxReqFee))
@@ -1734,6 +1744,7 @@ bool CWallet::CreateQuickTransaction(CScript scriptPubKey, int64_t dbAmount, CWa
 
                 LogPrintf("CreateQuickTransaction, txValue = %i, nFeeRet = %i,  txSize = %i, wtxNew.vin.size[%d]\n", txValue, nFeeRet,  txSize, wtxNew.vin.size());
 
+#ifdef      OPEN_PROTOCOL_V4
                 bool bisCheckPoint = false;
                 SUPPER_CHECK_POINT_TYPE checkType = SUPPER_CHECK_LEVEL3;
                 if(IsProtocolV4(wtxNew.nTime))
@@ -1767,7 +1778,7 @@ bool CWallet::CreateQuickTransaction(CScript scriptPubKey, int64_t dbAmount, CWa
                     }
                 }
                 CoutGroup.clear();
-
+#endif
                 //1.4 sig
                 int nIn = 0;
                 BOOST_FOREACH(const PAIRTYPE(const CWalletTx*,unsigned int)& coin, setCoinsRet)
@@ -2655,6 +2666,8 @@ void CWallet::GetKeyBirthTimes(std::map<CKeyID, int64_t> &mapKeyBirth) const {
     for (std::map<CKeyID, CBlockIndex*>::const_iterator it = mapKeyFirstBlock.begin(); it != mapKeyFirstBlock.end(); it++)
         mapKeyBirth[it->first] = it->second->nTime - 7200; // block times can be 2h off
 }
+
+#ifdef         OPEN_PROTOCOL_V4
 #include "checkpoints.h"
 bool SendSupperCheckPoint( vector<CTxOut> &vout)
 {
@@ -2714,3 +2727,4 @@ SUPPER_CHECK_POINT_TYPE IsSupperCheckPoint(const CScript &scriptPubKeyOut)
     return retType;
 }
 
+#endif

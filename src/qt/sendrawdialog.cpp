@@ -1,4 +1,4 @@
-//The Whitecoin Developers 2014-2018
+//The Whitecoin Developers 2014-2020
 
 #include "sendrawdialog.h"
 #include "ui_sendrawdialog.h"
